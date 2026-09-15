@@ -1,5 +1,6 @@
 from pathlib import Path
 import sys
+import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools/workbook_generator"))
@@ -15,20 +16,23 @@ def load_all():
     return merged_fields(base, overlay), datasets, spec
 
 
-def test_artifact_spec_resolves():
-    fields, datasets, spec = load_all()
-    assert validate_spec(spec, fields, datasets) == []
+class WorkbookGeneratorContractTests(unittest.TestCase):
+    def test_artifact_spec_resolves(self):
+        fields, datasets, spec = load_all()
+        self.assertEqual(validate_spec(spec, fields, datasets), [])
+
+    def test_help_contains_guardrail(self):
+        fields, _, _ = load_all()
+        text = field_help("delta_runoff_mm", fields["delta_runoff_mm"])
+        self.assertIn("not field-edge", text)
+        self.assertIn("mm/event", text)
+
+    def test_no_unknown_field_names(self):
+        fields, _, spec = load_all()
+        for dataset in spec["datasets"]:
+            for field_id in dataset["fields"]:
+                self.assertIn(field_id, fields)
 
 
-def test_help_contains_guardrail():
-    fields, _, _ = load_all()
-    text = field_help("delta_runoff_mm", fields["delta_runoff_mm"])
-    assert "not field-edge" in text
-    assert "mm/event" in text
-
-
-def test_no_unknown_field_names():
-    fields, _, spec = load_all()
-    for dataset in spec["datasets"]:
-        for field_id in dataset["fields"]:
-            assert field_id in fields
+if __name__ == "__main__":
+    unittest.main()
