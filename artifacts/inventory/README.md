@@ -1,6 +1,6 @@
 # Workbook inventory
 
-This folder contains machine-generated inventories of the prototype workbook lineage used to prepare Data Model v0.2.
+This folder contains the compact, machine-generated inventory summary used to prepare Data Model v0.2.
 
 These files are **migration evidence**, not canonical scientific datasets.
 
@@ -11,4 +11,4 @@ Inspected artifacts:
 
 The key structural finding is that v4.4 is a bounded module and not a cumulative replacement for the 109-sheet v3.8 full snapshot.
 
-`workbook_field_inventory_v0_2.csv` records observed workbook headers. Observed header names remain legacy aliases until explicitly reconciled with `schema/fields.yml`.
+The full generated sheet and field inventories are retained as analysis artifacts outside the repository for now. They can be regenerated during migration. Observed workbook header names remain legacy aliases until explicitly reconciled with `schema/fields.yml`.
