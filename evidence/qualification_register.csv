@@ -1,4 +1,4 @@
-qualification_id,evidence_id,intended_use,dependencies,test_or_review,verdict,review_date,notes
+qualification_id,evidence_id,intended_use,dependencies,test_or_review,qualification_status,review_date,qualification_notes
 Q_TOL_AREA_2010,EV_TOL_AREA_2010,"Historical design-area context and sampling stratification","Official 2010 peilbesluit","Arithmetic reconciliation 762+367+373=1502; semantic review against later 1497-ha source","QUALIFIED_WITH_LIMITATIONS",2026-09-15,"Valid for 2010 design context only."
 Q_TOL_AREA_2016,EV_TOL_AREA_2016,"Administrative OT.02 area benchmark","Official 2016 peil-area overview","Source review and reconciliation against 2010 design area","QUALIFIED_WITH_LIMITATIONS",2026-09-15,"Use 1497 ha for current administrative normalization until reviewed current geometry supersedes it; never use as affected area."
 Q_TOL_TARGET_LEVEL,EV_TOL_TARGET_LEVEL,"Managed surface-water boundary context","Official peil-area source","Semantic review","QUALIFIED_WITH_LIMITATIONS",2026-09-15,"Valid target-level context; not dynamic head or event groundwater state."
