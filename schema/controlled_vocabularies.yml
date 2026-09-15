@@ -1,0 +1,36 @@
+schema_version: 0.1.0
+vocabularies:
+  soil_state_role:
+    - CURRENT
+    - REFERENCE
+    - SCENARIO
+  evidence_status:
+    - ADMITTED
+    - QUALIFIED
+    - BENCHMARK_ONLY
+    - METHOD_PRIOR
+    - SCENARIO_ONLY
+    - CONTEXT_ONLY
+    - SOFTWARE_QA_ONLY
+    - WAIT_DATA
+    - BLOCKED
+    - REJECTED_FOR_PROJECT_USE
+  provenance_class:
+    - DIRECT_MEASUREMENT
+    - DERIVED_MEASUREMENT
+    - OFFICIAL_METADATA
+    - PEER_REVIEWED_RELATION
+    - MODEL_OUTPUT
+    - HISTORICAL_BENCHMARK
+    - SCENARIO_ASSUMPTION
+    - SOFTWARE_QA
+  valuation_category:
+    - PRIVATE_COST
+    - PUBLIC_BUDGET_COST
+    - SOCIETAL_WELFARE_EFFECT
+  runoff_process_class:
+    - SATURATION_EXCESS
+    - INFILTRATION_EXCESS
+    - PSEUDO_DUNNIAN
+    - MIXED
+    - UNKNOWN

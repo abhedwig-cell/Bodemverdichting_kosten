@@ -1,0 +1,104 @@
+schema_version: 0.1.0
+status: BOOTSTRAP
+fields:
+  spatial_unit_id:
+    entity: spatial_unit
+    label: Spatial unit ID
+    description: Stable identifier for a spatial analysis or reporting unit.
+    datatype: string
+    unit: null
+    nullable: false
+  event_id:
+    entity: event
+    label: Event ID
+    description: Stable identifier for a meteorological/hydrological event or simulation window.
+    datatype: string
+    unit: null
+    nullable: false
+  state_id:
+    entity: soil_state
+    label: Soil state
+    description: Identifier for current, reference or explicit scenario soil state.
+    datatype: string
+    unit: null
+    nullable: false
+  affected_area_ha:
+    entity: hydrological_response
+    label: Affected area
+    description: Area represented by the qualified source response. It is not automatically the full system or peil-area.
+    datatype: float
+    unit: ha
+    nullable: true
+  delta_runoff_mm:
+    entity: hydrological_response
+    label: Extra generated surface runoff
+    description: Difference in generated surface runoff between matched current and reference soil states for the same controlled event/context.
+    datatype: float
+    unit: mm/event
+    nullable: true
+    guardrail: Generated parcel runoff is not field-edge, ditch or pump volume.
+  generated_increment_m3:
+    entity: hydrological_response
+    label: Generated runoff increment
+    description: Volume corresponding to affected_area_ha and delta_runoff_mm before transfer losses/routing.
+    datatype: float
+    unit: m3/event
+    nullable: true
+  event_delivery_factor:
+    entity: transfer_event
+    label: Event delivery factor
+    description: Diagnostic or qualified event-specific ratio of field-edge delivered volume to generated parcel volume where both are defined.
+    datatype: float
+    unit: fraction
+    nullable: true
+    guardrail: No universal static default.
+  pump_asset_id:
+    entity: pump_asset
+    label: Pump asset ID
+    description: Stable identifier for a pumping asset/configuration.
+    datatype: string
+    unit: null
+    nullable: false
+  installed_capacity_m3_min:
+    entity: pump_asset
+    label: Installed capacity
+    description: Installed or nominal pump capacity supported by asset evidence; not necessarily available incremental capacity.
+    datatype: float
+    unit: m3/min
+    nullable: true
+  availability_fraction:
+    entity: pump_dispatch
+    label: Availability fraction
+    description: Event/operation-specific fraction of installed capacity available to the incremental load.
+    datatype: float
+    unit: fraction
+    nullable: true
+  total_dynamic_head_m:
+    entity: pump_dispatch
+    label: Total dynamic head
+    description: Hydraulic head relevant to energy calculation, including applicable static and dynamic losses.
+    datatype: float
+    unit: m
+    nullable: true
+    guardrail: Do not substitute nominal target-level difference without evidence.
+  pump_efficiency:
+    entity: pump_dispatch
+    label: Pump efficiency
+    description: Efficiency applicable to the operating point and chosen energy boundary.
+    datatype: float
+    unit: fraction
+    nullable: true
+  energy_kwh:
+    entity: pump_dispatch
+    label: Incremental pump energy
+    description: Energy attributable to the incremental pumped volume under the defined operating state.
+    datatype: float
+    unit: kWh
+    nullable: true
+  evidence_status:
+    entity: evidence_item
+    label: Evidence status
+    description: Controlled status describing how an evidence item may be used in the project.
+    datatype: enum
+    vocabulary: evidence_status
+    nullable: false
