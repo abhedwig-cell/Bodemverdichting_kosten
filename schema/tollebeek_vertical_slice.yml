@@ -1,0 +1,77 @@
+schema_version: 0.2.0
+status: PROVISIONAL_VERTICAL_SLICE
+scope: Tollebeek source -> transfer -> pump dispatch
+
+fields:
+  source_zone_id:
+    entity: pump_dispatch
+    label: Source zone ID
+    description: Spatial source/routing zone from which the dispatched incremental water originates.
+    datatype: string
+    nullable: false
+    foreign_key: spatial_unit.spatial_unit_id
+
+  transfer_stage:
+    entity: transfer_event
+    label: Transfer stage
+    description: Explicit stage in the generated-parcel to receiving-system chain.
+    datatype: enum
+    nullable: false
+    allowed_values:
+      - GENERATED_PARCEL
+      - FIELD_EDGE
+      - DITCH
+      - NETWORK
+      - PUMP_INTAKE
+
+  delivered_volume_m3:
+    entity: transfer_event
+    label: Delivered volume
+    description: Incremental event volume represented at the declared transfer stage.
+    datatype: float
+    unit: m3/event
+    nullable: true
+    guardrail: Null remains null; a missing transfer estimate is not zero.
+
+  assist_fraction:
+    entity: pump_dispatch
+    label: Assist fraction
+    description: Fraction of routed assist-zone volume allocated to the primary/assist pump under an explicit operating state.
+    datatype: float
+    unit: fraction
+    nullable: true
+    range: [0, 1]
+    guardrail: No default is permitted.
+
+  pumped_volume_m3:
+    entity: pump_dispatch
+    label: Pumped incremental volume
+    description: Incremental routed volume allocated to the pump asset for the event.
+    datatype: float
+    unit: m3/event
+    nullable: true
+
+  pump_hours:
+    entity: pump_dispatch
+    label: Incremental pump hours
+    description: Theoretical or calculated pump time for the incremental routed volume and explicitly available capacity.
+    datatype: float
+    unit: h/event
+    nullable: true
+
+  response_window_h:
+    entity: pump_dispatch
+    label: Response window
+    description: Event/operation window used to assess capacity pressure.
+    datatype: float
+    unit: h
+    nullable: true
+
+  capacity_pressure_fraction:
+    entity: pump_dispatch
+    label: Capacity pressure
+    description: Pump hours divided by the defined response window where both are available.
+    datatype: float
+    unit: fraction
+    nullable: true
+    guardrail: A value above one indicates the assumed available capacity cannot process the assigned incremental volume inside the chosen window; it is not by itself a damage threshold.
