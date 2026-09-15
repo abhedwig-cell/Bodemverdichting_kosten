@@ -12,5 +12,6 @@ The documentation is organised from scientific meaning to implementation.
 8. [`08_workbook_architecture.md`](08_workbook_architecture.md) — workbook contract and field help
 9. [`09_workbook_inventory_v0_2.md`](09_workbook_inventory_v0_2.md) — inspected prototype lineage and migration baseline
 10. [`10_data_model_v0_2_migration.md`](10_data_model_v0_2_migration.md) — migration layers and next vertical slice
+11. [`11_tollebeek_vertical_slice_v0_2.md`](11_tollebeek_vertical_slice_v0_2.md) — first theory/data/code/test vertical slice
 
 The documents are intentionally incomplete while the repository is in Status-A-light development. Unknowns, legacy mappings and blocked items should remain visible rather than being silently normalised.
