@@ -1,0 +1,69 @@
+schema_version: 0.2.0
+status: PROVISIONAL_VERTICAL_SLICE
+
+relationships:
+  source_evidence:
+    from_entity: source
+    to_entity: evidence_item
+    cardinality: one-to-many
+    foreign_key: evidence_item.source_id
+
+  evidence_claim:
+    from_entity: evidence_item
+    to_entity: claim
+    cardinality: many-to-many
+    implementation_note: use an explicit claim-evidence link table when multiple evidence items support one claim
+
+  claim_qualification:
+    from_entity: claim
+    to_entity: qualification
+    cardinality: one-to-many
+    foreign_key: qualification.claim_id
+
+  spatial_run:
+    from_entity: spatial_unit
+    to_entity: model_run
+    cardinality: one-to-many
+    foreign_key: model_run.spatial_unit_id
+
+  event_run:
+    from_entity: event
+    to_entity: model_run
+    cardinality: one-to-many
+    foreign_key: model_run.event_id
+
+  run_response:
+    from_entity: model_run
+    to_entity: hydrological_response
+    cardinality: one-to-many
+    foreign_key: hydrological_response.model_run_id
+
+  response_transfer:
+    from_entity: hydrological_response
+    to_entity: transfer_event
+    cardinality: one-to-many
+    implementation_note: transfer records must reference the qualified source-response record or comparison
+
+  transfer_water_system:
+    from_entity: transfer_event
+    to_entity: water_system_unit
+    cardinality: many-to-one
+    foreign_key: transfer_event.water_system_unit_id
+
+  dispatch_pump:
+    from_entity: pump_dispatch
+    to_entity: pump_asset
+    cardinality: many-to-one
+    foreign_key: pump_dispatch.pump_asset_id
+
+  dispatch_event:
+    from_entity: pump_dispatch
+    to_entity: event
+    cardinality: many-to-one
+    foreign_key: pump_dispatch.event_id
+
+  dispatch_source_zone:
+    from_entity: pump_dispatch
+    to_entity: spatial_unit
+    cardinality: many-to-one
+    foreign_key: pump_dispatch.source_zone_id
