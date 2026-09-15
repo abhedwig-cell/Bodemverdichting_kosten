@@ -1,4 +1,4 @@
-claim_id,statement,claim_type,evidence_ids,spatial_scope,status,guardrail
+claim_id,claim_statement,claim_type,evidence_ids,spatial_scope,qualification_status,guardrail
 CL_TOL_AREA,"For current administrative normalization, OT.02 is treated as 1497 ha while 1502 ha is retained as the 2010 design-area context.",ADMINISTRATIVE_INTERPRETATION,"EV_TOL_AREA_2016;EV_TOL_AREA_2010",Tollebeek OT.02,QUALIFIED_WITH_LIMITATIONS,"Neither area is the affected compaction area; reviewed current geometry may supersede the administrative benchmark."
 CL_TOL_MANAGED,"Tollebeek OT.02 is a managed polder system and should not default to free drainage in SWAP source-response work.",MODEL_STRUCTURE,"EV_TOL_TARGET_LEVEL;EV_KIEVIT_IJ_COUPLED",Tollebeek OT.02,QUALIFIED_WITH_LIMITATIONS,"Exact event boundary/control behaviour still requires current operational evidence."
 CL_IJ_CAP,"540 m3/min is the admitted IJsvogel installed-capacity benchmark.",ASSET_INTERPRETATION,"EV_IJ_INSTALLED_540;EV_IJ_CORROBORATE_9",Tollebeek IJsvogel,QUALIFIED,"Installed capacity is not event-specific available incremental capacity and not total OT.02 effective capacity."
