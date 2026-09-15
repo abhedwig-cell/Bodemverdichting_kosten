@@ -1,6 +1,79 @@
-schema_version: 0.1.0
-status: BOOTSTRAP
+schema_version: 0.2.0
+status: MIGRATION_BASELINE
+
 fields:
+  artifact_id:
+    entity: artifact
+    label: Artifact ID
+    description: Stable identifier for one project artifact lineage.
+    datatype: string
+    unit: null
+    nullable: false
+
+  artifact_version:
+    entity: artifact
+    label: Artifact version
+    description: Version identifier of the artifact.
+    datatype: string
+    unit: null
+    nullable: false
+
+  artifact_class:
+    entity: artifact
+    label: Artifact class
+    description: Controlled classification of the artifact's architectural role.
+    datatype: enum
+    vocabulary: artifact_class
+    nullable: false
+
+  schema_version:
+    entity: artifact
+    label: Schema version
+    description: Canonical schema version used to generate or interpret the artifact.
+    datatype: string
+    unit: null
+    nullable: true
+
+  git_commit:
+    entity: artifact
+    label: Git commit
+    description: Repository commit SHA representing canonical project state used for the artifact.
+    datatype: string
+    unit: null
+    nullable: true
+
+  dataset_id:
+    entity: artifact_dataset
+    label: Dataset ID
+    description: Stable canonical identifier of a dataset object.
+    datatype: string
+    unit: null
+    nullable: false
+
+  dataset_role:
+    entity: artifact_dataset
+    label: Dataset role
+    description: Functional role of the dataset in the project or artifact.
+    datatype: enum
+    vocabulary: dataset_role
+    nullable: false
+
+  grain_description:
+    entity: artifact_dataset
+    label: Grain
+    description: Human-readable statement of what one dataset row represents.
+    datatype: string
+    unit: null
+    nullable: false
+
+  field_id:
+    entity: field_definition
+    label: Field ID
+    description: Stable canonical identifier for a field definition.
+    datatype: string
+    unit: null
+    nullable: false
+
   spatial_unit_id:
     entity: spatial_unit
     label: Spatial unit ID
@@ -8,6 +81,80 @@ fields:
     datatype: string
     unit: null
     nullable: false
+
+  soil_profile_id:
+    entity: soil_profile
+    label: Soil profile ID
+    description: Stable identifier for a soil profile.
+    datatype: string
+    unit: null
+    nullable: false
+
+  soil_layer_id:
+    entity: soil_layer
+    label: Soil layer ID
+    description: Stable identifier for a profile depth interval.
+    datatype: string
+    unit: null
+    nullable: false
+
+  layer_top_cm:
+    entity: soil_layer
+    label: Layer top
+    description: Depth of the top of the soil layer below ground surface.
+    datatype: float
+    unit: cm
+    nullable: false
+
+  layer_bottom_cm:
+    entity: soil_layer
+    label: Layer bottom
+    description: Depth of the bottom of the soil layer below ground surface.
+    datatype: float
+    unit: cm
+    nullable: false
+
+  bulk_density_g_cm3:
+    entity: soil_state
+    label: Dry bulk density
+    description: Dry bulk density applicable to the defined soil layer and state.
+    datatype: float
+    unit: g/cm3
+    nullable: true
+
+  clay_pct:
+    entity: soil_layer
+    label: Clay fraction
+    description: Clay/lutum mass percentage under the explicitly stated analytical definition.
+    datatype: float
+    unit: percent
+    nullable: true
+    guardrail: Do not substitute afslibbaar percentage unless a documented conversion applies.
+
+  silt_pct:
+    entity: soil_layer
+    label: Silt fraction
+    description: Silt mass percentage under the stated analytical definition.
+    datatype: float
+    unit: percent
+    nullable: true
+
+  sand_pct:
+    entity: soil_layer
+    label: Sand fraction
+    description: Sand mass percentage under the stated analytical definition.
+    datatype: float
+    unit: percent
+    nullable: true
+
+  som_pct:
+    entity: soil_layer
+    label: Soil organic matter
+    description: Soil organic matter percentage for the layer and stated method.
+    datatype: float
+    unit: percent
+    nullable: true
+
   event_id:
     entity: event
     label: Event ID
@@ -15,6 +162,7 @@ fields:
     datatype: string
     unit: null
     nullable: false
+
   state_id:
     entity: soil_state
     label: Soil state
@@ -22,6 +170,31 @@ fields:
     datatype: string
     unit: null
     nullable: false
+
+  model_configuration_id:
+    entity: model_configuration
+    label: Model configuration ID
+    description: Stable identifier for the controlled model and boundary configuration.
+    datatype: string
+    unit: null
+    nullable: false
+
+  model_run_id:
+    entity: model_run
+    label: Model run ID
+    description: Stable identifier for one model execution.
+    datatype: string
+    unit: null
+    nullable: false
+
+  response_id:
+    entity: hydrological_response
+    label: Response ID
+    description: Stable identifier for one hydrological response record.
+    datatype: string
+    unit: null
+    nullable: false
+
   affected_area_ha:
     entity: hydrological_response
     label: Affected area
@@ -29,6 +202,7 @@ fields:
     datatype: float
     unit: ha
     nullable: true
+
   delta_runoff_mm:
     entity: hydrological_response
     label: Extra generated surface runoff
@@ -37,6 +211,7 @@ fields:
     unit: mm/event
     nullable: true
     guardrail: Generated parcel runoff is not field-edge, ditch or pump volume.
+
   generated_increment_m3:
     entity: hydrological_response
     label: Generated runoff increment
@@ -44,6 +219,15 @@ fields:
     datatype: float
     unit: m3/event
     nullable: true
+
+  transfer_event_id:
+    entity: transfer_event
+    label: Transfer event ID
+    description: Stable identifier for one event-scale transfer-stage record.
+    datatype: string
+    unit: null
+    nullable: false
+
   event_delivery_factor:
     entity: transfer_event
     label: Event delivery factor
@@ -52,6 +236,15 @@ fields:
     unit: fraction
     nullable: true
     guardrail: No universal static default.
+
+  water_system_unit_id:
+    entity: water_system_unit
+    label: Water-system unit ID
+    description: Stable identifier for a routing, receiving or management unit.
+    datatype: string
+    unit: null
+    nullable: false
+
   pump_asset_id:
     entity: pump_asset
     label: Pump asset ID
@@ -59,6 +252,7 @@ fields:
     datatype: string
     unit: null
     nullable: false
+
   installed_capacity_m3_min:
     entity: pump_asset
     label: Installed capacity
@@ -66,6 +260,15 @@ fields:
     datatype: float
     unit: m3/min
     nullable: true
+
+  pump_dispatch_id:
+    entity: pump_dispatch
+    label: Pump dispatch ID
+    description: Stable identifier for one source-zone x event x pump allocation record.
+    datatype: string
+    unit: null
+    nullable: false
+
   availability_fraction:
     entity: pump_dispatch
     label: Availability fraction
@@ -73,6 +276,7 @@ fields:
     datatype: float
     unit: fraction
     nullable: true
+
   total_dynamic_head_m:
     entity: pump_dispatch
     label: Total dynamic head
@@ -81,6 +285,7 @@ fields:
     unit: m
     nullable: true
     guardrail: Do not substitute nominal target-level difference without evidence.
+
   pump_efficiency:
     entity: pump_dispatch
     label: Pump efficiency
@@ -88,6 +293,7 @@ fields:
     datatype: float
     unit: fraction
     nullable: true
+
   energy_kwh:
     entity: pump_dispatch
     label: Incremental pump energy
@@ -95,6 +301,47 @@ fields:
     datatype: float
     unit: kWh
     nullable: true
+
+  source_id:
+    entity: source
+    label: Source ID
+    description: Stable identifier for a bibliographic, administrative, dataset or system source/version.
+    datatype: string
+    unit: null
+    nullable: false
+
+  source_url:
+    entity: source
+    label: Source URL
+    description: Canonical public or internal locator for the source where allowed.
+    datatype: string
+    unit: null
+    nullable: true
+
+  evidence_id:
+    entity: evidence_item
+    label: Evidence ID
+    description: Stable identifier for one extractable evidence item.
+    datatype: string
+    unit: null
+    nullable: false
+
+  claim_id:
+    entity: claim
+    label: Claim ID
+    description: Stable identifier for one explicit project claim.
+    datatype: string
+    unit: null
+    nullable: false
+
+  qualification_id:
+    entity: qualification
+    label: Qualification ID
+    description: Stable identifier for one evidence/claim x intended-use qualification.
+    datatype: string
+    unit: null
+    nullable: false
+
   evidence_status:
     entity: evidence_item
     label: Evidence status
@@ -102,3 +349,51 @@ fields:
     datatype: enum
     vocabulary: evidence_status
     nullable: false
+
+  provenance_class:
+    entity: evidence_item
+    label: Provenance class
+    description: Controlled classification of where the value or relation originates.
+    datatype: enum
+    vocabulary: provenance_class
+    nullable: true
+
+  guardrail:
+    entity: qualification
+    label: Guardrail
+    description: Explicit statement of an interpretation or use that is prohibited or conditional.
+    datatype: string
+    unit: null
+    nullable: true
+
+  equation_id:
+    entity: model_equation
+    label: Equation ID
+    description: Stable identifier for a formal model equation or identity.
+    datatype: string
+    unit: null
+    nullable: false
+
+  governance_rule_id:
+    entity: governance_rule
+    label: Governance rule ID
+    description: Stable identifier for an explicit project rule or gate.
+    datatype: string
+    unit: null
+    nullable: false
+
+  data_request_id:
+    entity: data_request_item
+    label: Data request ID
+    description: Stable identifier for a requested data item.
+    datatype: string
+    unit: null
+    nullable: false
+
+  priority:
+    entity: data_request_item
+    label: Priority
+    description: Controlled priority of a requested data item or work item.
+    datatype: enum
+    vocabulary: priority
+    nullable: true

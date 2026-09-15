@@ -1,51 +1,111 @@
-schema_version: 0.1.0
-status: BOOTSTRAP
+schema_version: 0.2.0
+status: MIGRATION_BASELINE
+
 entities:
+  artifact:
+    description: Versioned workbook, dashboard, report, data export or other project artifact.
+    grain: one row per artifact/version
+
+  artifact_dataset:
+    description: Mapping between an artifact and a dataset exposed inside it.
+    grain: one row per artifact x dataset
+
+  field_definition:
+    description: Canonical semantic definition of a field independent of storage technology.
+    grain: one row per canonical field
+
   spatial_unit:
     description: Spatial analysis or reporting unit with an explicit geometry or reference.
     grain: one row per spatial unit
+
   soil_profile:
     description: Vertical soil profile associated with a spatial unit or sampled/derived location.
     grain: one row per profile
+
   soil_layer:
     description: Depth interval within a soil profile.
     grain: one row per profile x layer
+
   soil_state:
-    description: Physical state of a soil profile/layer for current, reference or scenario conditions.
+    description: Physical state of a soil profile/layer for current, reference or explicit scenario conditions.
     grain: one row per profile x layer x state
+
+  land_use_crop:
+    description: Land-use or crop identity/classification applicable to a spatial unit and time/context.
+    grain: one row per spatial unit x period x crop/land-use classification
+
   drainage_configuration:
     description: Subsurface and/or surface drainage representation for a spatial unit or model run.
-    grain: one row per drainage configuration
+    grain: one row per drainage configuration version
+
   event:
     description: Meteorological/hydrological event or simulation window.
     grain: one row per event
+
+  model_configuration:
+    description: Versioned set of model structure, boundary and numerical configuration used by one or more runs.
+    grain: one row per model configuration
+
   model_run:
     description: One execution for a specific spatial unit, event, state and model configuration.
     grain: one row per run
+
   hydrological_response:
     description: Hydrological result associated with a model run.
-    grain: one row per run x response variable or one wide run result record
+    grain: one row per run x response variable or one compatible wide run record
+
   transfer_event:
     description: Event-scale transfer from generated parcel response toward a receptor or water-system unit.
     grain: one row per source unit x event x transfer stage
+
   water_system_unit:
     description: Managed or unmanaged receiving/routing unit.
-    grain: one row per water-system unit
+    grain: one row per water-system unit/version
+
   pump_asset:
-    description: Pumping asset with versioned technical/operational metadata.
+    description: Pumping asset with versioned technical and operational metadata.
     grain: one row per pump asset/configuration version
+
   pump_dispatch:
     description: Allocation of routed event volume to one or more pump assets.
     grain: one row per event x source zone x pump asset
+
+  valuation_relation:
+    description: Versioned relation translating a qualified physical effect into a defined economic valuation category.
+    grain: one row per valuation relation/version
+
   cost_estimate:
     description: Valuation result for a defined physical effect and valuation category.
     grain: one row per effect x valuation relation x scope
+
   source:
-    description: Bibliographic, administrative, dataset or system source.
-    grain: one row per source
+    description: Bibliographic, administrative, dataset, service or system source.
+    grain: one row per source/version
+
   evidence_item:
     description: Specific extractable fact, measurement, relation or model result from a source.
     grain: one row per evidence item
+
+  claim:
+    description: Explicit project claim supported by one or more evidence items or derivations.
+    grain: one row per claim
+
   qualification:
-    description: Assessment of whether evidence supports a defined project use.
-    grain: one row per evidence item x intended use
+    description: Assessment of whether evidence or a claim supports a defined project use.
+    grain: one row per evidence/claim x intended use
+
+  model_equation:
+    description: Formal equation, identity or rule used by the model framework.
+    grain: one row per equation/version
+
+  governance_rule:
+    description: Explicit project rule, gate or validation check.
+    grain: one row per governance rule/version
+
+  change_record:
+    description: Versioned record of a semantic, schema, evidence or artifact change.
+    grain: one row per change
+
+  data_request_item:
+    description: Requested external or internal data item with purpose, priority and fulfilment status.
+    grain: one row per request item

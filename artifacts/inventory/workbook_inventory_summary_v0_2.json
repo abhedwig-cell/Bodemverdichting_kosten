@@ -1,0 +1,71 @@
+{
+  "FULL_SNAPSHOT_V3_8": {
+    "artifact_class": "FULL_FRAMEWORK_SNAPSHOT",
+    "sheet_count": 109,
+    "roles": {
+      "METADATA_GUIDE": 1,
+      "FRAMEWORK_TABLE_OR_MODULE": 75,
+      "DASHBOARD_VIEW": 13,
+      "PROVENANCE_GOVERNANCE": 9,
+      "APPLICATION_VIEW": 11
+    },
+    "domains": {
+      "general": 24,
+      "geometry_spatial": 1,
+      "provenance": 9,
+      "geometry_spatial;governance": 2,
+      "geometry_spatial;soil_state": 1,
+      "hydrology": 4,
+      "geometry_spatial;soil_state;hydrology": 1,
+      "geometry_spatial;hydrology": 1,
+      "soil_state": 1,
+      "provenance;crop_onsite": 1,
+      "crop_onsite": 7,
+      "economics": 7,
+      "execution": 10,
+      "governance": 3,
+      "soil_state;crop_onsite": 1,
+      "crop_onsite;economics": 3,
+      "provenance;economics": 1,
+      "economics;governance": 1,
+      "crop_onsite;execution": 2,
+      "application": 11,
+      "geometry_spatial;execution;application": 1,
+      "geometry_spatial;soil_state;application": 1,
+      "crop_onsite;application": 3,
+      "provenance;governance": 1,
+      "provenance;application": 2,
+      "hydrology;application": 1,
+      "pilot_tollebeek": 3,
+      "application;pilot_tollebeek": 1,
+      "governance;application": 5
+    },
+    "inferred_header_sheets": 109
+  },
+  "MODULE_V4_4": {
+    "artifact_class": "BOUNDED_TOLLEBEEK_MODULE",
+    "sheet_count": 24,
+    "roles": {
+      "METADATA_GUIDE": 1,
+      "DATASET_MODULE": 19,
+      "APPLICATION_VIEW": 4
+    },
+    "domains": {
+      "general": 3,
+      "provenance;geometry_spatial": 1,
+      "geometry_spatial": 3,
+      "geometry_spatial;soil_state": 1,
+      "geometry_spatial;application": 1,
+      "hydrology": 2,
+      "economics;pilot_tollebeek": 1,
+      "hydrology;application": 1,
+      "pilot_tollebeek": 3,
+      "execution;pilot_tollebeek": 1,
+      "application;pilot_tollebeek": 1,
+      "governance": 3,
+      "provenance": 2,
+      "application": 1
+    },
+    "inferred_header_sheets": 24
+  }
+}

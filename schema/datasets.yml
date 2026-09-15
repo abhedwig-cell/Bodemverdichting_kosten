@@ -1,0 +1,193 @@
+schema_version: 0.2.0
+status: MIGRATION_BASELINE
+
+dataset_roles:
+  - REFERENCE
+  - CONFIGURATION
+  - MODEL_INPUT
+  - MODEL_OUTPUT
+  - EVIDENCE
+  - QUALIFICATION
+  - GOVERNANCE
+  - DATA_REQUEST
+  - ARTIFACT_METADATA
+  - VIEW
+
+datasets:
+  source_register:
+    entity: source
+    role: EVIDENCE
+    grain: one row per source/version
+    primary_key: [source_id]
+    legacy_mappings:
+      - PROV_01_Sources
+      - DATA_95_CurrentGeometrySources
+      - DATA_109_CapacitySources
+
+  evidence_register:
+    entity: evidence_item
+    role: EVIDENCE
+    grain: one row per extractable evidence item
+    primary_key: [evidence_id]
+    legacy_mappings:
+      - 07_Evidence
+      - 13_EvidenceValues
+
+  claim_register:
+    entity: claim
+    role: EVIDENCE
+    grain: one row per explicit scientific or administrative claim
+    primary_key: [claim_id]
+    legacy_mappings:
+      - PROV_02_Claims
+      - DATA_110_CapacityDecisions
+
+  qualification_register:
+    entity: qualification
+    role: QUALIFICATION
+    grain: one row per evidence item or claim x intended project use
+    primary_key: [qualification_id]
+
+  model_equation_register:
+    entity: model_equation
+    role: CONFIGURATION
+    grain: one row per formal equation/identity/rule
+    primary_key: [equation_id]
+    legacy_mappings:
+      - PROV_06_ModelEquations
+
+  governance_rule_register:
+    entity: governance_rule
+    role: GOVERNANCE
+    grain: one row per explicit rule/check
+    primary_key: [rule_id]
+    legacy_mappings:
+      - PROV_04_Checks
+      - DATA_108_v43_Governance
+      - DATA_113_v44_Governance
+
+  change_register:
+    entity: change_record
+    role: GOVERNANCE
+    grain: one row per semantic or artifact change
+    primary_key: [change_id]
+    legacy_mappings:
+      - PROV_05_ChangeLog
+
+  spatial_unit_register:
+    entity: spatial_unit
+    role: REFERENCE
+    grain: one row per spatial analysis/reporting unit
+    primary_key: [spatial_unit_id]
+    legacy_mappings:
+      - 02_SpatialUnits
+      - 17_NL_SoilscapeBasis
+
+  soil_profile_register:
+    entity: soil_profile
+    role: REFERENCE
+    grain: one row per profile
+    primary_key: [soil_profile_id]
+
+  soil_layer_register:
+    entity: soil_layer
+    role: REFERENCE
+    grain: one row per soil profile x depth interval
+    primary_key: [soil_layer_id]
+
+  soil_state_register:
+    entity: soil_state
+    role: MODEL_INPUT
+    grain: one row per soil profile x layer x state
+    primary_key: [soil_state_id]
+
+  drainage_configuration_register:
+    entity: drainage_configuration
+    role: MODEL_INPUT
+    grain: one row per drainage configuration version
+    primary_key: [drainage_configuration_id]
+
+  event_register:
+    entity: event
+    role: MODEL_INPUT
+    grain: one row per event/simulation window
+    primary_key: [event_id]
+
+  model_run_register:
+    entity: model_run
+    role: MODEL_OUTPUT
+    grain: one row per controlled model execution
+    primary_key: [model_run_id]
+
+  hydrological_response_register:
+    entity: hydrological_response
+    role: MODEL_OUTPUT
+    grain: one row per run x response variable, or one compatible wide record
+    primary_key: [response_id]
+
+  transfer_event_register:
+    entity: transfer_event
+    role: MODEL_OUTPUT
+    grain: one row per source unit x event x transfer stage
+    primary_key: [transfer_event_id]
+
+  water_system_unit_register:
+    entity: water_system_unit
+    role: REFERENCE
+    grain: one row per routing/receiving/management unit
+    primary_key: [water_system_unit_id]
+
+  pump_asset_register:
+    entity: pump_asset
+    role: REFERENCE
+    grain: one row per pump asset configuration/version
+    primary_key: [pump_asset_id]
+
+  pump_dispatch_register:
+    entity: pump_dispatch
+    role: MODEL_OUTPUT
+    grain: one row per event x source zone x pump asset
+    primary_key: [pump_dispatch_id]
+    legacy_mappings:
+      - DATA_105_DispatchContract
+      - DATA_107_TwoPumpCalc
+
+  valuation_relation_register:
+    entity: valuation_relation
+    role: CONFIGURATION
+    grain: one row per valuation relation/version
+    primary_key: [valuation_relation_id]
+
+  cost_estimate_register:
+    entity: cost_estimate
+    role: MODEL_OUTPUT
+    grain: one row per qualified physical effect x valuation relation x scope
+    primary_key: [cost_estimate_id]
+
+  data_request_register:
+    entity: data_request_item
+    role: DATA_REQUEST
+    grain: one row per requested data item
+    primary_key: [data_request_id]
+    legacy_mappings:
+      - 70_WaterschapDataRequest
+      - 75_TollebeekDataRequest
+      - DATA_111_ZZL_DataRequest
+
+  artifact_register:
+    entity: artifact
+    role: ARTIFACT_METADATA
+    grain: one row per generated or legacy artifact/version
+    primary_key: [artifact_id]
+
+  artifact_dataset_register:
+    entity: artifact_dataset
+    role: ARTIFACT_METADATA
+    grain: one row per artifact x exposed dataset
+    primary_key: [artifact_id, dataset_id]
+
+  field_dictionary:
+    entity: field_definition
+    role: ARTIFACT_METADATA
+    grain: one row per canonical field definition
+    primary_key: [field_id]

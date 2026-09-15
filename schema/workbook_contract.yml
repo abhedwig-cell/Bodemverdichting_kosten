@@ -1,0 +1,61 @@
+contract_version: 0.1.0
+status: PROVISIONAL
+
+workbook:
+  required_front_matter:
+    - sheet: 00_METADATA
+      role: METADATA
+    - sheet: 01_GUIDE
+      role: GUIDE
+    - sheet: DATA_DICTIONARY
+      role: ARTIFACT_METADATA
+
+  metadata_fields:
+    required:
+      - project_id
+      - artifact_id
+      - artifact_class
+      - artifact_version
+      - schema_version
+      - generated_on
+      - purpose
+      - scope
+      - canonical_status
+    recommended:
+      - framework_version
+      - git_commit
+      - intended_audience
+      - input_datasets
+      - evidence_snapshot
+      - known_limitations
+      - owner
+      - contact
+
+  dataset_metadata:
+    required:
+      - dataset_id
+      - dataset_version
+      - purpose
+      - entity
+      - grain
+      - canonical_status
+    recommended:
+      - primary_key
+      - source_or_derivation
+      - qualification_status
+      - known_limitations
+
+  field_help:
+    canonical_source: schema/fields.yml
+    preferred_excel_surface:
+      - header_note_or_comment
+      - data_validation_input_message
+    fallback: DATA_DICTIONARY
+    max_header_label_length_recommendation: 40
+
+  principles:
+    - one_table_one_dataset
+    - unknown_is_null_not_zero
+    - views_are_not_source_tables
+    - artifact_version_does_not_imply_cumulative_inheritance
+    - provenance_and_qualification_must_survive_into_artifacts
