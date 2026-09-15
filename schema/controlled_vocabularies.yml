@@ -1,9 +1,38 @@
-schema_version: 0.1.0
+schema_version: 0.2.0
+
 vocabularies:
   soil_state_role:
     - CURRENT
     - REFERENCE
     - SCENARIO
+
+  artifact_class:
+    - FULL_FRAMEWORK_SNAPSHOT
+    - BOUNDED_MODULE
+    - REVIEW_ARTIFACT
+    - GENERATED_REPORT
+    - LEGACY_PROTOTYPE
+
+  dataset_role:
+    - REFERENCE
+    - CONFIGURATION
+    - MODEL_INPUT
+    - MODEL_OUTPUT
+    - EVIDENCE
+    - QUALIFICATION
+    - GOVERNANCE
+    - DATA_REQUEST
+    - ARTIFACT_METADATA
+    - VIEW
+
+  canonical_status:
+    - CANONICAL
+    - MIGRATION_BASELINE
+    - PROVISIONAL
+    - LEGACY
+    - NON_CANONICAL_ARTIFACT
+    - BLOCKED
+
   evidence_status:
     - ADMITTED
     - QUALIFIED
@@ -15,6 +44,7 @@ vocabularies:
     - WAIT_DATA
     - BLOCKED
     - REJECTED_FOR_PROJECT_USE
+
   provenance_class:
     - DIRECT_MEASUREMENT
     - DERIVED_MEASUREMENT
@@ -24,10 +54,25 @@ vocabularies:
     - HISTORICAL_BENCHMARK
     - SCENARIO_ASSUMPTION
     - SOFTWARE_QA
+
+  qualification_status:
+    - NOT_REVIEWED
+    - REVIEWED
+    - QUALIFIED
+    - QUALIFIED_WITH_LIMITATIONS
+    - REJECTED
+    - BLOCKED_DATA
+
+  priority:
+    - P1
+    - P2
+    - P3
+
   valuation_category:
     - PRIVATE_COST
     - PUBLIC_BUDGET_COST
     - SOCIETAL_WELFARE_EFFECT
+
   runoff_process_class:
     - SATURATION_EXCESS
     - INFILTRATION_EXCESS
