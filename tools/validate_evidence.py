@@ -28,7 +28,9 @@ def duplicates(values: Iterable[str]) -> set[str]:
 
 def validate() -> list[str]:
     errors: list[str] = []
-    vocab = yaml.safe_load((ROOT / "schema" / "controlled_vocabularies.yml").read_text(encoding="utf-8"))["vocabularies"]
+    vocab = yaml.safe_load(
+        (ROOT / "schema" / "controlled_vocabularies.yml").read_text(encoding="utf-8")
+    )["vocabularies"]
     allowed_evidence_status = set(vocab["evidence_status"])
     allowed_qualification_status = set(vocab["qualification_status"])
     allowed_provenance = set(vocab["provenance_class"])
@@ -56,19 +58,35 @@ def validate() -> list[str]:
     for row in evidence:
         if row["source_id"] not in source_ids:
             errors.append(f"{row['evidence_id']}: unknown source_id {row['source_id']}")
-        if row["status"] not in allowed_evidence_status:
-            errors.append(f"{row['evidence_id']}: invalid evidence status {row['status']}")
+        if row["evidence_status"] not in allowed_evidence_status:
+            errors.append(
+                f"{row['evidence_id']}: invalid evidence status {row['evidence_status']}"
+            )
         if row["provenance_class"] not in allowed_provenance:
-            errors.append(f"{row['evidence_id']}: invalid provenance_class {row['provenance_class']}")
+            errors.append(
+                f"{row['evidence_id']}: invalid provenance_class {row['provenance_class']}"
+            )
 
     for row in qualifications:
         if row["evidence_id"] not in evidence_ids:
-            errors.append(f"{row['qualification_id']}: unknown evidence_id {row['evidence_id']}")
-        if row["verdict"] not in allowed_qualification_status:
-            errors.append(f"{row['qualification_id']}: invalid qualification verdict {row['verdict']}")
+            errors.append(
+                f"{row['qualification_id']}: unknown evidence_id {row['evidence_id']}"
+            )
+        if row["qualification_status"] not in allowed_qualification_status:
+            errors.append(
+                f"{row['qualification_id']}: invalid qualification verdict "
+                f"{row['qualification_status']}"
+            )
 
     for row in claims:
-        for evidence_id in [x.strip() for x in row["evidence_ids"].split(";") if x.strip()]:
+        if row["qualification_status"] not in allowed_qualification_status:
+            errors.append(
+                f"{row['claim_id']}: invalid claim qualification status "
+                f"{row['qualification_status']}"
+            )
+        for evidence_id in [
+            x.strip() for x in row["evidence_ids"].split(";") if x.strip()
+        ]:
             if evidence_id not in evidence_ids:
                 errors.append(f"{row['claim_id']}: unknown evidence_id {evidence_id}")
 

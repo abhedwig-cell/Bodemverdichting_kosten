@@ -1,0 +1,138 @@
+schema_version: 0.2.1
+status: PROVISIONAL_EVIDENCE_EXTENSION
+
+fields:
+  source_title:
+    entity: source
+    label: Source title
+    description: Human-readable title of the source or source version.
+    datatype: string
+    nullable: false
+
+  source_type:
+    entity: source
+    label: Source type
+    description: Classification of the source such as official administrative publication, owner public page, technical report or data service.
+    datatype: string
+    nullable: true
+
+  source_year:
+    entity: source
+    label: Source year
+    description: Publication, issue or reference year used for the source version where known.
+    datatype: integer
+    unit: year
+    nullable: true
+
+  source_status:
+    entity: source
+    label: Source status
+    description: Project-level status of the source record itself. This does not qualify every fact extracted from the source.
+    datatype: string
+    nullable: true
+
+  source_notes:
+    entity: source
+    label: Source notes
+    description: Short note explaining why the source is retained and any source-level limitations.
+    datatype: string
+    nullable: true
+
+  evidence_statement:
+    entity: evidence_item
+    label: Evidence statement
+    description: Atomic fact, measurement, relation or model setting extracted from the source without adding project interpretation beyond necessary context.
+    datatype: string
+    nullable: false
+
+  spatial_scope:
+    entity: evidence_item
+    label: Spatial scope
+    description: Spatial domain to which the evidence or claim directly applies.
+    datatype: string
+    nullable: true
+
+  time_scope:
+    entity: evidence_item
+    label: Time scope
+    description: Time, period or reference state to which the evidence directly applies.
+    datatype: string
+    nullable: true
+
+  evidence_value:
+    entity: evidence_item
+    label: Evidence value
+    description: Numeric or textual value associated with the evidence item where one scalar value is meaningful.
+    datatype: string
+    nullable: true
+
+  evidence_unit:
+    entity: evidence_item
+    label: Evidence unit
+    description: Unit associated with evidence_value. Blank where the evidence item is qualitative or structural.
+    datatype: string
+    nullable: true
+
+  intended_use:
+    entity: qualification
+    label: Intended use
+    description: Explicit project use for which the evidence item or qualification is being assessed.
+    datatype: string
+    nullable: false
+
+  claim_statement:
+    entity: claim
+    label: Claim statement
+    description: Explicit project interpretation supported by one or more evidence items, derivations or qualifications.
+    datatype: string
+    nullable: false
+
+  claim_type:
+    entity: claim
+    label: Claim type
+    description: Functional classification of the claim such as model structure, asset interpretation, method transfer or data gate.
+    datatype: string
+    nullable: true
+
+  evidence_ids:
+    entity: claim
+    label: Supporting evidence IDs
+    description: Semicolon-separated evidence identifiers that support or constrain the claim.
+    datatype: string
+    nullable: false
+
+  qualification_status:
+    entity: qualification
+    label: Qualification status
+    description: Controlled verdict on whether evidence or a claim supports a defined intended project use.
+    datatype: enum
+    vocabulary: qualification_status
+    nullable: false
+
+  dependencies:
+    entity: qualification
+    label: Dependencies
+    description: Sources, model states, datasets or assumptions that must remain unchanged for the qualification to remain valid.
+    datatype: string
+    nullable: true
+
+  test_or_review:
+    entity: qualification
+    label: Test or review
+    description: Review, reconciliation, test or comparison performed to support the qualification verdict.
+    datatype: string
+    nullable: true
+
+  review_date:
+    entity: qualification
+    label: Review date
+    description: Date on which the current qualification verdict was established.
+    datatype: date
+    nullable: true
+
+  qualification_notes:
+    entity: qualification
+    label: Qualification notes
+    description: Additional limitations, transfer conditions or explanation of the qualification verdict.
+    datatype: string
+    nullable: true
