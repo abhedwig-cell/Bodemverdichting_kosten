@@ -1,6 +1,14 @@
 # Documentation map
 
-The documentation is organised from scientific meaning to implementation and evidence. The first seven documents form the **core colleague reader path**; later documents record migration and implementation milestones.
+The documentation is organised from scientific meaning to implementation and evidence. The first documents form the **core colleague reader path**; later documents record migration, implementation and governance milestones.
+
+## Start here
+
+If you are new to the project, begin with [`00_colleague_reader_guide.md`](00_colleague_reader_guide.md). It explains the scientific chain, current/reference attribution, the Tollebeek pilot, evidence qualification, the role of GitHub and Excel, and the main current data gates.
+
+For documentation governance and Status-A-light expectations, see [`14_documentation_status_a_light.md`](14_documentation_status_a_light.md).
+
+For a compact cross-layer review of the current architecture, see [`15_traceability_matrix_v0_1.md`](15_traceability_matrix_v0_1.md).
 
 ## Core reader path
 
@@ -12,7 +20,7 @@ The documentation is organised from scientific meaning to implementation and evi
 6. [`06_implementation.md`](06_implementation.md) — mapping to code, evidence registers, workbooks, CI and the future application
 7. [`07_evidence_and_qualification.md`](07_evidence_and_qualification.md) — source → evidence → claim → qualification architecture and review expectations
 
-A colleague who wants to understand **what we are doing and why** should normally read these seven in order. They are deliberately written at a higher level than the historical Excel workbook lineage.
+A colleague who wants to understand **what we are doing and why** should normally read `00` and then these seven documents in order. They are deliberately written at a higher level than the historical Excel workbook lineage.
 
 ## Architecture and migration records
 
@@ -26,7 +34,20 @@ A colleague who wants to understand **what we are doing and why** should normall
 12. [`12_workbook_generator_v0_1.md`](12_workbook_generator_v0_1.md) — first schema-driven workbook artifact generator
 13. [`13_tollebeek_evidence_baseline_v0_1.md`](13_tollebeek_evidence_baseline_v0_1.md) — first canonical Tollebeek source/evidence/claim/qualification baseline
 
-The current generated workbook has since advanced to an evidence-aware v0.2 artifact: canonical evidence registers are populated into the workbook while scientifically blocked model-result datasets remain explicit blank templates. The repository remains canonical; the workbook remains a generated review interface.
+The generated workbook has since advanced to an evidence-aware v0.2 artifact: canonical evidence registers are populated into the workbook while scientifically blocked model-result datasets remain explicit blank templates. The repository remains canonical; the workbook remains a generated review interface.
+
+## Status-A-light governance and traceability
+
+14. [`14_documentation_status_a_light.md`](14_documentation_status_a_light.md) — documentation layers, maturity states, minimum metadata, scientific-claim discipline and review triggers
+15. [`15_traceability_matrix_v0_1.md`](15_traceability_matrix_v0_1.md) — theory-to-code/evidence traceability for the main current capabilities and broken-link review
+
+## Suggested reading paths
+
+**Scientific colleague / reviewer:** `00 → 01 → 02 → 03 → 04 → 07 → 15`
+
+**Data/software colleague:** `00 → 05 → 06 → 08 → 11 → 12 → 15`
+
+**Tollebeek/domain reviewer:** `00 → 11 → 13 → evidence/ → 15`
 
 ## Status-A-light principle
 
