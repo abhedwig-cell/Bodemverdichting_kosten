@@ -1,4 +1,4 @@
-source_id,title,source_type,year,url,status,notes
+source_id,source_title,source_type,source_year,source_url,source_status,source_notes
 SRC_TOLLEBEEK_PEIL2010,Peilbesluit Onderbemaling Tollebeek,OFFICIAL_ADMINISTRATIVE,2010,https://www2.zuiderzeeland.nl/data/gmaps/peilbesluiten/NOP_Peilbesluit_Tollebeek_2010.pdf,ADMITTED,"Official source for 2010 merge of OT.02/OT.03/OT.04, target levels, historical system design and capacity context."
 SRC_TOLLEBEEK_PEIL2016,Peilbesluit Urk 2016 attachment,OFFICIAL_ADMINISTRATIVE,2016,https://repository.officiele-overheidspublicaties.nl/externebijlagen/exb-2017-5977/1/bijlage/exb-2017-5977.pdf,ADMITTED,"Official later peil-area overview; used for 1497-ha OT.02 administrative area benchmark and NAP -6.20 m target."
 SRC_ZZL_IJSVOGEL,Waterschap Zuiderzeeland - Samenwerken om kans op wateroverlast te voorkomen,OWNER_PUBLIC,2023,https://www.zuiderzeeland.nl/samenwerken-om-kans-op-wateroverlast-te-voorkomen,ADMITTED,"Owner-backed public description of IJsvogel, 540 m3/min installed capacity and system measures."
