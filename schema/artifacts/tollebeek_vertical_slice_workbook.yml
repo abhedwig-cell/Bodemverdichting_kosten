@@ -1,0 +1,35 @@
+artifact:
+  project_id: BODEMVERDICHTING_KOSTEN
+  artifact_id: TOLLEBEEK_VERTICAL_SLICE_SCHEMA_WORKBOOK
+  artifact_class: REVIEW_ARTIFACT
+  artifact_version: 0.1.0
+  schema_version: 0.2.0
+  purpose: Demonstrate the Status-A-light workbook contract against the Tollebeek source-transfer-dispatch vertical slice.
+  scope: Schema and interface demonstration. No hydrological attribution or current pump-cost result.
+  intended_audience: WENR project team and collaborating reviewers
+  canonical_status: NON_CANONICAL_ARTIFACT
+  owner: WENR project team
+  known_limitations: Dataset sheets are templates. Unknown scientific inputs remain blank/null. Header help uses Excel data-validation input messages.
+
+datasets:
+  - dataset_id: source_register
+    sheet_name: SOURCE
+    fields: [source_id, source_url]
+  - dataset_id: evidence_register
+    sheet_name: EVIDENCE
+    fields: [evidence_id, source_id, evidence_status, provenance_class]
+  - dataset_id: spatial_unit_register
+    sheet_name: SPATIAL_UNIT
+    fields: [spatial_unit_id]
+  - dataset_id: hydrological_response_register
+    sheet_name: HYDRO_RESPONSE
+    fields: [response_id, model_run_id, affected_area_ha, delta_runoff_mm, generated_increment_m3]
+  - dataset_id: transfer_event_register
+    sheet_name: TRANSFER_EVENT
+    fields: [transfer_event_id, event_id, spatial_unit_id, transfer_stage, delivered_volume_m3, event_delivery_factor, water_system_unit_id]
+  - dataset_id: pump_asset_register
+    sheet_name: PUMP_ASSET
+    fields: [pump_asset_id, installed_capacity_m3_min]
+  - dataset_id: pump_dispatch_register
+    sheet_name: PUMP_DISPATCH
+    fields: [pump_dispatch_id, event_id, source_zone_id, pump_asset_id, pumped_volume_m3, availability_fraction, assist_fraction, pump_hours, response_window_h, capacity_pressure_fraction, total_dynamic_head_m, pump_efficiency, energy_kwh]
