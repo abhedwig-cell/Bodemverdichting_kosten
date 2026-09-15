@@ -1,0 +1,51 @@
+schema_version: 0.1.0
+status: BOOTSTRAP
+entities:
+  spatial_unit:
+    description: Spatial analysis or reporting unit with an explicit geometry or reference.
+    grain: one row per spatial unit
+  soil_profile:
+    description: Vertical soil profile associated with a spatial unit or sampled/derived location.
+    grain: one row per profile
+  soil_layer:
+    description: Depth interval within a soil profile.
+    grain: one row per profile x layer
+  soil_state:
+    description: Physical state of a soil profile/layer for current, reference or scenario conditions.
+    grain: one row per profile x layer x state
+  drainage_configuration:
+    description: Subsurface and/or surface drainage representation for a spatial unit or model run.
+    grain: one row per drainage configuration
+  event:
+    description: Meteorological/hydrological event or simulation window.
+    grain: one row per event
+  model_run:
+    description: One execution for a specific spatial unit, event, state and model configuration.
+    grain: one row per run
+  hydrological_response:
+    description: Hydrological result associated with a model run.
+    grain: one row per run x response variable or one wide run result record
+  transfer_event:
+    description: Event-scale transfer from generated parcel response toward a receptor or water-system unit.
+    grain: one row per source unit x event x transfer stage
+  water_system_unit:
+    description: Managed or unmanaged receiving/routing unit.
+    grain: one row per water-system unit
+  pump_asset:
+    description: Pumping asset with versioned technical/operational metadata.
+    grain: one row per pump asset/configuration version
+  pump_dispatch:
+    description: Allocation of routed event volume to one or more pump assets.
+    grain: one row per event x source zone x pump asset
+  cost_estimate:
+    description: Valuation result for a defined physical effect and valuation category.
+    grain: one row per effect x valuation relation x scope
+  source:
+    description: Bibliographic, administrative, dataset or system source.
+    grain: one row per source
+  evidence_item:
+    description: Specific extractable fact, measurement, relation or model result from a source.
+    grain: one row per evidence item
+  qualification:
+    description: Assessment of whether evidence supports a defined project use.
+    grain: one row per evidence item x intended use
