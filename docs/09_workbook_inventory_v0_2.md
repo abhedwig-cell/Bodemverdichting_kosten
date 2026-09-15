@@ -9,7 +9,7 @@ The inventory used the actual workbook structures of:
 - `Bodemverdichting_Cost_Framework_v3_8_TollebeekReconciled.xlsx`
 - `Bodemverdichting_Cost_Framework_v4_4_CapacityReconciliation_DataRequest.xlsx`
 
-The raw inventories are stored under `artifacts/inventory/`.
+A compact machine-generated summary is stored under `artifacts/inventory/`. The full generated sheet and field inventories are retained as analysis artifacts and can be regenerated during migration.
 
 ## Important finding: the workbook lineage has split
 
@@ -75,7 +75,7 @@ Examples:
 - `PROV_02_Claims` maps toward `claim_register`.
 - `PROV_06_ModelEquations` maps toward `model_equation_register`.
 - `PROV_04_Checks` and later governance sheets map toward `governance_rule` / `qualification_check`.
-- current Tollebeek capacity-source sheets map toward `evidence_item`, `claim`, `pump_asset` and `qualification`, not one giant 'Tollebeek table'.
+- current Tollebeek capacity-source sheets map toward `evidence_item`, `claim`, `pump_asset` and `qualification`, not one giant Tollebeek table.
 
 ## Canonical dataset families for v0.2
 
