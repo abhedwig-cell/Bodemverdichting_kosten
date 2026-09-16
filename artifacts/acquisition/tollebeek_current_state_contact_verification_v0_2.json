@@ -1,0 +1,37 @@
+{
+  "schema_version": "tollebeek_current_state_contact_verification_v0.2",
+  "verified_date": "2026-09-16",
+  "scope": "Public source-holder dispatch endpoint verification only; no data acquisition claim.",
+  "routes": [
+    {
+      "priority": 1,
+      "holder_route": "Aeres Hogeschool / RAAK-PRO",
+      "contact": "Karin Pepers",
+      "public_role": "Onderzoeker en docent; lectoraat Duurzaam Bodembeheer",
+      "email": "k.pepers@aeres.nl",
+      "public_source": "https://www.aereshogeschool.nl/onderzoek/lectoren-en-onderzoekers/karin-pepers",
+      "verification": "VERIFIED_PUBLIC_CONTACT_ENDPOINT"
+    },
+    {
+      "priority": 2,
+      "holder_route": "WUR/WER",
+      "contact": "Fenny van Egmond",
+      "public_role": "Soil data and sensing; Soil, Water and Land Use",
+      "public_source": "https://www.wur.nl/en/persons/ir-fm-fenny-van-egmond",
+      "contact_semantics": "Use the public WUR profile contact route; no unpublished email address is inferred or invented.",
+      "verification": "VERIFIED_PUBLIC_PROFILE_CONTACT_ROUTE"
+    },
+    {
+      "priority": 3,
+      "holder_route": "Actieplan Bodem & Water Flevoland",
+      "contact": "programme referral route",
+      "email": "info@bodemenwaterflevoland.nl",
+      "public_source": "https://bodemenwaterflevoland.nl/",
+      "verification": "VERIFIED_PUBLIC_CONTACT_ENDPOINT"
+    }
+  ],
+  "scientific_effect": "NONE",
+  "data_acquired": false,
+  "dr_sm_current_state": "PARTIAL_EVIDENCE",
+  "run_authorized": false
+}
