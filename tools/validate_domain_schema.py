@@ -15,6 +15,7 @@ FIELD_FILES = [
     "tollebeek_vertical_slice.yml",
     "domain_fields_v0_3.yml",
     "profile_fields_v0_1.yml",
+    "event_forcing_fields_v0_1.yml",
 ]
 
 REQUIRED_V03_DATASETS = {
@@ -26,11 +27,16 @@ REQUIRED_V03_DATASETS = {
         "entity": "model_configuration",
         "primary_key": ["model_configuration_id"],
     },
+    "meteorological_forcing_register": {
+        "entity": "meteorological_forcing_observation",
+        "primary_key": ["forcing_observation_id"],
+    },
 }
 
 REQUIRED_RUN_CONTROL_RELATIONSHIPS = {
     "spatial_run": ("spatial_unit", "model_run", "spatial_unit_id"),
     "event_run": ("event", "model_run", "event_id"),
+    "event_forcing": ("event", "meteorological_forcing_observation", "event_id"),
     "soil_state_run": ("soil_state", "model_run", "soil_state_id"),
     "model_configuration_run": (
         "model_configuration",

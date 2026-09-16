@@ -57,6 +57,12 @@ relationships:
     cardinality: one-to-many
     foreign_key: model_run.event_id
 
+  event_forcing:
+    from_entity: event
+    to_entity: meteorological_forcing_observation
+    cardinality: one-to-many
+    foreign_key: meteorological_forcing_observation.event_id
+
   soil_state_run:
     from_entity: soil_state
     to_entity: model_run

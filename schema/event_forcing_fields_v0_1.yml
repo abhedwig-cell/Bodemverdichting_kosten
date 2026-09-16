@@ -1,0 +1,48 @@
+schema_version: 0.1.0
+status: ADMITTED_EVENT_FORCING_EXTENSION
+
+fields:
+  forcing_observation_id:
+    entity: meteorological_forcing_observation
+    label: Forcing observation ID
+    description: Stable identifier for one source meteorological observation interval within an event context.
+    datatype: string
+    nullable: false
+  event_label: {entity: event, label: Event label, description: Human-readable event or simulation-window label., datatype: string, nullable: false}
+  context_start_utc: {entity: event, label: Forcing context start, description: Inclusive start of the persisted forcing context in UTC., datatype: datetime, nullable: false}
+  context_end_utc: {entity: event, label: Forcing context end, description: Exclusive end of the persisted forcing context in UTC., datatype: datetime, nullable: false}
+  core_start_utc: {entity: event, label: Event core start, description: Start of the review-defined event core in UTC., datatype: datetime, nullable: false}
+  core_end_utc: {entity: event, label: Event core end, description: End of the review-defined event core in UTC., datatype: datetime, nullable: false}
+  core_precip_mm: {entity: event, label: Core precipitation, description: Observed precipitation sum over the registered event core., datatype: float, unit: mm, nullable: true}
+  source_station_id: {entity: meteorological_forcing_observation, label: Source station ID, description: Source-native station/location identifier for the observation., datatype: string, nullable: false}
+  source_station_name: {entity: event, label: Source station name, description: Human-readable source station/location name for the admitted baseline., datatype: string, nullable: true}
+  temporal_resolution_minutes: {entity: event, label: Temporal resolution, description: Nominal interval length of the forcing observations., datatype: integer, unit: min, nullable: false}
+  timezone: {entity: event, label: Timezone, description: Time standard used by canonical event timestamps., datatype: string, nullable: false}
+  forcing_dataset_path: {entity: event, label: Forcing dataset path, description: Canonical repository path to the forcing-observation dataset., datatype: string, nullable: false}
+  forcing_dataset_sha256: {entity: event, label: Forcing dataset SHA-256, description: SHA-256 checksum of the canonical forcing-observation file bytes., datatype: string, nullable: false}
+  source_date_yyyymmdd: {entity: meteorological_forcing_observation, label: Source date, description: KNMI native observation date field retained without reinterpretation., datatype: string, nullable: false}
+  source_hour_utc: {entity: meteorological_forcing_observation, label: Source hour, description: KNMI native HH field (1-24) under the documented UT convention., datatype: integer, nullable: false}
+  interval_start_utc: {entity: meteorological_forcing_observation, label: Observation interval start, description: Derived inclusive UTC start of the hourly source interval., datatype: datetime, nullable: false}
+  interval_end_utc: {entity: meteorological_forcing_observation, label: Observation interval end, description: Derived exclusive UTC end of the hourly source interval., datatype: datetime, nullable: false}
+  wind_direction_deg: {entity: meteorological_forcing_observation, label: Wind direction, description: KNMI DD native value., datatype: integer, unit: degree, nullable: true}
+  wind_hourly_mean_0_1_ms: {entity: meteorological_forcing_observation, label: Hourly mean wind speed, description: KNMI FH native value., datatype: integer, unit: 0.1 m/s, nullable: true}
+  wind_mean_0_1_ms: {entity: meteorological_forcing_observation, label: Mean wind speed, description: KNMI FF native value., datatype: integer, unit: 0.1 m/s, nullable: true}
+  wind_gust_0_1_ms: {entity: meteorological_forcing_observation, label: Wind gust, description: KNMI FX native value., datatype: integer, unit: 0.1 m/s, nullable: true}
+  air_temperature_0_1_c: {entity: meteorological_forcing_observation, label: Air temperature, description: KNMI T native value., datatype: integer, unit: 0.1 degC, nullable: true}
+  min_air_temperature_10cm_0_1_c: {entity: meteorological_forcing_observation, label: Minimum 10 cm temperature, description: KNMI T10N native value; source cadence may be sparser than hourly., datatype: integer, unit: 0.1 degC, nullable: true}
+  dewpoint_temperature_0_1_c: {entity: meteorological_forcing_observation, label: Dewpoint temperature, description: KNMI TD native value., datatype: integer, unit: 0.1 degC, nullable: true}
+  sunshine_duration_0_1_h: {entity: meteorological_forcing_observation, label: Sunshine duration, description: KNMI SQ native value; native trace semantics retained., datatype: integer, unit: 0.1 h, nullable: true}
+  global_radiation_j_cm2: {entity: meteorological_forcing_observation, label: Global radiation, description: KNMI Q native value., datatype: integer, unit: J/cm2, nullable: true}
+  precipitation_duration_0_1_h: {entity: meteorological_forcing_observation, label: Precipitation duration, description: KNMI DR native value., datatype: integer, unit: 0.1 h, nullable: true}
+  precipitation_amount_0_1_mm: {entity: meteorological_forcing_observation, label: Precipitation amount, description: KNMI RH native value; -1 means less than 0.05 mm and is retained as -1., datatype: integer, unit: 0.1 mm, nullable: true, guardrail: Do not interpret -1 as missing or as a physical negative rainfall amount.}
+  sea_level_pressure_0_1_hpa: {entity: meteorological_forcing_observation, label: Sea-level pressure, description: KNMI P native value., datatype: integer, unit: 0.1 hPa, nullable: true}
+  visibility_code: {entity: meteorological_forcing_observation, label: Visibility code, description: KNMI VV native code., datatype: integer, nullable: true}
+  cloud_cover_octants: {entity: meteorological_forcing_observation, label: Cloud cover, description: KNMI N native value., datatype: integer, unit: octant, nullable: true}
+  relative_humidity_pct: {entity: meteorological_forcing_observation, label: Relative humidity, description: KNMI U native value., datatype: integer, unit: percent, nullable: true}
+  present_weather_code: {entity: meteorological_forcing_observation, label: Present weather code, description: KNMI WW native code., datatype: integer, nullable: true}
+  weather_station_type: {entity: meteorological_forcing_observation, label: Weather station type, description: KNMI IX native code., datatype: integer, nullable: true}
+  fog_indicator: {entity: meteorological_forcing_observation, label: Fog indicator, description: KNMI M native indicator., datatype: integer, nullable: true}
+  rain_indicator: {entity: meteorological_forcing_observation, label: Rain indicator, description: KNMI R native indicator., datatype: integer, nullable: true}
+  snow_indicator: {entity: meteorological_forcing_observation, label: Snow indicator, description: KNMI S native indicator., datatype: integer, nullable: true}
+  thunder_indicator: {entity: meteorological_forcing_observation, label: Thunder indicator, description: KNMI O native indicator., datatype: integer, nullable: true}
+  ice_indicator: {entity: meteorological_forcing_observation, label: Ice indicator, description: KNMI Y native indicator., datatype: integer, nullable: true}

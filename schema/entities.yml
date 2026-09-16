@@ -42,6 +42,10 @@ entities:
     description: Meteorological/hydrological event or simulation window.
     grain: one row per event
 
+  meteorological_forcing_observation:
+    description: Source-observed meteorological forcing for a registered event or simulation context.
+    grain: one row per event x source station/location x observation interval
+
   model_configuration:
     description: Versioned set of model structure, boundary and numerical configuration used by one or more runs.
     grain: one row per model configuration
