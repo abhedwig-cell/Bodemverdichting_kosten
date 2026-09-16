@@ -32,6 +32,7 @@ jobs:
           Path('/tmp/finalize_initial_state.py').write_text(code,encoding='utf-8')
           PY
           python /tmp/finalize_initial_state.py
+          git checkout -- .github/workflows/ci.yml
       - name: Validate final postimage
         run: |
           python -m py_compile tools/validate_initial_state_gate.py tools/validate_project.py
@@ -41,6 +42,6 @@ jobs:
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add evidence data_requests docs model tools tests workunits .github/workflows/ci.yml
+          git add evidence data_requests docs model tools tests workunits
           git commit -m "Qualify Tollebeek initial-state observation route"
           git push origin HEAD:work/tollebeek-initial-state-v0.1
