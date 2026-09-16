@@ -17,64 +17,101 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Install acquisition dependency
-        run: python -m pip install requests
-      - name: Resolve nearest groundwater observations and well metadata
+      - name: Install acquisition dependencies
+        run: python -m pip install requests shapely pyproj
+      - name: Screen historical GLD series for shallow event-date anchors
         run: |
           python - <<'PY'
           from __future__ import annotations
           import csv, io, json
-          from datetime import datetime, timezone
+          from datetime import date, datetime, timezone
           from pathlib import Path
           import requests
+          from pyproj import Transformer
+          from shapely.geometry import shape
+          from shapely.ops import transform
 
-          target=datetime(1998,10,24,tzinfo=timezone.utc)
-          # BRO compact GLD CSV prototype is headerless here. Position 1=time, 2=water level [m],
-          # 3=quality/status, followed by optional point metadata and process marker.
-          candidates=[
-            {'gld':'GLD000000055972','tube':'50bf8f73-2538-5d85-bcd3-22a10e12d9a3','gmw':'58bd55e6-a857-5fe2-a090-6ae787061739','obs':'onbekend','inside':True,'distance_m':0.0},
-            {'gld':'GLD000000056073','tube':'415a12ad-b77a-59a6-a449-9fd3fa65d61f','gmw':'58bd55e6-a857-5fe2-a090-6ae787061739','obs':'onbekend','inside':True,'distance_m':0.0},
-            {'gld':'GLD000000011107','tube':'646c2122-bff1-54e3-bbcd-1d6cf058d39e','gmw':'5214f1a6-2fe8-5100-a625-90212180afa8','obs':'regulier_beoordeeld','inside':False,'distance_m':157.5},
-            {'gld':'GLD000000011178','tube':'7f10ae67-1d41-50cf-a8e2-72036eebc5a0','gmw':'5214f1a6-2fe8-5100-a625-90212180afa8','obs':'regulier_beoordeeld','inside':False,'distance_m':157.5},
-            {'gld':'GLD000000011383','tube':'73583280-9398-577a-907d-dd7770f7d31f','gmw':'dd763fed-13e8-5b56-bc8d-5ad899be167d','obs':'regulier_beoordeeld','inside':False,'distance_m':316.5},
-            {'gld':'GLD000000011464','tube':'d0974a33-6937-5548-a8f6-1c114822bd63','gmw':'dd763fed-13e8-5b56-bc8d-5ad899be167d','obs':'regulier_beoordeeld','inside':False,'distance_m':316.5},
-          ]
+          target_date=date(1998,10,24)
+          target_dt=datetime(1998,10,24,tzinfo=timezone.utc)
+          root=Path('.')
+          geo=json.loads((root/'data/spatial/tollebeek_ot02_current.geojson').read_text(encoding='utf-8'))
+          feat=geo['features'][0] if geo.get('type')=='FeatureCollection' else geo
+          poly_rd=shape(feat['geometry'])
+          to_wgs=Transformer.from_crs(28992,4326,always_xy=True)
+          to_rd=Transformer.from_crs(4326,28992,always_xy=True)
+          poly=transform(to_wgs.transform,poly_rd)
+          minx,miny,maxx,maxy=poly.bounds
+          margin=0.08
           base='https://api.pdok.nl/tno/bro-grondwatermonitoring-in-samenhang-karakteristieken/ogc/v1'
-          s=requests.Session(); out=[]
+          s=requests.Session()
+          q=s.get(f'{base}/collections/gm_gld/items',params={'bbox':f'{minx-margin},{miny-margin},{maxx+margin},{maxy+margin}','limit':1000,'f':'json'},timeout=120); q.raise_for_status()
+
           def dt_parse(x):
               d=datetime.fromisoformat(x.replace('Z','+00:00'))
               if d.tzinfo is None: d=d.replace(tzinfo=timezone.utc)
               return d.astimezone(timezone.utc)
-          for c in candidates:
-              url=f'https://publiek.broservices.nl/gm/gld/v1/objectsAsCsv/{c["gld"]}'
-              r=s.get(url,params={'rapportagetype':'compact','observatietype':c['obs']},timeout=90); r.raise_for_status()
-              parsed=[]
+          def fetch_series(bro_id, obs):
+              r=s.get(f'https://publiek.broservices.nl/gm/gld/v1/objectsAsCsv/{bro_id}',params={'rapportagetype':'compact','observatietype':obs},timeout=90); r.raise_for_status()
+              vals=[]
               for row in csv.reader(io.StringIO(r.text)):
                   if len(row)<2 or not row[0].strip(): continue
-                  try: dt=dt_parse(row[0].strip())
+                  try: dt=dt_parse(row[0].strip()); value=float(row[1])
                   except Exception: continue
-                  try: value=float(row[1]) if row[1].strip() else None
-                  except Exception: value=None
-                  parsed.append({'timestamp':row[0].strip(),'timestamp_utc':dt.isoformat(),'water_level_m':value,'status':row[2].strip() if len(row)>2 else None,'raw':row,'delta_days_signed':round((dt-target).total_seconds()/86400,3),'delta_days_abs':round(abs((dt-target).total_seconds())/86400,3)})
-              parsed.sort(key=lambda x:x['delta_days_abs'])
-              tube=s.get(f'{base}/collections/gm_gmw_monitoringtube/items/{c["tube"]}',params={'f':'json'},timeout=60); tube.raise_for_status()
-              well=s.get(f'{base}/collections/gm_gmw/items/{c["gmw"]}',params={'f':'json'},timeout=60); well.raise_for_status()
-              entry={**c,'series_row_count':len(parsed),'nearest':parsed[:10],'tube_properties':tube.json().get('properties'),'well_properties':well.json().get('properties')}
-              # Nearest measurement before and after target separately.
-              before=[x for x in parsed if x['delta_days_signed']<=0]
-              after=[x for x in parsed if x['delta_days_signed']>=0]
-              entry['nearest_before']=min(before,key=lambda x:x['delta_days_abs']) if before else None
-              entry['nearest_after']=min(after,key=lambda x:x['delta_days_abs']) if after else None
-              # Measurements within +/-45 days retained as bounded event context.
-              entry['within_45_days']=[x for x in parsed if x['delta_days_abs']<=45]
-              out.append(entry)
-          Path('initial_state_event_anchors.json').write_text(json.dumps(out,indent=2,ensure_ascii=False),encoding='utf-8')
-          compact=[]
-          for e in out:
-              compact.append({k:e.get(k) for k in ('gld','inside','distance_m','obs','series_row_count','nearest_before','nearest_after','within_45_days','tube_properties','well_properties')})
-          print(json.dumps(compact,indent=2,ensure_ascii=False))
+                  vals.append({'timestamp':row[0].strip(),'timestamp_utc':dt.isoformat(),'water_level_m':value,'status':row[2].strip() if len(row)>2 else '', 'delta_days':round((dt-target_dt).total_seconds()/86400,3)})
+              return vals
+
+          candidates=[]
+          for f in q.json().get('features',[]):
+              p=f.get('properties') or {}; g=f.get('geometry')
+              if not g: continue
+              first=p.get('research_first_date'); last=p.get('research_last_date')
+              try:
+                  if not (date.fromisoformat(first[:10]) <= target_date <= date.fromisoformat(last[:10])): continue
+              except Exception: continue
+              pt=shape(g); pt_rd=transform(to_rd.transform,pt); dist=poly_rd.distance(pt_rd)
+              if dist>10000: continue
+              tube_href=p.get('gm_gmw_monitoringtube.href')
+              if not tube_href: continue
+              tube_id=tube_href.rsplit('/',1)[-1]
+              tr=s.get(f'{base}/collections/gm_gmw_monitoringtube/items/{tube_id}',params={'f':'json'},timeout=60); tr.raise_for_status()
+              tp=tr.json().get('properties') or {}
+              well_href=tp.get('gm_gmw.href')
+              if not well_href: continue
+              well_id=well_href.rsplit('/',1)[-1]
+              wr=s.get(f'{base}/collections/gm_gmw/items/{well_id}',params={'f':'json'},timeout=60); wr.raise_for_status()
+              wp=wr.json().get('properties') or {}
+              ground=wp.get('ground_level_position'); top=tp.get('screen_top_position'); bottom=tp.get('screen_bottom_position')
+              depth_top=None
+              try: depth_top=float(ground)-float(top)
+              except Exception: pass
+              # Only fetch time series for plausible shallow/phreatic filters (<=5 m below local ground).
+              if depth_top is None or depth_top>5.0 or depth_top<0: continue
+              best_series=None; best_obs=None
+              for obs in ('regulier_beoordeeld','regulier_voorlopig','onbekend'):
+                  vals=fetch_series(p.get('bro_id'),obs)
+                  if not vals: continue
+                  nearest=min(vals,key=lambda x:abs(x['delta_days']))
+                  score=(0 if obs=='regulier_beoordeeld' else 1 if obs=='regulier_voorlopig' else 2,abs(nearest['delta_days']))
+                  if best_series is None or score < best_series[0]: best_series=(score,vals,nearest); best_obs=obs
+              if best_series is None: continue
+              vals=best_series[1]; nearest=best_series[2]
+              candidates.append({
+                  'gld_bro_id':p.get('bro_id'),'gld_feature_id':f.get('id'),'observation_class':best_obs,
+                  'inside_ot02':poly.covers(pt),'distance_to_ot02_m':round(dist,1),
+                  'gmw_bro_id':tp.get('gmw_bro_id'),'tube_number':tp.get('tube_number'),
+                  'ground_level_m_nap':ground,'screen_top_m_nap':top,'screen_bottom_m_nap':bottom,'screen_top_depth_below_ground_m':round(depth_top,3),
+                  'nearest_measurement':nearest,
+                  'within_15_days':[x for x in vals if abs(x['delta_days'])<=15],
+                  'within_45_days':[x for x in vals if abs(x['delta_days'])<=45],
+                  'research_first_date':first,'research_last_date':last,
+                  'nitg_code':wp.get('nitg_code'),'well_code':wp.get('well_code'),'local_vertical_reference_point':wp.get('local_vertical_reference_point'),
+              })
+          candidates.sort(key=lambda x:(not x['inside_ot02'],x['distance_to_ot02_m'],abs(x['nearest_measurement']['delta_days'])))
+          summary={'target_date':'1998-10-24','shallow_definition':'screen top 0-5 m below registered ground level','candidate_count':len(candidates),'inside_ot02_count':sum(1 for x in candidates if x['inside_ot02']),'candidates':candidates}
+          Path('initial_state_shallow_screening.json').write_text(json.dumps(summary,indent=2,ensure_ascii=False),encoding='utf-8')
+          print(json.dumps(summary,indent=2,ensure_ascii=False))
           PY
       - uses: actions/upload-artifact@v4
         with:
-          name: tollebeek-initial-state-event-anchors
-          path: initial_state_event_anchors.json
+          name: tollebeek-initial-state-shallow-screening
+          path: initial_state_shallow_screening.json
