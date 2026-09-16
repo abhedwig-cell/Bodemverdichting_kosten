@@ -75,6 +75,20 @@ Detailed route evidence: `docs/37_tollebeek_current_state_bis_recovery_v0_1.md`.
 
 This negative route result does not imply that no Tollebeek observations exist in non-public or other archives.
 
+## Reviewed alternative: DANS RhoC validation data
+
+A second bounded provenance-recovery review inspected the open DANS dataset DOI `10.17026/PT/BYVPLB` (`RhoC validation data from 'Validation of a new Soil Bulk Density sensor'`).
+
+The exact semicolon-delimited CSV contains 432 depth-resolved RhoC and Kopecky-ring records over 10–60 cm, but the source files contain no geographic coordinate fields and `Location_code` is only a pit/profile/depth identifier. The README identifies the source project as `RhoC dichtheidsmeter`, project `KIEM.K21.01.080`, rather than WER3382 / `RAAK.PRO02.021` / `Flevo-land in beweging`.
+
+No source-native identifier establishes Tollebeek, OT.02, Urk, Marknesse or Emmeloord. `Dronten` occurs only as the depositor/institution address and is not measurement-location evidence.
+
+Therefore this dataset is classified as `REVIEWED_PUBLIC_RHOC_DATASET_NOT_SPATIALLY_ASSIGNABLE_TO_OT02` and must not be substituted for the requested WER3382 raw point dataset. It remains method/context evidence only.
+
+Detailed route evidence: `docs/38_tollebeek_current_state_rhoc_recovery_v0_1.md`.
+
+This negative route result does not imply that the WER3382/Flevo-land measurements are unavailable from the responsible project/data holders.
+
 ## Admission criteria after acquisition
 
 `DR_SM_CURRENT_STATE` may only move toward `READY_FOR_REVIEW` or `ADMITTED` when the candidate records:
