@@ -64,11 +64,15 @@ def validate() -> list[str]:
         boundary = " ".join(
             [request["blocking_reason"], request["next_action"], request["request_notes"]]
         ).lower()
-        for phrase in ("spacing", "depth", "resistance", "zero"):
+        for phrase in ("spacing", "depth", "resistance"):
             if phrase not in boundary:
                 errors.append(
                     f"DR_SM_DRAINAGE partial-evidence boundary must retain {phrase!r} context"
                 )
+        if not any(marker in boundary for marker in ("spacing 0", "sentinel", "unavailable")):
+            errors.append(
+                "DR_SM_DRAINAGE partial-evidence boundary must preserve that owner spacing 0 is not a physical zero"
+            )
 
     trace = {row["capability_id"]: row for row in read_csv(TRACEABILITY_FILE)}
     capability = trace.get("CAP_MULTI_DRAIN")
