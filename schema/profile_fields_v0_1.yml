@@ -1,0 +1,132 @@
+schema_version: 0.3.1
+status: PROFILE_BASELINE_EXTENSION
+
+fields:
+  source_profile_id:
+    entity: soil_profile
+    label: Source profile ID
+    description: Stable profile identifier supplied by the retained profile source.
+    datatype: string
+    nullable: false
+
+  soil_mapping_unit_code:
+    entity: soil_profile
+    label: Soil mapping unit code
+    description: Soil mapping-unit or soil-code label returned by the retained profile source.
+    datatype: string
+    nullable: false
+
+  bofek2020_unit:
+    entity: soil_profile
+    label: BOFEK2020 unit
+    description: BOFEK2020 cluster to which the source profile is assigned by the official WUR translation table.
+    datatype: integer
+    nullable: false
+    guardrail: This is a profile-to-BOFEK crosswalk, not an exact areal weight inside OT.02.
+
+  bofek2020_dominant_flag:
+    entity: soil_profile
+    label: BOFEK2020 dominant profile flag
+    description: Dominant flag from the official BOFEK2020 translation table for the profile within its BOFEK cluster.
+    datatype: integer
+    nullable: false
+
+  profile_provenance_class:
+    entity: soil_profile
+    label: Profile provenance class
+    description: Provenance classification distinguishing derived/modal profile context from direct local measurements.
+    datatype: string
+    nullable: false
+
+  screening_count_combined:
+    entity: soil_profile
+    label: Combined screening count
+    description: Count of valid shifted-grid SoilPhys samples assigned to this profile in the bounded OT.02 screening.
+    datatype: integer
+    nullable: true
+
+  screening_fraction_valid_points:
+    entity: soil_profile
+    label: Screening fraction of valid profile points
+    description: Fraction of valid SoilPhys screening points assigned to this profile.
+    datatype: float
+    unit: fraction
+    nullable: true
+    guardrail: Diagnostic screening fraction only; not an admitted exact areal weight.
+
+  screening_fraction_all_points:
+    entity: soil_profile
+    label: Screening fraction of all points
+    description: Fraction of all deterministic screening points assigned to this profile, including no-data points in the denominator.
+    datatype: float
+    unit: fraction
+    nullable: true
+    guardrail: Diagnostic screening fraction only; not an admitted exact areal weight.
+
+  screening_fraction_grid_a:
+    entity: soil_profile
+    label: Grid A screening fraction
+    description: Fraction of all Grid A points assigned to this profile.
+    datatype: float
+    unit: fraction
+    nullable: true
+
+  screening_fraction_grid_b:
+    entity: soil_profile
+    label: Grid B screening fraction
+    description: Fraction of all Grid B points assigned to this profile.
+    datatype: float
+    unit: fraction
+    nullable: true
+
+  grid_fraction_absolute_difference:
+    entity: soil_profile
+    label: Shifted-grid fraction difference
+    description: Absolute difference between the Grid A and Grid B screening fractions.
+    datatype: float
+    unit: fraction
+    nullable: true
+
+  profile_admission_scope:
+    entity: soil_profile
+    label: Profile admission scope
+    description: Explicit bounded project use for which the profile is retained.
+    datatype: string
+    nullable: false
+
+  horizon_code:
+    entity: soil_layer
+    label: Horizon code
+    description: Horizon designation returned by the SoilPhys modal-profile service.
+    datatype: string
+    nullable: false
+
+  modal_bulk_density_g_cm3:
+    entity: soil_layer
+    label: Modal profile bulk density
+    description: Derived/modal dry bulk density supplied as intrinsic profile context by SoilPhys.
+    datatype: float
+    unit: g/cm3
+    nullable: true
+    guardrail: This field is not soil_state.bulk_density_g_cm3 and must never be interpreted as measured CURRENT or constructed REFERENCE compaction state without separate evidence and qualification.
+
+  staring_series_spu:
+    entity: soil_layer
+    label: Staring-series building block
+    description: Staring-series soil-physical building-block code supplied for the modal profile layer.
+    datatype: string
+    nullable: false
+
+  property_provenance_class:
+    entity: soil_layer
+    label: Layer-property provenance class
+    description: Provenance classification for the retained modal profile-layer properties.
+    datatype: string
+    nullable: false
+
+  state_guardrail:
+    entity: soil_layer
+    label: Soil-state guardrail
+    description: Explicit warning preventing modal profile properties from being promoted to CURRENT or REFERENCE soil state without separate qualification.
+    datatype: string
+    nullable: false
