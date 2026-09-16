@@ -16,6 +16,8 @@ For the actual first colleague review, use [`19_colleague_review_session_v0_1.md
 
 The first explicit evidence baseline for the general theoretical framework is [`16_theory_evidence_baseline_v0_1.md`](16_theory_evidence_baseline_v0_1.md).
 
+For the bounded Data Model v0.3 architecture step, use [`21_data_model_v0_3_contract.md`](21_data_model_v0_3_contract.md) and [`22_domain_traceability_v0_3.md`](22_domain_traceability_v0_3.md). These documents do not add new science; they make already documented domain and run-control semantics machine-readable.
+
 ## Core reader path
 
 1. [`01_overview.md`](01_overview.md) — project purpose, scope, maturity and how the calculation is decomposed
@@ -51,14 +53,16 @@ The generated workbook has since advanced to an evidence-aware v0.2 artifact: ca
 18. [`18_status_a_light_checkpoint_v0_1.md`](18_status_a_light_checkpoint_v0_1.md) — current review checkpoint, maturity matrix, data gates and next science/transfer milestones
 19. [`19_colleague_review_session_v0_1.md`](19_colleague_review_session_v0_1.md) — review questions, 90-minute agenda, dispositions and review boundary
 20. [`20_colleague_review_package_v0_1.md`](20_colleague_review_package_v0_1.md) — bounded pre-read/review package and review-record semantics
+21. [`21_data_model_v0_3_contract.md`](21_data_model_v0_3_contract.md) — bounded v0.3 domain/run-control contract and scientific exclusions
+22. [`22_domain_traceability_v0_3.md`](22_domain_traceability_v0_3.md) — cross-layer mapping from theory and conceptual objects to formal controls and canonical datasets
 
 The corresponding machine-readable formal registers live under [`model/`](../model/).
 
 ## Suggested reading paths
 
-**Scientific colleague / reviewer:** `00 → 01 → 02 → 16 → 03 → 04 → 07 → 15 → 17 → 18 → 19`
+**Scientific colleague / reviewer:** `00 → 01 → 02 → 16 → 03 → 04 → 07 → 15 → 17 → 18 → 19 → 21 → 22`
 
-**Data/software colleague:** `00 → 05 → 06 → 08 → 11 → 12 → 15 → 17 → 18 → 19`
+**Data/software colleague:** `00 → 05 → 06 → 08 → 11 → 12 → 15 → 17 → 18 → 21 → 22`
 
 **Tollebeek/domain reviewer:** `00 → 11 → 13 → evidence/ → 15 → 17 → 18 → 19`
 
