@@ -13,6 +13,13 @@ Files:
 - `claims.csv`: project interpretations that may combine or constrain multiple evidence items;
 - `qualification_register.csv`: intended-use qualification of evidence items.
 
+The registers currently contain two bounded baselines:
+
+- the Tollebeek managed-system / pump-dispatch evidence baseline;
+- the v0.1 general theory evidence baseline linking core project principles to Keller 2019, Graves 2015, Groenendijk 2017, Kuhlman 2010 and Romero-Ruiz 2026.
+
+Readable indexes are available in `docs/13_tollebeek_evidence_baseline_v0_1.md` and `docs/16_theory_evidence_baseline_v0_1.md`.
+
 ## Rules
 
 1. A source is not automatically a model parameter.
@@ -21,6 +28,8 @@ Files:
 4. Unknown or unavailable values remain blank/null; they are never silently turned into zero.
 5. A qualified value can still carry a guardrail that restricts how it may be used.
 6. Legacy workbook tables are migration sources. They do not override the canonical evidence register.
+7. Source-derived fact and project interpretation are separate records where the interpretation materially affects modelling or valuation.
+8. A theory principle may be well supported while its local numerical parameterization remains data-gated.
 
 Run:
 
