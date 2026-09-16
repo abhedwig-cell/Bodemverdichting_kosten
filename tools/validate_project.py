@@ -11,6 +11,7 @@ from validate_formal_traceability import validate as validate_formal_traceabilit
 from validate_input_readiness import validate as validate_input_readiness
 from validate_initial_state_gate import validate as validate_initial_state_gate
 from validate_managed_boundary_gate import validate as validate_managed_boundary_gate
+from validate_land_use_gate import validate as validate_land_use_gate
 from validate_profile_baseline import validate as validate_profile_baseline
 from validate_spatial_geometry import validate as validate_spatial_geometry
 
@@ -36,6 +37,7 @@ REQUIRED_PATHS = [
     "docs/27_tollebeek_event_forcing_baseline_v0_1.md",
     "docs/28_tollebeek_initial_state_evidence_route_v0_1.md",
     "docs/29_tollebeek_managed_boundary_evidence_route_v0_1.md",
+    "docs/30_tollebeek_land_use_evidence_route_v0_1.md",
     "docs/24_tollebeek_profile_baseline_v0_1.md",
     "schema/entities.yml",
     "schema/fields.yml",
@@ -55,6 +57,7 @@ REQUIRED_PATHS = [
     "data_requests/tollebeek_drainage_data_request_v0_1.md",
     "data_requests/tollebeek_initial_state_data_request_v0_1.md",
     "data_requests/tollebeek_managed_boundary_data_request_v0_1.md",
+    "data_requests/tollebeek_land_use_data_request_v0_1.md",
     "data/soil/tollebeek_soil_profiles.csv",
     "data/soil/tollebeek_soil_layers.csv",
     "data/soil/tollebeek_profile_screening_v0_1.json",
@@ -85,6 +88,7 @@ def validate() -> list[str]:
     errors.extend(f"input-readiness: {item}" for item in validate_input_readiness())
     errors.extend(f"initial-state-gate: {item}" for item in validate_initial_state_gate())
     errors.extend(f"managed-boundary-gate: {item}" for item in validate_managed_boundary_gate())
+    errors.extend(f"land-use-gate: {item}" for item in validate_land_use_gate())
     errors.extend(f"profile-baseline: {item}" for item in validate_profile_baseline())
     errors.extend(f"spatial-geometry: {item}" for item in validate_spatial_geometry())
     errors.extend(f"project-structure: {item}" for item in validate_required_paths())
