@@ -1,4 +1,4 @@
-schema_version: 0.2.1
+schema_version: 0.3.1
 
 vocabularies:
   soil_state_role:
@@ -81,6 +81,19 @@ vocabularies:
     - P1
     - P2
     - P3
+
+  input_requirement_kind:
+    - EXTERNAL_DATA
+    - DERIVED_INPUT
+    - SCIENTIFIC_DECISION
+    - MODEL_CONFIGURATION
+
+  input_readiness_status:
+    - MISSING
+    - PARTIAL_EVIDENCE
+    - READY_FOR_REVIEW
+    - ADMITTED
+    - DEFERRED
 
   valuation_category:
     - PRIVATE_COST
