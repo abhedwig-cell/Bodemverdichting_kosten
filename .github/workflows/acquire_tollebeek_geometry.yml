@@ -16,7 +16,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Query owner FeatureServer read-only
+      - name: Query owner FeatureServers read-only
         run: |
           python - <<'PY'
           import json
@@ -24,7 +24,6 @@ jobs:
           import urllib.request
           from pathlib import Path
 
-          base = "https://services.arcgis.com/84oM5NriBghHdQ3Z/ArcGIS/rest/services/zzl_Peilgebieden/FeatureServer/0"
           out = Path("acquisition")
           out.mkdir(exist_ok=True)
 
@@ -35,36 +34,40 @@ jobs:
               with urllib.request.urlopen(req, timeout=60) as response:
                   return json.loads(response.read().decode("utf-8"))
 
-          layer = get_json(base, {"f": "pjson"})
-          (out / "layer_metadata.json").write_text(json.dumps(layer, ensure_ascii=False, indent=2), encoding="utf-8")
-
-          fields = "OBJECTID,GPGIDENT,GPGNAAM,GPGSOORT,GPGOPPVL,GPGZMRPL,GPGWNTPL,IWS_GPGSTATU,IWS_GPGBEHER,IWS_GPGONDP,IWS_GPGBOVP,IWS_GPGAFWBOVP,IWS_INUNDATIEPEIL,IWS_MEMO,CREATED_DATE,LAST_EDITED_DATE,OPMERKINGEN,GLOBALID,Shape__Area,Shape__Length,WinterpeilV2,ZomerpeilV2,Peilnum"
-          features = []
-          offset = 0
-          while True:
-              page = get_json(base + "/query", {
-                  "f": "json",
-                  "where": "1=1",
-                  "outFields": fields,
-                  "returnGeometry": "false",
-                  "orderByFields": "OBJECTID",
-                  "resultOffset": offset,
-                  "resultRecordCount": 1000,
-              })
-              if "error" in page:
-                  raise RuntimeError(page["error"])
-              page_features = page.get("features", [])
-              features.extend(page_features)
-              if not page.get("exceededTransferLimit") and len(page_features) < 1000:
-                  break
-              if not page_features:
-                  break
-              offset += len(page_features)
+          def fetch_all(layer_url, out_fields="*", return_geometry=False):
+              features = []
+              offset = 0
+              while True:
+                  page = get_json(layer_url + "/query", {
+                      "f": "json",
+                      "where": "1=1",
+                      "outFields": out_fields,
+                      "returnGeometry": "true" if return_geometry else "false",
+                      "resultOffset": offset,
+                      "resultRecordCount": 1000,
+                  })
+                  if "error" in page:
+                      raise RuntimeError(page["error"])
+                  page_features = page.get("features", [])
+                  features.extend(page_features)
+                  if not page.get("exceededTransferLimit") and len(page_features) < 1000:
+                      break
+                  if not page_features:
+                      break
+                  offset += len(page_features)
+              return features
 
           def is_candidate(attrs):
               haystack = " | ".join("" if v is None else str(v) for v in attrs.values()).lower()
               return "ot.02" in haystack or "ot02" in haystack or "tollebeek" in haystack
 
+          # Current owner peilgebied layer.
+          base = "https://services.arcgis.com/84oM5NriBghHdQ3Z/ArcGIS/rest/services/zzl_Peilgebieden/FeatureServer/0"
+          layer = get_json(base, {"f": "pjson"})
+          (out / "layer_metadata.json").write_text(json.dumps(layer, ensure_ascii=False, indent=2), encoding="utf-8")
+
+          fields = "OBJECTID,GPGIDENT,GPGNAAM,GPGSOORT,GPGOPPVL,GPGZMRPL,GPGWNTPL,IWS_GPGSTATU,IWS_GPGBEHER,IWS_GPGONDP,IWS_GPGBOVP,IWS_GPGAFWBOVP,IWS_INUNDATIEPEIL,IWS_MEMO,CREATED_DATE,LAST_EDITED_DATE,OPMERKINGEN,GLOBALID,Shape__Area,Shape__Length,WinterpeilV2,ZomerpeilV2,Peilnum"
+          features = fetch_all(base, fields, False)
           candidates = [f for f in features if is_candidate(f.get("attributes", {}))]
           summary = {
               "queried_layer": base,
@@ -87,7 +90,36 @@ jobs:
               geometry = {"type": "FeatureCollection", "features": []}
           (out / "candidate_geometry.geojson").write_text(json.dumps(geometry, ensure_ascii=False, indent=2), encoding="utf-8")
 
+          # Owner peilbesluit service: discover all layers and scan their attributes
+          # without assuming field names or layer ids.
+          pb_service = "https://services.arcgis.com/84oM5NriBghHdQ3Z/ArcGIS/rest/services/Peilbesluiten_WFL1/FeatureServer"
+          pb_meta = get_json(pb_service, {"f": "pjson"})
+          (out / "peilbesluiten_service_metadata.json").write_text(json.dumps(pb_meta, ensure_ascii=False, indent=2), encoding="utf-8")
+
+          pb_matches = []
+          for entry in pb_meta.get("layers", []):
+              layer_id = entry["id"]
+              layer_url = f"{pb_service}/{layer_id}"
+              layer_meta = get_json(layer_url, {"f": "pjson"})
+              layer_features = fetch_all(layer_url, "*", False)
+              matched = [f for f in layer_features if is_candidate(f.get("attributes", {}))]
+              if matched:
+                  pb_matches.append({
+                      "layer_id": layer_id,
+                      "layer_name": entry.get("name"),
+                      "layer_metadata": {
+                          "geometryType": layer_meta.get("geometryType"),
+                          "objectIdField": layer_meta.get("objectIdField"),
+                          "globalIdField": layer_meta.get("globalIdField"),
+                          "editingInfo": layer_meta.get("editingInfo"),
+                          "extent": layer_meta.get("extent"),
+                      },
+                      "candidate_attributes": [f.get("attributes", {}) for f in matched],
+                  })
+          (out / "peilbesluiten_candidates.json").write_text(json.dumps({"matches": pb_matches}, ensure_ascii=False, indent=2), encoding="utf-8")
+
           print(json.dumps(summary, ensure_ascii=False, indent=2))
+          print(json.dumps({"peilbesluiten_matches": pb_matches}, ensure_ascii=False, indent=2))
           PY
       - name: Upload acquisition evidence
         uses: actions/upload-artifact@v4
