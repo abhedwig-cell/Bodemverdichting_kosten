@@ -8,7 +8,7 @@ If you are new to the project, begin with [`00_colleague_reader_guide.md`](00_co
 
 For documentation governance and Status-A-light expectations, see [`14_documentation_status_a_light.md`](14_documentation_status_a_light.md).
 
-For a compact cross-layer review of the current architecture, see [`15_traceability_matrix_v0_1.md`](15_traceability_matrix_v0_1.md).
+For a compact cross-layer review of the current architecture, see [`15_traceability_matrix_v0_1.md`](15_traceability_matrix_v0_1.md). The machine-readable equation and capability traceability baseline is documented in [`17_formal_traceability_register_v0_1.md`](17_formal_traceability_register_v0_1.md).
 
 The first explicit evidence baseline for the general theoretical framework is [`16_theory_evidence_baseline_v0_1.md`](16_theory_evidence_baseline_v0_1.md).
 
@@ -41,16 +41,19 @@ The generated workbook has since advanced to an evidence-aware v0.2 artifact: ca
 ## Status-A-light governance, traceability and theory evidence
 
 14. [`14_documentation_status_a_light.md`](14_documentation_status_a_light.md) — documentation layers, maturity states, minimum metadata, scientific-claim discipline and review triggers
-15. [`15_traceability_matrix_v0_1.md`](15_traceability_matrix_v0_1.md) — theory-to-code/evidence traceability for the main current capabilities and broken-link review
+15. [`15_traceability_matrix_v0_1.md`](15_traceability_matrix_v0_1.md) — colleague-facing theory-to-code/evidence traceability for the main current capabilities and broken-link review
 16. [`16_theory_evidence_baseline_v0_1.md`](16_theory_evidence_baseline_v0_1.md) — first source/evidence/claim/qualification baseline for the general theoretical framework
+17. [`17_formal_traceability_register_v0_1.md`](17_formal_traceability_register_v0_1.md) — machine-readable equation register and capability traceability with integrity validation
+
+The corresponding machine-readable formal registers live under [`model/`](../model/).
 
 ## Suggested reading paths
 
-**Scientific colleague / reviewer:** `00 → 01 → 02 → 16 → 03 → 04 → 07 → 15`
+**Scientific colleague / reviewer:** `00 → 01 → 02 → 16 → 03 → 04 → 07 → 15 → 17`
 
-**Data/software colleague:** `00 → 05 → 06 → 08 → 11 → 12 → 15`
+**Data/software colleague:** `00 → 05 → 06 → 08 → 11 → 12 → 15 → 17`
 
-**Tollebeek/domain reviewer:** `00 → 11 → 13 → evidence/ → 15`
+**Tollebeek/domain reviewer:** `00 → 11 → 13 → evidence/ → 15 → 17`
 
 ## Status-A-light principle
 
