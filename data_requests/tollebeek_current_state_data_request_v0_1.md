@@ -36,11 +36,15 @@ A measurement outside the admitted polygon is not Tollebeek OT.02 evidence merel
 
 Coordinates must not be reconstructed from a printed figure when source coordinates are available or can be requested.
 
+If privacy prevents release of exact coordinates, request a holder-side reproducible OT.02 selection plus stable pseudonymous location IDs and enough spatial/provenance metadata to audit the selection without reconstructing private farm locations.
+
 ## Temporal rule
 
 The reported campaign was measured between September 2020 and June 2021. These observations may support a **dated measured state for their measurement date**.
 
 They must not silently be relabelled as a 2026 CURRENT state. A later use as a current-state proxy requires an explicit temporal-transfer argument, including management/state-change uncertainty, or a newer measurement campaign.
+
+They also must not be silently backdated to the October-1998 event. A 2020–2021 CURRENT/REFERENCE pair under observed 1998 forcing is a controlled historical-forcing scenario unless a separate temporal-transfer argument is qualified.
 
 ## Measurement semantics
 
@@ -52,12 +56,32 @@ SoilPhys `modal_bulk_density_g_cm3` is excluded from this request as CURRENT-sta
 
 ## Public routes identified
 
-- WER Rapport 3382 / DOI 10.18174/672577 documents the campaign and measurement protocol.
+- WER Rapport 3382 / DOI `10.18174/672577` documents the campaign and measurement protocol.
 - NWO-SIA project `Flevo - land in beweging`, dossier `RAAK.PRO02.021`, states that a valuable province-wide measurement dataset was collected.
-- The Actieplan Bodem & Water Flevoland website provides a public programme contact route.
-- WUR provides a public contact page for first author Fenny van Egmond.
+- The WER report records project number `5200043298`.
+- The Actieplan Bodem & Water Flevoland website provides a public programme contact/referral route.
+- Aeres Hogeschool is the project lead institution shown by the NWO-SIA project page.
+- WUR/WER is the publisher/research partner for Report 3382.
 
-The public search performed on 2026-09-16 did not locate a downloadable raw coordinate/value table. This is a data-access blocker, not evidence that the records do not exist.
+The bounded public search performed on 2026-09-16 did not locate a downloadable raw coordinate/value table or a separate public dataset identifier linked from the report/project routes. This is a data-access/identifier blocker, not evidence that the records do not exist or cannot be shared.
+
+Detailed source-holder route: `docs/38_tollebeek_current_state_access_route_v0_1.md`.
+
+## Qualified source-holder request order
+
+1. **Aeres Hogeschool / RAAK-PRO project route** — request the source-native final measurement table, codebook or the responsible data-holder contact. Current public project/researcher contact: Karin Pepers (`k.pepers@aeres.nl`).
+2. **Wageningen Environmental Research / WER3382 author route** — request the canonical archive/dataset identifier or shareable raw measurement export underlying Report 3382, preserving any required anonymisation or spatial privacy restrictions. Current public WUR profile route: Fenny van Egmond.
+3. **Actieplan Bodem & Water Flevoland** — programme/dissemination referral route (`info@bodemenwaterflevoland.nl`) if the project-result landing page or data holder cannot be resolved through Aeres/WUR.
+
+The request should identify all of: `Flevo - land in beweging`, `RAAK.PRO02.021`, WER project `5200043298`, Report 3382, DOI `10.18174/672577`, and the September-2020 through June-2021 campaign.
+
+A stable repository/dataset identifier is preferred over an emailed spreadsheet when one exists.
+
+## Related-project access context
+
+A separate peer-reviewed 2018 field study funded under `RAAK.PRO02.021` states that its own data are available on request from the authors with anonymisation of personal information.
+
+That is **not** the WER3382 2020–2021 dataset. It is retained only as `RELATED_PROJECT_DATA_GOVERNANCE_CONTEXT` and must not be cited as proof that the WER3382 dataset is request-only.
 
 ## Reviewed alternative: BIS-4D public bulk-density points
 
@@ -79,11 +103,12 @@ This negative route result does not imply that no Tollebeek observations exist i
 
 `DR_SM_CURRENT_STATE` may only move toward `READY_FOR_REVIEW` or `ADMITTED` when the candidate records:
 
-1. have source-native location IDs and coordinates;
+1. have source-native location IDs and coordinates, or an independently auditable privacy-preserving OT.02 selection;
 2. intersect the admitted OT.02 polygon reproducibly;
 3. retain measurement dates and depth semantics;
 4. retain direct-measurement versus derived-variable provenance;
 5. retain QC and missingness explicitly;
 6. can be mapped to a model state representation without replacing missing values by defaults;
 7. do not infer area weights from sparse point counts;
-8. include an explicit temporal-use decision if used outside the 2020–2021 observation period.
+8. include an explicit temporal-use decision if used outside the 2020–2021 observation period;
+9. retain a source/version/dataset authority sufficient to reproduce the acquisition.
