@@ -59,6 +59,22 @@ SoilPhys `modal_bulk_density_g_cm3` is excluded from this request as CURRENT-sta
 
 The public search performed on 2026-09-16 did not locate a downloadable raw coordinate/value table. This is a data-access blocker, not evidence that the records do not exist.
 
+## Reviewed alternative: BIS-4D public bulk-density points
+
+A bounded provenance-recovery campaign reviewed the public 4TU/BIS-4D point dataset `c90215b3-bdc6-4633-b721-4c4a0259d6dc`, specifically `tbl_cal_BD_gcm3.csv`.
+
+The exact recovered file contains 15,871 bulk-density rows with source-native RD coordinates, horizon/depth context, year and `lab`/`field` quality semantics, but:
+
+- no WER3382 / `RAAK.PRO02.021` / project `5200043298` provenance could be established from the CSV or README;
+- the exact `year` column contains zero 2020 or 2021 records;
+- direct EPSG:28992 intersection with canonical OT.02 returns zero records inside the admitted polygon.
+
+Therefore this specific public BIS release is classified as `REVIEWED_PUBLIC_ALTERNATIVE_NO_OT02_CURRENT_STATE_RECOVERY` and must not be substituted for the requested WER3382 raw dataset.
+
+Detailed route evidence: `docs/37_tollebeek_current_state_bis_recovery_v0_1.md`.
+
+This negative route result does not imply that no Tollebeek observations exist in non-public or other archives.
+
 ## Admission criteria after acquisition
 
 `DR_SM_CURRENT_STATE` may only move toward `READY_FOR_REVIEW` or `ADMITTED` when the candidate records:
