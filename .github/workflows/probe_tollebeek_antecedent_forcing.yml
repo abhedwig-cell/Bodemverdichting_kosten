@@ -16,170 +16,83 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Acquire and review KNMI station 273 antecedent forcing
+      - name: Diagnose station-273 precipitation gaps and station-269 availability
         shell: bash
         run: |
           set -euo pipefail
           python - <<'PY'
-          import csv, hashlib, io, json, urllib.parse, urllib.request
-          from collections import Counter
+          import json, urllib.parse, urllib.request
           from datetime import datetime, timedelta, timezone
           from pathlib import Path
 
-          URL = 'https://www.daggegevens.knmi.nl/klimatologie/uurgegevens'
-          payload = urllib.parse.urlencode({
-              'stns': '273',
-              'vars': 'ALL',
-              # Deliberately wider than the target period. HH 1..24 requests all hours.
-              'start': '1997102301',
-              'end': '1998102424',
+          url='https://www.daggegevens.knmi.nl/klimatologie/uurgegevens'
+          payload=urllib.parse.urlencode({
+              'stns':'273:269', 'vars':'PRCP',
+              'start':'1997102301', 'end':'1998102424'
           }).encode('ascii')
-          req = urllib.request.Request(
-              URL,
-              data=payload,
-              headers={'User-Agent': 'Bodemverdichting-kosten-antecedent-forcing/0.1'},
-              method='POST',
-          )
-          with urllib.request.urlopen(req, timeout=180) as r:
-              raw = r.read()
-          Path('knmi_273_antecedent_raw.txt').write_bytes(raw)
-          raw_sha256 = hashlib.sha256(raw).hexdigest()
-          text = raw.decode('utf-8-sig')
+          req=urllib.request.Request(url,data=payload,headers={'User-Agent':'Bodemverdichting-kosten-antecedent-gap-diagnosis/0.1'},method='POST')
+          with urllib.request.urlopen(req,timeout=180) as r:
+              raw=r.read()
+          text=raw.decode('utf-8-sig')
+          station_header=[ln.strip() for ln in text.splitlines() if ln.startswith('#') and ('269' in ln or '273' in ln)]
+          rows=[]
+          for line_no,line in enumerate(text.splitlines(),start=1):
+              s=line.strip()
+              if not s or s.startswith('#'): continue
+              vals=[x.strip() for x in line.split(',')]
+              if len(vals)!=5:
+                  raise SystemExit(f'unexpected PRCP row width {len(vals)} at {line_no}: {line}')
+              stn,date,hh,dr,rh=vals
+              d=datetime.strptime(date,'%Y%m%d').replace(tzinfo=timezone.utc)
+              h=int(hh)
+              end=d+(timedelta(days=1) if h==24 else timedelta(hours=h))
+              start=end-timedelta(hours=1)
+              rows.append({'stn':stn,'date':date,'hh':h,'DR':dr,'RH':rh,'start':start})
 
-          native_fields = ['STN','YYYYMMDD','HH','DD','FH','FF','FX','T','T10N','TD','SQ','Q','DR','RH','P','VV','N','U','WW','IX','M','R','S','O','Y']
-          data_rows = []
-          for line_no, line in enumerate(text.splitlines(), start=1):
-              s = line.strip()
-              if not s or s.startswith('#'):
-                  continue
-              vals = [x.strip() for x in line.split(',')]
-              if len(vals) != len(native_fields):
-                  raise SystemExit(f'Unexpected KNMI row width at line {line_no}: {len(vals)} != {len(native_fields)}')
-              row = dict(zip(native_fields, vals))
-              if row['STN'] != '273':
-                  raise SystemExit(f'Unexpected station at line {line_no}: {row["STN"]}')
-              hh = int(row['HH'])
-              d = datetime.strptime(row['YYYYMMDD'], '%Y%m%d').replace(tzinfo=timezone.utc)
-              end = d + (timedelta(days=1) if hh == 24 else timedelta(hours=hh))
-              start = end - timedelta(hours=1)
-              row['_interval_start'] = start
-              row['_interval_end'] = end
-              row['_line'] = line_no
-              data_rows.append(row)
+          t0=datetime(1997,10,24,tzinfo=timezone.utc); t1=datetime(1998,10,24,tzinfo=timezone.utc)
+          by={s:{} for s in ('273','269')}
+          for r in rows:
+              if t0<=r['start']<t1 and r['stn'] in by:
+                  by[r['stn']][r['start']]=r
 
-          target_start = datetime(1997,10,24,0,0,tzinfo=timezone.utc)
-          target_end = datetime(1998,10,24,0,0,tzinfo=timezone.utc)
-          target = [r for r in data_rows if target_start <= r['_interval_start'] < target_end]
-          boundary = [r for r in data_rows if target_end <= r['_interval_start'] < target_end + timedelta(days=1)]
+          def blocks(times):
+              times=sorted(times)
+              if not times: return []
+              out=[]; a=prev=times[0]
+              for t in times[1:]:
+                  if t-prev!=timedelta(hours=1):
+                      out.append((a,prev+timedelta(hours=1)))
+                      a=t
+                  prev=t
+              out.append((a,prev+timedelta(hours=1)))
+              return [{'start':a.isoformat().replace('+00:00','Z'),'end_exclusive':b.isoformat().replace('+00:00','Z'),'hours':int((b-a).total_seconds()/3600)} for a,b in out]
 
-          starts = [r['_interval_start'] for r in target]
-          duplicates = [t.isoformat() for t,n in Counter(starts).items() if n > 1]
-          gaps = []
-          expected = target_start
-          have = set(starts)
-          while expected < target_end:
-              if expected not in have:
-                  gaps.append(expected.isoformat().replace('+00:00','Z'))
-              expected += timedelta(hours=1)
+          missing273_rh=[t for t,r in by['273'].items() if r['RH']=='']
+          missing273_dr=[t for t,r in by['273'].items() if r['DR']=='']
+          missing269_rh=[t for t,r in by['269'].items() if r['RH']=='']
+          available269_for_273_gap=[t for t in missing273_rh if t in by['269'] and by['269'][t]['RH']!='']
+          absent269_for_273_gap=[t for t in missing273_rh if t not in by['269'] or by['269'][t]['RH']=='']
 
-          value_fields = native_fields[3:]
-          missing = {f: sum(1 for r in target if r[f] == '') for f in value_fields}
-          trace_counts = {
-              'RH_minus1': sum(1 for r in target if r['RH'] == '-1'),
-              'SQ_minus1': sum(1 for r in target if r['SQ'] == '-1'),
+          summary={
+              'station_header_lines':station_header,
+              'target_hours':8760,
+              'station_273_rows':len(by['273']),
+              'station_269_rows':len(by['269']),
+              'station_273_missing_RH_count':len(missing273_rh),
+              'station_273_missing_DR_count':len(missing273_dr),
+              'station_273_missing_RH_blocks':blocks(missing273_rh),
+              'station_269_missing_RH_count':len(missing269_rh),
+              'station_269_missing_RH_blocks':blocks(missing269_rh),
+              'station_269_available_for_273_missing_RH_count':len(available269_for_273_gap),
+              'station_269_unavailable_for_273_missing_RH_count':len(absent269_for_273_gap),
+              'guardrail':'Station 269 availability is diagnostic only. No cross-station substitution or gap filling is admitted by this probe.'
           }
-
-          out_fields = [
-              'antecedent_observation_id','source_station_id','source_date_yyyymmdd','source_hour_utc',
-              'interval_start_utc','interval_end_utc',
-              'wind_direction_deg','wind_hourly_mean_0_1_ms','wind_mean_0_1_ms','wind_gust_0_1_ms',
-              'air_temperature_0_1_c','min_air_temperature_10cm_0_1_c','dewpoint_temperature_0_1_c',
-              'sunshine_duration_0_1_h','global_radiation_j_cm2','precipitation_duration_0_1_h',
-              'precipitation_amount_0_1_mm','sea_level_pressure_0_1_hpa','visibility_code','cloud_cover_octants',
-              'relative_humidity_pct','present_weather_code','weather_station_type','fog_indicator','rain_indicator',
-              'snow_indicator','thunder_indicator','ice_indicator'
-          ]
-          native_to_out = {
-              'DD':'wind_direction_deg','FH':'wind_hourly_mean_0_1_ms','FF':'wind_mean_0_1_ms','FX':'wind_gust_0_1_ms',
-              'T':'air_temperature_0_1_c','T10N':'min_air_temperature_10cm_0_1_c','TD':'dewpoint_temperature_0_1_c',
-              'SQ':'sunshine_duration_0_1_h','Q':'global_radiation_j_cm2','DR':'precipitation_duration_0_1_h',
-              'RH':'precipitation_amount_0_1_mm','P':'sea_level_pressure_0_1_hpa','VV':'visibility_code',
-              'N':'cloud_cover_octants','U':'relative_humidity_pct','WW':'present_weather_code','IX':'weather_station_type',
-              'M':'fog_indicator','R':'rain_indicator','S':'snow_indicator','O':'thunder_indicator','Y':'ice_indicator'
-          }
-          sio = io.StringIO(newline='')
-          w = csv.DictWriter(sio, fieldnames=out_fields, lineterminator='\n')
-          w.writeheader()
-          for idx,r in enumerate(sorted(target, key=lambda x:x['_interval_start']), start=1):
-              o = {
-                  'antecedent_observation_id': f'ANT_TOL_1998_PRE1Y_{idx:04d}',
-                  'source_station_id': r['STN'],
-                  'source_date_yyyymmdd': r['YYYYMMDD'],
-                  'source_hour_utc': r['HH'],
-                  'interval_start_utc': r['_interval_start'].isoformat().replace('+00:00','Z'),
-                  'interval_end_utc': r['_interval_end'].isoformat().replace('+00:00','Z'),
-              }
-              for nf,of in native_to_out.items():
-                  o[of] = r[nf]
-              w.writerow(o)
-          normalized = sio.getvalue().encode('utf-8')
-          Path('tollebeek_1997_1998_marknesse_antecedent_candidate.csv').write_bytes(normalized)
-          normalized_sha256 = hashlib.sha256(normalized).hexdigest()
-
-          # Compare the separately acquired first 24 event hours with the admitted canonical event rows.
-          canonical = {}
-          event_path = Path('data/events/tollebeek_1998_marknesse_hourly.csv')
-          if event_path.exists():
-              with event_path.open(encoding='utf-8', newline='') as f:
-                  for r in csv.DictReader(f):
-                      canonical[r['interval_start_utc']] = r
-          compare_fields = list(native_to_out.values())
-          mismatches = []
-          for r in boundary:
-              k = r['_interval_start'].isoformat().replace('+00:00','Z')
-              c = canonical.get(k)
-              if not c:
-                  mismatches.append({'interval_start_utc': k, 'reason':'missing_in_canonical_event'})
-                  continue
-              for nf,of in native_to_out.items():
-                  if r[nf] != c.get(of,''):
-                      mismatches.append({'interval_start_utc':k,'field':of,'fresh':r[nf],'canonical':c.get(of,'')})
-
-          summary = {
-              'source_url': URL,
-              'station_id': '273',
-              'station_name': 'Marknesse',
-              'request_start': '1997102301',
-              'request_end': '1998102424',
-              'raw_bytes': len(raw),
-              'raw_sha256': raw_sha256,
-              'parsed_rows_wide_request': len(data_rows),
-              'target_start_utc': '1997-10-24T00:00:00Z',
-              'target_end_utc_exclusive': '1998-10-24T00:00:00Z',
-              'expected_target_hours': 8760,
-              'target_rows': len(target),
-              'duplicate_interval_count': len(duplicates),
-              'duplicates': duplicates[:20],
-              'gap_count': len(gaps),
-              'gaps': gaps[:100],
-              'missing_counts_by_native_variable': missing,
-              'trace_counts': trace_counts,
-              'normalized_bytes': len(normalized),
-              'normalized_sha256': normalized_sha256,
-              'boundary_comparison_rows': len(boundary),
-              'boundary_mismatch_count': len(mismatches),
-              'boundary_mismatches': mismatches[:100],
-              'scientific_boundary': 'Acquisition/review candidate only; one year is not automatically a sufficient warm-up and no initial state is admitted.'
-          }
-          Path('antecedent_forcing_summary.json').write_text(json.dumps(summary, indent=2), encoding='utf-8')
-          print(json.dumps(summary, indent=2))
+          Path('antecedent_precip_gap_summary.json').write_text(json.dumps(summary,indent=2),encoding='utf-8')
+          print(json.dumps(summary,indent=2))
           PY
-      - name: Upload antecedent forcing acquisition artifact
+      - name: Upload precipitation-gap diagnostic
         uses: actions/upload-artifact@v4
         with:
-          name: tollebeek-antecedent-forcing-probe
-          path: |
-            knmi_273_antecedent_raw.txt
-            tollebeek_1997_1998_marknesse_antecedent_candidate.csv
-            antecedent_forcing_summary.json
+          name: tollebeek-antecedent-precip-gap-diagnostic
+          path: antecedent_precip_gap_summary.json
           if-no-files-found: error
