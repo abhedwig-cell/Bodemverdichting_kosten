@@ -6,7 +6,7 @@ Phase: `CLASSIFY`
 
 Branch: `work/tollebeek-current-state-pointscale-route-v0.1`
 
-Canonical start: `a3ab527769c62e2f8d5ba75c30b11e549db01ea5`
+Original canonical start: `a3ab527769c62e2f8d5ba75c30b11e549db01ea5`
 
 ## Acquisition evidence
 
@@ -45,11 +45,11 @@ Rationale:
 
 No `soil_state` row, area weight, hydraulic parameter or model input is created.
 
-Primary active route remains acquisition of the raw 2020–2021 WER3382 regional point dataset.
+Primary material route remains acquisition of the raw 2020–2021 WER3382 regional point dataset through the source-holder handoff already present on current `main`.
 
-## Persisted canonical outputs prepared
+## Canonical output
 
-- `docs/38_tollebeek_current_state_pointscale_route_v0_1.md`
-- updated `data_requests/tollebeek_current_state_data_request_v0_1.md`
+- detailed classification note: `docs/42_tollebeek_current_state_pointscale_route_v0_1.md`
+- current source-holder/data-request package on `main` remains authoritative and is not replaced by this workunit.
 
-Next permitted action: remove temporary workflow, verify clean diff, normal CI qualification, then CLOSE without state admission.
+Next permitted action: reconcile concurrent `main` delta, normal CI qualification, then CLOSE without state admission.

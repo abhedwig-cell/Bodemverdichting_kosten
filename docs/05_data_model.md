@@ -25,6 +25,7 @@ The canonical structure has four related layers.
 - spatial unit;
 - soil profile and layer;
 - soil state;
+- hydraulic parameterization;
 - drainage configuration;
 - event and model run;
 - hydrological response;
@@ -69,6 +70,7 @@ Examples:
 | `evidence_register` | one row per extractable evidence item |
 | `soil_layer_register` | one row per soil profile × depth interval |
 | `soil_state_register` | one row per profile × layer × state |
+| `hydraulic_parameterization_register` | one row per soil state × method/version × uncertainty/member × representation |
 | `event_register` | one row per event/simulation window |
 | `model_run_register` | one row per controlled model execution |
 | `transfer_event_register` | one row per source unit × event × transfer stage |
@@ -154,10 +156,12 @@ Typical profile/layer context includes:
 Typical state variables include:
 
 - bulk density;
-- state-specific hydraulic properties where the project explicitly derives them from state;
-- compaction severity/state role.
+- compaction severity/state role;
+- other explicitly state-dependent measured indicators.
 
-This separation matters because the matched counterfactual normally changes soil state while preserving profile context.
+State-specific hydraulic properties are represented through a separate `HydraulicParameterization` object when they are measured/fitted or derived from state. This preserves the distinction between measurement of physical state and transformation to model-ready retention/conductivity functions.
+
+This separation matters because the matched counterfactual normally changes soil state while preserving profile context and transformation semantics.
 
 ## 5.8 Evidence model
 

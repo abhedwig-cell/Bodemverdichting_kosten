@@ -363,12 +363,37 @@ Current implemented examples are:
 
 Passing those tests demonstrates implementation semantics, not the scientific correctness of a Tollebeek input dataset or event result.
 
-## 4.17 Formal status
+## 4.17 Soil-state to hydraulic-parameterization contract
+
+Let `S_i,s` be the admitted or explicitly scenario-qualified soil state for layer/profile unit `i` and state role `s`, and `X_i` the retained intrinsic/profile context used by a qualified transformation method `T_v`:
+
+```text
+H_i,s,m = T_v(S_i,s, X_i, m)
+```
+
+where `m` is an explicit uncertainty/scenario member when one unique hydraulic state is not identified, and `H` is the hydraulic representation consumed by SWAP (analytical parameters or a qualified hydraulic table).
+
+Rules:
+
+- `T_v` has an immutable method/version and explicit predictor contract;
+- missing predictors remain missing and do not receive convenience defaults;
+- measured state variables are not relabelled as measured hydraulic parameters;
+- a fitted or pedotransfer-derived hydraulic function retains derived provenance and diagnostics/uncertainty;
+- Staring/BOFEK/SoilPhys modal values are context/method priors unless separately qualified for the intended state;
+- CURRENT and REFERENCE use the same transformation family/version and equivalent predictor semantics for simple matched attribution where scientifically possible;
+- asymmetric transformation methods become an explicit additional source of contrast and require separate qualification;
+- no single ensemble member may be selected because it yields a preferred hydrological response.
+
+For an analytical Mualem–Van Genuchten representation, `H` may contain `theta_r`, `theta_s`, `alpha`, `n`, `Ksat` and the conductivity exponent plus configuration-dependent optional terms. For tabular input, `H` references the complete qualified retention/conductivity table.
+
+This relation defines architecture and provenance. It does not supply numerical Tollebeek parameters.
+
+## 4.18 Formal status
 
 This formal baseline is sufficient for the current Tollebeek source → transfer → dispatch vertical slice. It remains incomplete for full project scope, especially:
 
 - crop/yield response functions;
-- construction of current/reference hydraulic parameter sets;
+- numerical qualification/admission of current/reference hydraulic parameter sets under the explicit hydraulic-transformation contract;
 - event occurrence/magnitude transfer models;
 - nutrient and pesticide pathways;
 - national scaling and nonlinear aggregation;
