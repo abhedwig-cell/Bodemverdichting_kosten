@@ -18,83 +18,126 @@ jobs:
         with:
           python-version: '3.12'
       - name: Install acquisition dependencies
-        run: python -m pip install requests shapely pyproj
-      - name: Discover historical groundwater series around admitted OT.02
+        run: python -m pip install requests
+      - name: Inspect candidate GLD series and monitoring-tube metadata
         run: |
           python - <<'PY'
           from __future__ import annotations
-          import json
-          from datetime import date
+          import csv, io, json
+          from datetime import datetime, timezone
           from pathlib import Path
           import requests
-          from pyproj import Transformer
-          from shapely.geometry import shape, Point, mapping
-          from shapely.ops import transform
 
-          ROOT=Path('.')
-          geom_doc=json.loads((ROOT/'data/spatial/tollebeek_ot02_current.geojson').read_text(encoding='utf-8'))
-          feature=geom_doc['features'][0] if geom_doc.get('type')=='FeatureCollection' else geom_doc
-          poly_rd=shape(feature['geometry'])
-          tf=Transformer.from_crs(28992,4326,always_xy=True)
-          poly=transform(tf.transform,poly_rd)
-          minx,miny,maxx,maxy=poly.bounds
-          # Broaden discovery slightly to allow nearby monitoring points; classify inside/near separately.
-          margin=0.08
-          bbox=f'{minx-margin},{miny-margin},{maxx+margin},{maxy+margin}'
-          base='https://api.pdok.nl/tno/bro-grondwatermonitoring-in-samenhang-karakteristieken/ogc/v1/collections/gm_gld/items'
-          params={'bbox':bbox,'limit':1000,'f':'json'}
-          r=requests.get(base,params=params,timeout=120)
-          r.raise_for_status()
-          doc=r.json()
-          features=doc.get('features',[])
-          target=date(1998,10,24)
-          candidates=[]
-          for f in features:
-              p=f.get('properties') or {}
-              g=f.get('geometry')
-              if not g: continue
-              pt=shape(g)
-              first=p.get('research_first_date')
-              last=p.get('research_last_date')
-              overlap=False
-              try:
-                  overlap=date.fromisoformat(first[:10]) <= target <= date.fromisoformat(last[:10])
-              except Exception:
-                  pass
-              # approximate metric distance after projection to RD
-              back=Transformer.from_crs(4326,28992,always_xy=True)
-              pt_rd=transform(back.transform,pt)
-              distance_m=poly_rd.distance(pt_rd)
-              candidates.append({
-                  'bro_id':p.get('bro_id'),
-                  'feature_id':f.get('id'),
-                  'monitoringtube_relation':p.get('gm_gmw_monitoringtube'),
-                  'research_first_date':first,
-                  'research_last_date':last,
-                  'number_of_observations':p.get('number_of_observations'),
-                  'series_fully_assessed_csv_url':p.get('series_fully_assessed_csv_url'),
-                  'series_preliminary_csv_url':p.get('series_preliminary_csv_url'),
-                  'series_unknown_csv_url':p.get('series_unknown_csv_url'),
-                  'lon':pt.x,'lat':pt.y,
-                  'inside_ot02':poly.covers(pt),
-                  'distance_to_ot02_m':round(distance_m,1),
-                  'covers_1998_10_24':overlap,
-              })
-          candidates.sort(key=lambda x:(not x['covers_1998_10_24'],not x['inside_ot02'],x['distance_to_ot02_m']))
-          selected=[x for x in candidates if x['covers_1998_10_24'] and x['distance_to_ot02_m'] <= 10000]
-          summary={
-              'ot02_wgs84_bbox':[minx,miny,maxx,maxy],
-              'query_bbox':bbox,
-              'number_returned':len(features),
-              'candidate_count_total':len(candidates),
-              'covers_target_within_10km_count':len(selected),
-              'inside_ot02_and_covers_target_count':sum(1 for x in selected if x['inside_ot02']),
-              'top_candidates':selected[:50],
-          }
-          Path('initial_state_gld_discovery.json').write_text(json.dumps(summary,indent=2),encoding='utf-8')
-          print(json.dumps(summary,indent=2))
+          target=datetime(1998,10,24,tzinfo=timezone.utc)
+          candidates=[
+            ('GLD000000055972','8270e57b-ebb4-5816-83a8-234ab861b7f3',0.0,True),
+            ('GLD000000056073','00cbf950-1f2a-53f6-80dd-4ec83d550fcc',0.0,True),
+            ('GLD000000011107','281e47e5-c890-5fbd-9027-45cc8fabbe5e',157.5,False),
+            ('GLD000000011178','fd7c2975-18e4-5431-a17b-56f8b74b5bda',157.5,False),
+            ('GLD000000011383','6315af23-b28b-5d09-a12c-3b2bebdcf4df',316.5,False),
+            ('GLD000000011464','fc530c28-0570-5e56-840c-6226d2275e27',316.5,False),
+          ]
+          base='https://api.pdok.nl/tno/bro-grondwatermonitoring-in-samenhang-karakteristieken/ogc/v1'
+          session=requests.Session()
+          out={'target_utc':target.isoformat(),'candidates':[]}
+
+          def parse_csv(text):
+              # BRO CSV is source-native; determine delimiter without changing values.
+              lines=[ln for ln in text.splitlines() if ln.strip()]
+              if not lines: return [],[],None
+              sample='\n'.join(lines[:20])
+              try: delim=csv.Sniffer().sniff(sample,delimiters=',;\t').delimiter
+              except Exception: delim=';'
+              reader=csv.DictReader(io.StringIO(text),delimiter=delim)
+              return list(reader), reader.fieldnames or [], delim
+
+          def parse_date(s):
+              if not s: return None
+              s=s.strip()
+              variants=[s,s.replace('Z','+00:00')]
+              for v in variants:
+                  try:
+                      d=datetime.fromisoformat(v)
+                      if d.tzinfo is None: d=d.replace(tzinfo=timezone.utc)
+                      return d.astimezone(timezone.utc)
+                  except Exception: pass
+              for fmt in ('%Y-%m-%d','%d-%m-%Y','%Y/%m/%d','%d/%m/%Y'):
+                  try: return datetime.strptime(s[:10],fmt).replace(tzinfo=timezone.utc)
+                  except Exception: pass
+              return None
+
+          for bro_id,feature_id,distance,inside in candidates:
+              entry={'bro_id':bro_id,'feature_id':feature_id,'distance_to_ot02_m':distance,'inside_ot02':inside}
+              item_url=f'{base}/collections/gm_gld/items/{feature_id}'
+              ir=session.get(item_url,params={'f':'json'},timeout=60); ir.raise_for_status()
+              item=ir.json(); props=item.get('properties') or {}
+              entry['gld_property_keys']=sorted(props.keys())
+              entry['gld_properties']=props
+              geom=item.get('geometry') or {}
+              entry['geometry']=geom
+
+              series=[]
+              for obs_type in ('regulier_beoordeeld','regulier_voorlopig','onbekend'):
+                  url=f'https://publiek.broservices.nl/gm/gld/v1/objectsAsCsv/{bro_id}'
+                  rr=session.get(url,params={'rapportagetype':'compact','observatietype':obs_type},timeout=90)
+                  info={'observation_type':obs_type,'status_code':rr.status_code,'bytes':len(rr.content),'content_type':rr.headers.get('content-type')}
+                  if rr.ok:
+                      text=rr.text
+                      rows,fields,delim=parse_csv(text)
+                      info['delimiter']=delim
+                      info['fields']=fields
+                      info['row_count']=len(rows)
+                      info['first_lines']=text.splitlines()[:8]
+                      # Find likely date/time and groundwater-level fields by names and parse every row.
+                      date_fields=[f for f in fields if any(k in f.lower() for k in ('datum','date','tijd','time','observation'))]
+                      level_fields=[f for f in fields if any(k in f.lower() for k in ('water','stand','level','head','value','meetwaarde','measurement'))]
+                      info['date_like_fields']=date_fields
+                      info['level_like_fields']=level_fields
+                      dated=[]
+                      for idx,row in enumerate(rows):
+                          best_dt=None; best_field=None
+                          for f in date_fields:
+                              dt=parse_date(row.get(f,''))
+                              if dt is not None:
+                                  best_dt=dt; best_field=f; break
+                          if best_dt is not None:
+                              dated.append((abs((best_dt-target).total_seconds()),best_dt,idx,row,best_field))
+                      dated.sort(key=lambda x:x[0])
+                      info['nearest_rows_to_target']=[{
+                          'date_utc':x[1].isoformat(),'date_field':x[4],'delta_days':round(x[0]/86400,3),'row_index':x[2]+1,'row':x[3]
+                      } for x in dated[:8]]
+                      Path(f'{bro_id}_{obs_type}.csv').write_text(text,encoding='utf-8')
+                  else:
+                      info['body_preview']=rr.text[:500]
+                  series.append(info)
+              entry['series']=series
+
+              # Spatially query monitoring tubes at the exact GLD point; retain all candidate tube metadata.
+              coords=geom.get('coordinates') if geom.get('type')=='Point' else None
+              if coords:
+                  lon,lat=coords[:2]
+                  eps=0.00015
+                  tr=session.get(f'{base}/collections/gm_gmw_monitoringtube/items',params={'bbox':f'{lon-eps},{lat-eps},{lon+eps},{lat+eps}','limit':100,'f':'json'},timeout=60)
+                  tr.raise_for_status()
+                  entry['nearby_tubes']=[{'id':f.get('id'),'properties':f.get('properties'),'geometry':f.get('geometry')} for f in tr.json().get('features',[])]
+                  wr=session.get(f'{base}/collections/gm_gmw/items',params={'bbox':f'{lon-eps},{lat-eps},{lon+eps},{lat+eps}','limit':100,'f':'json'},timeout=60)
+                  wr.raise_for_status()
+                  entry['nearby_wells']=[{'id':f.get('id'),'properties':f.get('properties'),'geometry':f.get('geometry')} for f in wr.json().get('features',[])]
+              out['candidates'].append(entry)
+
+          Path('initial_state_series_inspection.json').write_text(json.dumps(out,indent=2,ensure_ascii=False),encoding='utf-8')
+          # Compact decision-oriented output to logs.
+          compact=[]
+          for e in out['candidates']:
+              compact_entry={'bro_id':e['bro_id'],'inside_ot02':e['inside_ot02'],'distance_m':e['distance_to_ot02_m'],'gld_properties':e['gld_properties'],'nearby_tube_count':len(e.get('nearby_tubes',[])),'nearby_tubes':e.get('nearby_tubes',[]),'series':[]}
+              for s in e['series']:
+                  compact_entry['series'].append({k:s.get(k) for k in ('observation_type','status_code','bytes','delimiter','fields','row_count','nearest_rows_to_target','first_lines')})
+              compact.append(compact_entry)
+          print(json.dumps(compact,indent=2,ensure_ascii=False))
           PY
       - uses: actions/upload-artifact@v4
         with:
-          name: tollebeek-initial-state-gld-discovery
-          path: initial_state_gld_discovery.json
+          name: tollebeek-initial-state-series-inspection
+          path: |
+            initial_state_series_inspection.json
+            GLD*.csv
