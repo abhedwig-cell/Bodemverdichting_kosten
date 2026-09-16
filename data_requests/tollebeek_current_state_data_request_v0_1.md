@@ -99,6 +99,26 @@ Detailed route evidence: `docs/37_tollebeek_current_state_bis_recovery_v0_1.md`.
 
 This negative route result does not imply that no Tollebeek observations exist in non-public or other archives.
 
+## Reviewed alternative: DOI / public metadata relations
+
+A bounded DOI/public-metadata provenance probe reviewed DOI `10.18174/672577`, the WUR publication landing page, Crossref, DataCite, OpenAlex, Zenodo and candidate WUR data-host routes.
+
+The DOI resolves correctly to the WUR publication page and that page exposes project number `5200043298`, but:
+
+- no campaign-specific downloadable data or supplement link was exposed on the publication page;
+- Crossref contained no dataset `relation` entry and no raw-data link;
+- direct DataCite lookup exposed no related dataset identifier;
+- narrow DataCite searches for the DOI, `RAAK.PRO02.021`, `5200043298` and title terms produced no provenance-qualified campaign dataset;
+- numeric-only DataCite hits for `672577` were unrelated false positives and were excluded;
+- narrow Zenodo searches returned no candidate records;
+- guessed WUR data-host names did not resolve in the acquisition environment.
+
+This route is classified as `REVIEWED_PUBLIC_DOI_METADATA_ROUTE_NO_RAW_WER3382_DATASET_RECOVERY`.
+
+Detailed route evidence: `docs/41_tollebeek_current_state_doi_recovery_v0_1.md`.
+
+This strengthens the qualified source-holder route but does not prove that no public or shareable source-native dataset exists elsewhere.
+
 ## Admission criteria after acquisition
 
 `DR_SM_CURRENT_STATE` may only move toward `READY_FOR_REVIEW` or `ADMITTED` when the candidate records:
