@@ -26,6 +26,7 @@ REQUIRED_PATHS = [
     "docs/17_formal_traceability_register_v0_1.md",
     "docs/18_status_a_light_checkpoint_v0_1.md",
     "docs/21_data_model_v0_3_contract.md",
+    "docs/24_tollebeek_profile_baseline_v0_1.md",
     "schema/entities.yml",
     "schema/fields.yml",
     "schema/domain_fields_v0_3.yml",
@@ -79,7 +80,7 @@ def main() -> int:
     print("Status-A-light project validation passed.")
     print(
         "Validated evidence integrity, formal traceability, Data Model v0.3 domain-schema "
-        "integrity, source-model input-readiness gates, admitted spatial geometry integrity "
+        "integrity, source-model input-readiness gates, admitted spatial geometry and profile-baseline integrity "
         "and required review structure."
     )
     print("This is an integrity verdict, not a scientific qualification of still data-gated capabilities.")
