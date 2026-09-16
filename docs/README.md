@@ -10,6 +10,8 @@ For documentation governance and Status-A-light expectations, see [`14_documenta
 
 For a compact cross-layer review of the current architecture, see [`15_traceability_matrix_v0_1.md`](15_traceability_matrix_v0_1.md). The machine-readable equation and capability traceability baseline is documented in [`17_formal_traceability_register_v0_1.md`](17_formal_traceability_register_v0_1.md).
 
+For the current transfer/review moment, use [`18_status_a_light_checkpoint_v0_1.md`](18_status_a_light_checkpoint_v0_1.md). It summarises maturity per layer, current Tollebeek data gates, what the tests do and do not prove, and the next scientific milestone.
+
 The first explicit evidence baseline for the general theoretical framework is [`16_theory_evidence_baseline_v0_1.md`](16_theory_evidence_baseline_v0_1.md).
 
 ## Core reader path
@@ -44,16 +46,19 @@ The generated workbook has since advanced to an evidence-aware v0.2 artifact: ca
 15. [`15_traceability_matrix_v0_1.md`](15_traceability_matrix_v0_1.md) — colleague-facing theory-to-code/evidence traceability for the main current capabilities and broken-link review
 16. [`16_theory_evidence_baseline_v0_1.md`](16_theory_evidence_baseline_v0_1.md) — first source/evidence/claim/qualification baseline for the general theoretical framework
 17. [`17_formal_traceability_register_v0_1.md`](17_formal_traceability_register_v0_1.md) — machine-readable equation register and capability traceability with integrity validation
+18. [`18_status_a_light_checkpoint_v0_1.md`](18_status_a_light_checkpoint_v0_1.md) — current review checkpoint, maturity matrix, data gates and next science/transfer milestones
 
 The corresponding machine-readable formal registers live under [`model/`](../model/).
 
 ## Suggested reading paths
 
-**Scientific colleague / reviewer:** `00 → 01 → 02 → 16 → 03 → 04 → 07 → 15 → 17`
+**Scientific colleague / reviewer:** `00 → 01 → 02 → 16 → 03 → 04 → 07 → 15 → 17 → 18`
 
-**Data/software colleague:** `00 → 05 → 06 → 08 → 11 → 12 → 15 → 17`
+**Data/software colleague:** `00 → 05 → 06 → 08 → 11 → 12 → 15 → 17 → 18`
 
-**Tollebeek/domain reviewer:** `00 → 11 → 13 → evidence/ → 15 → 17`
+**Tollebeek/domain reviewer:** `00 → 11 → 13 → evidence/ → 15 → 17 → 18`
+
+**Contributor:** `00 → 14 → 18 → ../CONTRIBUTING.md`
 
 ## Status-A-light principle
 
