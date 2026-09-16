@@ -1,0 +1,100 @@
+name: Temporary probe Tollebeek initial state
+
+on:
+  push:
+    branches:
+      - work/tollebeek-initial-state-v0.1
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install acquisition dependencies
+        run: python -m pip install requests shapely pyproj
+      - name: Discover historical groundwater series around admitted OT.02
+        run: |
+          python - <<'PY'
+          from __future__ import annotations
+          import json
+          from datetime import date
+          from pathlib import Path
+          import requests
+          from pyproj import Transformer
+          from shapely.geometry import shape, Point, mapping
+          from shapely.ops import transform
+
+          ROOT=Path('.')
+          geom_doc=json.loads((ROOT/'data/spatial/tollebeek_ot02_current.geojson').read_text(encoding='utf-8'))
+          feature=geom_doc['features'][0] if geom_doc.get('type')=='FeatureCollection' else geom_doc
+          poly_rd=shape(feature['geometry'])
+          tf=Transformer.from_crs(28992,4326,always_xy=True)
+          poly=transform(tf.transform,poly_rd)
+          minx,miny,maxx,maxy=poly.bounds
+          # Broaden discovery slightly to allow nearby monitoring points; classify inside/near separately.
+          margin=0.08
+          bbox=f'{minx-margin},{miny-margin},{maxx+margin},{maxy+margin}'
+          base='https://api.pdok.nl/tno/bro-grondwatermonitoring-in-samenhang-karakteristieken/ogc/v1/collections/gm_gld/items'
+          params={'bbox':bbox,'limit':1000,'f':'json'}
+          r=requests.get(base,params=params,timeout=120)
+          r.raise_for_status()
+          doc=r.json()
+          features=doc.get('features',[])
+          target=date(1998,10,24)
+          candidates=[]
+          for f in features:
+              p=f.get('properties') or {}
+              g=f.get('geometry')
+              if not g: continue
+              pt=shape(g)
+              first=p.get('research_first_date')
+              last=p.get('research_last_date')
+              overlap=False
+              try:
+                  overlap=date.fromisoformat(first[:10]) <= target <= date.fromisoformat(last[:10])
+              except Exception:
+                  pass
+              # approximate metric distance after projection to RD
+              back=Transformer.from_crs(4326,28992,always_xy=True)
+              pt_rd=transform(back.transform,pt)
+              distance_m=poly_rd.distance(pt_rd)
+              candidates.append({
+                  'bro_id':p.get('bro_id'),
+                  'feature_id':f.get('id'),
+                  'monitoringtube_relation':p.get('gm_gmw_monitoringtube'),
+                  'research_first_date':first,
+                  'research_last_date':last,
+                  'number_of_observations':p.get('number_of_observations'),
+                  'series_fully_assessed_csv_url':p.get('series_fully_assessed_csv_url'),
+                  'series_preliminary_csv_url':p.get('series_preliminary_csv_url'),
+                  'series_unknown_csv_url':p.get('series_unknown_csv_url'),
+                  'lon':pt.x,'lat':pt.y,
+                  'inside_ot02':poly.covers(pt),
+                  'distance_to_ot02_m':round(distance_m,1),
+                  'covers_1998_10_24':overlap,
+              })
+          candidates.sort(key=lambda x:(not x['covers_1998_10_24'],not x['inside_ot02'],x['distance_to_ot02_m']))
+          selected=[x for x in candidates if x['covers_1998_10_24'] and x['distance_to_ot02_m'] <= 10000]
+          summary={
+              'ot02_wgs84_bbox':[minx,miny,maxx,maxy],
+              'query_bbox':bbox,
+              'number_returned':len(features),
+              'candidate_count_total':len(candidates),
+              'covers_target_within_10km_count':len(selected),
+              'inside_ot02_and_covers_target_count':sum(1 for x in selected if x['inside_ot02']),
+              'top_candidates':selected[:50],
+          }
+          Path('initial_state_gld_discovery.json').write_text(json.dumps(summary,indent=2),encoding='utf-8')
+          print(json.dumps(summary,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tollebeek-initial-state-gld-discovery
+          path: initial_state_gld_discovery.json
