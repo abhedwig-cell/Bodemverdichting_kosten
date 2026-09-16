@@ -23,7 +23,7 @@ jobs:
         run: |
           python - <<'PY'
           from __future__ import annotations
-          import csv, hashlib, io, json
+          import csv, hashlib, json
           from datetime import datetime, timedelta, timezone
           from pathlib import Path
           import requests
@@ -48,22 +48,14 @@ jobs:
           if not data_lines:
               raise SystemExit('KNMI response contains no data rows')
 
-          # KNMI output is comma-separated; strip surrounding whitespace while preserving native values.
+          names = ['STN','YYYYMMDD','HH','DD','FH','FF','FX','T','T10N','TD','SQ','Q','DR','RH','P','VV','N','U','WW','IX','M','R','S','O','Y']
           rows = []
           for line in data_lines:
               parts = [p.strip() for p in line.split(',')]
-              # Expected ALL layout documented by KNMI climatology endpoint.
-              if len(parts) < 27:
-                  raise SystemExit(f'unexpected KNMI row width {len(parts)}: {line[:200]}')
-              names = ['STN','YYYYMMDD','HH','DD','FH','FF','FX','T','T10N','TD','SQ','Q','DR','RH','P','VV','N','U','WW','IX','M','R','S','O','Y']
               if len(parts) != len(names):
-                  # Keep probe diagnostic explicit instead of silently shifting columns.
                   raise SystemExit(f'expected {len(names)} fields but got {len(parts)}; row={line[:300]}')
-              row = dict(zip(names, parts))
-              rows.append(row)
+              rows.append(dict(zip(names, parts)))
 
-          # KNMI climatology hour convention: HH=1 is 00:00-01:00 UT and HH=24 is 23:00-24:00 UT.
-          # Represent each record by interval end in UTC, retaining native date/hour separately.
           for row in rows:
               d = datetime.strptime(row['YYYYMMDD'], '%Y%m%d').replace(tzinfo=timezone.utc)
               hh = int(row['HH'])
@@ -75,7 +67,6 @@ jobs:
               w=csv.DictWriter(f, fieldnames=norm_fields, lineterminator='\n')
               w.writeheader(); w.writerows(rows)
 
-          # Derived rainfall analysis only. Native RH=-1 means <0.05 mm, not missing.
           def rh_mm(native: str):
               if native == '': return None
               v = int(native)
@@ -89,7 +80,6 @@ jobs:
               t = datetime.fromisoformat(row['interval_end_utc'].replace('Z','+00:00'))
               if mm is None: missing.append(row['interval_end_utc'])
               rain.append((t,mm,row['RH']))
-
           if missing:
               raise SystemExit(f'missing RH values in acquisition window: {missing[:20]}')
 
