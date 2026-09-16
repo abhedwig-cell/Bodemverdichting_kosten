@@ -36,6 +36,14 @@ Three previously qualified routes are retained in order:
 2. WUR/WER — Fenny van Egmond through the current public WUR contact/profile route;
 3. Actieplan Bodem & Water Flevoland — `info@bodemenwaterflevoland.nl` as referral route.
 
+The public endpoints were reverified on 2026-09-16 and persisted in:
+
+- `artifacts/acquisition/tollebeek_current_state_contact_verification_v0_2.json`
+
+A machine-readable future receipt gate is persisted in:
+
+- `artifacts/acquisition/tollebeek_current_state_receipt_contract_v0_1.json`
+
 No source-holder response or source-native data file is present in the repository at this checkpoint.
 
 Therefore `data_acquired=false` and this phase cannot scientifically advance to source classification.
