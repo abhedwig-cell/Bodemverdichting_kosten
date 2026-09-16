@@ -1,0 +1,126 @@
+name: Temporary probe Tollebeek drainage authorities
+
+on:
+  push:
+    branches:
+      - work/tollebeek-drainage-v0.1
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install probe dependencies
+        run: python -m pip install requests shapely
+      - name: Probe owner drainage services
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          import requests
+          from shapely.geometry import shape
+
+          ROOT='https://services.arcgis.com/84oM5NriBghHdQ3Z/ArcGIS/rest/services'
+          SERVICES={
+              'zzl_Drainage': f'{ROOT}/zzl_Drainage/FeatureServer',
+              'leggerkavelsloten': f'{ROOT}/leggerkavelsloten/FeatureServer',
+              'Legger_NOP_2024': f'{ROOT}/Legger_watersysteem_2024_Noord_oostpolder__WFL1/FeatureServer',
+          }
+
+          ot=json.loads(Path('data/spatial/tollebeek_ot02_current.geojson').read_text(encoding='utf-8'))
+          feat=ot['features'][0]
+          poly=shape(feat['geometry'])
+          xmin,ymin,xmax,ymax=poly.bounds
+          envelope=f'{xmin},{ymin},{xmax},{ymax}'
+
+          out={'ot02': {'bounds_rd': [xmin,ymin,xmax,ymax]}, 'services': {}}
+          s=requests.Session()
+          s.headers['User-Agent']='Bodemverdichting-kosten drainage qualification probe'
+
+          def get_json(url, params=None):
+              r=s.get(url, params=params, timeout=60)
+              r.raise_for_status()
+              return r.json()
+
+          for key,url in SERVICES.items():
+              meta=get_json(url, {'f':'json'})
+              entry={
+                  'url':url,
+                  'serviceDescription':meta.get('serviceDescription'),
+                  'description':meta.get('description'),
+                  'itemId':meta.get('serviceItemId'),
+                  'fullExtent':meta.get('fullExtent'),
+                  'layers':[],
+              }
+              for lyr in meta.get('layers',[]):
+                  lid=lyr['id']; lurl=f'{url}/{lid}'
+                  lm=get_json(lurl, {'f':'json'})
+                  fields=[]
+                  for f in lm.get('fields',[]):
+                      fields.append({'name':f.get('name'),'alias':f.get('alias'),'type':f.get('type')})
+                  edit=lm.get('editingInfo') or {}
+                  qparams={
+                      'where':'1=1',
+                      'geometry':envelope,
+                      'geometryType':'esriGeometryEnvelope',
+                      'inSR':'28992',
+                      'spatialRel':'esriSpatialRelIntersects',
+                      'outFields':'*',
+                      'returnGeometry':'true',
+                      'outSR':'28992',
+                      'f':'geojson',
+                      'resultRecordCount':'2000',
+                  }
+                  qr=s.get(f'{lurl}/query',params=qparams,timeout=120)
+                  qstatus=qr.status_code
+                  inside=[]; envelope_count=None; qerror=None
+                  if qstatus==200:
+                      try:
+                          gj=qr.json()
+                          if 'error' in gj:
+                              qerror=gj['error']
+                          else:
+                              feats=gj.get('features',[])
+                              envelope_count=len(feats)
+                              for f in feats:
+                                  try:
+                                      g=shape(f['geometry']) if f.get('geometry') else None
+                                      if g is not None and g.intersects(poly):
+                                          inside.append(f)
+                                  except Exception:
+                                      pass
+                      except Exception as e:
+                          qerror=str(e)
+                  else:
+                      qerror=qr.text[:1000]
+                  samples=[]
+                  for f in inside[:12]:
+                      samples.append({'properties':f.get('properties',{}), 'geometry_type':(f.get('geometry') or {}).get('type')})
+                  entry['layers'].append({
+                      'id':lid,
+                      'name':lm.get('name'),
+                      'description':lm.get('description'),
+                      'geometryType':lm.get('geometryType'),
+                      'copyrightText':lm.get('copyrightText'),
+                      'fields':fields,
+                      'editingInfo':edit,
+                      'extent':lm.get('extent'),
+                      'envelope_query_count':envelope_count,
+                      'ot02_intersection_count':len(inside),
+                      'samples':samples,
+                      'query_error':qerror,
+                  })
+              out['services'][key]=entry
+          Path('drainage_probe.json').write_text(json.dumps(out,indent=2,ensure_ascii=False),encoding='utf-8')
+          print(json.dumps(out,indent=2,ensure_ascii=False)[:60000])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tollebeek-drainage-probe
+          path: drainage_probe.json
