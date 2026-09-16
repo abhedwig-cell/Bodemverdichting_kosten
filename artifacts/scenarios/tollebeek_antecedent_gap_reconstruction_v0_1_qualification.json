@@ -1,0 +1,52 @@
+{
+  "schema_version": "tollebeek_antecedent_gap_reconstruction_qualification_v0.1",
+  "qualification_id": "Q_TOL_ANTECEDENT_GAP_RECONSTRUCTION_V0_1",
+  "decision_date": "2026-09-16",
+  "qualification_status": "QUALIFIED_FOR_SCENARIO_ONLY_USE_NOT_RUN_READY",
+  "subject": {
+    "manifest_path": "artifacts/scenarios/tollebeek_antecedent_gap_reconstruction_v0_1_manifest.json",
+    "manifest_git_blob_sha": "00e2863a6a6971661df24cbc3cced2fae1df4956",
+    "manifest_classification": "SCENARIO_ONLY_CANDIDATE_NOT_RUN_READY",
+    "expanded_package_bytes": 117484,
+    "expanded_package_sha256": "85dbb685dd888bdad7078f243ca01adb134b343f1d382d578f53cdce1c879932",
+    "generator_path": "tools/build_tollebeek_antecedent_gap_scenarios.py",
+    "generator_method_id": "ST317_MASS_CONSTRAINED_MULTI_STATION_TIMING_V0_1",
+    "method_authority": "docs/47_tollebeek_antecedent_precip_gap_reconstruction_protocol_v0_1.md"
+  },
+  "source_snapshot": {
+    "receipt_path": "evidence/source_snapshots/tollebeek_antecedent_gap_v0_1/source_receipt_manifest.json",
+    "receipt_sha256": "51a35da9dbf8ccc913ae6dde207b199bee0911bbc4b95b8ac5701f31d9ea6b19",
+    "hourly_response_sha256": "6076cfb910fa498daca93091e6fbbd361cbcd2a113b4518995ee817d2714c5bd",
+    "manual317_response_sha256": "eee4895db5f335a8ec7f82cf828a3d4adb965a26cbba0c111adc16029bbedc35"
+  },
+  "qualification_evidence": {
+    "implementation_commit": "6154d6fded391edbf568c0455bfdd68f5e52b956",
+    "precheck_commit": "a7db72166a8ffe2d6082571d4a3cf5a427d5617e",
+    "initial_exact_head_ci_run": 35110265726,
+    "initial_exact_head_ci_conclusion": "SUCCESS",
+    "tests": [
+      "source receipt byte-size and SHA-256 verification",
+      "exact 108-hour station-273 source-missing gap contract",
+      "gap-only reconstruction support with observed station-273 hours preserved",
+      "non-negative values and per-window mass closure",
+      "explicit invalid-member failure without fallback",
+      "explicit KNMI trace-uncertainty scenario realizations",
+      "deterministic expanded-package byte-size and SHA-256 reproduction"
+    ]
+  },
+  "qualified_use": [
+    "Generate explicit precipitation reconstruction uncertainty members for the 108 source-missing station-273 antecedent hours.",
+    "Use those members in a future hydrological sensitivity design after all other required model dependencies are admitted or explicitly SCENARIO_ONLY qualified.",
+    "Retain station-specific timing members and trace-policy identity so state sensitivity can be reported as spread rather than hidden in one deterministic fill."
+  ],
+  "prohibited_use": [
+    "Do not label any reconstructed hour as an observed station-273 value.",
+    "Do not select one trace realization, timing station or ensemble as the historical truth without a separate qualification.",
+    "Do not use the package as evidence that one year is an adequate hydrological warm-up.",
+    "Do not use the package to change DR_SM_INITIAL_STATE from PARTIAL_EVIDENCE.",
+    "Do not execute or report a SWAP production result from this qualification alone."
+  ],
+  "run_authorized": false,
+  "dr_sm_initial_state_status": "PARTIAL_EVIDENCE",
+  "next_gate": "Hydrological state-sensitivity qualification after managed-boundary, drainage, land-use, model-configuration and state/hydraulic dependencies are admitted or explicitly SCENARIO_ONLY qualified."
+}

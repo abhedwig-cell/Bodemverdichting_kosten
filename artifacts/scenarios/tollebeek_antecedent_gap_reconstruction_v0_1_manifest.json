@@ -1,0 +1,259 @@
+{
+  "classification": "SCENARIO_ONLY_CANDIDATE_NOT_RUN_READY",
+  "gap_hour_count": 108,
+  "generated_package": {
+    "bytes": 117484,
+    "committed": false,
+    "default_path": "artifacts/scenarios/tollebeek_antecedent_gap_reconstruction_v0_1.json",
+    "reason": "Generated package is reproducible from canonical source snapshot and code; manifest is canonical, expanded scenario matrix is generated on demand.",
+    "sha256": "85dbb685dd888bdad7078f243ca01adb134b343f1d382d578f53cdce1c879932"
+  },
+  "generator": "tools/build_tollebeek_antecedent_gap_scenarios.py",
+  "generator_method_id": "ST317_MASS_CONSTRAINED_MULTI_STATION_TIMING_V0_1",
+  "method_authority": "docs/47_tollebeek_antecedent_precip_gap_reconstruction_protocol_v0_1.md",
+  "run_authorized": false,
+  "schema_version": "tollebeek_antecedent_gap_reconstruction_manifest_v0.1",
+  "source_snapshot": {
+    "hourly_response_sha256": "6076cfb910fa498daca93091e6fbbd361cbcd2a113b4518995ee817d2714c5bd",
+    "manual317_response_sha256": "eee4895db5f335a8ec7f82cf828a3d4adb965a26cbba0c111adc16029bbedc35",
+    "receipt_path": "evidence/source_snapshots/tollebeek_antecedent_gap_v0_1/source_receipt_manifest.json",
+    "receipt_sha256": "51a35da9dbf8ccc913ae6dde207b199bee0911bbc4b95b8ac5701f31d9ea6b19"
+  },
+  "trace_policies": [
+    {
+      "id": "TRACE_BOUND_LOWER",
+      "numeric_trace_mm_for_scenario_calculation": 0.0
+    },
+    {
+      "id": "TRACE_MIDPOINT",
+      "numeric_trace_mm_for_scenario_calculation": 0.025
+    },
+    {
+      "id": "TRACE_NEAR_UPPER",
+      "numeric_trace_mm_for_scenario_calculation": 0.049
+    }
+  ],
+  "windows": [
+    {
+      "gap_hour_count": 8,
+      "policies": [
+        {
+          "invalid_timing_stations": [],
+          "residual_mass_mm_under_trace_policy": 3.4,
+          "trace_policy": "TRACE_BOUND_LOWER",
+          "valid_timing_stations": ["267", "269", "270", "279"]
+        },
+        {
+          "invalid_timing_stations": [],
+          "residual_mass_mm_under_trace_policy": 3.35,
+          "trace_policy": "TRACE_MIDPOINT",
+          "valid_timing_stations": ["267", "269", "270", "279"]
+        },
+        {
+          "invalid_timing_stations": [],
+          "residual_mass_mm_under_trace_policy": 3.302,
+          "trace_policy": "TRACE_NEAR_UPPER",
+          "valid_timing_stations": ["267", "269", "270", "279"]
+        }
+      ],
+      "report_date": "19980903",
+      "residual_mass_enclosure": {
+        "lower_is_open_when_retained_trace_count_positive": true,
+        "lower_mm_conservative": 3.3,
+        "upper_mm_inclusive": 3.4
+      },
+      "station273_retained_mass_enclosure": {
+        "lower_mm_inclusive": 1.5,
+        "reported_positive_mm": 1.5,
+        "trace_count": 2,
+        "upper_mm_exclusive": 1.6
+      },
+      "station317_reported_total_mm": 4.9
+    },
+    {
+      "gap_hour_count": 24,
+      "policies": [
+        {
+          "invalid_timing_stations": [],
+          "residual_mass_mm_under_trace_policy": 13.6,
+          "trace_policy": "TRACE_BOUND_LOWER",
+          "valid_timing_stations": ["267", "269", "270", "279"]
+        },
+        {
+          "invalid_timing_stations": [],
+          "residual_mass_mm_under_trace_policy": 13.6,
+          "trace_policy": "TRACE_MIDPOINT",
+          "valid_timing_stations": ["267", "269", "270", "279"]
+        },
+        {
+          "invalid_timing_stations": [],
+          "residual_mass_mm_under_trace_policy": 13.6,
+          "trace_policy": "TRACE_NEAR_UPPER",
+          "valid_timing_stations": ["267", "269", "270", "279"]
+        }
+      ],
+      "report_date": "19980904",
+      "residual_mass_enclosure": {
+        "lower_is_open_when_retained_trace_count_positive": false,
+        "lower_mm_conservative": 13.6,
+        "upper_mm_inclusive": 13.6
+      },
+      "station273_retained_mass_enclosure": {
+        "lower_mm_inclusive": 0.0,
+        "reported_positive_mm": 0.0,
+        "trace_count": 0,
+        "upper_mm_exclusive": 0.0
+      },
+      "station317_reported_total_mm": 13.6
+    },
+    {
+      "gap_hour_count": 24,
+      "policies": [
+        {
+          "invalid_timing_stations": [],
+          "residual_mass_mm_under_trace_policy": 5.0,
+          "trace_policy": "TRACE_BOUND_LOWER",
+          "valid_timing_stations": ["267", "269", "270", "279"]
+        },
+        {
+          "invalid_timing_stations": [],
+          "residual_mass_mm_under_trace_policy": 5.0,
+          "trace_policy": "TRACE_MIDPOINT",
+          "valid_timing_stations": ["267", "269", "270", "279"]
+        },
+        {
+          "invalid_timing_stations": [],
+          "residual_mass_mm_under_trace_policy": 5.0,
+          "trace_policy": "TRACE_NEAR_UPPER",
+          "valid_timing_stations": ["267", "269", "270", "279"]
+        }
+      ],
+      "report_date": "19980905",
+      "residual_mass_enclosure": {
+        "lower_is_open_when_retained_trace_count_positive": false,
+        "lower_mm_conservative": 5.0,
+        "upper_mm_inclusive": 5.0
+      },
+      "station273_retained_mass_enclosure": {
+        "lower_mm_inclusive": 0.0,
+        "reported_positive_mm": 0.0,
+        "trace_count": 0,
+        "upper_mm_exclusive": 0.0
+      },
+      "station317_reported_total_mm": 5.0
+    },
+    {
+      "gap_hour_count": 24,
+      "policies": [
+        {
+          "invalid_timing_stations": [],
+          "residual_mass_mm_under_trace_policy": 5.5,
+          "trace_policy": "TRACE_BOUND_LOWER",
+          "valid_timing_stations": ["267", "269", "270", "279"]
+        },
+        {
+          "invalid_timing_stations": [],
+          "residual_mass_mm_under_trace_policy": 5.5,
+          "trace_policy": "TRACE_MIDPOINT",
+          "valid_timing_stations": ["267", "269", "270", "279"]
+        },
+        {
+          "invalid_timing_stations": [],
+          "residual_mass_mm_under_trace_policy": 5.5,
+          "trace_policy": "TRACE_NEAR_UPPER",
+          "valid_timing_stations": ["267", "269", "270", "279"]
+        }
+      ],
+      "report_date": "19980906",
+      "residual_mass_enclosure": {
+        "lower_is_open_when_retained_trace_count_positive": false,
+        "lower_mm_conservative": 5.5,
+        "upper_mm_inclusive": 5.5
+      },
+      "station273_retained_mass_enclosure": {
+        "lower_mm_inclusive": 0.0,
+        "reported_positive_mm": 0.0,
+        "trace_count": 0,
+        "upper_mm_exclusive": 0.0
+      },
+      "station317_reported_total_mm": 5.5
+    },
+    {
+      "gap_hour_count": 24,
+      "policies": [
+        {
+          "invalid_timing_stations": [
+            {"failure_reason": "ZERO_TIMING_MASS_WITH_POSITIVE_RESIDUAL", "station": "279"}
+          ],
+          "residual_mass_mm_under_trace_policy": 0.7,
+          "trace_policy": "TRACE_BOUND_LOWER",
+          "valid_timing_stations": ["267", "269", "270"]
+        },
+        {
+          "invalid_timing_stations": [],
+          "residual_mass_mm_under_trace_policy": 0.7,
+          "trace_policy": "TRACE_MIDPOINT",
+          "valid_timing_stations": ["267", "269", "270", "279"]
+        },
+        {
+          "invalid_timing_stations": [],
+          "residual_mass_mm_under_trace_policy": 0.7,
+          "trace_policy": "TRACE_NEAR_UPPER",
+          "valid_timing_stations": ["267", "269", "270", "279"]
+        }
+      ],
+      "report_date": "19980907",
+      "residual_mass_enclosure": {
+        "lower_is_open_when_retained_trace_count_positive": false,
+        "lower_mm_conservative": 0.7,
+        "upper_mm_inclusive": 0.7
+      },
+      "station273_retained_mass_enclosure": {
+        "lower_mm_inclusive": 0.0,
+        "reported_positive_mm": 0.0,
+        "trace_count": 0,
+        "upper_mm_exclusive": 0.0
+      },
+      "station317_reported_total_mm": 0.7
+    },
+    {
+      "gap_hour_count": 4,
+      "policies": [
+        {
+          "invalid_timing_stations": [
+            {"failure_reason": "ZERO_TIMING_MASS_WITH_POSITIVE_RESIDUAL", "station": "267"},
+            {"failure_reason": "ZERO_TIMING_MASS_WITH_POSITIVE_RESIDUAL", "station": "269"}
+          ],
+          "residual_mass_mm_under_trace_policy": 0.3,
+          "trace_policy": "TRACE_BOUND_LOWER",
+          "valid_timing_stations": ["270", "279"]
+        },
+        {
+          "invalid_timing_stations": [],
+          "residual_mass_mm_under_trace_policy": 0.275,
+          "trace_policy": "TRACE_MIDPOINT",
+          "valid_timing_stations": ["267", "269", "270", "279"]
+        },
+        {
+          "invalid_timing_stations": [],
+          "residual_mass_mm_under_trace_policy": 0.251,
+          "trace_policy": "TRACE_NEAR_UPPER",
+          "valid_timing_stations": ["267", "269", "270", "279"]
+        }
+      ],
+      "report_date": "19980908",
+      "residual_mass_enclosure": {
+        "lower_is_open_when_retained_trace_count_positive": true,
+        "lower_mm_conservative": 0.25,
+        "upper_mm_inclusive": 0.3
+      },
+      "station273_retained_mass_enclosure": {
+        "lower_mm_inclusive": 0.9,
+        "reported_positive_mm": 0.9,
+        "trace_count": 1,
+        "upper_mm_exclusive": 0.95
+      },
+      "station317_reported_total_mm": 1.2
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "schema_version": "tollebeek_antecedent_gap_source_receipt_v0.1",
+  "source_authority": "KNMI official climatology endpoints",
+  "workflow_head_sha": "10857295c0d8a2e1c15aaea78ad5235e612e8590",
+  "workflow_run_id": "35108854803",
+  "requests": [
+    {
+      "name": "hourly",
+      "url": "https://www.daggegevens.knmi.nl/klimatologie/uurgegevens",
+      "method": "POST",
+      "params": {
+        "stns": "273:267:269:270:279",
+        "vars": "PRCP",
+        "start": "1998090201",
+        "end": "1998090824"
+      },
+      "request_body_ascii": "stns=273%3A267%3A269%3A270%3A279&vars=PRCP&start=1998090201&end=1998090824",
+      "raw_path": "evidence/source_snapshots/tollebeek_antecedent_gap_v0_1/knmi_hourly_prcp_273_267_269_270_279_19980902_19980908.txt",
+      "response_bytes": 33492,
+      "response_sha256": "6076cfb910fa498daca93091e6fbbd361cbcd2a113b4518995ee817d2714c5bd",
+      "content_type": "text/plain"
+    },
+    {
+      "name": "manual317",
+      "url": "https://www.daggegevens.knmi.nl/klimatologie/monv/reeksen",
+      "method": "POST",
+      "params": {
+        "stns": "317",
+        "start": "19980903",
+        "end": "19980908"
+      },
+      "request_body_ascii": "stns=317&start=19980903&end=19980908",
+      "raw_path": "evidence/source_snapshots/tollebeek_antecedent_gap_v0_1/knmi_manual_rd_317_19980903_19980908.txt",
+      "response_bytes": 715,
+      "response_sha256": "eee4895db5f335a8ec7f82cf828a3d4adb965a26cbba0c111adc16029bbedc35",
+      "content_type": "text/plain"
+    }
+  ],
+  "source_semantics": {
+    "hourly_RH": "0.1 mm; -1 denotes trace <0.05 mm; blank denotes source missing",
+    "manual_RD": "0.1 mm daily precipitation amount in native manual-gauge reporting series",
+    "manual_window": "08:00 UTC previous day to 08:00 UTC report date"
+  },
+  "classification": "ACQUIRED_SOURCE_NATIVE_NOT_YET_RECONSTRUCTED",
+  "repository_role": "immutable evidence snapshot; not model-ready forcing"
+}
