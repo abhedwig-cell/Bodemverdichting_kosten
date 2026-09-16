@@ -1,0 +1,141 @@
+name: Finalize Tollebeek land-use evidence route
+
+on:
+  push:
+    branches:
+      - work/tollebeek-land-use-v0.1
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install validation dependency
+        run: python -m pip install pyyaml
+      - name: Persist land-use evidence route
+        run: |
+          python - <<'PY'
+          from __future__ import annotations
+          import csv
+          from pathlib import Path
+          ROOT=Path('.')
+
+          def upsert(path,key,row):
+              with path.open('r',encoding='utf-8',newline='') as f:
+                  r=csv.DictReader(f); fields=r.fieldnames or []; rows=list(r)
+              if set(row)!=set(fields): raise SystemExit(f'{path}: schema mismatch missing={set(fields)-set(row)} extra={set(row)-set(fields)}')
+              for i,old in enumerate(rows):
+                  if old[key]==row[key]: rows[i]=row; break
+              else: rows.append(row)
+              with path.open('w',encoding='utf-8',newline='') as f:
+                  w=csv.DictWriter(f,fieldnames=fields,lineterminator='\n'); w.writeheader(); w.writerows(rows)
+
+          def add(value,*items):
+              xs=[x.strip() for x in value.split(';') if x.strip()]
+              for x in items:
+                  if x not in xs: xs.append(x)
+              return ';'.join(xs)
+
+          source_rows=[
+          {'source_id':'SRC_WUR_LGN3','source_title':'Landelijk Grondgebruiksbestand LGN3','source_type':'DATASET_DOCUMENTATION','source_year':'1995','source_url':'https://lgn.nl/basiskaart?l=LGN3','source_status':'QUALIFIED_WITH_LIMITATIONS','source_notes':'Wageningen Environmental Research historical land-use dataset. LGN3 is 25 m; agricultural classification in Flevoland uses 1995 imagery. Qualified as pre-event spatial land-use/crop context, not a 1998 crop observation.'},
+          {'source_id':'SRC_WUR_LGN4','source_title':'Landelijk Grondgebruiksbestand LGN4','source_type':'DATASET_DOCUMENTATION','source_year':'2000','source_url':'https://lgn.nl/over-lgn','source_status':'QUALIFIED_WITH_LIMITATIONS','source_notes':'Wageningen Environmental Research historical land-use dataset based on 1999/2000 satellite imagery. Qualified as post-event land-use/crop context, not a 1998 crop observation.'},
+          {'source_id':'SRC_WUR_LGN_MONITORING','source_title':'Land use mapping and monitoring in the Netherlands','source_type':'TECHNICAL_ARTICLE','source_year':'2005','source_url':'https://edepot.wur.nl/312672','source_status':'QUALIFIED_WITH_LIMITATIONS','source_notes':'LGN methodology source explaining that crop-type changes can reflect crop rotation and should not be treated as stable land-use change. Used as a temporal-transfer guardrail.'},
+          {'source_id':'SRC_PDOK_BRP_CROPS','source_title':'PDOK / RVO Gewaspercelen historical archive route','source_type':'DATA_SERVICE','source_year':'2026','source_url':'https://www.pdok.nl/ogc-apis/-/article/gewaspercelen-inspire-geharmoniseerd-','source_status':'QUALIFIED_WITH_LIMITATIONS','source_notes':'Public parcel/crop service derived from RVO BRP. Historical public annual datasets are documented for 2009-2022; therefore this public route does not directly provide 1998 parcel/crop identity.'}
+          ]
+          for row in source_rows: upsert(ROOT/'evidence/sources.csv','source_id',row)
+
+          evidence_rows=[
+          {'evidence_id':'EV_TOL_LAND_USE_NEAR_PERIOD','source_id':'SRC_TOLLEBEEK_PEIL2006','evidence_statement':'The official 2006 Tollebeek peilbesluit lists the dominant land use in historical De Rietgors (OT02) as arable agriculture with forest, De Fuut (OT03) as arable agriculture, and De Kievit (OT04) as arable agriculture with forest.','spatial_scope':'Historical Tollebeek OT02/OT03/OT04','time_scope':'2006 near-period land-use description','evidence_value':'','evidence_unit':'','provenance_class':'OFFICIAL_METADATA','intended_use':'Broad near-period land-use context for the 1998 source-model domain','guardrail':'Near-period broad land use does not identify parcel-level crop identity, crop phenology or field condition in October 1998.','evidence_status':'QUALIFIED'},
+          {'evidence_id':'EV_TOL_LGN3_PRE_EVENT','source_id':'SRC_WUR_LGN3','evidence_statement':'LGN3 provides 25 m historical land-use/crop classes. For Flevoland the agricultural classification is based on 1995 satellite imagery, so it can provide spatial pre-event context for Tollebeek but not a direct 1998 observation.','spatial_scope':'Flevoland / Tollebeek route','time_scope':'1995 agricultural classification','evidence_value':'25','evidence_unit':'m raster cell','provenance_class':'OFFICIAL_METADATA','intended_use':'Pre-event land-use/crop context and candidate spatial screening route','guardrail':'Do not copy a 1995 crop class into 1998; annual crop rotation can change crop identity without a stable land-use change.','evidence_status':'QUALIFIED'},
+          {'evidence_id':'EV_TOL_LGN4_POST_EVENT','source_id':'SRC_WUR_LGN4','evidence_statement':'LGN4 is based on 1999/2000 satellite imagery and supports land-use change analysis relative to LGN3. It can provide post-event spatial context around Tollebeek but does not directly observe the 1998 growing season.','spatial_scope':'Flevoland / Tollebeek route','time_scope':'1999-2000','evidence_value':'','evidence_unit':'','provenance_class':'OFFICIAL_METADATA','intended_use':'Post-event land-use/crop context and broad stability review','guardrail':'Do not backcast a 1999/2000 crop class to 1998 or interpolate crop identity between LGN3 and LGN4.','evidence_status':'QUALIFIED'},
+          {'evidence_id':'EV_LGN_CROP_ROTATION_CAUTION','source_id':'SRC_WUR_LGN_MONITORING','evidence_statement':'LGN methodology explicitly notes that changes in agricultural crop type can reflect crop rotation rather than real land-use change, so crop classes are not a temporally continuous state that can be interpolated between map editions.','spatial_scope':'Netherlands agricultural land-use methodology','time_scope':'LGN3-LGN4 monitoring methodology','evidence_value':'','evidence_unit':'','provenance_class':'TECHNICAL_REPORT_RELATION','intended_use':'Guardrail for temporal transfer of crop classes into the 1998 event','guardrail':'Crop rotation prevents treating agreement/disagreement across historical map years as proof of the exact crop on an intermediate event date.','evidence_status':'QUALIFIED'},
+          {'evidence_id':'EV_BRP_PUBLIC_ARCHIVE_START_2009','source_id':'SRC_PDOK_BRP_CROPS','evidence_statement':'PDOK documents annual public historical Gewaspercelen datasets for 2009 through 2022, with each annual dataset representing user-drawn agricultural parcels and declared crop around a 15 May reference date. No 1998 public annual BRP dataset is offered through this historical route.','spatial_scope':'Netherlands / Tollebeek acquisition route','time_scope':'public archive years 2009-2022; reviewed 2026-09-16','evidence_value':'2009','evidence_unit':'earliest documented public historical year','provenance_class':'OFFICIAL_METADATA','intended_use':'Bound the public annual parcel/crop acquisition route for the 1998 event','guardrail':'Absence from this public PDOK archive is not proof that no 1998 crop records exist in institutional, owner, farmer or paper archives; it only means this route does not resolve the event.','evidence_status':'QUALIFIED'}]
+          for row in evidence_rows: upsert(ROOT/'evidence/evidence_register.csv','evidence_id',row)
+
+          upsert(ROOT/'evidence/claims.csv','claim_id',{
+              'claim_id':'CL_TOL_1998_LAND_USE_GATE',
+              'claim_statement':'Broad historical land use around Tollebeek is constrained as predominantly arable agriculture with some forest, and LGN3/LGN4 provide qualified pre/post-event spatial context. However no source currently admits parcel/profile-level crop identity or vegetation state for the October 1998 experiment. Because LGN3 in Flevoland reflects 1995 and LGN4 reflects 1999/2000 and crop changes can reflect rotation, a 1998 crop must not be interpolated or defaulted. DR_SM_LAND_USE therefore remains data-gated until event-relevant crop/vegetation evidence or an explicitly scenario-based model design is separately qualified.',
+              'claim_type':'LAND_USE_CROP_DATA_GATE',
+              'evidence_ids':'EV_TOL_LAND_USE_NEAR_PERIOD;EV_TOL_LGN3_PRE_EVENT;EV_TOL_LGN4_POST_EVENT;EV_LGN_CROP_ROTATION_CAUTION;EV_BRP_PUBLIC_ARCHIVE_START_2009',
+              'spatial_scope':'Tollebeek historical control areas / October 1998 source-model experiment','qualification_status':'QUALIFIED',
+              'guardrail':'Do not use LGN3 1995, LGN4 1999/2000, a representative arable crop, or a late-October bare-soil assumption as an observed 1998 crop state. A scenario is not an observation and must be labelled/qualified separately.'
+          })
+
+          qual_rows=[
+          {'qualification_id':'Q_TOL_LAND_USE_NEAR_PERIOD','evidence_id':'EV_TOL_LAND_USE_NEAR_PERIOD','intended_use':'Broad historical land-use context','dependencies':'Official Peilbesluit Tollebeek 2006','test_or_review':'Reviewed historical control-area land-use table for Rietgors/Fuut/Kievit.','qualification_status':'QUALIFIED_WITH_LIMITATIONS','review_date':'2026-09-16','qualification_notes':'Qualified for broad near-period arable/forest context only; not event crop identity.'},
+          {'qualification_id':'Q_TOL_LGN3_PRE_EVENT','evidence_id':'EV_TOL_LGN3_PRE_EVENT','intended_use':'Pre-event historical land-use/crop screening route','dependencies':'LGN3 WER documentation and Flevoland temporal provenance','test_or_review':'Verified 25 m resolution and that Flevoland agricultural classification uses 1995 imagery.','qualification_status':'QUALIFIED_WITH_LIMITATIONS','review_date':'2026-09-16','qualification_notes':'Qualified as 1995 context; not transferable as a 1998 crop observation.'},
+          {'qualification_id':'Q_TOL_LGN4_POST_EVENT','evidence_id':'EV_TOL_LGN4_POST_EVENT','intended_use':'Post-event historical land-use/crop screening route','dependencies':'LGN4 WER documentation','test_or_review':'Verified 1999/2000 image basis and change-analysis role relative to LGN3.','qualification_status':'QUALIFIED_WITH_LIMITATIONS','review_date':'2026-09-16','qualification_notes':'Qualified as post-event context; not transferable as a 1998 crop observation.'},
+          {'qualification_id':'Q_LGN_CROP_ROTATION_CAUTION','evidence_id':'EV_LGN_CROP_ROTATION_CAUTION','intended_use':'Prevent temporal interpolation of crop identity','dependencies':'WER LGN monitoring methodology','test_or_review':'Reviewed methodological statement distinguishing crop rotation from stable land-use change.','qualification_status':'QUALIFIED','review_date':'2026-09-16','qualification_notes':'Applies as a temporal-transfer guardrail for the 1998 crop-state decision.'},
+          {'qualification_id':'Q_BRP_PUBLIC_ARCHIVE_START_2009','evidence_id':'EV_BRP_PUBLIC_ARCHIVE_START_2009','intended_use':'Bound public annual parcel/crop route','dependencies':'PDOK/RVO historical Gewaspercelen documentation','test_or_review':'Verified documented historical public annual range 2009-2022 and annual crop declaration semantics.','qualification_status':'QUALIFIED_WITH_LIMITATIONS','review_date':'2026-09-16','qualification_notes':'Qualified negative route result for public BRP access; does not exclude non-public or archival 1998 records.'}]
+          for row in qual_rows: upsert(ROOT/'evidence/qualification_register.csv','qualification_id',row)
+
+          req=ROOT/'data_requests/data_request_register.csv'
+          with req.open('r',encoding='utf-8',newline='') as f:
+              r=csv.DictReader(f); fields=r.fieldnames or []; rows=list(r)
+          found=False
+          for row in rows:
+              if row['data_request_id']=='DR_SM_LAND_USE':
+                  found=True
+                  row['input_readiness_status']='PARTIAL_EVIDENCE'
+                  row['current_evidence_ids']='EV_TOL_LAND_USE_NEAR_PERIOD;EV_TOL_LGN3_PRE_EVENT;EV_TOL_LGN4_POST_EVENT;EV_LGN_CROP_ROTATION_CAUTION;EV_BRP_PUBLIC_ARCHIVE_START_2009'
+                  row['current_claim_ids']=add(row['current_claim_ids'],'CL_TOL_1998_LAND_USE_GATE')
+                  row['blocking_reason']='Broad historical arable/forest land-use context and pre/post-event LGN routes are qualified, but no parcel/profile-level crop identity or vegetation state is admitted for October 1998. LGN3 represents 1995 in Flevoland, LGN4 represents 1999/2000, and public annual BRP crop archives start in 2009; crop rotation prevents interpolation between historical map years.'
+                  row['next_action']='Seek 1998 parcel/crop registration, owner/farmer records or other dated field-level evidence spatially linkable to the historical Tollebeek control areas and selected source-model units. If exact crop evidence cannot be recovered, review a separate explicitly scenario-based or crop-independent model design without presenting it as observed 1998 land use.'
+                  row['request_notes']='Detailed request contract: data_requests/tollebeek_land_use_data_request_v0_1.md. Do not default all OT.02 to one representative arable crop, interpolate 1998 crop from LGN3/LGN4, or assume bare soil because the event is in late October. Missing event crop remains missing.'
+          if not found: raise SystemExit('DR_SM_LAND_USE not found')
+          with req.open('w',encoding='utf-8',newline='') as f:
+              w=csv.DictWriter(f,fieldnames=fields,lineterminator='\n'); w.writeheader(); w.writerows(rows)
+
+          tp=ROOT/'model/traceability.csv'
+          with tp.open('r',encoding='utf-8',newline='') as f:
+              r=csv.DictReader(f); fields=r.fieldnames or []; rows=list(r)
+          found=False
+          for row in rows:
+              if row['capability_id']=='CAP_ATTRIB':
+                  found=True
+                  if row['capability_status']!='DATA_GATED': raise SystemExit('CAP_ATTRIB unexpectedly not DATA_GATED')
+                  row['evidence_or_claim_ids']=add(row['evidence_or_claim_ids'],'EV_TOL_LAND_USE_NEAR_PERIOD','EV_TOL_LGN3_PRE_EVENT','EV_TOL_LGN4_POST_EVENT','EV_BRP_PUBLIC_ARCHIVE_START_2009','CL_TOL_1998_LAND_USE_GATE')
+                  row['broken_link']='Event forcing is admitted, but current/reference soil states and event-relevant land-use/crop state remain unadmitted; initial state and managed-boundary controls also remain partial.'
+                  row['review_trigger']='Admission of current/reference soil state, 1998 land-use/crop state, or change to event-forcing/attribution semantics.'
+          if not found: raise SystemExit('CAP_ATTRIB not found')
+          with tp.open('w',encoding='utf-8',newline='') as f:
+              w=csv.DictWriter(f,fieldnames=fields,lineterminator='\n'); w.writeheader(); w.writerows(rows)
+
+          (ROOT/'data_requests/tollebeek_land_use_data_request_v0_1.md').write_text('''# Tollebeek 1998 land-use / crop data request v0.1\n\nPurpose: resolve `DR_SM_LAND_USE` for `EVT_TOL_1998_OCT` without a representative-crop convenience default.\n\nPreferred evidence is field/parcel-level crop or vegetation identity for the 1998 growing season, spatially linkable to the historical Tollebeek control areas and ultimately to selected source-model units. Preserve parcel/field ID, geometry/coordinates and CRS, crop code/name, reference date/year, source provenance and any management/phenology information needed by the chosen source model.\n\nQualified context routes:\n- LGN3: 25 m pre-event context; Flevoland agricultural classification is 1995;\n- LGN4: post-event context based on 1999/2000 imagery;\n- public BRP/Gewaspercelen historical annual archive: 2009 onward, so it does not resolve 1998;\n- official 2006 Tollebeek documentation: broad arable/forest context only.\n\nDo not interpolate crop identity across LGN map years because crop changes can reflect rotation. Do not assume one representative crop for OT.02 or bare soil from the October event date. If direct 1998 evidence cannot be recovered, any crop-independent or scenario-based model design must be reviewed separately and labelled as a scientific scenario rather than observation.\n''',encoding='utf-8')
+
+          (ROOT/'docs/30_tollebeek_land_use_evidence_route_v0_1.md').write_text('''# Tollebeek 1998 land-use evidence route v0.1\n\nStatus: **HISTORICAL CONTEXT ROUTE QUALIFIED, EVENT CROP NOT ADMITTED**\n\n## Decision\n\n`DR_SM_LAND_USE` advances from `MISSING` to `PARTIAL_EVIDENCE`. Broad land-use context and historical map routes are now explicit, but the project still lacks event-relevant crop/vegetation identity at source-model grain for October 1998.\n\n## What is known\n\nNear-period official Tollebeek documentation describes the historical Rietgors/Fuut/Kievit areas as predominantly arable agricultural land, with forest also present in Rietgors and Kievit. LGN3 and LGN4 provide national historical spatial context before and after the event.\n\nFor Flevoland, LGN3 agricultural classification uses 1995 imagery. LGN4 uses 1999/2000 imagery. The LGN methodology warns that crop-type changes can simply reflect crop rotation. Therefore neither map, nor interpolation between them, establishes the exact crop in 1998.\n\nThe public RVO/PDOK annual Gewaspercelen archive documents historical annual datasets from 2009 onward, so this high-quality parcel/crop route does not reach the event year.\n\n## Model consequence\n\nVegetation/crop can affect rooting, transpiration and interception. A paired soil-compaction attribution experiment must therefore keep land-use/crop semantics identical across CURRENT and REFERENCE unless vegetation is intentionally part of the scientific contrast. Missing crop information may not be hidden behind a representative crop default.\n\nIf exact 1998 crop evidence cannot be recovered, a later model-design workunit may test whether the event experiment can be defined as explicitly crop-independent or as a bounded scenario. Such a scenario is not observational admission.\n''',encoding='utf-8')
+
+          (ROOT/'workunits/tollebeek_land_use_v0_1_ACQUIRE_REVIEW.md').write_text('''# Tollebeek land use v0.1 — ACQUIRE / REVIEW checkpoint\n\n- canonical start: `629cc4d9590671f5e6c1f1140b17457511b17ec1`\n- branch: `work/tollebeek-land-use-v0.1`\n- event: `EVT_TOL_1998_OCT`\n- LGN3 qualified as 1995 Flevoland pre-event context\n- LGN4 qualified as 1999/2000 post-event context\n- crop-rotation temporal-transfer guardrail qualified\n- public annual BRP/Gewaspercelen archive confirmed to start in 2009 for historical downloads\n- official near-period broad arable/forest context retained\n\nVerdict: `QUALIFY_LAND_USE_HISTORICAL_ROUTE_NO_ADMIT_1998_CROP`.\n\nNo 1998 parcel crop, profile crop assignment, vegetation state, rooting state, harvest state or source-model crop parameterization is admitted.\n''',encoding='utf-8')
+
+          (ROOT/'tools/validate_land_use_gate.py').write_text('''from __future__ import annotations\nimport csv\nfrom pathlib import Path\nROOT=Path(__file__).resolve().parents[1]\n\ndef rows(path):\n    with path.open('r',encoding='utf-8',newline='') as f:return list(csv.DictReader(f))\n\ndef validate():\n    errors=[]\n    req={r['data_request_id']:r for r in rows(ROOT/'data_requests/data_request_register.csv')}.get('DR_SM_LAND_USE')\n    if not req:return ['missing DR_SM_LAND_USE']\n    if req.get('input_readiness_status')!='PARTIAL_EVIDENCE':errors.append('DR_SM_LAND_USE must be PARTIAL_EVIDENCE; 1998 crop is not admitted')\n    required=('EV_TOL_LAND_USE_NEAR_PERIOD','EV_TOL_LGN3_PRE_EVENT','EV_TOL_LGN4_POST_EVENT','EV_LGN_CROP_ROTATION_CAUTION','EV_BRP_PUBLIC_ARCHIVE_START_2009')\n    for eid in required:\n        if eid not in req.get('current_evidence_ids',''):errors.append(f'DR_SM_LAND_USE missing {eid}')\n    if 'CL_TOL_1998_LAND_USE_GATE' not in req.get('current_claim_ids',''):errors.append('land-use gate claim missing')\n    boundary=(req.get('blocking_reason','')+' '+req.get('request_notes','')).lower()\n    for phrase in ('1995','1999/2000','2009','crop rotation','representative','bare soil','missing'):\n        if phrase not in boundary:errors.append(f'land-use guardrail missing {phrase!r}')\n    evidence={r['evidence_id']:r for r in rows(ROOT/'evidence/evidence_register.csv')}\n    if evidence.get('EV_TOL_LGN3_PRE_EVENT',{}).get('evidence_value')!='25':errors.append('LGN3 resolution/context changed')\n    if evidence.get('EV_BRP_PUBLIC_ARCHIVE_START_2009',{}).get('evidence_value')!='2009':errors.append('BRP public historical lower bound changed')\n    caution=evidence.get('EV_LGN_CROP_ROTATION_CAUTION',{})\n    if caution.get('evidence_status')!='QUALIFIED' or 'crop rotation' not in caution.get('evidence_statement','').lower():errors.append('crop-rotation guardrail not qualified')\n    claims={r['claim_id']:r for r in rows(ROOT/'evidence/claims.csv')}\n    claim=claims.get('CL_TOL_1998_LAND_USE_GATE',{})\n    if claim.get('qualification_status')!='QUALIFIED':errors.append('land-use gate claim not QUALIFIED')\n    if 'representative arable crop' not in claim.get('guardrail',''):errors.append('representative-crop exclusion weakened')\n    trace={r['capability_id']:r for r in rows(ROOT/'model/traceability.csv')}.get('CAP_ATTRIB',{})\n    if trace.get('capability_status')!='DATA_GATED':errors.append('CAP_ATTRIB must remain DATA_GATED')\n    if 'CL_TOL_1998_LAND_USE_GATE' not in trace.get('evidence_or_claim_ids',''):errors.append('CAP_ATTRIB trace missing land-use gate')\n    forbidden=(ROOT/'data/land_use/tollebeek_1998_crop.csv',ROOT/'data/land_use/tollebeek_1998_land_use.csv')\n    for p in forbidden:\n        if p.exists():errors.append(f'unexpected admitted 1998 land-use dataset: {p.relative_to(ROOT)}')\n    return errors\n\ndef main():\n    errors=validate()\n    if errors:\n        print('Tollebeek land-use gate validation FAILED')\n        for e in errors:print(f'ERROR: {e}')\n        return 1\n    print('Tollebeek land-use gate validation passed.')\n    print('Validated historical context routes, crop-rotation temporal guardrail, BRP archive bound and no-admit 1998 crop semantics.')\n    return 0\nif __name__=='__main__':raise SystemExit(main())\n''',encoding='utf-8')
+
+          (ROOT/'tests/test_land_use_gate.py').write_text('''from __future__ import annotations\nimport sys,unittest\nfrom pathlib import Path\nROOT=Path(__file__).resolve().parents[1];TOOLS=ROOT/'tools'\nif str(TOOLS) not in sys.path:sys.path.insert(0,str(TOOLS))\nfrom validate_land_use_gate import validate\nclass LandUseGateTests(unittest.TestCase):\n    def test_land_use_gate_integrity(self):self.assertEqual([],validate())\nif __name__=='__main__':unittest.main()\n''',encoding='utf-8')
+
+          pv=ROOT/'tools/validate_project.py';text=pv.read_text(encoding='utf-8')
+          if 'from validate_land_use_gate import validate as validate_land_use_gate' not in text:text=text.replace('from validate_managed_boundary_gate import validate as validate_managed_boundary_gate\n','from validate_managed_boundary_gate import validate as validate_managed_boundary_gate\nfrom validate_land_use_gate import validate as validate_land_use_gate\n')
+          if '"docs/30_tollebeek_land_use_evidence_route_v0_1.md"' not in text:text=text.replace('    "docs/29_tollebeek_managed_boundary_evidence_route_v0_1.md",\n','    "docs/29_tollebeek_managed_boundary_evidence_route_v0_1.md",\n    "docs/30_tollebeek_land_use_evidence_route_v0_1.md",\n')
+          if '"data_requests/tollebeek_land_use_data_request_v0_1.md"' not in text:text=text.replace('    "data_requests/tollebeek_managed_boundary_data_request_v0_1.md",\n','    "data_requests/tollebeek_managed_boundary_data_request_v0_1.md",\n    "data_requests/tollebeek_land_use_data_request_v0_1.md",\n')
+          if 'errors.extend(f"land-use-gate: {item}" for item in validate_land_use_gate())' not in text:text=text.replace('    errors.extend(f"managed-boundary-gate: {item}" for item in validate_managed_boundary_gate())\n','    errors.extend(f"managed-boundary-gate: {item}" for item in validate_managed_boundary_gate())\n    errors.extend(f"land-use-gate: {item}" for item in validate_land_use_gate())\n')
+          pv.write_text(text,encoding='utf-8')
+          PY
+      - name: Validate route postimage
+        run: |
+          python -m py_compile tools/validate_land_use_gate.py tools/validate_project.py
+          python tools/validate_project.py
+          python -m unittest discover -s tests -v
+      - name: Commit route postimage
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add evidence data_requests docs model tools tests workunits
+          git commit -m "Qualify Tollebeek 1998 land-use evidence route"
+          git push origin HEAD:work/tollebeek-land-use-v0.1
