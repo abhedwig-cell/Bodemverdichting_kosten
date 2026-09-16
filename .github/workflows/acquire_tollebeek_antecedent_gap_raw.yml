@@ -1,0 +1,117 @@
+name: Acquire Tollebeek antecedent gap raw source
+
+on:
+  push:
+    branches:
+      - work/tollebeek-antecedent-gap-reconstruction-v0.1
+
+permissions:
+  contents: write
+
+jobs:
+  acquire:
+    if: ${{ !contains(github.event.head_commit.message, '[gap-receipt-persisted]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Acquire source-native KNMI responses and receipt
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib
+          import json
+          import urllib.parse
+          import urllib.request
+          from pathlib import Path
+
+          dest = Path('data/raw/knmi/tollebeek_antecedent_gap_v0_1')
+          dest.mkdir(parents=True, exist_ok=True)
+          ua = {'User-Agent': 'Bodemverdichting-kosten-gap-raw-receipt/0.1'}
+
+          requests = [
+              {
+                  'name': 'hourly',
+                  'url': 'https://www.daggegevens.knmi.nl/klimatologie/uurgegevens',
+                  'params': {
+                      'stns': '273:267:269:270:279',
+                      'vars': 'PRCP',
+                      'start': '1998090201',
+                      'end': '1998090824',
+                  },
+                  'path': dest / 'knmi_hourly_prcp_273_267_269_270_279_19980902_19980908.txt',
+              },
+              {
+                  'name': 'manual317',
+                  'url': 'https://www.daggegevens.knmi.nl/klimatologie/monv/reeksen',
+                  'params': {
+                      'stns': '317',
+                      'start': '19980903',
+                      'end': '19980908',
+                  },
+                  'path': dest / 'knmi_manual_rd_317_19980903_19980908.txt',
+              },
+          ]
+
+          receipt = {
+              'schema_version': 'tollebeek_antecedent_gap_source_receipt_v0.1',
+              'source_authority': 'KNMI official climatology endpoints',
+              'workflow_head_sha': '${{ github.sha }}',
+              'workflow_run_id': '${{ github.run_id }}',
+              'requests': [],
+              'source_semantics': {
+                  'hourly_RH': '0.1 mm; -1 denotes trace <0.05 mm; blank denotes source missing',
+                  'manual_RD': '0.1 mm daily precipitation amount in native manual-gauge reporting series',
+                  'manual_window': '08:00 UTC previous day to 08:00 UTC report date',
+              },
+              'classification': 'ACQUIRED_SOURCE_NATIVE_NOT_YET_RECONSTRUCTED',
+          }
+
+          for spec in requests:
+              body = urllib.parse.urlencode(spec['params']).encode('ascii')
+              req = urllib.request.Request(spec['url'], data=body, headers=ua, method='POST')
+              with urllib.request.urlopen(req, timeout=180) as response:
+                  raw = response.read()
+                  status = getattr(response, 'status', 200)
+                  ctype = response.headers.get('Content-Type', '')
+              if status != 200:
+                  raise SystemExit(f"HTTP {status} for {spec['name']}")
+              spec['path'].write_bytes(raw)
+              receipt['requests'].append({
+                  'name': spec['name'],
+                  'url': spec['url'],
+                  'method': 'POST',
+                  'params': spec['params'],
+                  'request_body_ascii': body.decode('ascii'),
+                  'raw_path': str(spec['path']),
+                  'response_bytes': len(raw),
+                  'response_sha256': hashlib.sha256(raw).hexdigest(),
+                  'content_type': ctype,
+              })
+
+          (dest / 'source_receipt_manifest.json').write_text(
+              json.dumps(receipt, indent=2, ensure_ascii=False) + '\n',
+              encoding='utf-8',
+          )
+
+          print(json.dumps(receipt, indent=2, ensure_ascii=False))
+          PY
+      - name: Persist exact raw receipt to work branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/raw/knmi/tollebeek_antecedent_gap_v0_1
+          git diff --cached --check
+          if git diff --cached --quiet; then
+            echo 'No source receipt changes to persist.'
+            exit 0
+          fi
+          git commit -m 'Persist source-native KNMI gap receipt [gap-receipt-persisted]'
+          git push origin HEAD:work/tollebeek-antecedent-gap-reconstruction-v0.1
