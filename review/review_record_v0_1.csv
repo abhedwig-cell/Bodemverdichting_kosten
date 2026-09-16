@@ -1,0 +1,7 @@
+review_item_id,review_question,review_topic,reviewer_or_role,comment,affected_layers,disposition,owner,next_action,evidence_or_dependency,status
+R1,Is the separation soil state -> response -> attribution -> transfer -> valuation scientifically appropriate and are important pathways missing or incorrectly combined?,Causal decomposition,,,,,,,,OPEN
+R2,Is the matched current/reference logic a defensible way to isolate effects attributable to compaction and which reference-state choices require additional scientific rules?,Counterfactual/reference state,,,,,,,,OPEN
+R3,Are the main entities row grains IDs and null semantics understandable and scientifically meaningful and are hidden objects still combined inside one table?,Data-model semantics,,,,,,,,OPEN
+R4,Is the separation source -> evidence item -> project claim -> qualification useful and sufficiently strict and are any current claims stronger than their evidence allows?,Evidence discipline,,,,,,,,OPEN
+R5,Are the currently blocked inputs real scientific prerequisites or unnecessarily strict and are important blockers missing?,Current data gates,,,,,,,,OPEN
+R6,Can a reviewer move from a project claim to the formal equation dataset code test and evidence without inferring hidden meaning?,Traceability/reproducibility,,,,,,,,OPEN

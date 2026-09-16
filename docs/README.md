@@ -12,6 +12,8 @@ For a compact cross-layer review of the current architecture, see [`15_traceabil
 
 For the current transfer/review moment, use [`18_status_a_light_checkpoint_v0_1.md`](18_status_a_light_checkpoint_v0_1.md). It summarises maturity per layer, current Tollebeek data gates, what the tests do and do not prove, and the next scientific milestone.
 
+For the actual first colleague review, use [`19_colleague_review_session_v0_1.md`](19_colleague_review_session_v0_1.md) together with [`20_colleague_review_package_v0_1.md`](20_colleague_review_package_v0_1.md) and the templates under [`../review/`](../review/).
+
 The first explicit evidence baseline for the general theoretical framework is [`16_theory_evidence_baseline_v0_1.md`](16_theory_evidence_baseline_v0_1.md).
 
 ## Core reader path
@@ -47,16 +49,18 @@ The generated workbook has since advanced to an evidence-aware v0.2 artifact: ca
 16. [`16_theory_evidence_baseline_v0_1.md`](16_theory_evidence_baseline_v0_1.md) — first source/evidence/claim/qualification baseline for the general theoretical framework
 17. [`17_formal_traceability_register_v0_1.md`](17_formal_traceability_register_v0_1.md) — machine-readable equation register and capability traceability with integrity validation
 18. [`18_status_a_light_checkpoint_v0_1.md`](18_status_a_light_checkpoint_v0_1.md) — current review checkpoint, maturity matrix, data gates and next science/transfer milestones
+19. [`19_colleague_review_session_v0_1.md`](19_colleague_review_session_v0_1.md) — review questions, 90-minute agenda, dispositions and review boundary
+20. [`20_colleague_review_package_v0_1.md`](20_colleague_review_package_v0_1.md) — bounded pre-read/review package and review-record semantics
 
 The corresponding machine-readable formal registers live under [`model/`](../model/).
 
 ## Suggested reading paths
 
-**Scientific colleague / reviewer:** `00 → 01 → 02 → 16 → 03 → 04 → 07 → 15 → 17 → 18`
+**Scientific colleague / reviewer:** `00 → 01 → 02 → 16 → 03 → 04 → 07 → 15 → 17 → 18 → 19`
 
-**Data/software colleague:** `00 → 05 → 06 → 08 → 11 → 12 → 15 → 17 → 18`
+**Data/software colleague:** `00 → 05 → 06 → 08 → 11 → 12 → 15 → 17 → 18 → 19`
 
-**Tollebeek/domain reviewer:** `00 → 11 → 13 → evidence/ → 15 → 17 → 18`
+**Tollebeek/domain reviewer:** `00 → 11 → 13 → evidence/ → 15 → 17 → 18 → 19`
 
 **Contributor:** `00 → 14 → 18 → ../CONTRIBUTING.md`
 

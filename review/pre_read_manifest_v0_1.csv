@@ -1,0 +1,9 @@
+item_id,document_or_artifact,audience,required,purpose
+PREREAD_01,docs/00_colleague_reader_guide.md,all,YES,Understand the project chain and current maturity without reading legacy workbook history
+PREREAD_02,docs/18_status_a_light_checkpoint_v0_1.md,all,YES,See the current review checkpoint data gates and next scientific milestone
+PREREAD_03,generated Tollebeek review workbook v0.2,all,YES,Inspect the schema-driven Excel interface data dictionary and current evidence-aware templates
+PREREAD_04,repository root,all,YES,Provide access to canonical schema evidence code tests and documentation
+PREREAD_05,docs/02_theoretical_framework.md; docs/04_formal_model.md,soil-hydrology,OPTIONAL,Review causal and formal hydrological semantics
+PREREAD_06,docs/05_data_model.md; docs/06_implementation.md; docs/17_formal_traceability_register_v0_1.md,data-software,OPTIONAL,Review entities grains implementation and cross-layer traceability
+PREREAD_07,docs/07_evidence_and_qualification.md; evidence/; docs/15_traceability_matrix_v0_1.md,evidence-method,OPTIONAL,Review source evidence claim qualification and traceability discipline
+PREREAD_08,docs/11_tollebeek_vertical_slice_v0_2.md; docs/13_tollebeek_evidence_baseline_v0_1.md,Tollebeek-water-system,OPTIONAL,Review the pilot architecture evidence and current data gates
