@@ -102,12 +102,14 @@ datasets:
     role: REFERENCE
     grain: one row per profile
     primary_key: [soil_profile_id]
+    storage: data/soil/tollebeek_soil_profiles.csv
 
   soil_layer_register:
     entity: soil_layer
     role: REFERENCE
     grain: one row per soil profile x depth interval
     primary_key: [soil_layer_id]
+    storage: data/soil/tollebeek_soil_layers.csv
 
   soil_state_register:
     entity: soil_state

@@ -14,6 +14,7 @@ FIELD_FILES = [
     "formal_traceability_fields.yml",
     "tollebeek_vertical_slice.yml",
     "domain_fields_v0_3.yml",
+    "profile_fields_v0_1.yml",
 ]
 
 REQUIRED_V03_DATASETS = {
