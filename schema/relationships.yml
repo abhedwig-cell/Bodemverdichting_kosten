@@ -1,5 +1,5 @@
-schema_version: 0.2.0
-status: PROVISIONAL_VERTICAL_SLICE
+schema_version: 0.3.0
+status: STATUS_A_LIGHT_DOMAIN_BASELINE
 
 relationships:
   source_evidence:
@@ -19,6 +19,31 @@ relationships:
     to_entity: qualification
     cardinality: one-to-many
     foreign_key: qualification.claim_id
+    implementation_note: conceptual relation; current qualification storage may qualify evidence directly and must not invent a claim_id when none is registered
+
+  spatial_profile:
+    from_entity: spatial_unit
+    to_entity: soil_profile
+    cardinality: one-to-many
+    foreign_key: soil_profile.spatial_unit_id
+
+  profile_layer:
+    from_entity: soil_profile
+    to_entity: soil_layer
+    cardinality: one-to-many
+    foreign_key: soil_layer.soil_profile_id
+
+  layer_state:
+    from_entity: soil_layer
+    to_entity: soil_state
+    cardinality: one-to-many
+    foreign_key: soil_state.soil_layer_id
+
+  spatial_land_use:
+    from_entity: spatial_unit
+    to_entity: land_use_crop
+    cardinality: one-to-many
+    foreign_key: land_use_crop.spatial_unit_id
 
   spatial_run:
     from_entity: spatial_unit
@@ -31,6 +56,32 @@ relationships:
     to_entity: model_run
     cardinality: one-to-many
     foreign_key: model_run.event_id
+
+  soil_state_run:
+    from_entity: soil_state
+    to_entity: model_run
+    cardinality: one-to-many
+    foreign_key: model_run.soil_state_id
+    implementation_note: current/reference attribution requires the soil-state identity to be explicit rather than inferred from a run label
+
+  model_configuration_run:
+    from_entity: model_configuration
+    to_entity: model_run
+    cardinality: one-to-many
+    foreign_key: model_run.model_configuration_id
+
+  drainage_configuration_run:
+    from_entity: drainage_configuration
+    to_entity: model_run
+    cardinality: one-to-many
+    foreign_key: model_run.drainage_configuration_id
+
+  land_use_crop_run:
+    from_entity: land_use_crop
+    to_entity: model_run
+    cardinality: one-to-many
+    foreign_key: model_run.land_use_crop_id
+    implementation_note: required where crop or land use is a controlled run dimension; null remains null where the relation is not applicable or not yet registered
 
   run_response:
     from_entity: model_run
