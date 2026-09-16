@@ -109,10 +109,11 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add evidence/source_snapshots/tollebeek_antecedent_gap_v0_1
-          git diff --cached --check
           if git diff --cached --quiet; then
             echo 'No source snapshot changes to persist.'
             exit 0
           fi
+          # Source-native KNMI text intentionally retains spacing in headers and blank fields.
+          # Do not normalize it merely to satisfy git diff --check.
           git commit -m 'Persist source-native KNMI gap receipt [gap-receipt-persisted]'
           git push origin HEAD:work/tollebeek-antecedent-gap-reconstruction-v0.1
