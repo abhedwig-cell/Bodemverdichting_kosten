@@ -75,6 +75,16 @@ Detailed route evidence: `docs/37_tollebeek_current_state_bis_recovery_v0_1.md`.
 
 This negative route result does not imply that no Tollebeek observations exist in non-public or other archives.
 
+## Secondary request route: RAAK.PRO02.021 2018 field-scale dataset
+
+Van Orsouw et al. (2022), DOI `10.3390/agronomy12071669`, is explicitly funded under the same SIA grant `RAAK.PRO02.021` and by the Province of Flevoland. The paper states that its underlying data are available on request from the authors.
+
+This dataset is **not** the WER3382 regional campaign. Source-native publication metadata describe a distinct single-field experiment at the edge of Emmeloord with 25 measurement locations and autumn-2018 fieldwork after a 2017 heavy-compaction event. The later WER3382 campaign instead contains 305 regional locations sampled from September 2020 through June 2021.
+
+Accordingly, the Van Orsouw dataset is a secondary request route for project-family/methodological evidence only. If obtained, it must retain source-native coordinates, date/depth/method/QC fields and be independently intersected with OT.02. No OT.02 membership may be inferred from the article figure or from the word `Emmeloord`.
+
+Detailed route evidence: `docs/38_tollebeek_current_state_pointscale_route_v0_1.md`.
+
 ## Admission criteria after acquisition
 
 `DR_SM_CURRENT_STATE` may only move toward `READY_FOR_REVIEW` or `ADMITTED` when the candidate records:
