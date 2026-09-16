@@ -1,0 +1,119 @@
+name: Probe Tollebeek BIS current-state provenance
+
+on:
+  push:
+    branches:
+      - work/tollebeek-current-state-bis-recovery-v0.1
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Acquire 4TU BIS bulk-density source and inspect provenance
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import csv, hashlib, io, json, re, urllib.request
+          from pathlib import Path
+
+          article = 'c90215b3-bdc6-4633-b721-4c4a0259d6dc'
+          meta_url = f'https://data.4tu.nl/v2/articles/{article}/files'
+          req = urllib.request.Request(meta_url, headers={'User-Agent':'Bodemverdichting-kosten-provenance-recovery/0.1'})
+          with urllib.request.urlopen(req, timeout=60) as r:
+              raw_meta = r.read()
+          meta = json.loads(raw_meta)
+          files = meta if isinstance(meta, list) else meta.get('files', meta.get('results', []))
+          target = None
+          for f in files:
+              if f.get('name') == 'tbl_cal_BD_gcm3.csv':
+                  target = f
+                  break
+          if target is None:
+              raise SystemExit('target file tbl_cal_BD_gcm3.csv not found')
+          fid = str(target.get('id') or target.get('uuid') or target.get('file_id') or '')
+          if not fid:
+              raise SystemExit(f'target metadata has no usable id: {target}')
+          dl = target.get('download_url') or target.get('downloadUrl') or f'https://data.4tu.nl/file/{article}/{fid}'
+          req = urllib.request.Request(dl, headers={'User-Agent':'Bodemverdichting-kosten-provenance-recovery/0.1'})
+          with urllib.request.urlopen(req, timeout=120) as r:
+              data = r.read()
+          Path('tbl_cal_BD_gcm3.csv').write_bytes(data)
+          sha256 = hashlib.sha256(data).hexdigest()
+          md5 = hashlib.md5(data).hexdigest()
+          text = data.decode('utf-8-sig')
+          reader = csv.DictReader(io.StringIO(text))
+          rows = list(reader)
+          fields = reader.fieldnames or []
+
+          tokens = [
+              '5200043298', 'RAAK.PRO02.021', 'Flevo-land in beweging',
+              'Flevo - land in beweging', '672577', 'WER 3382', '3382',
+              'van egmond', 'teuling'
+          ]
+          token_hits = {t: [] for t in tokens}
+          rows_2020_2021 = []
+          for i,row in enumerate(rows, start=2):
+              joined = ' | '.join('' if v is None else str(v) for v in row.values())
+              low = joined.lower()
+              for t in tokens:
+                  if t.lower() in low and len(token_hits[t]) < 25:
+                      token_hits[t].append({'line':i, 'row':row})
+              # broad date-year screen only; not provenance
+              if re.search(r'(?<!\d)(2020|2021)(?!\d)', joined):
+                  if len(rows_2020_2021) < 100:
+                      rows_2020_2021.append({'line':i, 'row':row})
+
+          # column-level clue classification
+          clues = {}
+          for f in fields:
+              lf=f.lower()
+              tags=[]
+              for tag, words in {
+                  'coordinate':['x','y','coord','rd','lon','lat','easting','northing'],
+                  'date':['date','datum','year','jaar','time'],
+                  'depth':['depth','diep','top','bottom','upper','lower'],
+                  'project':['project','source','bron','study','dataset','onderzoek'],
+                  'method':['method','methode','lab','field','ring','sample'],
+                  'id':['id','code','nr','number']
+              }.items():
+                  if any(w in lf for w in words): tags.append(tag)
+              if tags: clues[f]=tags
+
+          summary = {
+              'article_uuid': article,
+              'metadata_url': meta_url,
+              'file_metadata': target,
+              'resolved_file_id': fid,
+              'download_url_used': dl,
+              'bytes': len(data),
+              'sha256': sha256,
+              'md5': md5,
+              'row_count': len(rows),
+              'columns': fields,
+              'column_clues': clues,
+              'token_hit_counts': {k:len(v) for k,v in token_hits.items()},
+              'token_hits': token_hits,
+              'rows_with_literal_2020_or_2021_count_capped': len(rows_2020_2021),
+              'rows_with_literal_2020_or_2021_sample': rows_2020_2021[:20],
+          }
+          Path('bis_probe_summary.json').write_text(json.dumps(summary, indent=2, ensure_ascii=False), encoding='utf-8')
+          print(json.dumps({k:v for k,v in summary.items() if k not in ('token_hits','rows_with_literal_2020_or_2021_sample')}, indent=2, ensure_ascii=False))
+          print('TOKEN_HIT_COUNTS', summary['token_hit_counts'])
+          if any(summary['token_hit_counts'].values()):
+              print('TOKEN_HIT_SAMPLE')
+              print(json.dumps({k:v[:3] for k,v in token_hits.items() if v}, indent=2, ensure_ascii=False))
+          PY
+      - name: Upload provenance probe summary
+        uses: actions/upload-artifact@v4
+        with:
+          name: tollebeek-bis-current-state-probe
+          path: bis_probe_summary.json
+          if-no-files-found: error
