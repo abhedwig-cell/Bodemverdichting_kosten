@@ -1,5 +1,5 @@
-schema_version: 0.2.1
-status: MIGRATION_BASELINE
+schema_version: 0.3.0
+status: STATUS_A_LIGHT_DOMAIN_BASELINE
 
 dataset_roles:
   - REFERENCE
@@ -91,6 +91,12 @@ datasets:
       - 02_SpatialUnits
       - 17_NL_SoilscapeBasis
 
+  land_use_crop_register:
+    entity: land_use_crop
+    role: MODEL_INPUT
+    grain: one row per spatial unit x period/context x crop or land-use classification
+    primary_key: [land_use_crop_id]
+
   soil_profile_register:
     entity: soil_profile
     role: REFERENCE
@@ -120,6 +126,12 @@ datasets:
     role: MODEL_INPUT
     grain: one row per event/simulation window
     primary_key: [event_id]
+
+  model_configuration_register:
+    entity: model_configuration
+    role: CONFIGURATION
+    grain: one row per versioned model, boundary and numerical configuration
+    primary_key: [model_configuration_id]
 
   model_run_register:
     entity: model_run

@@ -1,0 +1,76 @@
+workunit_id: DATA_MODEL_V0_3
+protocol: RECONCILE_IMPLEMENT_QUALIFY_ADMIT_CLOSE
+status: RECONCILED
+repository: abhedwig-cell/Bodemverdichting_kosten
+branch: work/data-model-v0.3
+base_branch: main
+base_head: 870515997f85d472a084b662622a40bcef92fa14
+phase: RECONCILE
+
+scope:
+  purpose: >-
+    Deepen the current theory-to-formal architecture only where needed to make the
+    existing documented scientific objects and relationships machine-readable in
+    Data Model v0.3, without introducing new hydrological, economic or Tollebeek
+    semantics.
+  included:
+    - reconcile documented domain objects against schema entities, datasets, fields and relationships
+    - make model-run control context and current/reference reconstructability explicit
+    - add missing stable datasets/relationships for already documented domain objects where justified
+    - strengthen cross-layer traceability and validation
+    - update colleague-facing data-model/formal documentation to describe the v0.3 contract
+  excluded:
+    - new hydrological equations or parameters
+    - new economic coefficients or valuation claims
+    - new Tollebeek numerical results
+    - current OT.02 geometry or compaction-state inference
+    - legacy workbook bulk migration
+    - workbook redesign except compatibility changes required by canonical schema evolution
+
+reconcile:
+  main_head: 870515997f85d472a084b662622a40bcef92fa14
+  open_equivalent_workunit: false
+  relevant_existing_branches:
+    - branch: work/workbook-formal-traceability-v0.3
+      status: historical_ancestor_of_main
+    - branch: work/theory-evidence-v0.1
+      status: historical_ancestor_of_main
+  findings:
+    - >-
+      Core theory, conceptual and formal documents already define state, event,
+      model configuration, model run, response, transfer, operation and valuation
+      as separate scientific layers.
+    - >-
+      schema/entities.yml already contains land_use_crop and model_configuration,
+      but schema/datasets.yml does not yet expose stable registers for them.
+    - >-
+      schema/relationships.yml is still a provisional vertical-slice graph and is
+      missing several documented structural relations, including profile-to-layer,
+      layer/state context, model-configuration-to-run and state-to-run semantics.
+    - >-
+      The conceptual model intentionally says a matched current/reference pair does
+      not yet need a separate persisted entity; v0.3 must preserve that decision and
+      make the pair reconstructable from run control dimensions instead of inventing
+      a new attribution-pair table.
+    - >-
+      Current workbook evidence v0.2 is already closed/current-canonical and must not
+      be reopened unless a relevant schema dependency actually requires adaptation.
+  inherited_evidence:
+    - current Status-A-light theory/evidence baseline
+    - current formal equation and capability traceability registers
+    - current project integrity gate and CI
+    - closed workbook-evidence v0.2 qualification
+
+scientific_boundaries:
+  unknown_is_not_zero: true
+  workbook_is_noncanonical_generated_artifact: true
+  current_tollebeek_hydrological_attribution: blocked
+  current_reference_swap_result: not_admitted
+  current_pump_operation_and_cost: blocked
+  current_ot02_geometry: data_gated
+  current_compaction_state: data_gated
+
+verdict: PASS_RECONCILE
+next_permitted_action: >-
+  IMPLEMENT Data Model v0.3 as a bounded schema/traceability change on the same branch,
+  reusing existing documented semantics and adding no new scientific content.
