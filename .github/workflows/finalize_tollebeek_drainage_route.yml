@@ -1,0 +1,109 @@
+name: Temporary finalize Tollebeek drainage route
+
+on:
+  push:
+    branches:
+      - work/tollebeek-drainage-v0.1
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: work/tollebeek-drainage-v0.1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Apply drainage evidence and gate delta
+        run: |
+          python - <<'PY'
+          import csv
+          from pathlib import Path
+
+          def read_rows(path):
+              with Path(path).open('r', encoding='utf-8', newline='') as f:
+                  r=csv.DictReader(f); return r.fieldnames, list(r)
+          def write_rows(path, fields, rows):
+              with Path(path).open('w', encoding='utf-8', newline='') as f:
+                  w=csv.DictWriter(f, fieldnames=fields, lineterminator='\n'); w.writeheader(); w.writerows(rows)
+
+          # Sources
+          p='evidence/sources.csv'; fields, rows=read_rows(p); ids={r['source_id'] for r in rows}
+          additions=[
+            {'source_id':'SRC_ZZL_DRAINAGE_GIS','source_title':'Waterschap Zuiderzeeland zzl_Drainage FeatureServer','source_type':'DATA_SERVICE','source_year':'2021','source_url':'https://services.arcgis.com/84oM5NriBghHdQ3Z/ArcGIS/rest/services/zzl_Drainage/FeatureServer','source_status':'QUALIFIED_WITH_LIMITATIONS','source_notes':'Owner-hosted parcel-drainage inventory route reviewed 2026-09-16. Layer data last edit 2021-06-27; OT.02 records expose spacing/date/depth fields but those fields are incomplete for source-model parameterization.'},
+            {'source_id':'SRC_ZZL_LEGGER_NOP2024','source_title':'Waterschap Zuiderzeeland Legger watersysteem 2024 Noordoostpolder owner service','source_type':'DATA_SERVICE','source_year':'2025','source_url':'https://services.arcgis.com/84oM5NriBghHdQ3Z/ArcGIS/rest/services/Legger_watersysteem_2024_Noord_oostpolder__WFL1/FeatureServer','source_status':'QUALIFIED_WITH_LIMITATIONS','source_notes':'Owner-maintained Noordoostpolder water-system topology service; data last edit 2025-08-27. Public notice reviewed is the second design/draft legger consultation, so this project does not independently assert final legal status for every feature.'},
+            {'source_id':'SRC_ZZL_WATERERFGOED_NOP','source_title':'Watererfgoed Noordoostpolder: het verhaal','source_type':'OWNER_PUBLIC','source_year':'2019','source_url':'https://www.zuiderzeeland.nl/_flysystem/media/het_verhaal_van_het_watererfgoed.pdf','source_status':'QUALIFIED_WITH_LIMITATIONS','source_notes':'Owner-hosted historical narrative on the Noordoostpolder water system and systematic parcel drainage. Historical context only, not a current drainage asset register.'},
+          ]
+          rows += [r for r in additions if r['source_id'] not in ids]; write_rows(p,fields,rows)
+
+          # Evidence
+          p='evidence/evidence_register.csv'; fields, rows=read_rows(p); ids={r['evidence_id'] for r in rows}
+          additions=[
+            {'evidence_id':'EV_TOL_DRAINAGE_OWNER_COVERAGE','source_id':'SRC_ZZL_DRAINAGE_GIS','evidence_statement':'A reproducible intersection of the owner zzl_Drainage layer with the admitted OT.02 polygon found 74 drainage polygons. Their clipped union covers 1425.807934 ha, 95.27% of the 1496.521957 ha OT.02 polygon. The layer exposes spacing, installation-date and depth fields, but all 74 intersecting records return spacing 0 and null depth/date; layer data last edit is 2021-06-27.','spatial_scope':'Tollebeek OT.02','time_scope':'service data last edit 2021-06-27; reviewed 2026-09-16','evidence_value':'74','evidence_unit':'intersecting drainage polygons','provenance_class':'OFFICIAL_METADATA','intended_use':'Owner parcel-drainage inventory and acquisition route for selected-unit drainage evidence','guardrail':'Spacing 0 is treated as unavailable/sentinel-like here, not a physical zero spacing. The layer does not provide usable current drain depth, installation date or SWAP resistance.','evidence_status':'QUALIFIED'},
+            {'evidence_id':'EV_TOL_DRAINAGE_LEGGER_TOPOLOGY','source_id':'SRC_ZZL_LEGGER_NOP2024','evidence_statement':'The owner Noordoostpolder water-system Legger service, data last edited 2025-08-27, intersects OT.02 with 127 Afvoervak lines (~55.57 km clipped length), 258 culvert features (~3.06 km clipped line length), 12 stuw points and 5 put points, plus other water-system structures.','spatial_scope':'Tollebeek OT.02','time_scope':'service data last edit 2025-08-27; reviewed 2026-09-16','evidence_value':'127','evidence_unit':'intersecting Afvoervak features','provenance_class':'OFFICIAL_METADATA','intended_use':'Current owner-backed open-water and water-system topology acquisition route','guardrail':'Open-water topology is not subsurface tile-drain spacing/depth and does not determine SWAP drainage resistance. Publicly reviewed notice concerns the second design/draft legger, so final legal status of every feature is not independently asserted.','evidence_status':'QUALIFIED'},
+            {'evidence_id':'EV_NOP_DRAINAGE_HISTORICAL_CONTEXT','source_id':'SRC_ZZL_WATERERFGOED_NOP','evidence_statement':'Owner-hosted Noordoostpolder water-heritage documentation describes systematic subsurface parcel drainage installed mainly during 1946-1955, with drain spacing varying by soil and drainage discharging toward parcel ditches.','spatial_scope':'Noordoostpolder historical context','time_scope':'historical construction period 1946-1955','evidence_value':'','evidence_unit':'','provenance_class':'HISTORICAL_BENCHMARK','intended_use':'Structural context for the importance of subsurface drainage in the Noordoostpolder','guardrail':'Historical installation geometry is not a current OT.02 asset register and must not be promoted to present-day spacing, depth or resistance.','evidence_status':'CONTEXT_ONLY'},
+          ]
+          rows += [r for r in additions if r['evidence_id'] not in ids]; write_rows(p,fields,rows)
+
+          # Claim
+          p='evidence/claims.csv'; fields, rows=read_rows(p); ids={r['claim_id'] for r in rows}
+          if 'CL_TOL_DRAINAGE_GATE' not in ids:
+              rows.append({'claim_id':'CL_TOL_DRAINAGE_GATE','claim_statement':'Owner data establish widespread parcel-drainage inventory coverage and a much newer open-water/water-system topology for OT.02, but no current source-model drainage configuration is admitted until selected-unit drain spacing/density, drain depth/elevation and the mapping to model drainage parameters are supported by qualified evidence.','claim_type':'DRAINAGE_DATA_GATE','evidence_ids':'EV_TOL_DRAINAGE_OWNER_COVERAGE;EV_TOL_DRAINAGE_LEGGER_TOPOLOGY;EV_FW50_TILE_RES;EV_FW50_SURF_RES;EV_NOP_DRAINAGE_HISTORICAL_CONTEXT','spatial_scope':'Tollebeek OT.02','qualification_status':'QUALIFIED','guardrail':'Do not interpret zero/null owner fields as physical values, copy historical 100 d/30 d resistances, or substitute open-water topology for subsurface drain geometry.'})
+          write_rows(p,fields,rows)
+
+          # Qualifications
+          p='evidence/qualification_register.csv'; fields, rows=read_rows(p); ids={r['qualification_id'] for r in rows}
+          additions=[
+            {'qualification_id':'Q_TOL_DRAINAGE_OWNER_COVERAGE','evidence_id':'EV_TOL_DRAINAGE_OWNER_COVERAGE','intended_use':'Owner parcel-drainage inventory/acquisition route for OT.02','dependencies':'Admitted OT.02 polygon and live zzl_Drainage service','test_or_review':'Read-only spatial intersection, union-area coverage and field-completeness review against all 74 intersecting features','qualification_status':'QUALIFIED_WITH_LIMITATIONS','review_date':'2026-09-16','qualification_notes':'Qualified for inventory coverage and data-gap identification only. Spacing/depth/date attributes are not usable current model inputs.'},
+            {'qualification_id':'Q_TOL_DRAINAGE_LEGGER_TOPOLOGY','evidence_id':'EV_TOL_DRAINAGE_LEGGER_TOPOLOGY','intended_use':'Owner open-water/water-system topology route for OT.02','dependencies':'Admitted OT.02 polygon and live Noordoostpolder Legger service','test_or_review':'Read-only intersection and feature-count/length review; service freshness checked','qualification_status':'QUALIFIED_WITH_LIMITATIONS','review_date':'2026-09-16','qualification_notes':'Qualified for topology/acquisition context. Does not supply subsurface drain dimensions or model resistance; legal finality of every feature not independently established.'},
+            {'qualification_id':'Q_NOP_DRAINAGE_HISTORICAL_CONTEXT','evidence_id':'EV_NOP_DRAINAGE_HISTORICAL_CONTEXT','intended_use':'Historical structural context for NOP subsurface drainage','dependencies':'Owner-hosted water-heritage narrative','test_or_review':'Scope review against current owner drainage and Legger services','qualification_status':'QUALIFIED_WITH_LIMITATIONS','review_date':'2026-09-16','qualification_notes':'Retained as historical context only. No present-day asset dimensions are transferred.'},
+          ]
+          rows += [r for r in additions if r['qualification_id'] not in ids]; write_rows(p,fields,rows)
+
+          # Readiness
+          p='data_requests/data_request_register.csv'; fields, rows=read_rows(p)
+          for r in rows:
+              if r['data_request_id']=='DR_SM_DRAINAGE':
+                  r.update({
+                    'input_readiness_status':'PARTIAL_EVIDENCE',
+                    'current_evidence_ids':'EV_FW50_TILE_RES;EV_FW50_SURF_RES;EV_TOL_DRAINAGE_OWNER_COVERAGE;EV_TOL_DRAINAGE_LEGGER_TOPOLOGY;EV_NOP_DRAINAGE_HISTORICAL_CONTEXT',
+                    'current_claim_ids':'CL_FW50_PRIOR;CL_TOL_DRAINAGE_GATE',
+                    'acceptance_criteria':'For selected source-model units, admit source-native or separately qualified drainage evidence with stable unit IDs/spatial applicability, actual drain spacing or density, drain depth/elevation with datum, outlet/receiving-water relation, provenance/reference date and missing/QC semantics. Any mapping to model drainage resistance must be separately documented and qualified.',
+                    'blocking_reason':'Owner zzl_Drainage identifies 74 drainage polygons covering about 95.27% of OT.02, but all intersecting features return spacing 0 and null depth/install-date values and the layer was last edited in 2021. The much newer owner Legger resolves open-water topology but not parcel-drain spacing, depth or SWAP resistance.',
+                    'next_action':'Acquire current or explicitly dated source-native parcel-drain records from owner/landholder/asset documentation for selected OT.02 units, preserving spacing, depth/elevation, outlet relation and provenance; then qualify the physical-to-model drainage mapping before admitting a configuration.',
+                    'request_notes':'Detailed request contract: data_requests/tollebeek_drainage_data_request_v0_1.md. Owner spacing 0 is treated as unavailable/sentinel-like, null remains null, open-water topology is distinct from subsurface drainage, and historical 100 d/30 d resistances remain priors only.'
+                  })
+          write_rows(p,fields,rows)
+
+          # Traceability
+          p='model/traceability.csv'; fields, rows=read_rows(p)
+          for r in rows:
+              if r['capability_id']=='CAP_MULTI_DRAIN':
+                  r['evidence_or_claim_ids']='CL_FW50_PRIOR;CL_TOL_DRAINAGE_GATE;EV_FW50_TILE_RES;EV_FW50_SURF_RES;EV_TOL_DRAINAGE_OWNER_COVERAGE;EV_TOL_DRAINAGE_LEGGER_TOPOLOGY'
+                  r['capability_status']='DATA_GATED'
+                  r['broken_link']='Owner drainage inventory and open-water topology are identified, but selected-unit current spacing/depth/elevation and a qualified mapping to model drainage resistance are missing.'
+                  r['review_trigger']='Current selected-unit drain asset evidence or drainage-model parameter mapping.'
+          write_rows(p,fields,rows)
+
+          # Project gate
+          path=Path('tools/validate_project.py'); text=path.read_text(encoding='utf-8')
+          if 'validate_drainage_gate' not in text:
+              text=text.replace('from validate_current_state_gate import validate as validate_current_state_gate\n', 'from validate_current_state_gate import validate as validate_current_state_gate\nfrom validate_drainage_gate import validate as validate_drainage_gate\n')
+              text=text.replace('    "docs/25_tollebeek_current_state_evidence_route_v0_1.md",\n', '    "docs/25_tollebeek_current_state_evidence_route_v0_1.md",\n    "docs/26_tollebeek_drainage_evidence_route_v0_1.md",\n')
+              text=text.replace('    "data_requests/tollebeek_current_state_data_request_v0_1.md",\n', '    "data_requests/tollebeek_current_state_data_request_v0_1.md",\n    "data_requests/tollebeek_drainage_data_request_v0_1.md",\n')
+              text=text.replace('    errors.extend(f"current-state-gate: {item}" for item in validate_current_state_gate())\n', '    errors.extend(f"current-state-gate: {item}" for item in validate_current_state_gate())\n    errors.extend(f"drainage-gate: {item}" for item in validate_drainage_gate())\n')
+          path.write_text(text,encoding='utf-8')
+          PY
+      - name: Commit bounded non-workflow drainage delta
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add evidence data_requests model/traceability.csv tools/validate_project.py
+          git diff --cached --quiet && exit 0
+          git commit -m "Qualify Tollebeek drainage evidence route"
+          git push origin HEAD:work/tollebeek-drainage-v0.1
