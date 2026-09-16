@@ -1,0 +1,58 @@
+workunit_id: DATA_MODEL_V0_3
+phase: QUALIFY
+status: QUALIFIED_PENDING_ADMISSION
+branch: work/data-model-v0.3
+qualified_source_head: 30ec3215a2e427ad42af0b8798ddfe73433bb7b1
+base_head: 870515997f85d472a084b662622a40bcef92fa14
+pull_request: 16
+
+qualification:
+  ci:
+    run_id: 35042332353
+    conclusion: success
+    checks:
+      - compile project validation and workbook tools: PASS
+      - Status-A-light integrity gate: PASS
+      - unit and contract tests: PASS
+  domain_schema:
+    verdict: PASS
+    checks:
+      - land_use_crop_register resolves to documented land_use_crop entity and stable primary key
+      - model_configuration_register resolves to documented model_configuration entity and stable primary key
+      - profile-to-layer-to-state relationships resolve against canonical fields/entities
+      - model-run control relationships resolve for spatial unit, event, soil state, model configuration, drainage configuration and land-use/crop context
+      - no attribution_pair entity/register introduced
+      - conflicting field definitions across loaded schema extensions rejected
+  diff_review:
+    verdict: PASS
+    findings:
+      - changes are architecture, schema validation, documentation and governance only
+      - no hydrological or economic equation changed
+      - no Tollebeek numerical evidence or qualification changed
+      - workbook v0.2 generator/spec not modified
+      - current/reference scientific admission remains blocked
+
+known_limitations:
+  - >-
+    Data Model v0.3 makes run-control identities explicit but does not yet persist
+    populated model-run/configuration/land-use records; those require qualified data.
+  - >-
+    Existing conceptual claim-to-qualification relation remains broader than the
+    current CSV storage, which can qualify evidence directly. v0.3 documents this
+    and does not invent missing claim IDs.
+  - >-
+    Legacy state_id remains present in the older field baseline for compatibility;
+    v0.3 standardizes new soil-state identity on soil_state_id and forbids treating
+    the two names as distinct scientific states.
+
+scientific_boundaries:
+  current_tollebeek_hydrological_attribution: blocked
+  current_reference_swap_result: not_admitted
+  current_pump_operation_and_cost: blocked
+  current_ot02_geometry: data_gated
+  current_compaction_state: data_gated
+
+verdict: PASS_QUALIFY
+next_permitted_action: >-
+  Re-run CI on this checkpoint commit, mark PR #16 ready, and ADMIT by merge only if
+  the final head remains green and mergeable. Then persist CLOSE on main/PR metadata.
