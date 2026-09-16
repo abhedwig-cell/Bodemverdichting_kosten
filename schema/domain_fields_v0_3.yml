@@ -1,0 +1,52 @@
+schema_version: 0.3.0
+status: PROVISIONAL_DOMAIN_EXTENSION
+
+fields:
+  land_use_crop_id:
+    entity: land_use_crop
+    label: Land-use/crop context ID
+    description: Stable identifier for one versioned crop or land-use context applicable to a spatial unit and period/context.
+    datatype: string
+    nullable: false
+
+  land_use_crop_class:
+    entity: land_use_crop
+    label: Land-use/crop class
+    description: Human-readable or coded crop/land-use classification for the registered context.
+    datatype: string
+    nullable: false
+
+  context_period:
+    entity: land_use_crop
+    label: Context period
+    description: Period or context label for which the crop/land-use classification applies when known.
+    datatype: string
+    nullable: true
+
+  model_configuration_label:
+    entity: model_configuration
+    label: Model configuration label
+    description: Human-readable name for a versioned controlled model, boundary and numerical configuration.
+    datatype: string
+    nullable: false
+
+  model_configuration_version:
+    entity: model_configuration
+    label: Model configuration version
+    description: Version identifier for the controlled model configuration.
+    datatype: string
+    nullable: true
+
+  configuration_scope:
+    entity: model_configuration
+    label: Configuration scope
+    description: Short statement of the model, boundary and numerical choices controlled by this configuration record.
+    datatype: string
+    nullable: true
+
+  drainage_configuration_id:
+    entity: drainage_configuration
+    label: Drainage configuration ID
+    description: Stable identifier for one versioned drainage representation.
+    datatype: string
+    nullable: false
