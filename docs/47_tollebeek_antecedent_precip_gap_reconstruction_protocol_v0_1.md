@@ -1,6 +1,6 @@
 # Tollebeek antecedent precipitation-gap reconstruction protocol v0.1
 
-Status: **DESIGN CANDIDATE - reconstruction method only**
+Status: **QUALIFIED - reconstruction method family only, SCENARIO_ONLY**
 
 Capability dependency: `DR_SM_INITIAL_STATE`
 Controlling source qualification: `QUALIFIED_ANTECEDENT_FORCING_SOURCE_WITH_PRECIPITATION_GAP`
@@ -85,7 +85,7 @@ A zero timing sum with positive constrained residual is undefined and must fail.
 
 ### G3 - locally mass-constrained multi-station timing ensemble
 
-Status: **QUALIFICATION CANDIDATE FOR SCENARIO-ONLY RECONSTRUCTION**.
+Status: **QUALIFIED FOR SCENARIO-ONLY RECONSTRUCTION METHOD**.
 
 This is the strongest currently supported reconstruction family. It combines two distinct evidence roles rather than pretending all sources measure the same object:
 
@@ -146,9 +146,9 @@ When those dependencies are available, the sensitivity design must be fixed befo
 
 ## Decision boundary
 
-This protocol can qualify a **reconstruction family** without admitting a reconstructed forcing dataset.
+This protocol qualifies a **reconstruction family** without admitting a reconstructed forcing dataset.
 
-The strongest currently defensible classification is therefore:
+The qualified classification is:
 
 `EVIDENCE_BOUNDED_ANTECEDENT_PRECIP_GAP_RECONSTRUCTION_FAMILY_SCENARIO_ONLY`
 
