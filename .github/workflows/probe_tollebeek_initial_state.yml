@@ -1,4 +1,4 @@
-name: Temporary probe Tollebeek initial state
+name: Finalize Tollebeek initial-state evidence route
 
 on:
   push:
@@ -6,112 +6,180 @@ on:
       - work/tollebeek-initial-state-v0.1
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
-  probe:
+  finalize:
     if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Install acquisition dependencies
-        run: python -m pip install requests shapely pyproj
-      - name: Screen historical GLD series for shallow event-date anchors
+      - name: Persist bounded initial-state evidence route
         run: |
           python - <<'PY'
           from __future__ import annotations
-          import csv, io, json
-          from datetime import date, datetime, timezone
+          import csv
           from pathlib import Path
-          import requests
-          from pyproj import Transformer
-          from shapely.geometry import shape
-          from shapely.ops import transform
 
-          target_date=date(1998,10,24)
-          target_dt=datetime(1998,10,24,tzinfo=timezone.utc)
-          root=Path('.')
-          geo=json.loads((root/'data/spatial/tollebeek_ot02_current.geojson').read_text(encoding='utf-8'))
-          feat=geo['features'][0] if geo.get('type')=='FeatureCollection' else geo
-          poly_rd=shape(feat['geometry'])
-          to_wgs=Transformer.from_crs(28992,4326,always_xy=True)
-          to_rd=Transformer.from_crs(4326,28992,always_xy=True)
-          poly=transform(to_wgs.transform,poly_rd)
-          minx,miny,maxx,maxy=poly.bounds
-          margin=0.08
-          base='https://api.pdok.nl/tno/bro-grondwatermonitoring-in-samenhang-karakteristieken/ogc/v1'
-          s=requests.Session()
-          q=s.get(f'{base}/collections/gm_gld/items',params={'bbox':f'{minx-margin},{miny-margin},{maxx+margin},{maxy+margin}','limit':1000,'f':'json'},timeout=120); q.raise_for_status()
+          ROOT=Path('.')
 
-          def dt_parse(x):
-              d=datetime.fromisoformat(x.replace('Z','+00:00'))
-              if d.tzinfo is None: d=d.replace(tzinfo=timezone.utc)
-              return d.astimezone(timezone.utc)
-          def fetch_series(bro_id, obs):
-              r=s.get(f'https://publiek.broservices.nl/gm/gld/v1/objectsAsCsv/{bro_id}',params={'rapportagetype':'compact','observatietype':obs},timeout=90); r.raise_for_status()
-              vals=[]
-              for row in csv.reader(io.StringIO(r.text)):
-                  if len(row)<2 or not row[0].strip(): continue
-                  try: dt=dt_parse(row[0].strip()); value=float(row[1])
-                  except Exception: continue
-                  vals.append({'timestamp':row[0].strip(),'timestamp_utc':dt.isoformat(),'water_level_m':value,'status':row[2].strip() if len(row)>2 else '', 'delta_days':round((dt-target_dt).total_seconds()/86400,3)})
-              return vals
+          def upsert(path: Path, key: str, row: dict[str,str]):
+              with path.open('r',encoding='utf-8',newline='') as f:
+                  r=csv.DictReader(f); fields=r.fieldnames or []; rows=list(r)
+              if set(row)!=set(fields):
+                  raise SystemExit(f'{path}: field mismatch missing={set(fields)-set(row)} extra={set(row)-set(fields)}')
+              for i,old in enumerate(rows):
+                  if old[key]==row[key]: rows[i]=row; break
+              else: rows.append(row)
+              with path.open('w',encoding='utf-8',newline='') as f:
+                  w=csv.DictWriter(f,fieldnames=fields,lineterminator='\n'); w.writeheader(); w.writerows(rows)
 
-          candidates=[]
-          for f in q.json().get('features',[]):
-              p=f.get('properties') or {}; g=f.get('geometry')
-              if not g: continue
-              first=p.get('research_first_date'); last=p.get('research_last_date')
-              try:
-                  if not (date.fromisoformat(first[:10]) <= target_date <= date.fromisoformat(last[:10])): continue
-              except Exception: continue
-              pt=shape(g); pt_rd=transform(to_rd.transform,pt); dist=poly_rd.distance(pt_rd)
-              if dist>10000: continue
-              tube_href=p.get('gm_gmw_monitoringtube.href')
-              if not tube_href: continue
-              tube_id=tube_href.rsplit('/',1)[-1]
-              tr=s.get(f'{base}/collections/gm_gmw_monitoringtube/items/{tube_id}',params={'f':'json'},timeout=60); tr.raise_for_status()
-              tp=tr.json().get('properties') or {}
-              well_href=tp.get('gm_gmw.href')
-              if not well_href: continue
-              well_id=well_href.rsplit('/',1)[-1]
-              wr=s.get(f'{base}/collections/gm_gmw/items/{well_id}',params={'f':'json'},timeout=60); wr.raise_for_status()
-              wp=wr.json().get('properties') or {}
-              ground=wp.get('ground_level_position'); top=tp.get('screen_top_position'); bottom=tp.get('screen_bottom_position')
-              depth_top=None
-              try: depth_top=float(ground)-float(top)
-              except Exception: pass
-              # Only fetch time series for plausible shallow/phreatic filters (<=5 m below local ground).
-              if depth_top is None or depth_top>5.0 or depth_top<0: continue
-              best_series=None; best_obs=None
-              for obs in ('regulier_beoordeeld','regulier_voorlopig','onbekend'):
-                  vals=fetch_series(p.get('bro_id'),obs)
-                  if not vals: continue
-                  nearest=min(vals,key=lambda x:abs(x['delta_days']))
-                  score=(0 if obs=='regulier_beoordeeld' else 1 if obs=='regulier_voorlopig' else 2,abs(nearest['delta_days']))
-                  if best_series is None or score < best_series[0]: best_series=(score,vals,nearest); best_obs=obs
-              if best_series is None: continue
-              vals=best_series[1]; nearest=best_series[2]
-              candidates.append({
-                  'gld_bro_id':p.get('bro_id'),'gld_feature_id':f.get('id'),'observation_class':best_obs,
-                  'inside_ot02':poly.covers(pt),'distance_to_ot02_m':round(dist,1),
-                  'gmw_bro_id':tp.get('gmw_bro_id'),'tube_number':tp.get('tube_number'),
-                  'ground_level_m_nap':ground,'screen_top_m_nap':top,'screen_bottom_m_nap':bottom,'screen_top_depth_below_ground_m':round(depth_top,3),
-                  'nearest_measurement':nearest,
-                  'within_15_days':[x for x in vals if abs(x['delta_days'])<=15],
-                  'within_45_days':[x for x in vals if abs(x['delta_days'])<=45],
-                  'research_first_date':first,'research_last_date':last,
-                  'nitg_code':wp.get('nitg_code'),'well_code':wp.get('well_code'),'local_vertical_reference_point':wp.get('local_vertical_reference_point'),
-              })
-          candidates.sort(key=lambda x:(not x['inside_ot02'],x['distance_to_ot02_m'],abs(x['nearest_measurement']['delta_days'])))
-          summary={'target_date':'1998-10-24','shallow_definition':'screen top 0-5 m below registered ground level','candidate_count':len(candidates),'inside_ot02_count':sum(1 for x in candidates if x['inside_ot02']),'candidates':candidates}
-          Path('initial_state_shallow_screening.json').write_text(json.dumps(summary,indent=2,ensure_ascii=False),encoding='utf-8')
-          print(json.dumps(summary,indent=2,ensure_ascii=False))
+          def append_semicolon(value,*items):
+              xs=[x.strip() for x in value.split(';') if x.strip()]
+              for x in items:
+                  if x not in xs: xs.append(x)
+              return ';'.join(xs)
+
+          upsert(ROOT/'evidence/sources.csv','source_id',{
+              'source_id':'SRC_BRO_GROUNDWATER_MONITORING',
+              'source_title':'BRO / PDOK Grondwatermonitoring in samenhang and GLD public service',
+              'source_type':'DATA_SERVICE','source_year':'2026',
+              'source_url':'https://api.pdok.nl/tno/bro-grondwatermonitoring-in-samenhang-karakteristieken/ogc/v1',
+              'source_status':'QUALIFIED_WITH_LIMITATIONS',
+              'source_notes':'Public BRO/PDOK route used 2026-09-16 to discover historical GLD series, monitoring wells/tubes and source-native compact GLD observations around admitted OT.02. Historical IMBRO/A series may carry observation status onbekend; such records are not silently promoted to assessed measurements.'
+          })
+
+          upsert(ROOT/'evidence/evidence_register.csv','evidence_id',{
+              'evidence_id':'EV_TOL_INITIAL_DEEP_GLD','source_id':'SRC_BRO_GROUNDWATER_MONITORING',
+              'evidence_statement':'Two historical GLD series inside the admitted OT.02 polygon are tied to GMW000000053815 (NITG B20F0038; RD 173300,522600; registered ground level NAP -4.58 m). Tube 1 screen is NAP -16.3 to -17.3 m and tube 2 is NAP -41.8 to -42.8 m. On 1998-10-14 the two source series report heads of NAP -4.93 m and -4.88 m, respectively; both historical observations are classified onbekend. The next observations are 1998-11-13 at NAP -4.85 m and -4.80 m.',
+              'spatial_scope':'Inside admitted Tollebeek OT.02 polygon at GMW000000053815','time_scope':'nearest observations around 1998-10-24',
+              'evidence_value':'-4.93 to -4.88','evidence_unit':'m NAP','provenance_class':'DIRECT_MEASUREMENT',
+              'intended_use':'Historical deep piezometric-head anchor and initial-state acquisition-route evidence',
+              'guardrail':'Deep-screen piezometric heads are not an observed phreatic groundwater table or depth-resolved root-zone initial state. Historical observation status is onbekend; do not infer a hydrostatic profile from these heads without separate hydrogeological and representativeness qualification.',
+              'evidence_status':'QUALIFIED'
+          })
+          upsert(ROOT/'evidence/evidence_register.csv','evidence_id',{
+              'evidence_id':'EV_TOL_INITIAL_SHALLOW_SEARCH','source_id':'SRC_BRO_GROUNDWATER_MONITORING',
+              'evidence_statement':'A systematic BRO screening of GLD series whose registered time span covers 1998-10-24 and whose monitoring-tube screen top lies 0-5 m below registered ground level found four shallow historical candidates within 10 km of OT.02 and zero inside the admitted OT.02 polygon. The closest is 1079.3 m outside with its nearest observation 6.392 days after the target date; all four selected shallow historical series use observation class/status onbekend.',
+              'spatial_scope':'Admitted OT.02 plus 10 km historical groundwater discovery buffer','time_scope':'target 1998-10-24; reviewed 2026-09-16',
+              'evidence_value':'0','evidence_unit':'inside-OT.02 shallow candidate series','provenance_class':'OFFICIAL_METADATA',
+              'intended_use':'Bounded negative evidence for the public shallow-groundwater observation route and definition of the remaining initial-state blocker',
+              'guardrail':'Absence of a qualifying public shallow series inside OT.02 is not evidence of absence of historical shallow groundwater observations in owner or unindexed archives. Do not spatially interpolate outside shallow candidates into OT.02 as an admitted initial state.',
+              'evidence_status':'QUALIFIED'
+          })
+          upsert(ROOT/'evidence/evidence_register.csv','evidence_id',{
+              'evidence_id':'EV_TOL_INITIAL_SHALLOW_NEARBY_CONTEXT','source_id':'SRC_BRO_GROUNDWATER_MONITORING',
+              'evidence_statement':'The nearest shallow-screen public candidate is GLD000000056353 / GMW000000053990 (NITG B20F0195), 1079.3 m outside OT.02, screen top 2.5 m below registered ground, with NAP -4.98 m on 1998-10-30. A temporally closer shallow candidate GLD000000060522 / GMW000000025540 is 3527.3 m outside, screen top 1.0 m below ground, with NAP -4.52 m on 1998-10-26. Both historical series are status onbekend.',
+              'spatial_scope':'Near Tollebeek OT.02; outside admitted polygon','time_scope':'late October 1998',
+              'evidence_value':'','evidence_unit':'','provenance_class':'DIRECT_MEASUREMENT',
+              'intended_use':'Context for plausibility review and future archive targeting only',
+              'guardrail':'These outside observations are not spatially representative enough to initialize OT.02 and are not admitted as a project groundwater-level input.',
+              'evidence_status':'CONTEXT_ONLY'
+          })
+
+          upsert(ROOT/'evidence/claims.csv','claim_id',{
+              'claim_id':'CL_TOL_INITIAL_STATE_GATE',
+              'claim_statement':'Public historical groundwater evidence now provides a qualified acquisition route and deep/nearby event-context anchors for October 1998, but no event-specific shallow groundwater table or depth-resolved soil-water initial state is admitted for OT.02. The first source-model pair must therefore remain blocked on initial state until a local observation is recovered or a separately qualified reproducible warm-up/restart protocol becomes possible.',
+              'claim_type':'INITIAL_STATE_DATA_GATE',
+              'evidence_ids':'EV_TOL_1998_ANTECEDENT;EV_TOL_INITIAL_DEEP_GLD;EV_TOL_INITIAL_SHALLOW_SEARCH;EV_TOL_INITIAL_SHALLOW_NEARBY_CONTEXT',
+              'spatial_scope':'Tollebeek OT.02 / October 1998 event','qualification_status':'QUALIFIED',
+              'guardrail':'Do not convert the owner narrative fully saturated into a numeric profile; do not equate deep piezometric head or OT.02 target peil with phreatic groundwater level; do not interpolate outside shallow candidates into OT.02; do not introduce field-capacity or hydrostatic convenience defaults.'
+          })
+
+          upsert(ROOT/'evidence/qualification_register.csv','qualification_id',{
+              'qualification_id':'Q_TOL_INITIAL_DEEP_GLD','evidence_id':'EV_TOL_INITIAL_DEEP_GLD',
+              'intended_use':'Historical deep-head anchor and acquisition-route evidence for the 1998 initial-state review',
+              'dependencies':'Admitted OT.02 polygon; BRO GMW000000053815 tube metadata; GLD000000055972 and GLD000000056073 source series',
+              'test_or_review':'Spatial containment against admitted OT.02; filter elevations and registered ground level reviewed; nearest before/after event-start observations resolved positionally from BRO compact CSV; historical quality/status retained.',
+              'qualification_status':'QUALIFIED_WITH_LIMITATIONS','review_date':'2026-09-16',
+              'qualification_notes':'Qualified only as deep piezometric historical context. Not qualified as phreatic groundwater level, root-zone state or hydrostatic initialization value.'
+          })
+          upsert(ROOT/'evidence/qualification_register.csv','qualification_id',{
+              'qualification_id':'Q_TOL_INITIAL_SHALLOW_SEARCH','evidence_id':'EV_TOL_INITIAL_SHALLOW_SEARCH',
+              'intended_use':'Determine whether the public BRO route supplies a shallow event-date initial-state anchor inside OT.02',
+              'dependencies':'BRO/PDOK GLD-GMW linked metadata; admitted OT.02 polygon; target date 1998-10-24',
+              'test_or_review':'Screened historical GLD records covering target date within 10 km; monitoring tubes filtered to screen-top depth 0-5 m below registered ground; exact polygon containment and temporal distance evaluated.',
+              'qualification_status':'QUALIFIED_WITH_LIMITATIONS','review_date':'2026-09-16',
+              'qualification_notes':'Zero shallow candidates were found inside OT.02. This qualifies the public-route blocker, not a claim that no historical shallow observation exists anywhere in owner/archive holdings.'
+          })
+          upsert(ROOT/'evidence/qualification_register.csv','qualification_id',{
+              'qualification_id':'Q_TOL_INITIAL_SHALLOW_NEARBY_CONTEXT','evidence_id':'EV_TOL_INITIAL_SHALLOW_NEARBY_CONTEXT',
+              'intended_use':'Nearby shallow-groundwater context for archive targeting and plausibility review',
+              'dependencies':'BRO public historical GLD series and GMW tube/ground-level metadata',
+              'test_or_review':'Distance to admitted polygon, screen depth, measurement date and historical status reviewed for closest shallow candidates.',
+              'qualification_status':'QUALIFIED_WITH_LIMITATIONS','review_date':'2026-09-16',
+              'qualification_notes':'Outside/shallow observations remain context only and are rejected as direct OT.02 initialization inputs.'
+          })
+
+          req=ROOT/'data_requests/data_request_register.csv'
+          with req.open('r',encoding='utf-8',newline='') as f:
+              r=csv.DictReader(f); fields=r.fieldnames or []; rows=list(r)
+          found=False
+          for row in rows:
+              if row['data_request_id']=='DR_SM_INITIAL_STATE':
+                  found=True
+                  row['input_readiness_status']='PARTIAL_EVIDENCE'
+                  row['current_evidence_ids']='EV_TOL_1998_ANTECEDENT;EV_TOL_INITIAL_DEEP_GLD;EV_TOL_INITIAL_SHALLOW_SEARCH;EV_TOL_INITIAL_SHALLOW_NEARBY_CONTEXT'
+                  row['current_claim_ids']=append_semicolon(row['current_claim_ids'],'CL_TOL_INITIAL_STATE_GATE')
+                  row['blocking_reason']='The public BRO route yields two deep-screen piezometric series inside OT.02 and several shallow historical series outside the polygon, but no shallow event-date series inside OT.02. The inside heads are from deep filters and historical observations are status onbekend; they do not define the phreatic/root-zone initial state. A warm-up/restart protocol also cannot yet be qualified while model configuration, managed boundary, drainage and land-use inputs remain open.'
+                  row['next_action']='Seek owner/DINO/BRO archival shallow groundwater or soil-water observations inside/near OT.02 for the 1998-10-24 start with explicit location, datum, depth/screen and QC. If no observation is recoverable, revisit only after model configuration, boundary, drainage and land use are admitted and then qualify a reproducible warm-up/restart protocol applied identically/equivalently to CURRENT and REFERENCE.'
+                  row['request_notes']='Do not infer initial groundwater from NAP -6.20 target peil, deep piezometric heads, antecedent rainfall totals or the narrative fully saturated condition. Nearby shallow BRO observations outside OT.02 remain context only. Missing initial-state variables remain missing.'
+          if not found: raise SystemExit('DR_SM_INITIAL_STATE not found')
+          with req.open('w',encoding='utf-8',newline='') as f:
+              w=csv.DictWriter(f,fieldnames=fields,lineterminator='\n'); w.writeheader(); w.writerows(rows)
+
+          # Add the gate claim/evidence to CAP_ATTRIB traceability while preserving DATA_GATED.
+          tp=ROOT/'model/traceability.csv'
+          with tp.open('r',encoding='utf-8',newline='') as f:
+              r=csv.DictReader(f); tfields=r.fieldnames or []; trows=list(r)
+          for row in trows:
+              if row['capability_id']=='CAP_ATTRIB':
+                  row['evidence_or_claim_ids']=append_semicolon(row['evidence_or_claim_ids'],'EV_TOL_INITIAL_DEEP_GLD','EV_TOL_INITIAL_SHALLOW_SEARCH','CL_TOL_INITIAL_STATE_GATE')
+                  if row['capability_status']!='DATA_GATED': raise SystemExit('CAP_ATTRIB unexpectedly not DATA_GATED')
+          with tp.open('w',encoding='utf-8',newline='') as f:
+              w=csv.DictWriter(f,fieldnames=tfields,lineterminator='\n'); w.writeheader(); w.writerows(trows)
+
+          (ROOT/'docs/28_tollebeek_initial_state_evidence_route_v0_1.md').write_text('''# Tollebeek 1998 initial-state evidence route v0.1\n\nStatus: **ROUTE QUALIFIED, INITIAL STATE NOT ADMITTED**\n\n## Decision\n\nThe October 1998 event now has a qualified public historical-groundwater acquisition route, but the project does **not** have an admitted hydrological initial state for OT.02. `DR_SM_INITIAL_STATE` therefore advances from `MISSING` to `PARTIAL_EVIDENCE`, not to `ADMITTED`.\n\n## Evidence resolved\n\nTwo BRO GLD series are located inside the admitted OT.02 polygon at well `GMW000000053815` (`B20F0038`, RD 173300/522600, registered ground NAP -4.58 m). Their nearest pre-event observations on 14 October 1998 are about NAP -4.93 and -4.88 m. The monitoring screens, however, are deep: about NAP -16.3 to -17.3 m and -41.8 to -42.8 m. These are piezometric-head anchors, not direct phreatic/root-zone observations, and the historical observations are classified `onbekend`.\n\nA systematic screening of historical GLD series within 10 km whose registered period covers 24 October 1998 and whose screen top lies 0-5 m below registered ground found four shallow candidates and **zero inside OT.02**. The closest shallow candidate is about 1.08 km outside OT.02 and is measured 6.4 days after the event start. All four shallow historical candidate series have status/class `onbekend`.\n\n## Owner wetness context\n\nThe existing owner narrative that rain had fallen for days and that the ground was fully saturated remains useful event context. It is not converted into a numerical water-content, pressure-head or groundwater profile.\n\n## What is not permitted\n\n- deep piezometric head → phreatic groundwater table;\n- target peil NAP -6.20 m → initial groundwater level;\n- `fully saturated` narrative → numerical saturation or pressure-head profile;\n- spatial interpolation from the outside shallow candidates into OT.02;\n- field-capacity, hydrostatic or other convenience defaults;\n- warm-up/restart before its required forcing, model, boundary, drainage and land-use dependencies are explicitly qualified.\n\n## Next route\n\nFirst seek owner/DINO/BRO archival shallow groundwater or soil-water observations inside or directly representative of OT.02 around 24 October 1998, preserving coordinates/CRS, datum, screen/depth, measurement time and QC. If no suitable observation can be recovered, a warm-up/restart decision becomes reviewable only after the remaining controlled model inputs are admitted.\n''',encoding='utf-8')
+
+          (ROOT/'data_requests/tollebeek_initial_state_data_request_v0_1.md').write_text('''# Tollebeek 1998 initial-state data request v0.1\n\nPurpose: resolve `DR_SM_INITIAL_STATE` for event `EVT_TOL_1998_OCT` without convenience defaults.\n\nPreferred evidence is a shallow/phreatic groundwater or soil-water observation inside or demonstrably representative of admitted OT.02 near `1998-10-24T00:00:00Z`. Required metadata include stable observation/well ID, coordinates and CRS, measurement date/time and timezone, vertical datum, local ground elevation, screen/depth interval, source-native value/unit, quality/assessment status and provenance.\n\nDeep piezometric heads can be retained as hydrogeological context but require a separate relationship/representativeness argument before any use in a soil-profile initialization. Surface-water target peil is not a substitute.\n\nIf direct observation cannot be recovered, do not invent a state. A warm-up/restart alternative may be reviewed only after model authority/configuration, managed-boundary behaviour, drainage and land-use/crop context are sufficiently specified to reproduce the pre-event state. CURRENT and REFERENCE must receive identical or explicitly equivalent initialization semantics.\n''',encoding='utf-8')
+
+          (ROOT/'workunits/tollebeek_initial_state_v0_1_ACQUIRE_REVIEW.md').write_text('''# Tollebeek initial state v0.1 — ACQUIRE / REVIEW checkpoint\n\n- canonical start: `96e0043196f1bacf7274e6071e46d9552421dd6c`\n- branch: `work/tollebeek-initial-state-v0.1`\n- fixed event: `EVT_TOL_1998_OCT`\n- discovery run `35070705726`: SUCCESS; 51 historical GLD series within 10 km whose metadata span 1998-10-24; 2 inside OT.02\n- discovery artifact digest: `7fa1b3c72d52f34d95532da808445559f2cddec55ca6a6fc64a4ce0041ba1273`\n- source-form/metadata inspection run `35070914997`: historical compact CSV confirmed headerless; inside records are observation class `onbekend`\n- event-anchor run `35071012126`: SUCCESS; inside well `GMW000000053815`; deep screen geometry and nearest 1998 observations resolved\n- event-anchor artifact digest: `a78abb7baf58a0b1e3d923bd56e34c5fe72b2d75758b109f55842ea9599b1812`\n- shallow screening run `35071098623`: SUCCESS; screen-top depth 0-5 m; 4 candidates within 10 km; 0 inside OT.02\n- shallow-screening artifact digest: `afd44fe2b11aa2f6e18e1cddcecf78e7dff12898e1769dbcb3d8bfab696fea37`\n\nVerdict: `QUALIFY_INITIAL_STATE_OBSERVATION_ROUTE_NO_ADMIT_STATE`.\n\nNo groundwater-level input, pressure-head profile, water-content profile, saturation profile, warm-up state or restart state is admitted.\n''',encoding='utf-8')
+
+          (ROOT/'tools/validate_initial_state_gate.py').write_text('''from __future__ import annotations\n\nimport csv\nfrom pathlib import Path\n\nROOT=Path(__file__).resolve().parents[1]\n\ndef rows(path):\n    with path.open('r',encoding='utf-8',newline='') as f: return list(csv.DictReader(f))\n\ndef validate():\n    errors=[]\n    req={r['data_request_id']:r for r in rows(ROOT/'data_requests/data_request_register.csv')}.get('DR_SM_INITIAL_STATE')\n    if not req: return ['missing DR_SM_INITIAL_STATE']\n    if req.get('input_readiness_status')!='PARTIAL_EVIDENCE': errors.append('DR_SM_INITIAL_STATE must remain PARTIAL_EVIDENCE; no initial state is admitted')\n    for eid in ('EV_TOL_INITIAL_DEEP_GLD','EV_TOL_INITIAL_SHALLOW_SEARCH','EV_TOL_INITIAL_SHALLOW_NEARBY_CONTEXT'):\n        if eid not in req.get('current_evidence_ids',''): errors.append(f'DR_SM_INITIAL_STATE missing {eid}')\n    if 'CL_TOL_INITIAL_STATE_GATE' not in req.get('current_claim_ids',''): errors.append('DR_SM_INITIAL_STATE missing gate claim')\n    boundary=(req.get('blocking_reason','')+' '+req.get('request_notes','')).lower()\n    for phrase in ('deep','piezometric','target peil','fully saturated','missing'):\n        if phrase not in boundary: errors.append(f'initial-state boundary must preserve {phrase!r} guardrail')\n    evidence={r['evidence_id']:r for r in rows(ROOT/'evidence/evidence_register.csv')}\n    deep=evidence.get('EV_TOL_INITIAL_DEEP_GLD',{})\n    if deep.get('evidence_status')!='QUALIFIED' or 'not an observed phreatic' not in deep.get('guardrail',''):\n        errors.append('deep GLD evidence must remain qualified-with-phreatic-exclusion evidence')\n    shallow=evidence.get('EV_TOL_INITIAL_SHALLOW_SEARCH',{})\n    if shallow.get('evidence_value')!='0' or shallow.get('evidence_unit')!='inside-OT.02 shallow candidate series': errors.append('shallow-search negative result changed')\n    claims={r['claim_id']:r for r in rows(ROOT/'evidence/claims.csv')}\n    claim=claims.get('CL_TOL_INITIAL_STATE_GATE',{})\n    if claim.get('qualification_status')!='QUALIFIED': errors.append('initial-state gate claim not QUALIFIED')\n    quals={r['qualification_id']:r for r in rows(ROOT/'evidence/qualification_register.csv')}\n    for qid in ('Q_TOL_INITIAL_DEEP_GLD','Q_TOL_INITIAL_SHALLOW_SEARCH','Q_TOL_INITIAL_SHALLOW_NEARBY_CONTEXT'):\n        if qid not in quals: errors.append(f'missing qualification {qid}')\n    trace={r['capability_id']:r for r in rows(ROOT/'model/traceability.csv')}.get('CAP_ATTRIB',{})\n    if trace.get('capability_status')!='DATA_GATED': errors.append('CAP_ATTRIB must remain DATA_GATED')\n    # No canonical initial-state dataset/protocol is allowed in this route-only workunit.\n    forbidden=[ROOT/'data/hydrology/tollebeek_initial_state.csv',ROOT/'data/hydrology/tollebeek_1998_initial_state.csv']\n    for p in forbidden:\n        if p.exists(): errors.append(f'unexpected canonical initial-state dataset: {p.relative_to(ROOT)}')\n    return errors\n\ndef main():\n    errors=validate()\n    if errors:\n        print('Tollebeek initial-state gate validation FAILED')\n        for e in errors: print(f'ERROR: {e}')\n        return 1\n    print('Tollebeek initial-state gate validation passed.')\n    print('Validated route evidence, deep-vs-phreatic boundary, negative shallow screening and no-admit state semantics.')\n    return 0\n\nif __name__=='__main__': raise SystemExit(main())\n''',encoding='utf-8')
+          (ROOT/'tests/test_initial_state_gate.py').write_text('''from __future__ import annotations\nimport sys,unittest\nfrom pathlib import Path\nROOT=Path(__file__).resolve().parents[1]; TOOLS=ROOT/'tools'\nif str(TOOLS) not in sys.path: sys.path.insert(0,str(TOOLS))\nfrom validate_initial_state_gate import validate\nclass InitialStateGateTests(unittest.TestCase):\n    def test_initial_state_gate_integrity(self): self.assertEqual([],validate())\nif __name__=='__main__': unittest.main()\n''',encoding='utf-8')
+
+          pv=ROOT/'tools/validate_project.py'
+          text=pv.read_text(encoding='utf-8')
+          if 'from validate_initial_state_gate import validate as validate_initial_state_gate' not in text:
+              text=text.replace('from validate_input_readiness import validate as validate_input_readiness\n','from validate_input_readiness import validate as validate_input_readiness\nfrom validate_initial_state_gate import validate as validate_initial_state_gate\n')
+          if '"docs/28_tollebeek_initial_state_evidence_route_v0_1.md"' not in text:
+              text=text.replace('    "docs/27_tollebeek_event_forcing_baseline_v0_1.md",\n','    "docs/27_tollebeek_event_forcing_baseline_v0_1.md",\n    "docs/28_tollebeek_initial_state_evidence_route_v0_1.md",\n')
+          if '"data_requests/tollebeek_initial_state_data_request_v0_1.md"' not in text:
+              text=text.replace('    "data_requests/tollebeek_drainage_data_request_v0_1.md",\n','    "data_requests/tollebeek_drainage_data_request_v0_1.md",\n    "data_requests/tollebeek_initial_state_data_request_v0_1.md",\n')
+          if 'errors.extend(f"initial-state-gate: {item}" for item in validate_initial_state_gate())' not in text:
+              text=text.replace('    errors.extend(f"input-readiness: {item}" for item in validate_input_readiness())\n','    errors.extend(f"input-readiness: {item}" for item in validate_input_readiness())\n    errors.extend(f"initial-state-gate: {item}" for item in validate_initial_state_gate())\n')
+          pv.write_text(text,encoding='utf-8')
+
+          ci=ROOT/'.github/workflows/ci.yml'
+          text=ci.read_text(encoding='utf-8')
+          if 'tools/validate_initial_state_gate.py' not in text:
+              text=text.replace('          tools/validate_input_readiness.py\n','          tools/validate_input_readiness.py\n          tools/validate_initial_state_gate.py\n')
+          ci.write_text(text,encoding='utf-8')
           PY
-      - uses: actions/upload-artifact@v4
-        with:
-          name: tollebeek-initial-state-shallow-screening
-          path: initial_state_shallow_screening.json
+      - name: Validate route postimage
+        run: |
+          python -m py_compile tools/validate_initial_state_gate.py tools/validate_project.py
+          python tools/validate_project.py
+          python -m unittest discover -s tests -v
+      - name: Commit route postimage
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add evidence data_requests docs model tools tests workunits .github/workflows/ci.yml
+          git commit -m "Qualify Tollebeek initial-state observation route"
+          git push origin HEAD:work/tollebeek-initial-state-v0.1
