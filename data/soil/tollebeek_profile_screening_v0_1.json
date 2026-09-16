@@ -1,0 +1,40 @@
+{
+  "screening_id": "TOLLEBEEK_OT02_SOILPHYS_500M_SHIFTED_V0_1",
+  "spatial_unit_id": "TOLLEBEEK_OT02_CURRENT",
+  "source_id": "SRC_WUR_SOILPHYSICS",
+  "review_date": "2026-09-16",
+  "method": {
+    "grid_spacing_m": 500.0,
+    "grids": [
+      {"grid_id": "A", "offset_m": [0.0, 0.0], "n_points": 59},
+      {"grid_id": "B", "offset_m": [250.0, 250.0], "n_points": 58}
+    ],
+    "selection": "regular grid points strictly inside the admitted OT.02 polygon",
+    "coordinate_transform": "EPSG:28992 to WGS84 for the SoilPhys coordinate API"
+  },
+  "coverage": {
+    "n_points": 117,
+    "n_profile": 113,
+    "n_no_data": 4,
+    "no_data_fraction": 0.03418803418803419,
+    "detected_profile_count": 8
+  },
+  "interpretation": {
+    "admitted_use": "profile identities and modal depth-resolved profile/layer context across OT.02",
+    "not_admitted": [
+      "exact areal weights",
+      "parcel-scale soil identity",
+      "current anthropogenic compaction state",
+      "reference soil state"
+    ],
+    "screening_fractions_are": "diagnostic sampling fractions only"
+  },
+  "bofek2020_crosswalk": {
+    "source_id": "SRC_WUR_BOFEK2020",
+    "translation_table": "tabel_BOFEK_2020_V_1_0.xlsx",
+    "mapped_profile_count": 8,
+    "detected_bofek2020_units": [3001, 3004, 3005, 3015, 4004, 4006, 4018, 4019],
+    "spatial_overlay_status": "NOT_COMPLETED_CURRENT_WUR_MAP_IS_INTERACTIVE",
+    "legacy_direct_download_status": "HTTP_404_ON_2026-09-16"
+  }
+}
