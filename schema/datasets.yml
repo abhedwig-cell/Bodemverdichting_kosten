@@ -1,4 +1,4 @@
-schema_version: 0.2.0
+schema_version: 0.2.1
 status: MIGRATION_BASELINE
 
 dataset_roles:
@@ -53,8 +53,16 @@ datasets:
     role: CONFIGURATION
     grain: one row per formal equation/identity/rule
     primary_key: [equation_id]
+    storage: model/equations.csv
     legacy_mappings:
       - PROV_06_ModelEquations
+
+  traceability_register:
+    entity: traceability_link
+    role: GOVERNANCE
+    grain: one row per reviewable capability/version
+    primary_key: [capability_id]
+    storage: model/traceability.csv
 
   governance_rule_register:
     entity: governance_rule
