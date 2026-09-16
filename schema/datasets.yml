@@ -117,6 +117,12 @@ datasets:
     grain: one row per soil profile x layer x state
     primary_key: [soil_state_id]
 
+  hydraulic_parameterization_register:
+    entity: hydraulic_parameterization
+    role: MODEL_INPUT
+    grain: one row per soil state x hydraulic method/version x uncertainty/member x representation
+    primary_key: [hydraulic_parameterization_id]
+
   drainage_configuration_register:
     entity: drainage_configuration
     role: MODEL_INPUT

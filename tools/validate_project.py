@@ -40,12 +40,14 @@ REQUIRED_PATHS = [
     "docs/29_tollebeek_managed_boundary_evidence_route_v0_1.md",
     "docs/30_tollebeek_land_use_evidence_route_v0_1.md",
     "docs/31_tollebeek_model_config_authority_route_v0_1.md",
+    "docs/46_tollebeek_hydraulic_transformation_protocol_v0_1.md",
     "docs/24_tollebeek_profile_baseline_v0_1.md",
     "schema/entities.yml",
     "schema/fields.yml",
     "schema/domain_fields_v0_3.yml",
     "schema/profile_fields_v0_1.yml",
     "schema/event_forcing_fields_v0_1.yml",
+    "schema/hydraulic_parameterization_fields_v0_1.yml",
     "schema/data_request_fields.yml",
     "schema/datasets.yml",
     "schema/relationships.yml",
@@ -109,7 +111,7 @@ def main() -> int:
 
     print("Status-A-light project validation passed.")
     print(
-        "Validated evidence integrity, formal traceability, Data Model v0.3 domain-schema "
+        "Validated evidence integrity, formal traceability, Data Model v0.4 hydraulic-extension domain-schema "
         "integrity, source-model input-readiness gates, admitted spatial geometry and profile-baseline integrity "
         "and required review structure."
     )

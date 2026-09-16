@@ -1,0 +1,116 @@
+schema_version: 0.4.0
+status: PROVISIONAL_HYDRAULIC_TRANSFORMATION_EXTENSION
+
+fields:
+  hydraulic_parameterization_id:
+    entity: hydraulic_parameterization
+    label: Hydraulic parameterization ID
+    description: Stable identifier for one state-specific hydraulic parameterization or qualified uncertainty member.
+    datatype: string
+    nullable: false
+
+  hydraulic_method_class:
+    entity: hydraulic_parameterization
+    label: Hydraulic method class
+    description: Authority class of the state-to-hydraulic transformation.
+    datatype: enum
+    vocabulary: hydraulic_method_class
+    nullable: false
+
+  hydraulic_method_id:
+    entity: hydraulic_parameterization
+    label: Hydraulic method ID
+    description: Stable name or identifier of the measurement, fitting, pedotransfer or scenario method.
+    datatype: string
+    nullable: false
+
+  hydraulic_method_version:
+    entity: hydraulic_parameterization
+    label: Hydraulic method version
+    description: Immutable method/code/publication version used for the transformation.
+    datatype: string
+    nullable: true
+
+  hydraulic_representation:
+    entity: hydraulic_parameterization
+    label: Hydraulic representation
+    description: Representation serialized to the model, such as analytical Mualem-Van Genuchten parameters or a hydraulic table.
+    datatype: enum
+    vocabulary: hydraulic_representation
+    nullable: false
+
+  hydraulic_member_id:
+    entity: hydraulic_parameterization
+    label: Hydraulic uncertainty member ID
+    description: Identifier for an uncertainty or scenario member when the transformation does not identify one unique hydraulic state.
+    datatype: string
+    nullable: true
+
+  theta_r:
+    entity: hydraulic_parameterization
+    label: Residual water content
+    description: Residual volumetric water content for an analytical hydraulic representation.
+    datatype: float
+    unit: cm3/cm3
+    nullable: true
+
+  theta_s:
+    entity: hydraulic_parameterization
+    label: Saturated water content
+    description: Saturated volumetric water content for an analytical hydraulic representation; not automatically equal to porosity without qualification.
+    datatype: float
+    unit: cm3/cm3
+    nullable: true
+
+  alpha_cm_inv:
+    entity: hydraulic_parameterization
+    label: Van Genuchten alpha
+    description: Alpha parameter of the selected analytical water-retention representation.
+    datatype: float
+    unit: 1/cm
+    nullable: true
+
+  n_vg:
+    entity: hydraulic_parameterization
+    label: Van Genuchten n
+    description: Shape parameter n of the selected analytical water-retention representation.
+    datatype: float
+    unit: dimensionless
+    nullable: true
+
+  ksat_cm_d:
+    entity: hydraulic_parameterization
+    label: Saturated hydraulic conductivity
+    description: Saturated or fitted saturated hydraulic conductivity used by the selected hydraulic representation; provenance must distinguish measured versus fitted/predicted values.
+    datatype: float
+    unit: cm/d
+    nullable: true
+
+  conductivity_exponent:
+    entity: hydraulic_parameterization
+    label: Hydraulic conductivity exponent
+    description: Conductivity-function exponent used by the analytical representation when applicable.
+    datatype: float
+    unit: dimensionless
+    nullable: true
+
+  hydraulic_table_ref:
+    entity: hydraulic_parameterization
+    label: Hydraulic table reference
+    description: Stable file/dataset/checksum reference when a tabulated water-retention and conductivity representation is used.
+    datatype: string
+    nullable: true
+
+  hydraulic_uncertainty_ref:
+    entity: hydraulic_parameterization
+    label: Hydraulic uncertainty reference
+    description: Reference to prediction interval, fit covariance, ensemble definition or other retained uncertainty description.
+    datatype: string
+    nullable: true
+
+  swap_hydraulic_adapter_version:
+    entity: hydraulic_parameterization
+    label: SWAP hydraulic adapter version
+    description: Version of the serialization adapter mapping canonical hydraulic semantics to the pinned SWAP input contract.
+    datatype: string
+    nullable: true

@@ -16,6 +16,7 @@ FIELD_FILES = [
     "domain_fields_v0_3.yml",
     "profile_fields_v0_1.yml",
     "event_forcing_fields_v0_1.yml",
+    "hydraulic_parameterization_fields_v0_1.yml",
 ]
 
 REQUIRED_V03_DATASETS = {
@@ -30,6 +31,13 @@ REQUIRED_V03_DATASETS = {
     "meteorological_forcing_register": {
         "entity": "meteorological_forcing_observation",
         "primary_key": ["forcing_observation_id"],
+    },
+}
+
+REQUIRED_HYDRAULIC_DATASETS = {
+    "hydraulic_parameterization_register": {
+        "entity": "hydraulic_parameterization",
+        "primary_key": ["hydraulic_parameterization_id"],
     },
 }
 
@@ -49,6 +57,15 @@ REQUIRED_RUN_CONTROL_RELATIONSHIPS = {
         "drainage_configuration_id",
     ),
     "land_use_crop_run": ("land_use_crop", "model_run", "land_use_crop_id"),
+}
+
+REQUIRED_HYDRAULIC_RELATIONSHIPS = {
+    "state_hydraulic_parameterization": (
+        "soil_state", "hydraulic_parameterization", "soil_state_id"
+    ),
+    "hydraulic_parameterization_run": (
+        "hydraulic_parameterization", "model_run", "hydraulic_parameterization_id"
+    ),
 }
 
 REQUIRED_PROFILE_RELATIONSHIPS = {
@@ -134,7 +151,7 @@ def validate() -> list[str]:
         if entity and entity not in entities:
             errors.append(f"{field_id}: field refers to unknown entity {entity}")
 
-    for dataset_id, expected in REQUIRED_V03_DATASETS.items():
+    for dataset_id, expected in {**REQUIRED_V03_DATASETS, **REQUIRED_HYDRAULIC_DATASETS}.items():
         dataset = datasets.get(dataset_id)
         if dataset is None:
             errors.append(f"missing required v0.3 dataset: {dataset_id}")
@@ -153,6 +170,7 @@ def validate() -> list[str]:
 
     for name, expected in {
         **REQUIRED_PROFILE_RELATIONSHIPS,
+        **REQUIRED_HYDRAULIC_RELATIONSHIPS,
         **REQUIRED_RUN_CONTROL_RELATIONSHIPS,
     }.items():
         errors.extend(
@@ -177,9 +195,9 @@ def main() -> int:
             print(f"ERROR: {error}")
         return 1
 
-    print("Data Model v0.3 domain-schema validation passed.")
+    print("Data Model v0.4 hydraulic-extension domain-schema validation passed.")
     print(
-        "Validated documented domain datasets, profile/run-control relationships, "
+        "Validated documented domain datasets, profile/hydraulic/run-control relationships, "
         "field identity and the no-premature-attribution-pair boundary."
     )
     return 0

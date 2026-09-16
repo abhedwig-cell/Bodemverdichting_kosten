@@ -6,6 +6,15 @@ vocabularies:
     - REFERENCE
     - SCENARIO
 
+  hydraulic_method_class:
+    - H0_DIRECT_HYDRAULIC_EVIDENCE
+    - H1_QUALIFIED_PEDOTRANSFER
+    - H2_EVIDENCE_BOUNDED_SCENARIO
+
+  hydraulic_representation:
+    - MVG_ANALYTICAL
+    - HYDRAULIC_TABLE
+
   artifact_class:
     - FULL_FRAMEWORK_SNAPSHOT
     - BOUNDED_MODULE

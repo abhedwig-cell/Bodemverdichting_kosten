@@ -30,6 +30,10 @@ entities:
     description: Physical state of a soil profile/layer for current, reference or explicit scenario conditions.
     grain: one row per profile x layer x state
 
+  hydraulic_parameterization:
+    description: Versioned transformation of one soil state into model-ready soil hydraulic functions, retaining method, representation and uncertainty identity.
+    grain: one row per soil state x hydraulic method/version x uncertainty/member x representation
+
   land_use_crop:
     description: Land-use or crop identity/classification applicable to a spatial unit and time/context.
     grain: one row per spatial unit x period x crop/land-use classification
