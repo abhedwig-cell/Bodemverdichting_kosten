@@ -1,0 +1,69 @@
+from __future__ import annotations
+
+from pathlib import Path
+
+from validate_evidence import validate as validate_evidence
+from validate_formal_traceability import validate as validate_formal_traceability
+
+ROOT = Path(__file__).resolve().parents[1]
+
+REQUIRED_PATHS = [
+    "README.md",
+    "CONTRIBUTING.md",
+    "docs/00_colleague_reader_guide.md",
+    "docs/01_overview.md",
+    "docs/02_theoretical_framework.md",
+    "docs/03_conceptual_model.md",
+    "docs/04_formal_model.md",
+    "docs/05_data_model.md",
+    "docs/06_implementation.md",
+    "docs/07_evidence_and_qualification.md",
+    "docs/14_documentation_status_a_light.md",
+    "docs/17_formal_traceability_register_v0_1.md",
+    "docs/18_status_a_light_checkpoint_v0_1.md",
+    "schema/entities.yml",
+    "schema/fields.yml",
+    "schema/datasets.yml",
+    "schema/relationships.yml",
+    "schema/workbook_contract.yml",
+    "evidence/sources.csv",
+    "evidence/evidence_register.csv",
+    "evidence/claims.csv",
+    "evidence/qualification_register.csv",
+    "model/equations.csv",
+    "model/traceability.csv",
+]
+
+
+def validate_required_paths() -> list[str]:
+    errors: list[str] = []
+    for relative in REQUIRED_PATHS:
+        if not (ROOT / relative).exists():
+            errors.append(f"missing required project path: {relative}")
+    return errors
+
+
+def validate() -> list[str]:
+    errors: list[str] = []
+    errors.extend(f"evidence: {item}" for item in validate_evidence())
+    errors.extend(f"formal-traceability: {item}" for item in validate_formal_traceability())
+    errors.extend(f"project-structure: {item}" for item in validate_required_paths())
+    return errors
+
+
+def main() -> int:
+    errors = validate()
+    if errors:
+        print("Status-A-light project validation FAILED")
+        for error in errors:
+            print(f"ERROR: {error}")
+        return 1
+
+    print("Status-A-light project validation passed.")
+    print("Validated evidence integrity, formal traceability and required review structure.")
+    print("This is an integrity verdict, not a scientific qualification of data-gated capabilities.")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
