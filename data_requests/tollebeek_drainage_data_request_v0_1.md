@@ -32,6 +32,23 @@ For each selected source-model drainage unit or parcel, request where available:
 
 If only design drawings or drainage plans are available, preserve the source document/asset ID and do not transcribe missing values as zero.
 
+## Qualified source-holder route
+
+Waterschap Zuiderzeeland publishes a dedicated **waterinformatie aanvragen** route for information not available through its public maps/GEO information. The form explicitly accepts location-specific requests for kaartmateriaal and meetresultaten and states that information requests are taken into treatment within one week, with an answer depending on complexity normally within two weeks.
+
+Use the ordinary water-information request before a formal Woo request. Zuiderzeeland's Woo guidance explicitly recommends first submitting an information request because many documents can be supplied without a formal disclosure decision.
+
+The request must identify the target unambiguously:
+
+- peilgebied: `OT.02` / `TOLLEBEEK_OT02_CURRENT`;
+- canonical owner drainage route: `zzl_Drainage`;
+- observed public issue: 74 intersecting polygons, all with spacing `0`, and null depth/installation date;
+- requested purpose: scientific source-model parameterisation and audit, not asset-operation control;
+- preferred output: source-native GIS/table export plus field definitions/codebook and extraction/version date;
+- if public sharing of parcel-level drainage detail is restricted, request a privacy-preserving OT.02-selected extract or a holder-side join to the supplied canonical OT.02 polygon.
+
+If the ordinary information route cannot resolve the records or confirms that relevant documents require a formal disclosure procedure, escalate to the published Woo-contact route. A Woo request is therefore a secondary legal/document route, not the default first step.
+
 ## Acceptance criteria
 
 The drainage gate can move beyond `PARTIAL_EVIDENCE` only when the selected model units have a reproducible current or explicitly dated drainage representation with provenance.
@@ -39,6 +56,8 @@ The drainage gate can move beyond `PARTIAL_EVIDENCE` only when the selected mode
 At minimum, the evidence must support the actual representation chosen in the source model. If SWAP uses explicit subsurface drainage, the evidence or separately qualified derivation must support the relevant drain level/depth and spacing/density or equivalent drainage relation.
 
 A model drainage resistance is **not** accepted solely because it matches historical NOP practice or produces plausible model output. The mapping from physical evidence to model parameter must be documented and independently reviewable.
+
+Receipt of owner records alone is not automatic admission: field semantics, temporal applicability, missingness and spatial relation to the chosen model units still require qualification.
 
 ## Explicitly unacceptable substitutions
 
