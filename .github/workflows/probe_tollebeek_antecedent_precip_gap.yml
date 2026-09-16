@@ -1,0 +1,175 @@
+name: Probe Tollebeek antecedent precipitation gap
+
+on:
+  push:
+    branches:
+      - work/tollebeek-antecedent-precip-gap-v0.1
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install spatial dependencies
+        run: python -m pip install --quiet shapely pyproj
+      - name: Screen KNMI stations and compare precipitation
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import csv, json, math, statistics, urllib.parse, urllib.request
+          from collections import defaultdict
+          from datetime import datetime, timedelta, timezone
+          from pathlib import Path
+          from shapely.geometry import shape
+          from shapely.ops import unary_union
+          from pyproj import Transformer
+
+          URL='https://www.daggegevens.knmi.nl/klimatologie/uurgegevens'
+          payload=urllib.parse.urlencode({
+              'stns':'ALL','vars':'PRCP',
+              'start':'1998080101','end':'1998102424'
+          }).encode('ascii')
+          req=urllib.request.Request(URL,data=payload,headers={'User-Agent':'Bodemverdichting-kosten-gap-screen/0.1'},method='POST')
+          with urllib.request.urlopen(req,timeout=240) as r:
+              raw=r.read()
+          text=raw.decode('utf-8-sig')
+
+          # Recover station metadata from KNMI header.
+          stations={}
+          for line in text.splitlines():
+              if not line.startswith('#'): continue
+              parts=line[1:].strip().split()
+              if len(parts) < 5 or not parts[0].isdigit(): continue
+              try:
+                  stn=parts[0]; lon=float(parts[1]); lat=float(parts[2]); elev=float(parts[3]); name=' '.join(parts[4:])
+              except ValueError:
+                  continue
+              if 2.0 <= lon <= 8.0 and 49.0 <= lat <= 55.0:
+                  stations[stn]={'station_id':stn,'lon':lon,'lat':lat,'elevation_m':elev,'name':name}
+
+          # OT.02 centroid in WGS84 from admitted geometry.
+          gj=json.loads(Path('data/spatial/tollebeek_ot02_current.geojson').read_text(encoding='utf-8'))
+          if gj.get('type')=='FeatureCollection':
+              geom=unary_union([shape(f['geometry']) for f in gj['features']])
+          elif gj.get('type')=='Feature': geom=shape(gj['geometry'])
+          else: geom=shape(gj)
+          c=geom.centroid
+          tr=Transformer.from_crs('EPSG:28992','EPSG:4326',always_xy=True)
+          ot_lon,ot_lat=tr.transform(c.x,c.y)
+
+          def hav(lat1,lon1,lat2,lon2):
+              R=6371.0088
+              p1=math.radians(lat1); p2=math.radians(lat2)
+              dp=math.radians(lat2-lat1); dl=math.radians(lon2-lon1)
+              a=math.sin(dp/2)**2+math.cos(p1)*math.cos(p2)*math.sin(dl/2)**2
+              return 2*R*math.asin(math.sqrt(a))
+
+          rows=defaultdict(dict)
+          for line_no,line in enumerate(text.splitlines(),start=1):
+              s=line.strip()
+              if not s or s.startswith('#'): continue
+              vals=[x.strip() for x in line.split(',')]
+              if len(vals)!=5: raise SystemExit(f'unexpected row width {len(vals)} at {line_no}')
+              stn,date,hh,dr,rh=vals
+              d=datetime.strptime(date,'%Y%m%d').replace(tzinfo=timezone.utc); h=int(hh)
+              end=d+(timedelta(days=1) if h==24 else timedelta(hours=h)); start=end-timedelta(hours=1)
+              rows[stn][start]={'DR':dr,'RH':rh}
+
+          gap0=datetime(1998,9,3,tzinfo=timezone.utc); gap1=datetime(1998,9,7,12,tzinfo=timezone.utc)
+          win0=datetime(1998,8,1,tzinfo=timezone.utc); win1=datetime(1998,10,24,tzinfo=timezone.utc)
+          gap_times=[]; t=gap0
+          while t<gap1: gap_times.append(t); t+=timedelta(hours=1)
+
+          def rh_mm(v):
+              if v=='': return None
+              x=int(v)
+              return 0.0 if x==-1 else x/10.0
+
+          # Complete candidate stations for all 108 missing Marknesse hours.
+          candidates=[]
+          mark=stations.get('273')
+          for stn,meta in stations.items():
+              if stn=='273': continue
+              rr=rows.get(stn,{})
+              if not all(t in rr and rr[t]['RH']!='' for t in gap_times): continue
+              gap_vals=[rh_mm(rr[t]['RH']) for t in gap_times]
+              item=dict(meta)
+              item['distance_to_ot02_centroid_km']=round(hav(ot_lat,ot_lon,meta['lat'],meta['lon']),3)
+              if mark:
+                  item['distance_to_station273_km']=round(hav(mark['lat'],mark['lon'],meta['lat'],meta['lon']),3)
+              item['gap_total_mm']=round(sum(gap_vals),3)
+              item['gap_max_hourly_mm']=round(max(gap_vals),3)
+              item['gap_wet_hours_ge_0_1mm']=sum(1 for x in gap_vals if x>=0.1)
+              candidates.append(item)
+          candidates.sort(key=lambda x:x['distance_to_ot02_centroid_km'])
+
+          # Compare daily totals during surrounding observed period, excluding any day with missing values in either station.
+          def complete_daily(stn):
+              rr=rows.get(stn,{})
+              byday=defaultdict(list)
+              t=win0
+              while t<win1:
+                  r=rr.get(t)
+                  if r is not None: byday[t.date()].append(r['RH'])
+                  t+=timedelta(hours=1)
+              out={}
+              for day,vals in byday.items():
+                  if len(vals)==24 and all(v!='' for v in vals):
+                      out[day]=sum(rh_mm(v) for v in vals)
+              return out
+          d273=complete_daily('273')
+
+          def pearson(xs,ys):
+              if len(xs)<2: return None
+              mx=sum(xs)/len(xs); my=sum(ys)/len(ys)
+              sx=sum((x-mx)**2 for x in xs); sy=sum((y-my)**2 for y in ys)
+              if sx==0 or sy==0: return None
+              return sum((x-mx)*(y-my) for x,y in zip(xs,ys))/math.sqrt(sx*sy)
+
+          comparisons=[]
+          for item in candidates[:12]:
+              stn=item['station_id']; ds=complete_daily(stn)
+              days=sorted(set(d273)&set(ds))
+              # exclude days intersecting the Marknesse gap, even if partial source rows would otherwise pass
+              days=[d for d in days if not (datetime(d.year,d.month,d.day,tzinfo=timezone.utc)<gap1 and datetime(d.year,d.month,d.day,tzinfo=timezone.utc)+timedelta(days=1)>gap0)]
+              xs=[d273[d] for d in days]; ys=[ds[d] for d in days]
+              corr=pearson(xs,ys)
+              comparisons.append({
+                  **item,
+                  'overlap_complete_days_excluding_gap':len(days),
+                  'daily_total_correlation':None if corr is None else round(corr,4),
+                  'marknesse_total_mm_comparison_days':round(sum(xs),3),
+                  'candidate_total_mm_comparison_days':round(sum(ys),3),
+                  'candidate_to_marknesse_total_ratio':None if sum(xs)==0 else round(sum(ys)/sum(xs),4),
+                  'mean_absolute_daily_difference_mm':None if not days else round(sum(abs(a-b) for a,b in zip(xs,ys))/len(days),3),
+              })
+
+          summary={
+              'analysis_window_start_utc':'1998-08-01T00:00:00Z',
+              'analysis_window_end_utc_exclusive':'1998-10-24T00:00:00Z',
+              'gap_start_utc':'1998-09-03T00:00:00Z',
+              'gap_end_utc_exclusive':'1998-09-07T12:00:00Z',
+              'gap_hours':108,
+              'ot02_centroid_wgs84':{'lon':round(ot_lon,6),'lat':round(ot_lat,6)},
+              'station273_metadata':mark,
+              'stations_with_complete_gap_RH':len(candidates),
+              'nearest_complete_candidates':comparisons,
+              'diagnostic_conversion':'For comparison metrics only, KNMI RH=-1 (<0.05 mm) is treated as 0.0 mm; source-native semantics remain unchanged.',
+              'guardrail':'Distance/correlation do not establish observational identity. No gap fill is admitted by this diagnostic.'
+          }
+          Path('antecedent_gap_station_screen.json').write_text(json.dumps(summary,indent=2),encoding='utf-8')
+          print(json.dumps(summary,indent=2))
+          PY
+      - name: Upload station-screen diagnostic
+        uses: actions/upload-artifact@v4
+        with:
+          name: tollebeek-antecedent-gap-station-screen
+          path: antecedent_gap_station_screen.json
+          if-no-files-found: error
