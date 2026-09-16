@@ -17,59 +17,173 @@ jobs:
         with:
           python-version: '3.12'
       - name: Install acquisition dependencies
-        run: python -m pip install shapely pyproj requests
-      - name: Discover SoilPhys response schema inside admitted OT.02 polygon
+        run: python -m pip install shapely pyproj requests openpyxl
+      - name: Screen admitted OT.02 polygon with SoilPhys shifted grids
         run: |
           python - <<'PY'
+          import csv
           import json
+          import math
+          import time
+          from collections import Counter, defaultdict
           from pathlib import Path
+
           import requests
-          from shapely.geometry import shape, Point
+          from openpyxl import load_workbook
           from pyproj import Transformer
+          from shapely.geometry import Point, shape
 
-          data = json.loads(Path('data/spatial/tollebeek_ot02_current.geojson').read_text(encoding='utf-8'))
-          poly = shape(data['features'][0]['geometry'])
+          ROOT = Path('acquisition')
+          ROOT.mkdir(exist_ok=True)
+
+          admitted = json.loads(Path('data/spatial/tollebeek_ot02_current.geojson').read_text(encoding='utf-8'))
+          poly = shape(admitted['features'][0]['geometry'])
           minx, miny, maxx, maxy = poly.bounds
-          cx, cy = poly.representative_point().coords[0]
-
-          candidates = [
-              ('representative_point', cx, cy),
-              ('center', (minx+maxx)/2, (miny+maxy)/2),
-              ('west_mid', minx + 0.20*(maxx-minx), (miny+maxy)/2),
-              ('east_mid', minx + 0.80*(maxx-minx), (miny+maxy)/2),
-              ('south_mid', (minx+maxx)/2, miny + 0.20*(maxy-miny)),
-              ('north_mid', (minx+maxx)/2, miny + 0.80*(maxy-miny)),
-          ]
-          points=[]
-          for name,x,y in candidates:
-              p=Point(x,y)
-              if poly.contains(p):
-                  points.append((name,x,y))
-              else:
-                  # deterministic nearest fallback: interpolate from representative point.
-                  q=Point(cx + 0.6*(x-cx), cy + 0.6*(y-cy))
-                  if poly.contains(q):
-                      points.append((name+'_fallback',q.x,q.y))
-
           to_wgs = Transformer.from_crs(28992, 4326, always_xy=True)
-          out=[]
-          s=requests.Session()
-          s.headers.update({'User-Agent':'Bodemverdichting-kosten-profile-qualification/0.1'})
-          for name,x,y in points:
-              lon,lat=to_wgs.transform(x,y)
-              r=s.get('https://www.soilphysics.wur.nl/soil.php', params={'latitude':lat,'longitude':lon}, timeout=60)
-              r.raise_for_status()
-              payload=r.json()
-              out.append({'sample_id':name,'rd_x':x,'rd_y':y,'latitude':lat,'longitude':lon,'response':payload})
-              print(name, json.dumps(payload, ensure_ascii=False)[:4000])
 
-          Path('acquisition').mkdir(exist_ok=True)
-          Path('acquisition/soilphys_discovery.json').write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding='utf-8')
+          spacing = 500.0
+          base_x = math.floor(minx / spacing) * spacing
+          base_y = math.floor(miny / spacing) * spacing
+          grid_specs = [('A', 0.0, 0.0), ('B', spacing/2, spacing/2)]
+
+          samples = []
+          session = requests.Session()
+          session.headers.update({'User-Agent':'Bodemverdichting-kosten-profile-qualification/0.1'})
+
+          for grid_id, dx, dy in grid_specs:
+              x = base_x + dx
+              while x <= maxx:
+                  y = base_y + dy
+                  while y <= maxy:
+                      p = Point(x, y)
+                      if poly.contains(p):
+                          lon, lat = to_wgs.transform(x, y)
+                          r = session.get(
+                              'https://www.soilphysics.wur.nl/soil.php',
+                              params={'latitude': lat, 'longitude': lon},
+                              timeout=60,
+                          )
+                          r.raise_for_status()
+                          payload = r.json()
+                          if isinstance(payload, dict):
+                              status = 'PROFILE'
+                              profile_id = str(payload.get('id')) if payload.get('id') is not None else None
+                              smu = payload.get('smu')
+                          else:
+                              status = 'NO_DATA'
+                              profile_id = None
+                              smu = None
+                          samples.append({
+                              'grid_id': grid_id,
+                              'rd_x': x,
+                              'rd_y': y,
+                              'latitude': lat,
+                              'longitude': lon,
+                              'status': status,
+                              'profile_id': profile_id,
+                              'smu': smu,
+                              'response': payload,
+                          })
+                          time.sleep(0.03)
+                      y += spacing
+                  x += spacing
+
+          # Stable summaries by grid and combined.
+          summary = {
+              'sampling_domain_spatial_unit_id': 'TOLLEBEEK_OT02_CURRENT',
+              'spacing_m': spacing,
+              'grid_specs': [{'grid_id': g, 'offset_x_m': dx, 'offset_y_m': dy} for g, dx, dy in grid_specs],
+              'polygon_area_ha': poly.area / 10000.0,
+              'sample_count': len(samples),
+              'by_grid': {},
+              'combined': {},
+          }
+
+          for group in ['A', 'B', 'COMBINED']:
+              rows = samples if group == 'COMBINED' else [r for r in samples if r['grid_id'] == group]
+              profiles = [r for r in rows if r['status'] == 'PROFILE']
+              no_data = [r for r in rows if r['status'] == 'NO_DATA']
+              counts = Counter((r['profile_id'], r['smu']) for r in profiles)
+              block = {
+                  'n_points': len(rows),
+                  'n_profile': len(profiles),
+                  'n_no_data': len(no_data),
+                  'no_data_fraction': (len(no_data) / len(rows)) if rows else None,
+                  'profile_counts': [
+                      {
+                          'profile_id': pid,
+                          'smu': smu,
+                          'count': count,
+                          'fraction_of_profile_points': count / len(profiles) if profiles else None,
+                          'fraction_of_all_points': count / len(rows) if rows else None,
+                      }
+                      for (pid, smu), count in counts.most_common()
+                  ],
+              }
+              if group == 'COMBINED':
+                  summary['combined'] = block
+              else:
+                  summary['by_grid'][group] = block
+
+          unique_profiles = {}
+          for r in samples:
+              if r['status'] == 'PROFILE':
+                  key = r['profile_id']
+                  unique_profiles.setdefault(key, r['response'])
+
+          # Compare A/B profile fractions over all grid points to expose sampling sensitivity.
+          profile_keys = sorted({(r['profile_id'], r['smu']) for r in samples if r['status']=='PROFILE'})
+          sensitivity = []
+          for pid, smu in profile_keys:
+              item = {'profile_id': pid, 'smu': smu}
+              fractions = []
+              for grid_id in ['A','B']:
+                  rows = [r for r in samples if r['grid_id'] == grid_id]
+                  count = sum(1 for r in rows if r['profile_id']==pid and r['smu']==smu)
+                  frac = count/len(rows) if rows else None
+                  item[f'fraction_all_points_{grid_id}'] = frac
+                  if frac is not None:
+                      fractions.append(frac)
+              item['absolute_grid_fraction_difference'] = abs(fractions[0]-fractions[1]) if len(fractions)==2 else None
+              sensitivity.append(item)
+          summary['grid_sensitivity'] = sensitivity
+
+          (ROOT/'soilphys_grid_samples.json').write_text(json.dumps(samples,ensure_ascii=False,indent=2),encoding='utf-8')
+          (ROOT/'soilphys_profile_summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2),encoding='utf-8')
+          (ROOT/'soilphys_unique_profiles.json').write_text(json.dumps(unique_profiles,ensure_ascii=False,indent=2),encoding='utf-8')
+
+          with (ROOT/'soilphys_grid_samples.csv').open('w', newline='', encoding='utf-8') as f:
+              w = csv.DictWriter(f, fieldnames=['grid_id','rd_x','rd_y','latitude','longitude','status','profile_id','smu'])
+              w.writeheader()
+              for r in samples:
+                  w.writerow({k:r[k] for k in w.fieldnames})
+
+          # Acquire the official BOFEK2020 translation workbook for schema/mapping review.
+          table_url = 'https://backend.wur.nl/sites/default/files/2026-02/tabel_BOFEK_2020_V_1_0.xlsx'
+          table_path = ROOT/'tabel_BOFEK_2020_V_1_0.xlsx'
+          tr = session.get(table_url, timeout=120)
+          tr.raise_for_status()
+          table_path.write_bytes(tr.content)
+
+          wb = load_workbook(table_path, read_only=True, data_only=True)
+          workbook_preview = {'source_url': table_url, 'sheets': {}}
+          for ws in wb.worksheets:
+              values=[]
+              for i,row in enumerate(ws.iter_rows(values_only=True)):
+                  values.append(list(row))
+                  if i >= 24:
+                      break
+              workbook_preview['sheets'][ws.title] = values
+          (ROOT/'bofek2020_workbook_preview.json').write_text(json.dumps(workbook_preview,ensure_ascii=False,indent=2,default=str),encoding='utf-8')
+
+          print(json.dumps(summary, ensure_ascii=False, indent=2))
+          print(json.dumps({'unique_profiles': unique_profiles}, ensure_ascii=False, indent=2)[:12000])
+          print(json.dumps(workbook_preview, ensure_ascii=False, indent=2, default=str)[:12000])
           PY
-      - name: Upload discovery evidence
+      - name: Upload acquisition evidence
         uses: actions/upload-artifact@v4
         with:
-          name: tollebeek-profile-discovery
+          name: tollebeek-profile-screening
           path: acquisition/
           retention-days: 7
           if-no-files-found: error
