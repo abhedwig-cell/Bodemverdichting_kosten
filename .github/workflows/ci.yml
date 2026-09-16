@@ -31,6 +31,7 @@ jobs:
           tools/validate_initial_state_gate.py
           tools/validate_managed_boundary_gate.py
           tools/validate_land_use_gate.py
+          tools/validate_model_config_gate.py
           tools/validate_spatial_geometry.py
           tools/validate_profile_baseline.py
           tools/validate_project.py
