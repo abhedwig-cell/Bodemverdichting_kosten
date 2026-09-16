@@ -1,4 +1,4 @@
-schema_version: 0.3.0
+schema_version: 0.3.1
 status: STATUS_A_LIGHT_DOMAIN_BASELINE
 
 dataset_roles:
@@ -187,8 +187,9 @@ datasets:
   data_request_register:
     entity: data_request_item
     role: DATA_REQUEST
-    grain: one row per requested data item
+    grain: one row per requested input, derivation, configuration or scientific decision
     primary_key: [data_request_id]
+    storage: data_requests/data_request_register.csv
     legacy_mappings:
       - 70_WaterschapDataRequest
       - 75_TollebeekDataRequest
