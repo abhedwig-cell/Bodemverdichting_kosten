@@ -1,0 +1,116 @@
+name: Temporary repair Tollebeek geometry serialization
+
+on:
+  push:
+    branches:
+      - work/tollebeek-geometry-feature-v0.1
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: work/tollebeek-geometry-feature-v0.1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Rebuild exact owner feature and validate identity
+        run: |
+          python - <<'PY'
+          import datetime as dt
+          import hashlib
+          import json
+          import urllib.parse
+          import urllib.request
+          from pathlib import Path
+
+          base = "https://services.arcgis.com/84oM5NriBghHdQ3Z/ArcGIS/rest/services/zzl_Peilgebieden/FeatureServer/0"
+          expected_globalid = "c07f3d9b-c063-42c3-ba0a-1ff65a1b9c6a"
+          expected_geometry_hash = "6a1bf94807ead57bbc347154664c003610dad4694c150ef3b1f1ad40b1b73414"
+
+          def get_json(url, params):
+              req = urllib.request.Request(
+                  url + "?" + urllib.parse.urlencode(params),
+                  headers={"User-Agent": "Bodemverdichting-kosten-geometry-repair/0.1"},
+              )
+              with urllib.request.urlopen(req, timeout=60) as r:
+                  return json.loads(r.read().decode("utf-8"))
+
+          layer = get_json(base, {"f": "pjson"})
+          geo = get_json(base + "/query", {
+              "f": "geojson",
+              "objectIds": "232",
+              "outFields": "*",
+              "returnGeometry": "true",
+              "outSR": "28992",
+          })
+          if len(geo.get("features", [])) != 1:
+              raise SystemExit("expected exactly one OBJECTID 232 feature")
+          feature = geo["features"][0]
+          props = feature["properties"]
+          if props.get("GPGIDENT") != "OT.02":
+              raise SystemExit("unexpected GPGIDENT")
+          if props.get("GLOBALID") != expected_globalid:
+              raise SystemExit("unexpected GLOBALID")
+          if props.get("IWS_GPGSTATU") != 4:
+              raise SystemExit("unexpected status")
+
+          geom_hash = hashlib.sha256(
+              json.dumps(feature["geometry"], sort_keys=True, separators=(",", ":")).encode("utf-8")
+          ).hexdigest()
+          if geom_hash != expected_geometry_hash:
+              raise SystemExit(f"geometry hash changed: {geom_hash}")
+
+          def iso_ms(value):
+              return dt.datetime.fromtimestamp(value / 1000, tz=dt.timezone.utc).isoformat(timespec="milliseconds").replace("+00:00", "Z")
+
+          data_edit = ((layer.get("editingInfo") or {}).get("dataLastEditDate"))
+          shape_area = props["Shape__Area"]
+          document = {
+              "type": "FeatureCollection",
+              "name": "Tollebeek OT.02 current owner peilgebied geometry",
+              "crs": {"type": "name", "properties": {"name": "EPSG:28992"}},
+              "project_metadata": {
+                  "spatial_unit_id": "TOLLEBEEK_OT02_CURRENT",
+                  "admission_scope": "Current owner-hosted OT.02 peilgebied geometry for spatial identity/context only",
+                  "review_date": "2026-09-16",
+                  "source_service": "https://services.arcgis.com/84oM5NriBghHdQ3Z/ArcGIS/rest/services/zzl_Peilgebieden/FeatureServer",
+                  "source_service_item_id": "b5db31163fa74c09825de1d42bb12ce8",
+                  "source_layer_id": 0,
+                  "source_layer_name": "Peilgebieden Besluit",
+                  "source_objectid": 232,
+                  "source_globalid": expected_globalid,
+                  "source_status_code": 4,
+                  "source_status_label": "vigerend definitief",
+                  "source_feature_last_edit_utc": iso_ms(props["LAST_EDITED_DATE"]),
+                  "source_layer_data_last_edit_utc": iso_ms(data_edit) if data_edit else None,
+                  "geometry_sha256": geom_hash,
+                  "shape_area_m2": shape_area,
+                  "shape_area_ha": shape_area / 10000.0,
+                  "source_area_attribute_GPGOPPVL": props.get("GPGOPPVL"),
+                  "crosscheck": "Owner peilbesluit surfaces contain OT.02 status 4 with identical Shape__Area/Shape__Length; official 2016 Urk peilbesluit context lists OT.02 at 1497 ha and NAP -6.20 m.",
+                  "guardrail": "This polygon is not the affected compaction area. The GPGOPPVL=1506 attribute conflicts with the geometry-derived ~1496.52 ha and is not admitted as geometry area. Use the polygon as spatial identity; any affected area requires separate evidence.",
+              },
+              "features": [feature],
+          }
+          path = Path("data/spatial/tollebeek_ot02_current.geojson")
+          path.parent.mkdir(parents=True, exist_ok=True)
+          path.write_text(json.dumps(document, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
+          json.loads(path.read_text(encoding="utf-8"))
+          print("geometry_sha256", geom_hash)
+          print("file_sha256", hashlib.sha256(path.read_bytes()).hexdigest())
+          PY
+          python tools/validate_spatial_geometry.py
+      - name: Commit repaired serialization
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add data/spatial/tollebeek_ot02_current.geojson
+          git diff --cached --quiet && exit 0
+          git commit -m "Repair exact OT.02 geometry serialization"
+          git push origin HEAD:work/tollebeek-geometry-feature-v0.1
