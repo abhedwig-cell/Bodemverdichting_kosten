@@ -18,9 +18,12 @@ This review asks whether the publication recovers the regional 2020–2021, 305-
 
 The publisher HTML/XML route returned HTTP 403 during branch-only probing. The WUR eDepot copy at `https://edepot.wur.nl/577746` was publicly and reproducibly acquired and parsed.
 
-Temporary acquisition run `35098231879` succeeded for the WUR PDF route. The PDF was 5,318,065 bytes.
+Temporary acquisition runs:
 
-The HTTP 403 responses are access-route behaviour only and have no scientific meaning.
+- `35098231879`: project/funding, data-availability and timing classification — SUCCESS;
+- `35098469362`: source-native location/sampling-context screening — SUCCESS.
+
+The WUR PDF was 5,318,065 bytes in both probes. The HTTP 403 responses are access-route behaviour only and have no scientific meaning.
 
 ## Exact project-family relation
 
@@ -38,7 +41,7 @@ That relation is important provenance context but is **not** sufficient to ident
 
 The source-native article text describes:
 
-- one agricultural study site at the edge of Emmeloord;
+- one agricultural study site in eastern Flevoland / Noordoostpolder, at the edge of Emmeloord;
 - 25 measurement locations within that field;
 - selection of the field because of heterogeneous compaction associated with a heavy compaction event in 2017;
 - fieldwork in autumn 2018, after maize harvest;
@@ -68,11 +71,7 @@ Shared grant/project provenance does not override these explicit differences.
 
 ## Data availability
 
-The article states:
-
-> Data is available on request from the authors.
-
-It also notes that personal information would be anonymized in accordance with Dutch privacy rules.
+The article states that the data are available on request from the authors and that personal information would be anonymized under Dutch privacy rules.
 
 No public downloadable CSV/XLSX/ZIP/repository object was recovered from the public article/eDepot route during this workunit.
 
@@ -80,13 +79,13 @@ Accordingly, the publication provides an actionable **secondary data-request rou
 
 ## Spatial admission boundary
 
-The article identifies the study site in prose as being at the edge of Emmeloord and shows measurement locations in a figure.
+The source-native prose identifies the study area only at regional/locality level: eastern Flevoland / Noordoostpolder and the edge of Emmeloord. The 25 measurement locations are shown in a figure.
 
-This workunit does **not** digitize coordinates from that figure. A figure-derived point is not a source-native coordinate when underlying coordinates can instead be requested from the authors.
+No source-native coordinate values, downloadable coordinate table or stable public data-object ID were recovered in the article/eDepot route.
 
-No source-native public coordinate record or data-object was recovered that permits a reproducible intersection with canonical `data/spatial/tollebeek_ot02_current.geojson`.
+This workunit does **not** digitize coordinates from the figure. A figure-derived point is not a source-native coordinate when underlying coordinates can instead be requested from the authors.
 
-Therefore no observation from this publication is admitted as OT.02 CURRENT-state evidence.
+Therefore no reproducible intersection with canonical `data/spatial/tollebeek_ot02_current.geojson` can be made and no observation from this publication is admitted as OT.02 CURRENT-state evidence.
 
 ## Scientific classification
 
@@ -100,14 +99,14 @@ Meaning:
 2. the study is a real direct-measurement soil-compaction dataset route;
 3. it is demonstrably a distinct 2018, 25-location field experiment rather than the 2020–2021, 305-location regional campaign;
 4. raw data are not publicly recovered here but are explicitly available on request;
-5. OT.02 membership is unresolved and must not be inferred from prose or a printed map.
+5. OT.02 membership is unresolved and must not be inferred from locality prose or a printed map.
 
 ## Guardrails
 
 This route must not be used to:
 
 - relabel the 2018 field data as the WER3382 regional dataset;
-- infer OT.02 membership from `Emmeloord` or from figure placement;
+- infer OT.02 membership from `Emmeloord`, `Noordoostpolder` or figure placement;
 - digitize map coordinates and treat them as source-native measurements;
 - use article summary statistics as a local soil state;
 - transfer one field's bulk density or penetration resistance across OT.02;
