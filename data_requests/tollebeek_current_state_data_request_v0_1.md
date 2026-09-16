@@ -15,7 +15,7 @@ The immediate priority is the raw point dataset underlying the 2020–2021 Flevo
 For each measurement location, retain the source-native identifiers and request at minimum:
 
 - stable measurement/location ID;
-- actual field GPS coordinate and CRS;
+- actual field GPS coordinate and CRS, where shareable;
 - sampling/measurement date;
 - fixed versus field-selected variable sampling depth;
 - exact depth or depth interval represented by each record;
@@ -36,11 +36,15 @@ A measurement outside the admitted polygon is not Tollebeek OT.02 evidence merel
 
 Coordinates must not be reconstructed from a printed figure when source coordinates are available or can be requested.
 
+If exact source coordinates cannot be shared for privacy/confidentiality reasons, request a custodian-performed intersection using the canonical OT.02 polygon. The returned subset must retain pseudonymized stable measurement IDs plus documented CRS, polygon/source identity, spatial predicate and source/selected record counts. A bare `inside_OT02` flag without selection provenance is insufficient for full admission.
+
 ## Temporal rule
 
 The reported campaign was measured between September 2020 and June 2021. These observations may support a **dated measured state for their measurement date**.
 
 They must not silently be relabelled as a 2026 CURRENT state. A later use as a current-state proxy requires an explicit temporal-transfer argument, including management/state-change uncertainty, or a newer measurement campaign.
+
+Likewise, use of a 2020–2021 measured soil state under the admitted October-1998 meteorological forcing is a controlled historical-forcing stress test unless a separate temporal-transfer argument qualifies historical use.
 
 ## Measurement semantics
 
@@ -52,12 +56,18 @@ SoilPhys `modal_bulk_density_g_cm3` is excluded from this request as CURRENT-sta
 
 ## Public routes identified
 
-- WER Rapport 3382 / DOI 10.18174/672577 documents the campaign and measurement protocol.
-- NWO-SIA project `Flevo - land in beweging`, dossier `RAAK.PRO02.021`, states that a valuable province-wide measurement dataset was collected.
+- WER Rapport 3382 / DOI `10.18174/672577` documents the regional campaign and measurement protocol.
+- WUR project number: `5200043298`.
+- NWO-SIA project `Flevo - land in beweging`, dossier `RAAK.PRO02.021`, states that a province-wide measurement dataset was collected.
+- WER3382 states that point- and field-scale results had been published earlier.
+- Van Orsouw et al. (2022), Agronomy 12(7), 1669, DOI `10.3390/agronomy12071669`, is a point/field-scale publication from the same RAAK-PRO dossier. Its Data Availability Statement says the data are available on request from the authors, with personal information anonymized under Dutch privacy rules.
+- The 2022 paper concerns autumn-2018 measurements on one Noordoostpolder agricultural field and is **not** the same as the regional 2020–2021 WER3382 campaign. It is therefore an author/data-custodian route, not a substitute dataset.
 - The Actieplan Bodem & Water Flevoland website provides a public programme contact route.
-- WUR provides a public contact page for first author Fenny van Egmond.
+- WUR provides public author/contact routes for WER3382 authors.
 
-The public search performed on 2026-09-16 did not locate a downloadable raw coordinate/value table. This is a data-access blocker, not evidence that the records do not exist.
+The public search performed on 2026-09-16 did not locate a downloadable raw coordinate/value table or supplement for the regional 2020–2021 measurements. This is a data-access blocker, not evidence that the records do not exist.
+
+Detailed direct-author route: `docs/38_tollebeek_current_state_direct_author_recovery_v0_1.md`.
 
 ## Reviewed alternative: BIS-4D public bulk-density points
 
@@ -79,11 +89,12 @@ This negative route result does not imply that no Tollebeek observations exist i
 
 `DR_SM_CURRENT_STATE` may only move toward `READY_FOR_REVIEW` or `ADMITTED` when the candidate records:
 
-1. have source-native location IDs and coordinates;
-2. intersect the admitted OT.02 polygon reproducibly;
+1. have source-native stable IDs and sufficient spatial provenance;
+2. intersect the admitted OT.02 polygon reproducibly, or are returned through a documented custodian-performed canonical intersection;
 3. retain measurement dates and depth semantics;
 4. retain direct-measurement versus derived-variable provenance;
 5. retain QC and missingness explicitly;
 6. can be mapped to a model state representation without replacing missing values by defaults;
 7. do not infer area weights from sparse point counts;
-8. include an explicit temporal-use decision if used outside the 2020–2021 observation period.
+8. include an explicit temporal-use decision if used outside the 2020–2021 observation period;
+9. distinguish the regional 2020–2021 campaign from the separate 2018 case-study data.
