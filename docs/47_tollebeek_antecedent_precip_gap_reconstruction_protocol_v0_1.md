@@ -28,18 +28,22 @@ Validated daily station-273 precipitation is also missing across the core affect
 
 Manual station 317 supplies precipitation totals using an 08:00 to 08:00 UTC reporting window through the affected period. Nearby automatic stations supply hourly timing information but represent other locations.
 
-For the actual affected 08:00 to 08:00 windows, preserving the available station-273 hours leaves non-negative station-317 residual precipitation mass in every window:
+KNMI hourly `RH=-1` denotes trace precipitation below `0.05 mm`. A trace is not missing, not negative and not an exact zero. Therefore residual mass in a reporting window is an interval whenever retained station-273 observations in that window contain traces.
 
-| report date | missing hours | station-317 total (mm) | observed station-273 mass outside gap (mm) | residual for missing hours (mm) |
-| --- | ---: | ---: | ---: | ---: |
-| 1998-09-03 | 8 | 4.9 | 1.5 | 3.4 |
-| 1998-09-04 | 24 | 13.6 | 0.0 | 13.6 |
-| 1998-09-05 | 24 | 5.0 | 0.0 | 5.0 |
-| 1998-09-06 | 24 | 5.5 | 0.0 | 5.5 |
-| 1998-09-07 | 24 | 0.7 | 0.0 | 0.7 |
-| 1998-09-08 | 4 | 1.2 | 0.9 | 0.3 |
+Using the source-native reported station-317 daily total and preserving all non-missing station-273 hours gives the following conservative residual-mass enclosures. Closed interval notation is used as an enclosure; where a trace contributes an open upper bound, the true mathematical bound is correspondingly open.
 
-The temporal-disaggregation diagnostic evaluated hourly timing shapes from stations 269, 267, 270 and 279 against complete station-273 periods outside the gap. Results are diagnostic because the calculation used a numeric trace convention and therefore does not itself define production trace semantics.
+| report date | missing hours | station-317 reported total (mm) | retained station-273 positive mass (mm) | retained station-273 trace count | residual-mass enclosure for missing hours (mm) |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 1998-09-03 | 8 | 4.9 | 1.5 | 2 | [3.30, 3.40] |
+| 1998-09-04 | 24 | 13.6 | 0.0 | 0 | [13.60, 13.60] |
+| 1998-09-05 | 24 | 5.0 | 0.0 | 0 | [5.00, 5.00] |
+| 1998-09-06 | 24 | 5.5 | 0.0 | 0 | [5.50, 5.50] |
+| 1998-09-07 | 24 | 0.7 | 0.0 | 0 | [0.70, 0.70] |
+| 1998-09-08 | 4 | 1.2 | 0.9 | 1 | [0.25, 0.30] |
+
+For 1998-09-03 the exact trace-aware residual is greater than `3.30 mm` and at most `3.40 mm`. For 1998-09-08 it is greater than `0.25 mm` and at most `0.30 mm`. The closed intervals above deliberately preserve a conservative enclosure rather than pretending the trace amount is known.
+
+The temporal-disaggregation diagnostic evaluated hourly timing shapes from stations 269, 267, 270 and 279 against complete station-273 periods outside the gap. In that diagnostic only, `RH=-1` was represented numerically as `0.0 mm`. This is a declared lower-bound trace convention for method screening and is not production trace semantics.
 
 | timing method | defined validation days | hourly correlation | MAE (mm/h) | RMSE (mm/h) | wet-hour precision | wet-hour recall |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -49,9 +53,9 @@ The temporal-disaggregation diagnostic evaluated hourly timing shapes from stati
 | station 279 | 77 | 0.5660 | 0.1547 | 0.5988 | 0.7232 | 0.6975 |
 | equal multi-station timing ensemble | 78 | 0.8145 | 0.1093 | 0.3537 | 0.6792 | 0.8275 |
 
-The ensemble diagnostic is more stable across the validation period than any tested single timing station, but it is not evidence that one deterministic ensemble-mean series is the historical truth.
+Under that diagnostic convention, the ensemble is more stable across the validation period than any tested single timing station. This is not evidence that one deterministic ensemble-mean series is the historical truth, and the numeric scores must not be interpreted as trace-aware production validation.
 
-Single-station timing can also be structurally undefined for a wet local window. In the actual gap, station 269 has zero precipitation over the four missing hours contributing to the 1998-09-08 reporting window while station 317 leaves a positive 0.3 mm residual. A direct station-269 copy would therefore erase locally observed precipitation mass in that part of the gap.
+Single-station direct copying is also inconsistent with the local mass constraint in an actual affected window. For the four missing hours contributing to the 1998-09-08 reporting window, station 269 contains no precipitation report of `>=0.1 mm` and one trace, so its source-consistent mass is below `0.05 mm`. The local station-317 constraint combined with retained station-273 observations requires more than `0.25 mm` and at most `0.30 mm` in those missing hours. Direct station-269 copying therefore cannot satisfy the local reported mass constraint even when the station-269 trace is preserved correctly.
 
 ## Treatment classes
 
@@ -65,7 +69,7 @@ Keep the 108 station-273 values null and preserve the qualified source record un
 
 Status: **NOT QUALIFIED**.
 
-Copying station-269 hourly precipitation into station-273 missing hours is not an admissible deterministic reconstruction. It mixes locations without a mass constraint, does not preserve local precipitation evidence and is contradicted by at least one actual-gap window where station 269 has zero timing mass while the local manual record leaves positive residual mass.
+Copying station-269 hourly precipitation into station-273 missing hours is not an admissible deterministic reconstruction. It mixes locations without a local mass constraint and can conflict materially with the station-317 mass evidence even when KNMI traces are handled correctly.
 
 Station 269 may remain a timing-information source inside an explicitly reconstructed scenario family.
 
@@ -73,35 +77,36 @@ Station 269 may remain a timing-information source inside an explicitly reconstr
 
 Status: **SCENARIO MEMBER ONLY, NOT CANONICAL FILL**.
 
-A nearby station's normalized hourly precipitation shape may be used as one reconstruction member only when:
+A nearby station's hourly precipitation timing may be used as one reconstruction member only when:
 
 - the local mass anchor for that reporting window is separately admissible;
 - the timing source has complete hourly coverage for the missing portion;
-- the timing source has positive timing mass when the constrained local residual is positive;
+- exact-zero and trace observations remain distinguishable;
+- any trace contribution to the timing shape is represented through an explicit trace-aware rule or member family;
 - observed station-273 hours are retained unchanged;
 - every reconstructed hour is explicitly flagged as reconstructed.
 
-A zero timing sum with positive constrained residual is undefined and must fail. It must not trigger a fallback to zero, uniform spreading or hidden station switching.
+If the timing source has exact zero throughout the missing portion while the constrained local residual is positive, the member is undefined and must fail. Trace-only support must not be silently converted to exact zero or to an arbitrary fixed amount.
 
 ### G3 - locally mass-constrained multi-station timing ensemble
 
 Status: **QUALIFIED FOR SCENARIO-ONLY RECONSTRUCTION METHOD**.
 
-This is the strongest currently supported reconstruction family. It combines two distinct evidence roles rather than pretending all sources measure the same object:
+This is the strongest currently supported reconstruction family. It combines distinct evidence roles rather than pretending all sources measure the same object:
 
-- station 317 constrains precipitation mass in its native 08:00 to 08:00 UTC reporting window;
-- nearby automatic stations provide alternative observed hourly timing shapes;
+- station 317 constrains source-reported precipitation mass in its native 08:00 to 08:00 UTC reporting window;
+- nearby automatic stations provide alternative observed hourly timing information;
 - existing station-273 observations remain authoritative wherever present.
 
-For each affected reporting window `d`, define:
+For each affected reporting window `d`, derive a trace-aware residual-mass interval from:
 
-`M_residual(d) = M_317(d) - M_273_observed_outside_gap(d)`.
+`M_residual(d) = M_317_reported(d) - M_273_retained(d)`.
 
-The residual is not permitted to be negative beyond source-resolution uncertainty. If it is, the reconstruction fails qualification for that window.
+`M_273_retained(d)` is itself an interval when retained station-273 hours contain `RH=-1` traces. A residual interval that is incompatible with non-negative precipitation fails qualification for that window. It must not be repaired by clipping to zero.
 
-For each valid timing station `s`, define a non-negative hourly shape over only the source-missing station-273 hours in that reporting window. The shape is normalized to sum to one and multiplied by `M_residual(d)`.
+For each timing station `s`, construct a non-negative hourly timing family over only the source-missing station-273 hours in that reporting window. Reported positive amounts retain their source magnitude. Trace observations retain the source constraint `0 <= RH < 0.05 mm` and require either interval propagation or pre-registered trace-realization members. Exact zero remains exact zero.
 
-The set of valid station-specific reconstructions forms an uncertainty family. A multi-station aggregate may be calculated for diagnostics, but the member spread must be retained for later hydrological sensitivity assessment. The method must not collapse the family to a single historical truth claim.
+Each valid timing member is normalized and scaled only within the qualified residual-mass member for that reporting window. The resulting station-specific and trace-specific reconstructions form an uncertainty family. A multi-station aggregate may be calculated for diagnostics, but member spread must be retained for later hydrological sensitivity assessment. The method must not collapse the family to a single historical truth claim.
 
 No distance weighting or bias correction is currently qualified. Such weighting would require independent validation showing that the weighting rule improves transfer to station 273 rather than merely adding complexity.
 
@@ -128,13 +133,15 @@ Any future implementation must preserve, at minimum, for every precipitation val
 - timing-source member or ensemble-member identity;
 - reconstruction method name and version;
 - source-response checksums;
-- trace handling rule;
+- source trace flag and trace handling rule;
+- residual-mass member or interval identity;
+- timing trace-realization member where applicable;
 - uncertainty/member identifier;
 - QC outcome and failure reason where no reconstruction is defined.
 
 `null` remains `null` until a row has passed the reconstruction rule. No default, zero, mean or representative value is allowed as an implicit fallback.
 
-KNMI trace precipitation must retain its source meaning as an interval below the reporting threshold. The cross-validation's numeric trace convention is diagnostic only and must not silently become production semantics.
+KNMI trace precipitation must retain its source meaning as an amount below the reporting threshold. The cross-validation's trace-as-zero screening convention is diagnostic only and must not silently become production semantics.
 
 ## Hydrological sensitivity gate
 
