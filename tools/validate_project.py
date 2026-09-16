@@ -6,6 +6,7 @@ from validate_domain_schema import validate as validate_domain_schema
 from validate_evidence import validate as validate_evidence
 from validate_formal_traceability import validate as validate_formal_traceability
 from validate_input_readiness import validate as validate_input_readiness
+from validate_spatial_geometry import validate as validate_spatial_geometry
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -36,6 +37,7 @@ REQUIRED_PATHS = [
     "evidence/claims.csv",
     "evidence/qualification_register.csv",
     "data_requests/data_request_register.csv",
+    "data/spatial/tollebeek_ot02_current.geojson",
     "model/equations.csv",
     "model/traceability.csv",
 ]
@@ -55,6 +57,7 @@ def validate() -> list[str]:
     errors.extend(f"formal-traceability: {item}" for item in validate_formal_traceability())
     errors.extend(f"domain-schema: {item}" for item in validate_domain_schema())
     errors.extend(f"input-readiness: {item}" for item in validate_input_readiness())
+    errors.extend(f"spatial-geometry: {item}" for item in validate_spatial_geometry())
     errors.extend(f"project-structure: {item}" for item in validate_required_paths())
     return errors
 
@@ -70,9 +73,10 @@ def main() -> int:
     print("Status-A-light project validation passed.")
     print(
         "Validated evidence integrity, formal traceability, Data Model v0.3 domain-schema "
-        "integrity, source-model input-readiness gates and required review structure."
+        "integrity, source-model input-readiness gates, admitted spatial geometry integrity "
+        "and required review structure."
     )
-    print("This is an integrity verdict, not a scientific qualification of data-gated capabilities.")
+    print("This is an integrity verdict, not a scientific qualification of still data-gated capabilities.")
     return 0
 
 
