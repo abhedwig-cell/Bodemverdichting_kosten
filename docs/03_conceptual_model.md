@@ -48,6 +48,12 @@ A physical state assigned to a profile/layer for `CURRENT`, `REFERENCE` or an ex
 
 Bulk density is conceptually a state variable when the project is comparing alternative physical conditions. Texture, by contrast, is normally part of the profile/layer context and should not change between a matched current/reference pair unless the scientific question explicitly requires it.
 
+#### `HydraulicParameterization`
+
+A versioned transformation from one `SoilState` plus its retained profile/layer context to the soil hydraulic functions consumed by the source-response model. It records whether the functions are direct-measurement based, pedotransfer-derived or scenario/envelope based; the exact method/version; the hydraulic representation; and uncertainty/member identity.
+
+This object is separate from `SoilState` because a measured bulk density or penetration resistance is not itself a complete water-retention/conductivity function. It is separate from `ModelConfiguration` because CURRENT and REFERENCE may legitimately have different state-specific hydraulic functions while sharing the same constitutive-model and numerical configuration.
+
 #### `DrainageConfiguration`
 
 The subsurface and surface drainage representation used for a spatial unit or model run. It may include depth, spacing, resistance, controlled drainage or multiple drainage systems.
@@ -220,7 +226,8 @@ flowchart LR
     SP --> SL[SoilLayer]
     SL --> SS[SoilState]
     EV[Event] --> MR[ModelRun]
-    SS --> MR
+    SS --> HP[HydraulicParameterization]
+    HP --> MR
     DC[DrainageConfiguration] --> MR
     MR --> HR[HydrologicalResponse]
     HR --> TE[TransferEvent]

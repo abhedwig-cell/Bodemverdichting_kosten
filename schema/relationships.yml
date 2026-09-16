@@ -39,6 +39,13 @@ relationships:
     cardinality: one-to-many
     foreign_key: soil_state.soil_layer_id
 
+  state_hydraulic_parameterization:
+    from_entity: soil_state
+    to_entity: hydraulic_parameterization
+    cardinality: one-to-many
+    foreign_key: hydraulic_parameterization.soil_state_id
+    implementation_note: Multiple qualified members may represent transformation uncertainty; they remain explicit rather than selecting a hidden best guess.
+
   spatial_land_use:
     from_entity: spatial_unit
     to_entity: land_use_crop
@@ -69,6 +76,13 @@ relationships:
     cardinality: one-to-many
     foreign_key: model_run.soil_state_id
     implementation_note: current/reference attribution requires the soil-state identity to be explicit rather than inferred from a run label
+
+  hydraulic_parameterization_run:
+    from_entity: hydraulic_parameterization
+    to_entity: model_run
+    cardinality: one-to-many
+    foreign_key: model_run.hydraulic_parameterization_id
+    implementation_note: A run must expose the state-specific hydraulic parameterization separately from the shared model configuration.
 
   model_configuration_run:
     from_entity: model_configuration
