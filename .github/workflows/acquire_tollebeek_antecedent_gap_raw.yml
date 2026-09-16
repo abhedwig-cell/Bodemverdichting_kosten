@@ -30,9 +30,9 @@ jobs:
           import urllib.request
           from pathlib import Path
 
-          dest = Path('data/raw/knmi/tollebeek_antecedent_gap_v0_1')
+          dest = Path('evidence/source_snapshots/tollebeek_antecedent_gap_v0_1')
           dest.mkdir(parents=True, exist_ok=True)
-          ua = {'User-Agent': 'Bodemverdichting-kosten-gap-raw-receipt/0.1'}
+          ua = {'User-Agent': 'Bodemverdichting-kosten-gap-source-snapshot/0.1'}
 
           requests = [
               {
@@ -70,6 +70,7 @@ jobs:
                   'manual_window': '08:00 UTC previous day to 08:00 UTC report date',
               },
               'classification': 'ACQUIRED_SOURCE_NATIVE_NOT_YET_RECONSTRUCTED',
+              'repository_role': 'immutable evidence snapshot; not model-ready forcing',
           }
 
           for spec in requests:
@@ -101,16 +102,16 @@ jobs:
 
           print(json.dumps(receipt, indent=2, ensure_ascii=False))
           PY
-      - name: Persist exact raw receipt to work branch
+      - name: Persist exact source snapshot to work branch
         shell: bash
         run: |
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/raw/knmi/tollebeek_antecedent_gap_v0_1
+          git add evidence/source_snapshots/tollebeek_antecedent_gap_v0_1
           git diff --cached --check
           if git diff --cached --quiet; then
-            echo 'No source receipt changes to persist.'
+            echo 'No source snapshot changes to persist.'
             exit 0
           fi
           git commit -m 'Persist source-native KNMI gap receipt [gap-receipt-persisted]'
