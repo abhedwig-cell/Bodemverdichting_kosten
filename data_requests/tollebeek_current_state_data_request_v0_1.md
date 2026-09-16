@@ -119,6 +119,23 @@ Detailed route evidence: `docs/41_tollebeek_current_state_doi_recovery_v0_1.md`.
 
 This strengthens the qualified source-holder route but does not prove that no public or shareable source-native dataset exists elsewhere.
 
+## Reviewed alternative: DANS RhoC validation dataset
+
+A bounded provenance review inspected the open DANS dataset DOI `10.17026/PT/BYVPLB`, titled `RhoC validation data from 'Validation of a new Soil Bulk Density sensor'`.
+
+The exact source CSV contains 432 semicolon-delimited depth-resolved records with RhoC and Kopecky-ring bulk-density measurements over 10–60 cm. However:
+
+- the CSV contains no geographic coordinate fields;
+- README `Location_code` is only a pit/profile/depth sample identifier;
+- no source-native `Tollebeek`, `OT.02`, `Urk`, `Marknesse` or `Emmeloord` identifier is present;
+- `Dronten` occurs only as the depositor/institution address, not a measurement-field location;
+- the README identifies project `RhoC dichtheidsmeter`, project number `KIEM.K21.01.080`, programme `KIEM`, rather than WER3382 / `RAAK.PRO02.021` / `5200043298`;
+- author overlap with Flevoland compaction research is not dataset provenance.
+
+Therefore this dataset is classified as `REVIEWED_PUBLIC_RHOC_DATASET_NOT_SPATIALLY_ASSIGNABLE_TO_OT02`. It is useful as method/context evidence only and must not be substituted for the requested WER3382 source-native point data or reverse-georeferenced from a publication figure.
+
+Detailed route evidence: `docs/42_tollebeek_current_state_rhoc_recovery_v0_1.md`.
+
 ## Admission criteria after acquisition
 
 `DR_SM_CURRENT_STATE` may only move toward `READY_FOR_REVIEW` or `ADMITTED` when the candidate records:
