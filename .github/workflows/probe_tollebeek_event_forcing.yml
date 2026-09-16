@@ -1,0 +1,142 @@
+name: Temporary probe Tollebeek event forcing
+
+on:
+  push:
+    branches:
+      - work/tollebeek-event-forcing-v0.1
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install acquisition dependency
+        run: python -m pip install requests
+      - name: Acquire and analyse KNMI Marknesse hourly observations
+        run: |
+          python - <<'PY'
+          from __future__ import annotations
+          import csv, hashlib, io, json
+          from datetime import datetime, timedelta, timezone
+          from pathlib import Path
+          import requests
+
+          URL = 'https://www.daggegevens.knmi.nl/klimatologie/uurgegevens'
+          FORM = {
+              'start': '1998102401',
+              'end': '1998103124',
+              'vars': 'ALL',
+              'stns': '273',
+              'fmt': 'csv',
+          }
+          r = requests.post(URL, data=FORM, timeout=120)
+          r.raise_for_status()
+          raw = r.content
+          Path('knmi_273_19981024_19981031_raw.txt').write_bytes(raw)
+          raw_sha = hashlib.sha256(raw).hexdigest()
+
+          text = raw.decode('utf-8-sig')
+          comment_lines = [line for line in text.splitlines() if line.startswith('#')]
+          data_lines = [line for line in text.splitlines() if line.strip() and not line.startswith('#')]
+          if not data_lines:
+              raise SystemExit('KNMI response contains no data rows')
+
+          # KNMI output is comma-separated; strip surrounding whitespace while preserving native values.
+          rows = []
+          for line in data_lines:
+              parts = [p.strip() for p in line.split(',')]
+              # Expected ALL layout documented by KNMI climatology endpoint.
+              if len(parts) < 27:
+                  raise SystemExit(f'unexpected KNMI row width {len(parts)}: {line[:200]}')
+              names = ['STN','YYYYMMDD','HH','DD','FH','FF','FX','T','T10N','TD','SQ','Q','DR','RH','P','VV','N','U','WW','IX','M','R','S','O','Y']
+              if len(parts) != len(names):
+                  # Keep probe diagnostic explicit instead of silently shifting columns.
+                  raise SystemExit(f'expected {len(names)} fields but got {len(parts)}; row={line[:300]}')
+              row = dict(zip(names, parts))
+              rows.append(row)
+
+          # KNMI climatology hour convention: HH=1 is 00:00-01:00 UT and HH=24 is 23:00-24:00 UT.
+          # Represent each record by interval end in UTC, retaining native date/hour separately.
+          for row in rows:
+              d = datetime.strptime(row['YYYYMMDD'], '%Y%m%d').replace(tzinfo=timezone.utc)
+              hh = int(row['HH'])
+              row['interval_start_utc'] = (d + timedelta(hours=hh-1)).isoformat().replace('+00:00','Z')
+              row['interval_end_utc'] = (d + timedelta(hours=hh)).isoformat().replace('+00:00','Z')
+
+          norm_fields = list(rows[0].keys())
+          with Path('knmi_273_19981024_19981031_native.csv').open('w', encoding='utf-8', newline='') as f:
+              w=csv.DictWriter(f, fieldnames=norm_fields, lineterminator='\n')
+              w.writeheader(); w.writerows(rows)
+
+          # Derived rainfall analysis only. Native RH=-1 means <0.05 mm, not missing.
+          def rh_mm(native: str):
+              if native == '': return None
+              v = int(native)
+              if v == -1: return 0.0
+              return v / 10.0
+
+          rain=[]
+          missing=[]
+          for row in rows:
+              mm = rh_mm(row['RH'])
+              t = datetime.fromisoformat(row['interval_end_utc'].replace('Z','+00:00'))
+              if mm is None: missing.append(row['interval_end_utc'])
+              rain.append((t,mm,row['RH']))
+
+          if missing:
+              raise SystemExit(f'missing RH values in acquisition window: {missing[:20]}')
+
+          daily={}
+          for row in rows:
+              daily.setdefault(row['YYYYMMDD'],0.0)
+              daily[row['YYYYMMDD']] += rh_mm(row['RH'])
+
+          best=None
+          vals=[x[1] for x in rain]
+          for i in range(len(rain)-23):
+              total=sum(vals[i:i+24])
+              start=rain[i][0]-timedelta(hours=1)
+              end=rain[i+23][0]
+              cand=(total,start,end,i)
+              if best is None or total > best[0]: best=cand
+
+          wet_hours=[(t,mm,native) for t,mm,native in rain if mm and mm>0]
+          summary={
+              'source_url': URL,
+              'request_form': FORM,
+              'retrieved_utc': datetime.now(timezone.utc).isoformat().replace('+00:00','Z'),
+              'raw_sha256': raw_sha,
+              'raw_bytes': len(raw),
+              'comment_line_count': len(comment_lines),
+              'row_count': len(rows),
+              'station_ids': sorted({r['STN'] for r in rows}),
+              'first_interval_start_utc': rows[0]['interval_start_utc'],
+              'last_interval_end_utc': rows[-1]['interval_end_utc'],
+              'missing_RH_count': len(missing),
+              'daily_precip_mm_using_trace_as_zero_for_derived_sum_only': daily,
+              'rolling_24h_max_precip_mm': best[0],
+              'rolling_24h_max_start_utc': best[1].isoformat().replace('+00:00','Z'),
+              'rolling_24h_max_end_utc': best[2].isoformat().replace('+00:00','Z'),
+              'wet_hour_count': len(wet_hours),
+              'first_wet_interval_end_utc': wet_hours[0][0].isoformat().replace('+00:00','Z') if wet_hours else None,
+              'last_wet_interval_end_utc': wet_hours[-1][0].isoformat().replace('+00:00','Z') if wet_hours else None,
+              'native_trace_semantics': 'RH=-1 means <0.05 mm; raw/native file retains -1. Conversion to 0.0 is used only for derived sums.',
+              'timezone_note': 'KNMI climatological hour observations use UT. Native YYYYMMDD and HH are retained; ISO timestamps are UTC interval bounds derived from the documented HH convention.',
+          }
+          Path('event_forcing_probe_summary.json').write_text(json.dumps(summary,indent=2),encoding='utf-8')
+          print(json.dumps(summary,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tollebeek-event-forcing-probe
+          path: |
+            knmi_273_19981024_19981031_raw.txt
+            knmi_273_19981024_19981031_native.csv
+            event_forcing_probe_summary.json
