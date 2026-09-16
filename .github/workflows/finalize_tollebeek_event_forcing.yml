@@ -1,0 +1,661 @@
+name: Temporary finalize Tollebeek event forcing
+
+on:
+  push:
+    branches:
+      - work/tollebeek-event-forcing-v0.1
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: work/tollebeek-event-forcing-v0.1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install acquisition dependency
+        run: python -m pip install requests
+      - name: Apply bounded event forcing baseline
+        run: |
+          python - <<'PY'
+          from __future__ import annotations
+          import csv, hashlib, io, json
+          from datetime import datetime, timedelta, timezone
+          from pathlib import Path
+          import requests
+
+          ROOT=Path('.')
+          EVENT_ID='EVT_TOL_1998_OCT'
+          EXPECTED_RAW_SHA='71f2b135769bfed476bbc9ee55282d7e5e9766e2eaf444aa1b8694d382d08dde'
+          EXPECTED_FORCING_SHA='6c4ca1277523af73f26f6340ec8ebce5d52f42b6040085f7d50ecc78c5ca3c8a'
+          CONTEXT_START='1998-10-24T00:00:00Z'
+          CONTEXT_END='1998-10-30T00:00:00Z'
+          CORE_START='1998-10-27T06:00:00Z'
+          CORE_END='1998-10-28T06:00:00Z'
+
+          def read_csv(path):
+              with Path(path).open('r',encoding='utf-8',newline='') as f:
+                  r=csv.DictReader(f); return r.fieldnames,list(r)
+          def write_csv(path,fields,rows):
+              Path(path).parent.mkdir(parents=True,exist_ok=True)
+              with Path(path).open('w',encoding='utf-8',newline='') as f:
+                  w=csv.DictWriter(f,fieldnames=fields,lineterminator='\n'); w.writeheader(); w.writerows(rows)
+          def append_unique(path,key,new_rows):
+              fields,rows=read_csv(path); ids={r[key] for r in rows}
+              rows += [r for r in new_rows if r[key] not in ids]
+              write_csv(path,fields,rows)
+          def replace_once(path,old,new):
+              p=Path(path); text=p.read_text(encoding='utf-8')
+              if old not in text:
+                  raise SystemExit(f'anchor not found in {path}: {old[:100]!r}')
+              p.write_text(text.replace(old,new,1),encoding='utf-8')
+
+          # Re-acquire the same official KNMI response and require exact byte identity
+          # with the independently successful ACQUIRE run before deriving canonical data.
+          url='https://www.daggegevens.knmi.nl/klimatologie/uurgegevens'
+          form={'start':'1998102401','end':'1998103124','vars':'ALL','stns':'273','fmt':'csv'}
+          r=requests.post(url,data=form,timeout=120); r.raise_for_status(); raw=r.content
+          raw_sha=hashlib.sha256(raw).hexdigest()
+          if raw_sha != EXPECTED_RAW_SHA:
+              raise SystemExit(f'KNMI response changed: {raw_sha} != {EXPECTED_RAW_SHA}')
+          text=raw.decode('utf-8-sig')
+          data_lines=[line for line in text.splitlines() if line.strip() and not line.startswith('#')]
+          native_names=['STN','YYYYMMDD','HH','DD','FH','FF','FX','T','T10N','TD','SQ','Q','DR','RH','P','VV','N','U','WW','IX','M','R','S','O','Y']
+          native=[]
+          for line in data_lines:
+              parts=[p.strip() for p in line.split(',')]
+              if len(parts)!=len(native_names):
+                  raise SystemExit(f'unexpected KNMI row width {len(parts)}')
+              row=dict(zip(native_names,parts))
+              d=datetime.strptime(row['YYYYMMDD'],'%Y%m%d').replace(tzinfo=timezone.utc)
+              hh=int(row['HH'])
+              row['interval_start_utc']=(d+timedelta(hours=hh-1)).isoformat().replace('+00:00','Z')
+              row['interval_end_utc']=(d+timedelta(hours=hh)).isoformat().replace('+00:00','Z')
+              native.append(row)
+          subset=[x for x in native if x['interval_start_utc']>=CONTEXT_START and x['interval_end_utc']<=CONTEXT_END]
+          if len(subset)!=144:
+              raise SystemExit(f'expected 144 context hours, got {len(subset)}')
+
+          mapping=[
+            ('source_station_id','STN'),('source_date_yyyymmdd','YYYYMMDD'),('source_hour_utc','HH'),
+            ('interval_start_utc','interval_start_utc'),('interval_end_utc','interval_end_utc'),
+            ('wind_direction_deg','DD'),('wind_hourly_mean_0_1_ms','FH'),('wind_mean_0_1_ms','FF'),('wind_gust_0_1_ms','FX'),
+            ('air_temperature_0_1_c','T'),('min_air_temperature_10cm_0_1_c','T10N'),('dewpoint_temperature_0_1_c','TD'),
+            ('sunshine_duration_0_1_h','SQ'),('global_radiation_j_cm2','Q'),
+            ('precipitation_duration_0_1_h','DR'),('precipitation_amount_0_1_mm','RH'),
+            ('sea_level_pressure_0_1_hpa','P'),('visibility_code','VV'),('cloud_cover_octants','N'),('relative_humidity_pct','U'),
+            ('present_weather_code','WW'),('weather_station_type','IX'),('fog_indicator','M'),('rain_indicator','R'),
+            ('snow_indicator','S'),('thunder_indicator','O'),('ice_indicator','Y')]
+          forcing_fields=['forcing_observation_id','event_id']+[a for a,_ in mapping]
+          forcing=[]
+          for i,row in enumerate(subset,1):
+              out={'forcing_observation_id':f'OBS_{EVENT_ID}_{i:04d}','event_id':EVENT_ID}
+              out.update({a:row[b] for a,b in mapping})
+              forcing.append(out)
+          sio=io.StringIO(); w=csv.DictWriter(sio,fieldnames=forcing_fields,lineterminator='\n'); w.writeheader(); w.writerows(forcing)
+          forcing_text=sio.getvalue(); forcing_sha=hashlib.sha256(forcing_text.encode()).hexdigest()
+          if forcing_sha != EXPECTED_FORCING_SHA:
+              raise SystemExit(f'canonical forcing bytes changed: {forcing_sha}')
+          Path('data/events').mkdir(parents=True,exist_ok=True)
+          Path('data/events/tollebeek_1998_marknesse_hourly.csv').write_text(forcing_text,encoding='utf-8')
+
+          # Confirm objective event core and source completeness before admission.
+          def rh_mm(v):
+              if v=='': return None
+              n=int(v); return 0.0 if n==-1 else n/10.0
+          core=[x for x in forcing if x['interval_start_utc']>=CORE_START and x['interval_end_utc']<=CORE_END]
+          if len(core)!=24:
+              raise SystemExit(f'expected 24 core rows, got {len(core)}')
+          core_sum=sum(rh_mm(x['precipitation_amount_0_1_mm']) for x in core)
+          if abs(core_sum-88.4)>1e-9:
+              raise SystemExit(f'core rainfall mismatch: {core_sum}')
+          required=['wind_direction_deg','wind_hourly_mean_0_1_ms','wind_mean_0_1_ms','wind_gust_0_1_ms','air_temperature_0_1_c','dewpoint_temperature_0_1_c','sunshine_duration_0_1_h','global_radiation_j_cm2','precipitation_duration_0_1_h','precipitation_amount_0_1_mm','visibility_code','relative_humidity_pct']
+          for field in required:
+              if any(x[field]=='' for x in forcing):
+                  raise SystemExit(f'required forcing variable has missing values: {field}')
+
+          event_fields=['event_id','event_label','context_start_utc','context_end_utc','core_start_utc','core_end_utc','core_precip_mm','source_id','source_station_id','source_station_name','temporal_resolution_minutes','timezone','forcing_dataset_path','forcing_dataset_sha256','notes']
+          event=[{
+            'event_id':EVENT_ID,
+            'event_label':'Tollebeek October 1998 extreme rainfall event',
+            'context_start_utc':CONTEXT_START,
+            'context_end_utc':CONTEXT_END,
+            'core_start_utc':CORE_START,
+            'core_end_utc':CORE_END,
+            'core_precip_mm':'88.4',
+            'source_id':'SRC_KNMI_HOURLY',
+            'source_station_id':'273',
+            'source_station_name':'Marknesse',
+            'temporal_resolution_minutes':'60',
+            'timezone':'UTC',
+            'forcing_dataset_path':'data/events/tollebeek_1998_marknesse_hourly.csv',
+            'forcing_dataset_sha256':forcing_sha,
+            'notes':'Observed KNMI station forcing baseline. Context includes antecedent wetting and immediate post-event period; it is not a hydrologic warm-up or spatially exact OT.02 rainfall field.'}]
+          write_csv('data/events/tollebeek_events.csv',event_fields,event)
+
+          # Source/evidence/claim/qualification chain.
+          append_unique('evidence/sources.csv','source_id',[{
+            'source_id':'SRC_KNMI_HOURLY','source_title':'KNMI Uurgegevens van het weer in Nederland','source_type':'DATA_SERVICE','source_year':'2026','source_url':url,'source_status':'ADMITTED','source_notes':'Official KNMI hourly climatology service. Historical station 273 Marknesse observations were retrieved reproducibly on 2026-09-16 for the October 1998 Tollebeek event; raw response SHA-256 '+EXPECTED_RAW_SHA+'.'}])
+          append_unique('evidence/evidence_register.csv','evidence_id',[
+            {'evidence_id':'EV_TOL_1998_OWNER_EVENT','source_id':'SRC_ZZL_IJSVOGEL','evidence_statement':'Waterschap Zuiderzeeland identifies the 1998 Tollebeek water-overload event and reports 87.5 mm rainfall within 24 hours at the Marknesse measurement point.','spatial_scope':'Tollebeek / Marknesse event context','time_scope':'27-28 October 1998','evidence_value':'87.5','evidence_unit':'mm/24h','provenance_class':'OFFICIAL_METADATA','intended_use':'Owner-backed event identity and independent magnitude corroboration','guardrail':'The narrative 87.5 mm value does not define the canonical hourly distribution or an exact UTC window; use the KNMI station series for numerical forcing.','evidence_status':'QUALIFIED'},
+            {'evidence_id':'EV_TOL_1998_ANTECEDENT','source_id':'SRC_ZZL_WATERERFGOED_NOP','evidence_statement':'Owner historical documentation states that it had rained for days before the Tollebeek flood, the ground was fully saturated, and about 75 mm fell during the night of 27-28 October 1998.','spatial_scope':'Noordoostpolder / Tollebeek historical context','time_scope':'days preceding and night 27-28 October 1998','evidence_value':'','evidence_unit':'','provenance_class':'OFFICIAL_METADATA','intended_use':'Antecedent-wetness chronology and event-window corroboration','guardrail':'Narrative saturated-ground context is not an admitted initial soil-water or groundwater profile and the 75 mm figure is not used to synthesize hourly forcing.','evidence_status':'QUALIFIED'},
+            {'evidence_id':'EV_TOL_1998_KNMI_FORCING','source_id':'SRC_KNMI_HOURLY','evidence_statement':'KNMI station 273 Marknesse provides 144 consecutive hourly records for the admitted forcing context 1998-10-24T00:00Z through 1998-10-30T00:00Z. The maximum rolling 24-hour rainfall in the acquired window is 88.4 mm from 1998-10-27T06:00Z through 1998-10-28T06:00Z. The canonical forcing file SHA-256 is '+forcing_sha+'; selected wind, temperature, dewpoint, radiation, precipitation, visibility and relative-humidity fields are complete across the 144-hour context.','spatial_scope':'KNMI station 273 Marknesse; Tollebeek event forcing proxy','time_scope':'1998-10-24T00:00Z to 1998-10-30T00:00Z','evidence_value':'88.4','evidence_unit':'mm/24h','provenance_class':'DIRECT_MEASUREMENT','intended_use':'Observed station-based meteorological forcing baseline for the first Tollebeek paired source-model experiment','guardrail':'Station forcing is not an exact spatial rainfall field over OT.02. Native units and trace semantics are preserved; SWAP-specific conversion/interpolation and hydrological initial state require separate qualification.','evidence_status':'QUALIFIED'}])
+          append_unique('evidence/claims.csv','claim_id',[{
+            'claim_id':'CL_TOL_1998_EVENT_FORCING','claim_statement':'The KNMI station-273 Marknesse hourly series from 24-30 October 1998 is admitted as the bounded observed meteorological forcing baseline for the first Tollebeek extreme-event experiment, with event core 27 October 06:00 UTC to 28 October 06:00 UTC (88.4 mm in 24 hours).','claim_type':'EVENT_FORCING_BASELINE','evidence_ids':'EV_GROEN_HOURLY_FORCING;EV_TOL_1998_OWNER_EVENT;EV_TOL_1998_ANTECEDENT;EV_TOL_1998_KNMI_FORCING','spatial_scope':'Tollebeek experiment / KNMI station 273 Marknesse','qualification_status':'QUALIFIED_WITH_LIMITATIONS','guardrail':'Admission is station-based forcing only. It does not admit an exact OT.02 rainfall field, hydrological initial state, managed-boundary behaviour, crop state, drainage parameters or any SWAP-specific variable mapping.'}])
+          append_unique('evidence/qualification_register.csv','qualification_id',[
+            {'qualification_id':'Q_TOL_1998_OWNER_EVENT','evidence_id':'EV_TOL_1998_OWNER_EVENT','intended_use':'Independent owner-backed event identity and rainfall-magnitude corroboration','dependencies':'Waterschap Zuiderzeeland public owner account','test_or_review':'Chronology and magnitude compared with official KNMI station-273 hourly observations','qualification_status':'QUALIFIED_WITH_LIMITATIONS','review_date':'2026-09-16','qualification_notes':'Valid for event identity/context. The owner 87.5 mm narrative value is not used as a substitute for the hourly station series.'},
+            {'qualification_id':'Q_TOL_1998_ANTECEDENT','evidence_id':'EV_TOL_1998_ANTECEDENT','intended_use':'Antecedent-wetness chronology','dependencies':'Owner historical narrative','test_or_review':'Compared with KNMI daily/hourly rainfall pattern in the 24-30 October forcing context','qualification_status':'QUALIFIED_WITH_LIMITATIONS','review_date':'2026-09-16','qualification_notes':'Supports selection of an antecedent forcing context only; does not qualify an initial hydrological state.'},
+            {'qualification_id':'Q_TOL_1998_KNMI_FORCING','evidence_id':'EV_TOL_1998_KNMI_FORCING','intended_use':'Observed station-based hourly forcing baseline for Tollebeek 1998 extreme-event modelling','dependencies':'KNMI hourly service; station 273; documented UT convention; canonical event/forcing data files','test_or_review':'Exact raw-response SHA check; 144-row continuity; UTC interval reconstruction; no missing selected forcing variables; 24-hour core rainfall recomputed as 88.4 mm; owner chronology/magnitude cross-check','qualification_status':'QUALIFIED_WITH_LIMITATIONS','review_date':'2026-09-16','qualification_notes':'Qualified as a station forcing baseline. Spatial rainfall representativeness and model-specific conversion remain separate decisions.'}])
+
+          # Readiness row: close the event-forcing data gate only.
+          p='data_requests/data_request_register.csv'; fields,rows=read_csv(p)
+          found=False
+          for x in rows:
+              if x['data_request_id']=='DR_SM_EVENT_FORCING':
+                  found=True
+                  x.update({
+                    'input_readiness_status':'ADMITTED',
+                    'current_evidence_ids':'EV_GROEN_HOURLY_FORCING;EV_TOL_1998_OWNER_EVENT;EV_TOL_1998_ANTECEDENT;EV_TOL_1998_KNMI_FORCING',
+                    'current_claim_ids':'CL_THEORY_TEMPORAL_FORCING;CL_TOL_1998_EVENT_FORCING',
+                    'acceptance_criteria':'Persist source, timestamps, timezone, native units, temporal resolution, missing/trace handling and exact context/core window. Station-based spatial representativeness and any model-specific conversion must remain explicit and separately reviewable.',
+                    'blocking_reason':'Resolved for the first bounded event experiment: a reproducible 144-hour KNMI station-273 Marknesse forcing context is persisted with exact UTC intervals, native units/trace semantics, source checksum and qualified event core.',
+                    'next_action':'Use the admitted 1998 event identity to address DR_SM_INITIAL_STATE and DR_SM_MANAGED_BOUNDARY. Map native meteorological fields into a pinned source-model configuration only under DR_SM_MODEL_CONFIG before any run.',
+                    'request_notes':'Admission is limited to observed station-based forcing. The context window 1998-10-24T00:00Z to 1998-10-30T00:00Z is not a hydrologic warm-up. The 88.4-mm core is measured from the hourly series; owner 87.5-mm/24h reporting is independent corroboration. RH=-1 remains a native trace code (<0.05 mm), not missing or a physical zero.'})
+          if not found: raise SystemExit('DR_SM_EVENT_FORCING missing')
+          write_csv(p,fields,rows)
+
+          # Traceability retains overall attribution DATA_GATED because current/reference states remain open.
+          p='model/traceability.csv'; fields,rows=read_csv(p)
+          for x in rows:
+              if x['capability_id']=='CAP_ATTRIB':
+                  ds=[v for v in x['dataset_ids'].split(';') if v]
+                  if 'meteorological_forcing_register' not in ds:
+                      ds.insert(ds.index('model_run_register') if 'model_run_register' in ds else len(ds),'meteorological_forcing_register')
+                  x['dataset_ids']=';'.join(ds)
+                  ev=[v for v in x['evidence_or_claim_ids'].split(';') if v]
+                  for v in ('CL_TOL_1998_EVENT_FORCING','EV_TOL_1998_KNMI_FORCING'):
+                      if v not in ev: ev.append(v)
+                  x['evidence_or_claim_ids']=';'.join(ev)
+                  x['broken_link']='Event forcing is admitted for the 1998 baseline, but current depth-resolved Tollebeek current/reference states and other run-control inputs remain unadmitted.'
+                  x['review_trigger']='Admission of current/reference soil state or change to event-forcing/attribution semantics.'
+          write_csv(p,fields,rows)
+
+          # Data-model extension: forcing observations have their own hourly grain.
+          replace_once('schema/entities.yml',
+            '  event:\n    description: Meteorological/hydrological event or simulation window.\n    grain: one row per event\n',
+            '  event:\n    description: Meteorological/hydrological event or simulation window.\n    grain: one row per event\n\n  meteorological_forcing_observation:\n    description: Source-observed meteorological forcing for a registered event or simulation context.\n    grain: one row per event x source station/location x observation interval\n')
+          replace_once('schema/datasets.yml',
+            '  event_register:\n    entity: event\n    role: MODEL_INPUT\n    grain: one row per event/simulation window\n    primary_key: [event_id]\n',
+            '  event_register:\n    entity: event\n    role: MODEL_INPUT\n    grain: one row per event/simulation window\n    primary_key: [event_id]\n    storage: data/events/tollebeek_events.csv\n\n  meteorological_forcing_register:\n    entity: meteorological_forcing_observation\n    role: MODEL_INPUT\n    grain: one row per event x source station/location x observation interval\n    primary_key: [forcing_observation_id]\n    storage: data/events/tollebeek_1998_marknesse_hourly.csv\n')
+          replace_once('schema/relationships.yml',
+            '  event_run:\n    from_entity: event\n    to_entity: model_run\n    cardinality: one-to-many\n    foreign_key: model_run.event_id\n',
+            '  event_run:\n    from_entity: event\n    to_entity: model_run\n    cardinality: one-to-many\n    foreign_key: model_run.event_id\n\n  event_forcing:\n    from_entity: event\n    to_entity: meteorological_forcing_observation\n    cardinality: one-to-many\n    foreign_key: meteorological_forcing_observation.event_id\n')
+
+          Path('schema/event_forcing_fields_v0_1.yml').write_text('''schema_version: 0.1.0
+status: ADMITTED_EVENT_FORCING_EXTENSION
+
+fields:
+  forcing_observation_id:
+    entity: meteorological_forcing_observation
+    label: Forcing observation ID
+    description: Stable identifier for one source meteorological observation interval within an event context.
+    datatype: string
+    nullable: false
+  event_label:
+    entity: event
+    label: Event label
+    description: Human-readable event or simulation-window label.
+    datatype: string
+    nullable: false
+  context_start_utc:
+    entity: event
+    label: Forcing context start
+    description: Inclusive start of the persisted forcing context in UTC.
+    datatype: datetime
+    nullable: false
+  context_end_utc:
+    entity: event
+    label: Forcing context end
+    description: Exclusive end of the persisted forcing context in UTC.
+    datatype: datetime
+    nullable: false
+  core_start_utc:
+    entity: event
+    label: Event core start
+    description: Start of the review-defined event core in UTC.
+    datatype: datetime
+    nullable: false
+  core_end_utc:
+    entity: event
+    label: Event core end
+    description: End of the review-defined event core in UTC.
+    datatype: datetime
+    nullable: false
+  core_precip_mm:
+    entity: event
+    label: Core precipitation
+    description: Observed precipitation sum over the registered event core.
+    datatype: float
+    unit: mm
+    nullable: true
+  source_station_id:
+    entity: meteorological_forcing_observation
+    label: Source station ID
+    description: Source-native station/location identifier for the observation.
+    datatype: string
+    nullable: false
+  source_station_name:
+    entity: event
+    label: Source station name
+    description: Human-readable source station/location name for the admitted baseline.
+    datatype: string
+    nullable: true
+  temporal_resolution_minutes:
+    entity: event
+    label: Temporal resolution
+    description: Nominal interval length of the forcing observations.
+    datatype: integer
+    unit: min
+    nullable: false
+  timezone:
+    entity: event
+    label: Timezone
+    description: Time standard used by canonical event timestamps.
+    datatype: string
+    nullable: false
+  forcing_dataset_path:
+    entity: event
+    label: Forcing dataset path
+    description: Canonical repository path to the forcing-observation dataset.
+    datatype: string
+    nullable: false
+  forcing_dataset_sha256:
+    entity: event
+    label: Forcing dataset SHA-256
+    description: SHA-256 checksum of the canonical forcing-observation file bytes.
+    datatype: string
+    nullable: false
+  source_date_yyyymmdd:
+    entity: meteorological_forcing_observation
+    label: Source date
+    description: KNMI native observation date field retained without reinterpretation.
+    datatype: string
+    nullable: false
+  source_hour_utc:
+    entity: meteorological_forcing_observation
+    label: Source hour
+    description: KNMI native HH field (1-24) under the documented UT convention.
+    datatype: integer
+    nullable: false
+  interval_start_utc:
+    entity: meteorological_forcing_observation
+    label: Observation interval start
+    description: Derived inclusive UTC start of the hourly source interval.
+    datatype: datetime
+    nullable: false
+  interval_end_utc:
+    entity: meteorological_forcing_observation
+    label: Observation interval end
+    description: Derived exclusive UTC end of the hourly source interval.
+    datatype: datetime
+    nullable: false
+  wind_direction_deg: {entity: meteorological_forcing_observation, label: Wind direction, description: KNMI DD native value., datatype: integer, unit: degree, nullable: true}
+  wind_hourly_mean_0_1_ms: {entity: meteorological_forcing_observation, label: Hourly mean wind speed, description: KNMI FH native value., datatype: integer, unit: 0.1 m/s, nullable: true}
+  wind_mean_0_1_ms: {entity: meteorological_forcing_observation, label: Mean wind speed, description: KNMI FF native value., datatype: integer, unit: 0.1 m/s, nullable: true}
+  wind_gust_0_1_ms: {entity: meteorological_forcing_observation, label: Wind gust, description: KNMI FX native value., datatype: integer, unit: 0.1 m/s, nullable: true}
+  air_temperature_0_1_c: {entity: meteorological_forcing_observation, label: Air temperature, description: KNMI T native value., datatype: integer, unit: 0.1 degC, nullable: true}
+  min_air_temperature_10cm_0_1_c: {entity: meteorological_forcing_observation, label: Minimum 10 cm temperature, description: KNMI T10N native value; source cadence may be sparser than hourly., datatype: integer, unit: 0.1 degC, nullable: true}
+  dewpoint_temperature_0_1_c: {entity: meteorological_forcing_observation, label: Dewpoint temperature, description: KNMI TD native value., datatype: integer, unit: 0.1 degC, nullable: true}
+  sunshine_duration_0_1_h: {entity: meteorological_forcing_observation, label: Sunshine duration, description: KNMI SQ native value; native trace semantics retained., datatype: integer, unit: 0.1 h, nullable: true}
+  global_radiation_j_cm2: {entity: meteorological_forcing_observation, label: Global radiation, description: KNMI Q native value., datatype: integer, unit: J/cm2, nullable: true}
+  precipitation_duration_0_1_h: {entity: meteorological_forcing_observation, label: Precipitation duration, description: KNMI DR native value., datatype: integer, unit: 0.1 h, nullable: true}
+  precipitation_amount_0_1_mm: {entity: meteorological_forcing_observation, label: Precipitation amount, description: KNMI RH native value; -1 means less than 0.05 mm and is retained as -1., datatype: integer, unit: 0.1 mm, nullable: true, guardrail: Do not interpret -1 as missing or as a physical negative rainfall amount.}
+  sea_level_pressure_0_1_hpa: {entity: meteorological_forcing_observation, label: Sea-level pressure, description: KNMI P native value., datatype: integer, unit: 0.1 hPa, nullable: true}
+  visibility_code: {entity: meteorological_forcing_observation, label: Visibility code, description: KNMI VV native code., datatype: integer, nullable: true}
+  cloud_cover_octants: {entity: meteorological_forcing_observation, label: Cloud cover, description: KNMI N native value., datatype: integer, unit: octant, nullable: true}
+  relative_humidity_pct: {entity: meteorological_forcing_observation, label: Relative humidity, description: KNMI U native value., datatype: integer, unit: percent, nullable: true}
+  present_weather_code: {entity: meteorological_forcing_observation, label: Present weather code, description: KNMI WW native code., datatype: integer, nullable: true}
+  weather_station_type: {entity: meteorological_forcing_observation, label: Weather station type, description: KNMI IX native code., datatype: integer, nullable: true}
+  fog_indicator: {entity: meteorological_forcing_observation, label: Fog indicator, description: KNMI M native indicator., datatype: integer, nullable: true}
+  rain_indicator: {entity: meteorological_forcing_observation, label: Rain indicator, description: KNMI R native indicator., datatype: integer, nullable: true}
+  snow_indicator: {entity: meteorological_forcing_observation, label: Snow indicator, description: KNMI S native indicator., datatype: integer, nullable: true}
+  thunder_indicator: {entity: meteorological_forcing_observation, label: Thunder indicator, description: KNMI O native indicator., datatype: integer, nullable: true}
+  ice_indicator: {entity: meteorological_forcing_observation, label: Ice indicator, description: KNMI Y native indicator., datatype: integer, nullable: true}
+''',encoding='utf-8')
+
+          # Extend schema integrity validator without weakening v0.3 boundaries.
+          p=Path('tools/validate_domain_schema.py'); t=p.read_text(encoding='utf-8')
+          t=t.replace('    "profile_fields_v0_1.yml",\n]', '    "profile_fields_v0_1.yml",\n    "event_forcing_fields_v0_1.yml",\n]')
+          t=t.replace('    "model_configuration_register": {\n        "entity": "model_configuration",\n        "primary_key": ["model_configuration_id"],\n    },\n}', '    "model_configuration_register": {\n        "entity": "model_configuration",\n        "primary_key": ["model_configuration_id"],\n    },\n    "meteorological_forcing_register": {\n        "entity": "meteorological_forcing_observation",\n        "primary_key": ["forcing_observation_id"],\n    },\n}')
+          t=t.replace('    "event_run": ("event", "model_run", "event_id"),\n', '    "event_run": ("event", "model_run", "event_id"),\n    "event_forcing": ("event", "meteorological_forcing_observation", "event_id"),\n')
+          p.write_text(t,encoding='utf-8')
+
+          # Dedicated event-forcing gate and test.
+          Path('tools/validate_event_forcing_gate.py').write_text('''from __future__ import annotations
+
+import csv
+import hashlib
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+REQUEST_FILE = ROOT / "data_requests" / "data_request_register.csv"
+EVENT_FILE = ROOT / "data" / "events" / "tollebeek_events.csv"
+FORCING_FILE = ROOT / "data" / "events" / "tollebeek_1998_marknesse_hourly.csv"
+DATASETS_FILE = ROOT / "schema" / "datasets.yml"
+RELATIONSHIPS_FILE = ROOT / "schema" / "relationships.yml"
+EVIDENCE_FILE = ROOT / "evidence" / "evidence_register.csv"
+CLAIMS_FILE = ROOT / "evidence" / "claims.csv"
+EXPECTED_SHA = "6c4ca1277523af73f26f6340ec8ebce5d52f42b6040085f7d50ecc78c5ca3c8a"
+EVENT_ID = "EVT_TOL_1998_OCT"
+
+
+def read_csv(path: Path) -> list[dict[str, str]]:
+    with path.open("r", encoding="utf-8", newline="") as handle:
+        return list(csv.DictReader(handle))
+
+
+def split_ids(value: str) -> set[str]:
+    return {x.strip() for x in value.split(";") if x.strip()}
+
+
+def precip_mm(native: str) -> float:
+    if native == "":
+        raise ValueError("missing precipitation amount")
+    value = int(native)
+    return 0.0 if value == -1 else value / 10.0
+
+
+def validate() -> list[str]:
+    errors: list[str] = []
+    requests = {r["data_request_id"]: r for r in read_csv(REQUEST_FILE)}
+    req = requests.get("DR_SM_EVENT_FORCING")
+    if req is None:
+        return ["missing DR_SM_EVENT_FORCING"]
+    if req["input_readiness_status"] != "ADMITTED":
+        errors.append("DR_SM_EVENT_FORCING must be ADMITTED for the persisted 1998 baseline")
+    for required in ("EV_TOL_1998_KNMI_FORCING", "EV_TOL_1998_OWNER_EVENT"):
+        if required not in split_ids(req["current_evidence_ids"]):
+            errors.append(f"event forcing readiness missing evidence {required}")
+    if "CL_TOL_1998_EVENT_FORCING" not in split_ids(req["current_claim_ids"]):
+        errors.append("event forcing readiness missing CL_TOL_1998_EVENT_FORCING")
+
+    if not EVENT_FILE.exists() or not FORCING_FILE.exists():
+        return errors + ["canonical event or forcing file is missing"]
+    events = read_csv(EVENT_FILE)
+    if len(events) != 1 or events[0].get("event_id") != EVENT_ID:
+        errors.append("event register must contain exactly the admitted EVT_TOL_1998_OCT row")
+    else:
+        ev = events[0]
+        expected = {
+            "context_start_utc": "1998-10-24T00:00:00Z",
+            "context_end_utc": "1998-10-30T00:00:00Z",
+            "core_start_utc": "1998-10-27T06:00:00Z",
+            "core_end_utc": "1998-10-28T06:00:00Z",
+            "source_station_id": "273",
+            "timezone": "UTC",
+            "temporal_resolution_minutes": "60",
+            "forcing_dataset_sha256": EXPECTED_SHA,
+        }
+        for key, value in expected.items():
+            if ev.get(key) != value:
+                errors.append(f"event {key}={ev.get(key)!r} != {value!r}")
+
+    digest = hashlib.sha256(FORCING_FILE.read_bytes()).hexdigest()
+    if digest != EXPECTED_SHA:
+        errors.append(f"forcing file SHA-256 {digest} != {EXPECTED_SHA}")
+    rows = read_csv(FORCING_FILE)
+    if len(rows) != 144:
+        errors.append(f"forcing context has {len(rows)} rows, expected 144")
+    ids = [r.get("forcing_observation_id", "") for r in rows]
+    if len(ids) != len(set(ids)) or "" in ids:
+        errors.append("forcing observation IDs must be nonblank and unique")
+    if {r.get("event_id") for r in rows} != {EVENT_ID}:
+        errors.append("forcing rows must all reference EVT_TOL_1998_OCT")
+    if {r.get("source_station_id") for r in rows} != {"273"}:
+        errors.append("forcing rows must all retain source station 273")
+    if rows:
+        if rows[0].get("interval_start_utc") != "1998-10-24T00:00:00Z":
+            errors.append("forcing context start timestamp changed")
+        if rows[-1].get("interval_end_utc") != "1998-10-30T00:00:00Z":
+            errors.append("forcing context end timestamp changed")
+        for a, b in zip(rows, rows[1:]):
+            if a.get("interval_end_utc") != b.get("interval_start_utc"):
+                errors.append("forcing intervals are not contiguous")
+                break
+
+    required_fields = ["wind_direction_deg", "wind_hourly_mean_0_1_ms", "wind_mean_0_1_ms", "wind_gust_0_1_ms", "air_temperature_0_1_c", "dewpoint_temperature_0_1_c", "sunshine_duration_0_1_h", "global_radiation_j_cm2", "precipitation_duration_0_1_h", "precipitation_amount_0_1_mm", "visibility_code", "relative_humidity_pct"]
+    for field in required_fields:
+        if any(r.get(field, "") == "" for r in rows):
+            errors.append(f"admitted forcing field has missing values: {field}")
+
+    core = [r for r in rows if r.get("interval_start_utc", "") >= "1998-10-27T06:00:00Z" and r.get("interval_end_utc", "") <= "1998-10-28T06:00:00Z"]
+    if len(core) != 24:
+        errors.append(f"event core has {len(core)} hourly rows, expected 24")
+    else:
+        amount = sum(precip_mm(r["precipitation_amount_0_1_mm"]) for r in core)
+        if abs(amount - 88.4) > 1e-9:
+            errors.append(f"event-core rainfall {amount} mm != 88.4 mm")
+
+    # Missing native source variables remain missing; this gate must not fill them for convenience.
+    if any(r.get("sea_level_pressure_0_1_hpa", "") != "" for r in rows):
+        errors.append("station pressure was source-missing and must remain blank in this baseline")
+
+    datasets = DATASETS_FILE.read_text(encoding="utf-8")
+    relations = RELATIONSHIPS_FILE.read_text(encoding="utf-8")
+    if "meteorological_forcing_register:" not in datasets or "data/events/tollebeek_1998_marknesse_hourly.csv" not in datasets:
+        errors.append("meteorological forcing dataset contract/storage is missing")
+    if "event_forcing:" not in relations or "meteorological_forcing_observation.event_id" not in relations:
+        errors.append("event-to-forcing relationship is missing")
+
+    evidence = {r["evidence_id"] for r in read_csv(EVIDENCE_FILE)}
+    claims = {r["claim_id"] for r in read_csv(CLAIMS_FILE)}
+    if "EV_TOL_1998_KNMI_FORCING" not in evidence:
+        errors.append("missing EV_TOL_1998_KNMI_FORCING")
+    if "CL_TOL_1998_EVENT_FORCING" not in claims:
+        errors.append("missing CL_TOL_1998_EVENT_FORCING")
+    return errors
+
+
+def main() -> int:
+    errors = validate()
+    if errors:
+        print("Tollebeek event forcing gate validation FAILED")
+        for error in errors:
+            print(f"ERROR: {error}")
+        return 1
+    print("Tollebeek event forcing gate validation passed.")
+    print("Validated the admitted 1998 Marknesse hourly forcing context, event core, native missing/trace semantics and event-to-forcing data-model contract.")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+''',encoding='utf-8')
+          Path('tests/test_event_forcing_gate.py').write_text('''from __future__ import annotations
+
+import sys
+import unittest
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+TOOLS = ROOT / "tools"
+if str(TOOLS) not in sys.path:
+    sys.path.insert(0, str(TOOLS))
+
+from validate_event_forcing_gate import validate  # noqa: E402
+
+
+class EventForcingGateTests(unittest.TestCase):
+    def test_event_forcing_gate_integrity(self) -> None:
+        self.assertEqual([], validate())
+
+
+if __name__ == "__main__":
+    unittest.main()
+''',encoding='utf-8')
+
+          # Integrate gate in project validation and CI.
+          p=Path('tools/validate_project.py'); t=p.read_text(encoding='utf-8')
+          t=t.replace('from validate_drainage_gate import validate as validate_drainage_gate\n', 'from validate_drainage_gate import validate as validate_drainage_gate\nfrom validate_event_forcing_gate import validate as validate_event_forcing_gate\n')
+          t=t.replace('    "docs/26_tollebeek_drainage_evidence_route_v0_1.md",\n', '    "docs/26_tollebeek_drainage_evidence_route_v0_1.md",\n    "docs/27_tollebeek_event_forcing_baseline_v0_1.md",\n')
+          t=t.replace('    "schema/profile_fields_v0_1.yml",\n', '    "schema/profile_fields_v0_1.yml",\n    "schema/event_forcing_fields_v0_1.yml",\n')
+          t=t.replace('    "data/soil/tollebeek_profile_screening_v0_1.json",\n', '    "data/soil/tollebeek_profile_screening_v0_1.json",\n    "data/events/tollebeek_events.csv",\n    "data/events/tollebeek_1998_marknesse_hourly.csv",\n')
+          t=t.replace('    errors.extend(f"drainage-gate: {item}" for item in validate_drainage_gate())\n', '    errors.extend(f"drainage-gate: {item}" for item in validate_drainage_gate())\n    errors.extend(f"event-forcing-gate: {item}" for item in validate_event_forcing_gate())\n')
+          p.write_text(t,encoding='utf-8')
+          p=Path('.github/workflows/ci.yml'); t=p.read_text(encoding='utf-8')
+          t=t.replace('          tools/validate_drainage_gate.py\n', '          tools/validate_drainage_gate.py\n          tools/validate_event_forcing_gate.py\n')
+          p.write_text(t,encoding='utf-8')
+
+          Path('docs/27_tollebeek_event_forcing_baseline_v0_1.md').write_text('''# Tollebeek event forcing baseline v0.1
+
+Status: **ADMISSION CANDIDATE — observed station forcing**
+
+## Purpose
+
+This baseline closes only `DR_SM_EVENT_FORCING` for the first bounded Tollebeek extreme-event experiment. It does not close the other run-control gates.
+
+## Event selection
+
+The selected event is the October 1998 Tollebeek water-overload event because it is directly tied to the managed water system under study. Owner documentation identifies the night of 27–28 October 1998 as the critical event, reports 87.5 mm within 24 hours at Marknesse, and describes days of antecedent rainfall and saturated conditions.
+
+The canonical numerical forcing is not reconstructed from those narrative totals. It comes from official KNMI hourly observations at station 273 Marknesse.
+
+## Canonical forcing context
+
+- event ID: `EVT_TOL_1998_OCT`
+- station: KNMI 273 Marknesse
+- context: `1998-10-24T00:00:00Z` through `1998-10-30T00:00:00Z`
+- resolution: 60 minutes
+- records: 144 contiguous hourly intervals
+- time standard: UTC/UT
+- forcing dataset: `data/events/tollebeek_1998_marknesse_hourly.csv`
+- forcing SHA-256: `6c4ca1277523af73f26f6340ec8ebce5d52f42b6040085f7d50ecc78c5ca3c8a`
+- acquired KNMI raw-response SHA-256: `71f2b135769bfed476bbc9ee55282d7e5e9766e2eaf444aa1b8694d382d08dde`
+
+The context deliberately includes three full antecedent days, the event itself and the immediate post-event period. It is a forcing context, not a hydrological warm-up and not an assumed initial state.
+
+## Event core
+
+The objective maximum rolling 24-hour rainfall window in the acquired series is:
+
+- start: `1998-10-27T06:00:00Z`
+- end: `1998-10-28T06:00:00Z`
+- rainfall: **88.4 mm**
+
+This strongly corroborates the independent owner report of 87.5 mm within 24 hours at Marknesse. The values are not forced to equality because the owner narrative does not specify the same exact UTC rolling interval.
+
+Daily station rainfall in the lead-in was 14.0 mm on 24 October, 12.8 mm on 25 October and 9.1 mm on 26 October, followed by 43.6 mm on 27 October and 46.4 mm on 28 October. This supports the owner chronology of antecedent wetting, but does not itself define the soil-water initial state.
+
+## Native source semantics
+
+The canonical forcing file normalizes column names but preserves KNMI native values and native units. In particular:
+
+- `precipitation_amount_0_1_mm = -1` retains the KNMI trace code meaning less than 0.05 mm;
+- `-1` is not missing and is not rewritten to a physical negative rainfall amount;
+- trace values may be interpreted as zero only in explicitly labelled derived rainfall sums;
+- source-missing fields remain blank/null.
+
+Across the 144-hour context, wind direction/speed/gust, air temperature, dewpoint, sunshine duration, global radiation, precipitation duration/amount, visibility and relative humidity are complete. Station pressure, cloud/weather-code fields and several indicators are source-missing for this station/period and remain missing. `T10N` has its source-native sparse cadence and is not gap-filled.
+
+## Spatial boundary
+
+Station 273 is an observed point forcing baseline and is not asserted to equal the spatial rainfall field over every OT.02 source unit. No radar blend, areal correction or interpolation is introduced here.
+
+## Model boundary
+
+This baseline does **not**:
+
+- convert KNMI native units into SWAP input units;
+- select a SWAP version or numerical configuration;
+- define evapotranspiration preprocessing;
+- define the initial groundwater or soil-water state;
+- define managed boundary/control behaviour;
+- fill drainage parameters;
+- choose crop/land-use state;
+- run CURRENT or REFERENCE simulations.
+
+Those remain separate gates. The next direct dependency is `DR_SM_INITIAL_STATE`, followed in parallel by managed-boundary and model-configuration qualification.
+''',encoding='utf-8')
+
+          Path('workunits/tollebeek_event_forcing_v0_1_ACQUIRE_REVIEW.md').write_text('''# Tollebeek event forcing v0.1 — ACQUIRE / REVIEW checkpoint
+
+Date: 2026-09-16
+Capability: `DR_SM_EVENT_FORCING`
+
+## Acquisition
+
+Official KNMI hourly climatology data were requested for station 273 Marknesse around the October 1998 Tollebeek event.
+
+Initial probe run `35068407343` failed before scientific processing because the temporary parser incorrectly required at least 27 columns while the KNMI `ALL` response contained the documented 25 native fields. No scientific data or decision was modified to obtain a pass.
+
+The parser row-width check was corrected only. Probe run `35068470628` then succeeded.
+
+Successful acquisition evidence:
+- raw KNMI response SHA-256: `71f2b135769bfed476bbc9ee55282d7e5e9766e2eaf444aa1b8694d382d08dde`;
+- 216 station-273 hourly records returned by the deliberately wide acquisition request;
+- no missing `RH` values in that acquisition window;
+- acquisition artifact ID `10435371800`;
+- artifact zip SHA-256 `75c3421f8528ead05f04ce874e41e2a466b53bcc91644cf748ecc7d58e1509a9`.
+
+The service end-parameter yielded data through `1998-11-02T00:00Z`; canonical time bounds are therefore defined from observation timestamps rather than inferred from the request label.
+
+## Review and canonical subset
+
+Canonical forcing context:
+- `1998-10-24T00:00Z` through `1998-10-30T00:00Z`;
+- 144 contiguous hourly records;
+- station 273 only;
+- normalized column names with source-native values/units retained;
+- canonical forcing SHA-256 `6c4ca1277523af73f26f6340ec8ebce5d52f42b6040085f7d50ecc78c5ca3c8a`.
+
+Objective maximum rolling 24-hour rainfall:
+- `1998-10-27T06:00Z` through `1998-10-28T06:00Z`;
+- 88.4 mm.
+
+Independent owner context:
+- 87.5 mm within 24 hours reported at Marknesse;
+- days of antecedent rain and saturated ground described before the night 27–28 October event.
+
+The owner magnitude and KNMI rolling maximum are treated as corroborating, not mathematically identical records.
+
+## Completeness review
+
+Complete across all 144 context hours:
+- wind direction;
+- hourly/instantaneous wind speed and gust;
+- air temperature;
+- dewpoint;
+- sunshine duration;
+- global radiation;
+- precipitation duration and amount;
+- visibility;
+- relative humidity.
+
+Source-missing and retained as missing:
+- sea-level pressure;
+- cloud cover;
+- present-weather/weather-station codes and M/R/S/O/Y indicators.
+
+`T10N` is source-sparse and is not filled.
+
+## Verdict
+
+`ADMIT_STATION_EVENT_FORCING_BASELINE`
+
+This verdict is limited to an observed station-based forcing baseline. It does not qualify spatial representativeness, model-specific conversion, initial hydrological state or a SWAP run.
+''',encoding='utf-8')
+          PY
+      - name: Commit bounded event forcing delta
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add data/events evidence data_requests model/traceability.csv schema tools tests docs/27_tollebeek_event_forcing_baseline_v0_1.md workunits/tollebeek_event_forcing_v0_1_ACQUIRE_REVIEW.md .github/workflows/ci.yml
+          git diff --cached --quiet && exit 0
+          git commit -m "Admit bounded Tollebeek 1998 event forcing baseline"
+          git push origin HEAD:work/tollebeek-event-forcing-v0.1
