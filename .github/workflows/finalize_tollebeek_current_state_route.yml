@@ -35,7 +35,6 @@ jobs:
                   w = csv.DictWriter(f, fieldnames=fields, lineterminator='\n')
                   w.writeheader(); w.writerows(rows)
 
-          # Sources
           p='evidence/sources.csv'; fields, rows=read_rows(p); ids={r['source_id'] for r in rows}
           additions=[
               {'source_id':'SRC_WUR_FLEVOCOMPACT2024','source_title':'Regionale kartering bodemverdichting in de provincie Flevoland','source_type':'TECHNICAL_REPORT','source_year':'2024','source_url':'https://doi.org/10.18174/672577','source_status':'QUALIFIED_WITH_LIMITATIONS','source_notes':'Wageningen Environmental Research Rapport 3382. Documents the 2020-2021 Flevoland field campaign using dry bulk density and penetration resistance and explicitly concludes that the available measurements/covariates did not yield a usable regional compaction map.'},
@@ -43,7 +42,6 @@ jobs:
           ]
           rows += [r for r in additions if r['source_id'] not in ids]; write_rows(p,fields,rows)
 
-          # Evidence
           p='evidence/evidence_register.csv'; fields, rows=read_rows(p); ids={r['evidence_id'] for r in rows}
           additions=[
               {'evidence_id':'EV_FLEVO_COMPACTION_FIELD_PROTOCOL','source_id':'SRC_WUR_FLEVOCOMPACT2024','evidence_statement':'The Flevoland field campaign used 305 agricultural sampling locations. Fieldwork ran from September 2020 through June 2021. Dry bulk density was measured with three undisturbed 100 cm3 rings at a fixed 30 cm depth and a field-selected variable depth, with laboratory determination according to ISO 11272:2017. Penetration resistance was measured with a calibrated Eijkelkamp penetrologger using ten measurements per location.','spatial_scope':'Agricultural Flevoland; exact OT.02 subset not yet resolved','time_scope':'September 2020 to June 2021','evidence_value':'305','evidence_unit':'field locations','provenance_class':'OFFICIAL_METADATA','intended_use':'Qualified direct-measurement protocol and candidate point-data source for current-state acquisition','guardrail':'Protocol quality does not identify which measurements fall inside OT.02 and does not make 2020-2021 measurements automatically representative of 2026 conditions.','evidence_status':'QUALIFIED'},
@@ -52,13 +50,11 @@ jobs:
           ]
           rows += [r for r in additions if r['evidence_id'] not in ids]; write_rows(p,fields,rows)
 
-          # Claims
           p='evidence/claims.csv'; fields, rows=read_rows(p); ids={r['claim_id'] for r in rows}
           if 'CL_TOL_CURRENT_STATE_GATE' not in ids:
               rows.append({'claim_id':'CL_TOL_CURRENT_STATE_GATE','claim_statement':'No Tollebeek CURRENT soil-state value is admitted until source-native georeferenced measurements or a separately qualified derivation can be assigned reproducibly to the admitted OT.02 domain with date, depth, method and QC provenance. The 2020-2021 Flevoland field campaign is a qualified acquisition route for dated measured states, not an OT.02-wide or automatic 2026 CURRENT state.','claim_type':'CURRENT_STATE_DATA_GATE','evidence_ids':'EV_FLEVO_COMPACTION_FIELD_PROTOCOL;EV_FLEVO_COMPACTION_MAP_LIMIT;EV_FLEVO_COMPACTION_DATASET_ROUTE;EV_SOILPHYS_ROUTE','spatial_scope':'Tollebeek OT.02','qualification_status':'QUALIFIED','guardrail':'Do not substitute SoilPhys modal density, province-wide percentages, an unreliable regional interpolation or visually inferred map points for source georeferenced current-state records.'})
           write_rows(p,fields,rows)
 
-          # Qualifications
           p='evidence/qualification_register.csv'; fields, rows=read_rows(p); ids={r['qualification_id'] for r in rows}
           additions=[
               {'qualification_id':'Q_FLEVO_COMPACTION_PROTOCOL','evidence_id':'EV_FLEVO_COMPACTION_FIELD_PROTOCOL','intended_use':'Direct-measurement acquisition protocol for candidate Tollebeek current-state records','dependencies':'WER Rapport 3382 methods; source-native point records still required for local use','test_or_review':'Method review of location selection, GPS recording, ring sampling, ISO laboratory determination and penetrologger protocol','qualification_status':'QUALIFIED_WITH_LIMITATIONS','review_date':'2026-09-16','qualification_notes':'Qualified as a measurement/data-source route. No OT.02 point identity or 2026 temporal representativeness is established by the report alone.'},
@@ -67,7 +63,6 @@ jobs:
           ]
           rows += [r for r in additions if r['qualification_id'] not in ids]; write_rows(p,fields,rows)
 
-          # Readiness item remains data-gated but becomes specific and operational.
           p='data_requests/data_request_register.csv'; fields, rows=read_rows(p)
           for r in rows:
               if r['data_request_id']=='DR_SM_CURRENT_STATE':
@@ -82,7 +77,6 @@ jobs:
                   })
           write_rows(p,fields,rows)
 
-          # Integrate validator into project gate and CI.
           path=Path('tools/validate_project.py'); text=path.read_text(encoding='utf-8')
           if 'validate_current_state_gate' not in text:
               text=text.replace('from validate_domain_schema import validate as validate_domain_schema\n', 'from validate_current_state_gate import validate as validate_current_state_gate\nfrom validate_domain_schema import validate as validate_domain_schema\n')
@@ -90,17 +84,12 @@ jobs:
               text=text.replace('    "data_requests/data_request_register.csv",\n', '    "data_requests/data_request_register.csv",\n    "data_requests/tollebeek_current_state_data_request_v0_1.md",\n')
               text=text.replace('    errors.extend(f"domain-schema: {item}" for item in validate_domain_schema())\n', '    errors.extend(f"current-state-gate: {item}" for item in validate_current_state_gate())\n    errors.extend(f"domain-schema: {item}" for item in validate_domain_schema())\n')
           path.write_text(text,encoding='utf-8')
-
-          path=Path('.github/workflows/ci.yml'); text=path.read_text(encoding='utf-8')
-          if 'tools/validate_current_state_gate.py' not in text:
-              text=text.replace('          tools/validate_evidence.py\n', '          tools/validate_evidence.py\n          tools/validate_current_state_gate.py\n')
-          path.write_text(text,encoding='utf-8')
           PY
-      - name: Commit bounded route delta and remove temporary workflow
+      - name: Commit bounded non-workflow route delta
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git rm .github/workflows/finalize_tollebeek_current_state_route.yml
-          git add evidence data_requests tools/validate_project.py .github/workflows/ci.yml
+          git add evidence data_requests tools/validate_project.py
+          git diff --cached --quiet && exit 0
           git commit -m "Qualify Tollebeek current-state measurement route"
           git push origin HEAD:work/tollebeek-current-state-v0.1
