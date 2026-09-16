@@ -6,6 +6,7 @@ from validate_domain_schema import validate as validate_domain_schema
 from validate_evidence import validate as validate_evidence
 from validate_formal_traceability import validate as validate_formal_traceability
 from validate_input_readiness import validate as validate_input_readiness
+from validate_profile_baseline import validate as validate_profile_baseline
 from validate_spatial_geometry import validate as validate_spatial_geometry
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -28,6 +29,7 @@ REQUIRED_PATHS = [
     "schema/entities.yml",
     "schema/fields.yml",
     "schema/domain_fields_v0_3.yml",
+    "schema/profile_fields_v0_1.yml",
     "schema/data_request_fields.yml",
     "schema/datasets.yml",
     "schema/relationships.yml",
@@ -37,6 +39,9 @@ REQUIRED_PATHS = [
     "evidence/claims.csv",
     "evidence/qualification_register.csv",
     "data_requests/data_request_register.csv",
+    "data/soil/tollebeek_soil_profiles.csv",
+    "data/soil/tollebeek_soil_layers.csv",
+    "data/soil/tollebeek_profile_screening_v0_1.json",
     "data/spatial/tollebeek_ot02_current.geojson",
     "model/equations.csv",
     "model/traceability.csv",
@@ -57,6 +62,7 @@ def validate() -> list[str]:
     errors.extend(f"formal-traceability: {item}" for item in validate_formal_traceability())
     errors.extend(f"domain-schema: {item}" for item in validate_domain_schema())
     errors.extend(f"input-readiness: {item}" for item in validate_input_readiness())
+    errors.extend(f"profile-baseline: {item}" for item in validate_profile_baseline())
     errors.extend(f"spatial-geometry: {item}" for item in validate_spatial_geometry())
     errors.extend(f"project-structure: {item}" for item in validate_required_paths())
     return errors
