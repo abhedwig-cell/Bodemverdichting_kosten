@@ -16,7 +16,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Compare manual Marknesse daily gauge with AWS 273 and diagnose gap mass
+      - name: Cross-validate Marknesse daily-mass hourly-shape reconstructions
         shell: bash
         run: |
           set -euo pipefail
@@ -28,10 +28,9 @@ jobs:
 
           HURL='https://www.daggegevens.knmi.nl/klimatologie/uurgegevens'
           DURL='https://www.daggegevens.knmi.nl/klimatologie/monv/reeksen'
-          UA={'User-Agent':'Bodemverdichting-kosten-local-rain-gauge/0.1'}
-
-          # Hourly AWS 273 plus temporal-shape candidate 269.
-          hp=urllib.parse.urlencode({'stns':'273:269','vars':'PRCP','start':'1998073101','end':'1998102524'}).encode('ascii')
+          UA={'User-Agent':'Bodemverdichting-kosten-gap-crossvalidation/0.1'}
+          candidates=['269','267','270','279']
+          hp=urllib.parse.urlencode({'stns':':'.join(['273']+candidates),'vars':'PRCP','start':'1998073101','end':'1998102524'}).encode('ascii')
           with urllib.request.urlopen(urllib.request.Request(HURL,data=hp,headers=UA,method='POST'),timeout=180) as r:
               htext=r.read().decode('utf-8-sig')
           hrows=defaultdict(dict)
@@ -43,45 +42,31 @@ jobs:
               stn,date,hh,dr,rh=vals
               d=datetime.strptime(date,'%Y%m%d').replace(tzinfo=timezone.utc); h=int(hh)
               end=d+(timedelta(days=1) if h==24 else timedelta(hours=h)); start=end-timedelta(hours=1)
-              hrows[stn][start]={'DR':dr,'RH':rh}
+              hrows[stn][start]={'RH':rh}
 
-          def rh_mm(v):
-              if v=='': return None
-              x=int(v); return 0.0 if x==-1 else x/10.0
-
-          # Local manual precipitation network. These IDs are KNMI precipitation-station IDs, not AWS IDs.
-          manual_ids=['317','348','352','346','356','359','369']
-          dp=urllib.parse.urlencode({'stns':':'.join(manual_ids),'start':'19980801','end':'19981025'}).encode('ascii')
+          dp=urllib.parse.urlencode({'stns':'317','start':'19980801','end':'19981025'}).encode('ascii')
           with urllib.request.urlopen(urllib.request.Request(DURL,data=dp,headers=UA,method='POST'),timeout=180) as r:
               dtext=r.read().decode('utf-8-sig')
-          manual=defaultdict(dict); names={}
+          manual={}
           for n,line in enumerate(dtext.splitlines(),start=1):
               s=line.strip()
               if not s or s.startswith('#'): continue
               vals=[x.strip() for x in line.split(',')]
-              if len(vals)<4: raise SystemExit(f'daily width {len(vals)} at {n}: {line}')
-              stn,date,rd,sx=vals[:4]; name=','.join(vals[4:]).strip() if len(vals)>4 else ''
-              names[stn]=name
-              manual[stn][date]={'RD':rd,'SX':sx,'name':name}
+              if len(vals)<4: raise SystemExit(f'daily width {len(vals)} at {n}')
+              manual[vals[1]]=vals[2]
 
-          def rd_mm(v):
+          def pmm(v):
               if v=='': return None
               x=int(v); return 0.0 if x==-1 else x/10.0
 
-          # Aggregate AWS 273 to the manual-network 08:00-08:00 UTC reporting windows.
-          def aws_daily_for_report_date(date_str):
-              report=datetime.strptime(date_str,'%Y%m%d').replace(tzinfo=timezone.utc)
-              a=report-timedelta(days=1)+timedelta(hours=8); b=report+timedelta(hours=8)
-              vals=[]; missing=[]; t=a
-              while t<b:
-                  r=hrows['273'].get(t)
-                  if r is None or r['RH']=='': missing.append(t)
-                  else: vals.append(rh_mm(r['RH']))
-                  t+=timedelta(hours=1)
-              return {'start':a,'end':b,'sum_mm':None if missing else sum(vals),'missing_hours':missing,'observed_sum_mm':sum(vals)}
-
           gap0=datetime(1998,9,3,tzinfo=timezone.utc); gap1=datetime(1998,9,7,12,tzinfo=timezone.utc)
-
+          def window(date):
+              d=datetime.strptime(date,'%Y%m%d').replace(tzinfo=timezone.utc)
+              return d-timedelta(days=1)+timedelta(hours=8), d+timedelta(hours=8)
+          def hours(a,b):
+              out=[]; t=a
+              while t<b: out.append(t); t+=timedelta(hours=1)
+              return out
           def pearson(xs,ys):
               if len(xs)<2:return None
               mx=sum(xs)/len(xs); my=sum(ys)/len(ys)
@@ -89,86 +74,114 @@ jobs:
               if sx==0 or sy==0:return None
               return sum((x-mx)*(y-my) for x,y in zip(xs,ys))/math.sqrt(sx*sy)
 
-          # Validation outside the gap for manual Marknesse 317 vs AWS Marknesse 273.
-          pairs=[]
-          for date,row in sorted(manual['317'].items()):
-              m=rd_mm(row['RD'])
-              if m is None: continue
-              a=aws_daily_for_report_date(date)
-              if a['sum_mm'] is None: continue
-              if a['start'] < gap1 and a['end'] > gap0: continue
-              pairs.append((date,a['sum_mm'],m))
-          xs=[p[1] for p in pairs]; ys=[p[2] for p in pairs]
-          corr=pearson(xs,ys)
-          validation={
-              'complete_non_gap_08to08_days':len(pairs),
-              'daily_total_correlation':None if corr is None else round(corr,4),
-              'aws273_total_mm':round(sum(xs),3),
-              'manual317_total_mm':round(sum(ys),3),
-              'manual317_to_aws273_total_ratio':None if sum(xs)==0 else round(sum(ys)/sum(xs),4),
-              'mean_absolute_daily_difference_mm':None if not pairs else round(sum(abs(a-b) for _,a,b in pairs)/len(pairs),3),
-              'max_absolute_daily_difference_mm':None if not pairs else round(max(abs(a-b) for _,a,b in pairs),3),
-          }
+          # Build complete non-gap validation dates.
+          validation_dates=[]
+          for date,rd in sorted(manual.items()):
+              M=pmm(rd)
+              if M is None: continue
+              a,b=window(date)
+              if a<gap1 and b>gap0: continue
+              ts=hours(a,b)
+              if not all(t in hrows['273'] and hrows['273'][t]['RH']!='' for t in ts): continue
+              validation_dates.append(date)
 
-          # Report windows intersecting the 108h AWS gap: dates Sep03 through Sep08.
-          gap_dates=['19980903','19980904','19980905','19980906','19980907','19980908']
-          gap_windows=[]
-          for date in gap_dates:
-              a=aws_daily_for_report_date(date)
-              m317=rd_mm(manual['317'].get(date,{}).get('RD',''))
-              residual=None if m317 is None else m317-a['observed_sum_mm']
-              missing_count=len(a['missing_hours'])
-              # Candidate 269 shape/mass restricted to missing hours inside this reporting window.
-              shape269=[]
-              for t in a['missing_hours']:
-                  r=hrows['269'].get(t)
-                  if r is not None and r['RH']!='': shape269.append(rh_mm(r['RH']))
-              gap_windows.append({
-                  'report_date':date,
-                  'window_start_utc':a['start'].isoformat().replace('+00:00','Z'),
-                  'window_end_utc':a['end'].isoformat().replace('+00:00','Z'),
-                  'manual317_total_mm':m317,
-                  'aws273_missing_hours_in_window':missing_count,
-                  'aws273_observed_outside_gap_sum_mm':round(a['observed_sum_mm'],3),
-                  'manual317_minus_observed_aws273_residual_mm':None if residual is None else round(residual,3),
-                  'station269_sum_over_missing_hours_mm':None if len(shape269)!=missing_count else round(sum(shape269),3),
-                  'residual_is_nonnegative':None if residual is None else residual>=-1e-9,
-              })
+          def reconstruct_for_candidate(stn,date):
+              M=pmm(manual[date]); a,b=window(date); ts=hours(a,b)
+              cv=[]
+              for t in ts:
+                  r=hrows[stn].get(t)
+                  if r is None or r['RH']=='': return None
+                  cv.append(pmm(r['RH']))
+              s=sum(cv)
+              if s==0:
+                  if M==0: return [0.0]*24
+                  return None
+              return [M*x/s for x in cv]
 
-          # Local manual-network daily totals over the six gap-intersecting report dates.
-          local_manual={}
-          for stn in manual_ids:
-              vals=[]; missing=[]
-              for date in gap_dates:
-                  v=rd_mm(manual[stn].get(date,{}).get('RD',''))
-                  if v is None: missing.append(date)
-                  else: vals.append((date,v))
-              local_manual[stn]={
-                  'name':names.get(stn,''),
-                  'days_present':len(vals),
-                  'missing_report_dates':missing,
-                  'six_report_day_total_mm':None if missing else round(sum(v for _,v in vals),3),
-                  'daily_mm':{d:v for d,v in vals},
+          def reconstruct_ensemble(date):
+              M=pmm(manual[date]); a,b=window(date); ts=hours(a,b)
+              fractions=[]
+              for stn in candidates:
+                  cv=[]; ok=True
+                  for t in ts:
+                      r=hrows[stn].get(t)
+                      if r is None or r['RH']=='': ok=False; break
+                      cv.append(pmm(r['RH']))
+                  if not ok: continue
+                  s=sum(cv)
+                  if s>0: fractions.append([x/s for x in cv])
+              if M==0: return [0.0]*24
+              if not fractions: return None
+              meanfrac=[sum(f[i] for f in fractions)/len(fractions) for i in range(24)]
+              z=sum(meanfrac)
+              return [M*x/z for x in meanfrac]
+
+          def evaluate(kind):
+              true=[]; pred=[]; undefined=[]; perday=[]
+              for date in validation_dates:
+                  a,b=window(date); ts=hours(a,b)
+                  tv=[pmm(hrows['273'][t]['RH']) for t in ts]
+                  pv=reconstruct_ensemble(date) if kind=='ensemble' else reconstruct_for_candidate(kind,date)
+                  if pv is None:
+                      undefined.append(date); continue
+                  true.extend(tv); pred.extend(pv)
+                  perday.append({'date':date,'true_peak_mm':max(tv),'pred_peak_mm':max(pv),'true_wet_hours':sum(x>=0.1 for x in tv),'pred_wet_hours':sum(x>=0.1 for x in pv)})
+              corr=pearson(true,pred)
+              mae=None if not true else sum(abs(a-b) for a,b in zip(true,pred))/len(true)
+              rmse=None if not true else math.sqrt(sum((a-b)**2 for a,b in zip(true,pred))/len(true))
+              threshold=0.1
+              tp=sum(1 for a,b in zip(true,pred) if a>=threshold and b>=threshold)
+              fp=sum(1 for a,b in zip(true,pred) if a<threshold and b>=threshold)
+              fn=sum(1 for a,b in zip(true,pred) if a>=threshold and b<threshold)
+              precision=None if tp+fp==0 else tp/(tp+fp)
+              recall=None if tp+fn==0 else tp/(tp+fn)
+              return {
+                  'defined_days':len(perday),'undefined_wet_manual_days':undefined,
+                  'evaluated_hours':len(true),
+                  'hourly_correlation':None if corr is None else round(corr,4),
+                  'hourly_mae_mm':None if mae is None else round(mae,4),
+                  'hourly_rmse_mm':None if rmse is None else round(rmse,4),
+                  'wet_hour_precision_ge_0_1mm':None if precision is None else round(precision,4),
+                  'wet_hour_recall_ge_0_1mm':None if recall is None else round(recall,4),
               }
 
+          metrics={stn:evaluate(stn) for stn in candidates}
+          metrics['ensemble_269_267_270_279']=evaluate('ensemble')
+
+          # Diagnostic feasibility for the actual gap windows; preserve observed 273 hours and derive only residual mass.
+          gap_dates=['19980903','19980904','19980905','19980906','19980907','19980908']
+          gap_feasibility=[]
+          for date in gap_dates:
+              M=pmm(manual[date]); a,b=window(date); ts=hours(a,b)
+              missing=[t for t in ts if gap0<=t<gap1]
+              observed=[t for t in ts if not (gap0<=t<gap1)]
+              obs_sum=sum(pmm(hrows['273'][t]['RH']) for t in observed if t in hrows['273'] and hrows['273'][t]['RH']!='')
+              residual=M-obs_sum
+              shapes={}
+              for stn in candidates:
+                  vals=[pmm(hrows[stn][t]['RH']) for t in missing if t in hrows[stn] and hrows[stn][t]['RH']!='']
+                  shapes[stn]=None if len(vals)!=len(missing) else round(sum(vals),3)
+              gap_feasibility.append({
+                  'report_date':date,'missing_hours':len(missing),'manual317_total_mm':M,
+                  'observed_273_nonmissing_hours_sum_mm':round(obs_sum,3),
+                  'residual_mass_for_missing_hours_mm':round(residual,3),
+                  'candidate_missing_hour_shape_totals_mm':shapes,
+                  'nonnegative_residual':residual>=-1e-9,
+              })
+
           summary={
-              'manual_station_317':'Marknesse; daily precipitation network; reported RD is 08:00 UTC previous day to 08:00 UTC report day',
-              'validation_manual317_vs_aws273':validation,
-              'gap_intersecting_windows':gap_windows,
-              'local_manual_network':local_manual,
-              'guardrails':[
-                  'Manual station 317 and AWS 273 are distinct gauges; agreement outside the gap supports but does not prove identity.',
-                  'Do not subtract/copy/scale until a reconstruction rule is separately admitted.',
-                  'Daily gauge observations constrain mass but do not observe hourly timing.',
-                  'No filled hourly values are created by this diagnostic.'
-              ]
+              'validation_dates':len(validation_dates),
+              'method':'Scale candidate hourly precipitation fractions within each 08-08 manual-gauge window to the observed station-317 daily mass; ensemble uses equal mean of available normalized fractions. Diagnostic only.',
+              'metrics':metrics,
+              'gap_feasibility':gap_feasibility,
+              'guardrail':'Cross-validation evaluates temporal disaggregation skill; it does not turn reconstructed gap hours into observations or authorize a preferred method.'
           }
-          Path('marknesse_daily_gauge_gap_diagnostic.json').write_text(json.dumps(summary,indent=2),encoding='utf-8')
+          Path('antecedent_gap_disaggregation_cv.json').write_text(json.dumps(summary,indent=2),encoding='utf-8')
           print(json.dumps(summary,indent=2))
           PY
-      - name: Upload local-gauge diagnostic
+      - name: Upload cross-validation diagnostic
         uses: actions/upload-artifact@v4
         with:
-          name: tollebeek-marknesse-daily-gauge-gap-diagnostic
-          path: marknesse_daily_gauge_gap_diagnostic.json
+          name: tollebeek-antecedent-gap-disaggregation-cv
+          path: antecedent_gap_disaggregation_cv.json
           if-no-files-found: error
