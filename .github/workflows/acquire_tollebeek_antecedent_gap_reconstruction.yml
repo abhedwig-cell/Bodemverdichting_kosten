@@ -1,0 +1,379 @@
+name: Acquire Tollebeek antecedent gap reconstruction source
+
+on:
+  push:
+    branches:
+      - work/tollebeek-antecedent-gap-reconstruction-v0.1
+
+permissions:
+  contents: read
+
+jobs:
+  acquire:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Acquire official KNMI source and build trace-aware scenario package
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib
+          import json
+          import urllib.parse
+          import urllib.request
+          from collections import defaultdict
+          from datetime import datetime, timedelta, timezone
+          from pathlib import Path
+
+          OUT = Path('gap_reconstruction_artifact')
+          RAW = OUT / 'raw'
+          RAW.mkdir(parents=True, exist_ok=True)
+
+          HURL = 'https://www.daggegevens.knmi.nl/klimatologie/uurgegevens'
+          DURL = 'https://www.daggegevens.knmi.nl/klimatologie/monv/reeksen'
+          UA = {'User-Agent': 'Bodemverdichting-kosten-trace-aware-gap-reconstruction/0.1'}
+
+          hourly_params = {
+              'stns': '273:267:269:270:279',
+              'vars': 'PRCP',
+              'start': '1998090201',
+              'end': '1998090824',
+          }
+          manual_params = {
+              'stns': '317',
+              'start': '19980903',
+              'end': '19980908',
+          }
+
+          def acquire(url, params, path):
+              body = urllib.parse.urlencode(params).encode('ascii')
+              req = urllib.request.Request(url, data=body, headers=UA, method='POST')
+              with urllib.request.urlopen(req, timeout=180) as r:
+                  data = r.read()
+                  status = getattr(r, 'status', 200)
+                  ctype = r.headers.get('Content-Type')
+              if status != 200:
+                  raise SystemExit(f'HTTP {status} for {url}')
+              path.write_bytes(data)
+              return {
+                  'url': url,
+                  'method': 'POST',
+                  'params': params,
+                  'request_body_ascii': body.decode('ascii'),
+                  'response_sha256': hashlib.sha256(data).hexdigest(),
+                  'response_bytes': len(data),
+                  'content_type': ctype,
+                  'raw_path': str(path),
+              }, data.decode('utf-8-sig')
+
+          hourly_receipt, hourly_text = acquire(HURL, hourly_params, RAW / 'knmi_hourly_prcp_273_267_269_270_279_19980902_19980908.txt')
+          manual_receipt, manual_text = acquire(DURL, manual_params, RAW / 'knmi_manual_rd_317_19980903_19980908.txt')
+
+          def classify_tenths(raw):
+              raw = raw.strip()
+              if raw == '':
+                  return {'kind': 'missing', 'raw': raw}
+              value = int(raw)
+              if value == -1:
+                  return {'kind': 'trace', 'raw': raw, 'lower_mm': 0.0, 'upper_mm_exclusive': 0.05}
+              if value < -1:
+                  raise SystemExit(f'unexpected negative precipitation code {value}')
+              if value == 0:
+                  return {'kind': 'zero', 'raw': raw, 'reported_mm': 0.0}
+              return {'kind': 'reported_positive', 'raw': raw, 'reported_mm': value / 10.0}
+
+          hourly = defaultdict(dict)
+          hourly_headers = []
+          for n, line in enumerate(hourly_text.splitlines(), start=1):
+              if not line.strip():
+                  continue
+              if line.lstrip().startswith('#'):
+                  hourly_headers.append(line)
+                  continue
+              vals = [x.strip() for x in line.split(',')]
+              if len(vals) != 5:
+                  raise SystemExit(f'hourly width {len(vals)} at line {n}')
+              stn, date, hh, dr, rh = vals
+              d = datetime.strptime(date, '%Y%m%d').replace(tzinfo=timezone.utc)
+              h = int(hh)
+              end = d + (timedelta(days=1) if h == 24 else timedelta(hours=h))
+              start = end - timedelta(hours=1)
+              if start in hourly[stn]:
+                  raise SystemExit(f'duplicate hourly row {stn} {start.isoformat()}')
+              hourly[stn][start] = {
+                  'station': stn,
+                  'source_date': date,
+                  'source_hour': h,
+                  'timestamp_start_utc': start.isoformat().replace('+00:00', 'Z'),
+                  'DR_raw': dr,
+                  'RH': classify_tenths(rh),
+              }
+
+          manual = {}
+          manual_headers = []
+          for n, line in enumerate(manual_text.splitlines(), start=1):
+              if not line.strip():
+                  continue
+              if line.lstrip().startswith('#'):
+                  manual_headers.append(line)
+                  continue
+              vals = [x.strip() for x in line.split(',')]
+              if len(vals) < 3:
+                  raise SystemExit(f'manual width {len(vals)} at line {n}')
+              stn, date, rd = vals[:3]
+              if stn != '317':
+                  raise SystemExit(f'unexpected manual station {stn}')
+              manual[date] = {'station': stn, 'report_date': date, 'RD': classify_tenths(rd), 'raw_fields': vals}
+
+          gap0 = datetime(1998, 9, 3, 0, tzinfo=timezone.utc)
+          gap1 = datetime(1998, 9, 7, 12, tzinfo=timezone.utc)
+          report_dates = ['19980903', '19980904', '19980905', '19980906', '19980907', '19980908']
+          timing_stations = ['267', '269', '270', '279']
+          trace_policies = {
+              'TRACE_BOUND_LOWER': 0.0,
+              'TRACE_MIDPOINT': 0.025,
+              'TRACE_NEAR_UPPER': 0.049,
+          }
+
+          def window(date):
+              d = datetime.strptime(date, '%Y%m%d').replace(tzinfo=timezone.utc)
+              return d - timedelta(days=1) + timedelta(hours=8), d + timedelta(hours=8)
+
+          def hours(a, b):
+              out = []
+              t = a
+              while t < b:
+                  out.append(t)
+                  t += timedelta(hours=1)
+              return out
+
+          def numeric(obs, trace_value):
+              k = obs['kind']
+              if k == 'missing':
+                  return None
+              if k == 'trace':
+                  return trace_value
+              return obs['reported_mm']
+
+          source_windows = []
+          reconstruction_members = []
+          all_gap_hours = []
+
+          for date in report_dates:
+              a, b = window(date)
+              ts = hours(a, b)
+              missing = [t for t in ts if gap0 <= t < gap1]
+              retained = [t for t in ts if t not in missing]
+              all_gap_hours.extend(missing)
+
+              if date not in manual:
+                  raise SystemExit(f'missing manual station-317 report date {date}')
+              rd = manual[date]['RD']
+              if rd['kind'] not in ('reported_positive', 'zero'):
+                  raise SystemExit(f'manual station-317 RD is not point-reported for {date}: {rd}')
+              mass317 = rd['reported_mm']
+
+              retained_obs = []
+              retained_positive = 0.0
+              retained_traces = 0
+              for t in retained:
+                  row = hourly['273'].get(t)
+                  if row is None:
+                      raise SystemExit(f'missing station-273 timestamp outside gap {t.isoformat()}')
+                  obs = row['RH']
+                  if obs['kind'] == 'missing':
+                      raise SystemExit(f'unexpected station-273 source-missing RH outside gap {t.isoformat()}')
+                  retained_obs.append(row)
+                  if obs['kind'] == 'reported_positive':
+                      retained_positive += obs['reported_mm']
+                  elif obs['kind'] == 'trace':
+                      retained_traces += 1
+
+              retained_lower = retained_positive
+              retained_upper_exclusive = retained_positive + retained_traces * 0.05
+              residual_lower_bound = mass317 - retained_upper_exclusive
+              residual_upper_bound = mass317 - retained_lower
+              if residual_upper_bound < -1e-12:
+                  raise SystemExit(f'negative residual upper bound on {date}')
+
+              window_record = {
+                  'report_date': date,
+                  'window_start_utc': a.isoformat().replace('+00:00', 'Z'),
+                  'window_end_utc': b.isoformat().replace('+00:00', 'Z'),
+                  'gap_hours': len(missing),
+                  'station317_reported_total_mm': mass317,
+                  'station273_retained_reported_positive_mm': round(retained_positive, 6),
+                  'station273_retained_trace_count': retained_traces,
+                  'station273_retained_mass_interval': {
+                      'lower_mm_inclusive': round(retained_lower, 6),
+                      'upper_mm_exclusive': round(retained_upper_exclusive, 6),
+                  },
+                  'residual_mass_enclosure': {
+                      'lower_mm_conservative': round(max(0.0, residual_lower_bound), 6),
+                      'lower_is_open_when_retained_trace_count_positive': retained_traces > 0,
+                      'upper_mm_inclusive': round(max(0.0, residual_upper_bound), 6),
+                  },
+                  'missing_timestamps_utc': [t.isoformat().replace('+00:00', 'Z') for t in missing],
+              }
+              source_windows.append(window_record)
+
+              for policy_name, trace_value in trace_policies.items():
+                  retained_numeric = sum(numeric(row['RH'], trace_value) for row in retained_obs)
+                  residual = mass317 - retained_numeric
+                  if residual < -1e-9:
+                      raise SystemExit(f'negative residual under {policy_name} on {date}: {residual}')
+                  residual = max(0.0, residual)
+
+                  station_shapes = {}
+                  for stn in timing_stations:
+                      vals = []
+                      trace_count = 0
+                      exact_zero_count = 0
+                      reported_positive_count = 0
+                      valid = True
+                      for t in missing:
+                          row = hourly[stn].get(t)
+                          if row is None or row['RH']['kind'] == 'missing':
+                              valid = False
+                              break
+                          obs = row['RH']
+                          if obs['kind'] == 'trace': trace_count += 1
+                          elif obs['kind'] == 'zero': exact_zero_count += 1
+                          elif obs['kind'] == 'reported_positive': reported_positive_count += 1
+                          vals.append(numeric(obs, trace_value))
+                      if not valid:
+                          station_shapes[stn] = {'valid': False, 'reason': 'source_missing_hour'}
+                          continue
+                      total = sum(vals)
+                      if residual > 0 and total <= 0:
+                          station_shapes[stn] = {
+                              'valid': False,
+                              'reason': 'zero_timing_mass_with_positive_residual',
+                              'trace_count': trace_count,
+                              'exact_zero_count': exact_zero_count,
+                              'reported_positive_count': reported_positive_count,
+                          }
+                          continue
+                      fractions = ([0.0] * len(vals)) if total == 0 else [x / total for x in vals]
+                      station_shapes[stn] = {
+                          'valid': True,
+                          'trace_count': trace_count,
+                          'exact_zero_count': exact_zero_count,
+                          'reported_positive_count': reported_positive_count,
+                          'source_timing_mass_mm_under_policy': round(total, 9),
+                          'fractions': fractions,
+                      }
+
+                  valid_stations = [s for s in timing_stations if station_shapes[s].get('valid')]
+                  if residual > 0 and not valid_stations:
+                      raise SystemExit(f'no valid timing stations for {date} {policy_name}')
+
+                  if missing:
+                      ensemble_fraction = []
+                      for i in range(len(missing)):
+                          ensemble_fraction.append(sum(station_shapes[s]['fractions'][i] for s in valid_stations) / len(valid_stations))
+                      z = sum(ensemble_fraction)
+                      if residual > 0 and z <= 0:
+                          raise SystemExit(f'zero ensemble fraction for {date} {policy_name}')
+                      if z > 0:
+                          ensemble_fraction = [x / z for x in ensemble_fraction]
+                  else:
+                      ensemble_fraction = []
+
+                  ensemble_rows = []
+                  for t, frac in zip(missing, ensemble_fraction):
+                      ensemble_rows.append({
+                          'timestamp_utc': t.isoformat().replace('+00:00', 'Z'),
+                          'reconstructed_mm': round(residual * frac, 9),
+                      })
+
+                  reconstruction_members.append({
+                      'member_id': f'{policy_name}__EQUAL_VALID_TIMING_ENSEMBLE__{date}',
+                      'report_date': date,
+                      'trace_policy': {
+                          'name': policy_name,
+                          'numeric_trace_mm_for_scenario_calculation': trace_value,
+                          'source_semantics_unchanged': '0 <= trace < 0.05 mm; numeric value is scenario-only',
+                      },
+                      'mass_anchor_station': '317',
+                      'mass_anchor_reported_mm': mass317,
+                      'station273_retained_mass_mm_under_policy': round(retained_numeric, 9),
+                      'residual_mass_mm_under_policy': round(residual, 9),
+                      'timing_stations_considered': timing_stations,
+                      'valid_timing_stations': valid_stations,
+                      'timing_station_shapes': station_shapes,
+                      'ensemble_rows': ensemble_rows,
+                  })
+
+          unique_gap = sorted(set(all_gap_hours))
+          if len(unique_gap) != 108 or unique_gap[0] != gap0 or unique_gap[-1] != gap1 - timedelta(hours=1):
+              raise SystemExit(f'gap coverage failure: {len(unique_gap)} hours')
+
+          receipts = {
+              'schema_version': 'tollebeek_antecedent_gap_source_receipt_v0.1',
+              'workflow_head_sha': '${{ github.sha }}',
+              'workflow_run_id': '${{ github.run_id }}',
+              'source_authority': 'KNMI official climatology endpoints',
+              'requests': [hourly_receipt, manual_receipt],
+              'source_semantics': {
+                  'hourly_RH': '0.1 mm; -1 denotes trace <0.05 mm; blank denotes source missing',
+                  'manual_RD': '0.1 mm daily precipitation amount in native manual-gauge reporting series',
+                  'manual_window_used_by_protocol': '08:00 UTC previous day to 08:00 UTC report date',
+              },
+          }
+
+          parsed = {
+              'schema_version': 'tollebeek_antecedent_gap_parsed_source_v0.1',
+              'hourly_source_headers': hourly_headers,
+              'manual_source_headers': manual_headers,
+              'source_windows': source_windows,
+              'station273_gap_hours': [hourly['273'][t] for t in unique_gap],
+              'manual_station317': [manual[d] for d in report_dates],
+          }
+
+          package = {
+              'schema_version': 'tollebeek_antecedent_gap_reconstruction_scenario_v0.1',
+              'classification': 'SCENARIO_ONLY_CANDIDATE_NOT_ADMITTED',
+              'qualified_method_authority': 'docs/47_tollebeek_antecedent_precip_gap_reconstruction_protocol_v0_1.md',
+              'gap_start_utc': gap0.isoformat().replace('+00:00', 'Z'),
+              'gap_end_utc_exclusive': gap1.isoformat().replace('+00:00', 'Z'),
+              'gap_hours': len(unique_gap),
+              'trace_policy_notice': 'TRACE_BOUND_LOWER, TRACE_MIDPOINT and TRACE_NEAR_UPPER are explicit numerical scenario realizations. None changes KNMI source semantics or constitutes an observed trace amount.',
+              'members': reconstruction_members,
+              'guardrails': [
+                  'Observed station-273 hours are not overwritten.',
+                  'Source missingness is never silently converted to zero.',
+                  'Direct station-269 copying is not used.',
+                  'No member is historical truth or admitted warm-up forcing.',
+                  'No SWAP run is performed by this acquisition workflow.',
+              ],
+          }
+
+          for name, obj in [('source_receipt_manifest.json', receipts), ('parsed_source_summary.json', parsed), ('reconstruction_scenario_package.json', package)]:
+              p = OUT / name
+              p.write_text(json.dumps(obj, indent=2, sort_keys=True), encoding='utf-8')
+
+          derived_manifest = {}
+          for p in sorted(OUT.glob('*.json')):
+              data = p.read_bytes()
+              derived_manifest[p.name] = {'sha256': hashlib.sha256(data).hexdigest(), 'bytes': len(data)}
+          (OUT / 'derived_checksums.json').write_text(json.dumps(derived_manifest, indent=2, sort_keys=True), encoding='utf-8')
+
+          print(json.dumps({
+              'hourly_raw_sha256': hourly_receipt['response_sha256'],
+              'manual_raw_sha256': manual_receipt['response_sha256'],
+              'gap_hours': len(unique_gap),
+              'source_windows': source_windows,
+              'derived_checksums': derived_manifest,
+          }, indent=2))
+          PY
+      - name: Upload source-native receipt and scenario candidate
+        uses: actions/upload-artifact@v4
+        with:
+          name: tollebeek-antecedent-gap-reconstruction-v0.1
+          path: gap_reconstruction_artifact
+          if-no-files-found: error
