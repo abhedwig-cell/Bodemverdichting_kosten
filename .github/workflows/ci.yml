@@ -25,6 +25,7 @@ jobs:
           tools/validate_formal_traceability.py
           tools/validate_domain_schema.py
           tools/validate_input_readiness.py
+          tools/validate_spatial_geometry.py
           tools/validate_project.py
       - name: Run Status-A-light integrity gate
         run: python tools/validate_project.py
