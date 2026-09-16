@@ -6,118 +6,87 @@ on:
       - work/tollebeek-profile-v0.1
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
-  acquire:
+  finalize:
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: work/tollebeek-profile-v0.1
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Install GIS acquisition dependencies
-        run: python -m pip install requests py7zr geopandas pyogrio shapely
-      - name: Download and intersect official BOFEK2020 GIS
+      - name: Apply bounded profile-baseline registry delta
         run: |
           python - <<'PY'
-          import json
+          import csv
           from pathlib import Path
-          import requests
-          import py7zr
-          import geopandas as gpd
-          import pyogrio
-          from shapely.geometry import shape
 
-          out = Path('bofek_acquisition')
-          out.mkdir(exist_ok=True)
-          source_url = 'https://www.wur.nl/nl/show/bofek-2020-gis-1.htm'
-          s = requests.Session()
-          s.headers.update({'User-Agent':'Bodemverdichting-kosten-profile-qualification/0.1'})
-          r = s.get(source_url, timeout=180, allow_redirects=True)
-          r.raise_for_status()
-          raw = r.content
-          meta = {
-              'requested_url': source_url,
-              'final_url': r.url,
-              'status_code': r.status_code,
-              'content_type': r.headers.get('content-type'),
-              'content_length': len(raw),
-              'content_disposition': r.headers.get('content-disposition'),
-              'magic_hex': raw[:16].hex(),
-          }
-          (out/'download_metadata.json').write_text(json.dumps(meta,indent=2),encoding='utf-8')
-          print(json.dumps(meta,indent=2))
+          def read_rows(path):
+              with Path(path).open('r', encoding='utf-8', newline='') as f:
+                  r=csv.DictReader(f); return r.fieldnames, list(r)
+          def write_rows(path, fields, rows):
+              with Path(path).open('w', encoding='utf-8', newline='') as f:
+                  w=csv.DictWriter(f, fieldnames=fields, lineterminator='\n'); w.writeheader(); w.writerows(rows)
 
-          pkg = out/'BOFEK2020_GIS.7z'
-          pkg.write_bytes(raw)
-          if not raw.startswith(b"7z\xbc\xaf'\x1c"):
-              raise SystemExit('BOFEK URL did not return a 7z archive')
+          # Evidence.
+          p='evidence/evidence_register.csv'; fields, rows=read_rows(p)
+          additions=[
+            {'evidence_id':'EV_TOL_PROFILE_SCREENING','source_id':'SRC_WUR_SOILPHYSICS','evidence_statement':'Two deterministic 500 m grids, offset by 250 m in x and y, sampled 117 points strictly inside the admitted OT.02 polygon; 113 returned SoilPhys modal profiles, 4 returned no soil information, and eight distinct source-profile IDs were detected.','spatial_scope':'Tollebeek OT.02 admitted polygon','time_scope':'screened 2026-09-16','evidence_value':'113/117','evidence_unit':'valid profile points','provenance_class':'OFFICIAL_METADATA','intended_use':'Bounded OT.02 profile-context screening basis','guardrail':'Grid fractions are diagnostic sampling fractions, not exact areal weights; SoilPhys profiles are derived/modal and are not direct local measurements or current compaction states.','evidence_status':'QUALIFIED'},
+            {'evidence_id':'EV_TOL_PROFILE_BOFEK_CROSSWALK','source_id':'SRC_WUR_BOFEK2020','evidence_statement':'The official BOFEK2020 translation workbook maps all eight SoilPhys source-profile IDs detected in OT.02 to BOFEK2020 units 3001, 3004, 3005, 3015, 4004, 4006, 4018 and 4019.','spatial_scope':'Tollebeek OT.02 profile screening set','time_scope':'BOFEK2020; reviewed 2026-09-16','evidence_value':'8','evidence_unit':'mapped profiles','provenance_class':'OFFICIAL_METADATA','intended_use':'Profile-to-BOFEK2020 semantic crosswalk','guardrail':'This crosswalk does not establish exact BOFEK polygon area inside OT.02 and does not convert modal profile density into current soil state.','evidence_status':'QUALIFIED'}]
+          existing={r['evidence_id'] for r in rows}; rows += [r for r in additions if r['evidence_id'] not in existing]; write_rows(p,fields,rows)
 
-          extract_dir = out/'extracted'
-          with py7zr.SevenZipFile(pkg, mode='r') as z:
-              z.extractall(path=extract_dir)
+          # Claims: update spatial gate and append profile basis.
+          p='evidence/claims.csv'; fields, rows=read_rows(p)
+          for r in rows:
+              if r['claim_id']=='CL_SPATIAL_GATE':
+                  r.update({'claim_statement':'Current OT.02 peilgebied geometry and the bounded eight-profile modal context basis are admitted; current anthropogenic compaction-state qualification remains data-gated.','evidence_ids':'EV_TOL_OT02_CURRENT_GEOMETRY;EV_TOL_PROFILE_SCREENING;EV_TOL_PROFILE_BOFEK_CROSSWALK','qualification_status':'QUALIFIED_WITH_LIMITATIONS','guardrail':'The profile basis is derived/modal context only. Screening fractions are not exact area weights, and modal bulk density is not CURRENT or REFERENCE soil state.'})
+          if not any(r['claim_id']=='CL_TOL_PROFILE_BASIS' for r in rows):
+              rows.append({'claim_id':'CL_TOL_PROFILE_BASIS','claim_statement':'Eight SoilPhys modal source-profile definitions detected across two shifted 500 m grids form the admitted bounded OT.02 profile-context basis, with full depth-resolved layer context retained through 120 cm.','claim_type':'SPATIAL_PROFILE_BASIS','evidence_ids':'EV_TOL_PROFILE_SCREENING;EV_TOL_PROFILE_BOFEK_CROSSWALK;EV_GROEN_PROFILE_GEOMETRY','spatial_scope':'Tollebeek OT.02','qualification_status':'QUALIFIED_WITH_LIMITATIONS','guardrail':'Retain all eight profiles; do not treat sampling fractions as exact areal weights and do not interpret modal SoilPhys bulk density as current anthropogenic compaction.'})
+          write_rows(p,fields,rows)
 
-          gdbs = list(extract_dir.rglob('*.gdb'))
-          if not gdbs:
-              raise SystemExit('No file geodatabase found in BOFEK archive')
-          gdb = gdbs[0]
-          layers = pyogrio.list_layers(gdb)
-          layer_meta=[{'name':str(name),'geometry_type':str(geom_type)} for name,geom_type in layers]
-          (out/'gdb_layers.json').write_text(json.dumps(layer_meta,indent=2),encoding='utf-8')
-          print('layers', layer_meta)
+          # Qualifications.
+          p='evidence/qualification_register.csv'; fields, rows=read_rows(p)
+          additions=[
+            {'qualification_id':'Q_TOL_PROFILE_SCREENING','evidence_id':'EV_TOL_PROFILE_SCREENING','intended_use':'OT.02 modal profile identity and depth-resolved profile-context basis','dependencies':'Admitted OT.02 polygon; SoilPhys source-profile semantics; fixed two-grid 500 m screening design','test_or_review':'117-point two-grid coverage review; 113 valid profiles; eight unique profiles; shifted-grid fraction sensitivity reviewed','qualification_status':'QUALIFIED_WITH_LIMITATIONS','review_date':'2026-09-16','qualification_notes':'Sufficient for a bounded profile-context basis because all detected profiles are retained. Screening fractions are not exact area weights; 4 points had no SoilPhys data.'},
+            {'qualification_id':'Q_TOL_PROFILE_BOFEK','evidence_id':'EV_TOL_PROFILE_BOFEK_CROSSWALK','intended_use':'Map retained SoilPhys profile IDs to BOFEK2020 units','dependencies':'Official WUR BOFEK2020 translation workbook version acquired 2026-09-16','test_or_review':'Exact source-profile ID lookup for all eight retained profiles','qualification_status':'QUALIFIED_WITH_LIMITATIONS','review_date':'2026-09-16','qualification_notes':'Crosswalk is qualified. Exact BOFEK areal overlay is not claimed; the historical direct WUR GIS download URL returned HTTP 404 and the current map is routed through bodemdata.nl.'}]
+          existing={r['qualification_id'] for r in rows}; rows += [r for r in additions if r['qualification_id'] not in existing]; write_rows(p,fields,rows)
 
-          admitted = json.loads(Path('data/spatial/tollebeek_ot02_current.geojson').read_text(encoding='utf-8'))
-          ot02 = shape(admitted['features'][0]['geometry'])
-          ot02_gdf = gpd.GeoDataFrame({'spatial_unit_id':['TOLLEBEEK_OT02_CURRENT']}, geometry=[ot02], crs='EPSG:28992')
+          # Readiness.
+          p='data_requests/data_request_register.csv'; fields, rows=read_rows(p)
+          for r in rows:
+              if r['data_request_id']=='DR_SM_PROFILE':
+                  r.update({'input_readiness_status':'ADMITTED','current_evidence_ids':'EV_SOILPHYS_ROUTE;EV_GROEN_PROFILE_GEOMETRY;EV_TOL_PROFILE_SCREENING;EV_TOL_PROFILE_BOFEK_CROSSWALK','current_claim_ids':'CL_SPATIAL_GATE;CL_THEORY_PROFILE_DEPTH;CL_TOL_PROFILE_BASIS','blocking_reason':'Resolved for bounded OT.02 profile identity and modal layer context: all eight profiles detected by the two shifted 500 m screenings are persisted with BOFEK2020 crosswalk and full 0-120 cm layer definitions. Exact areal weighting and current compaction state remain outside this admission.','next_action':'Proceed to DR_SM_CURRENT_STATE using the admitted eight-profile context basis; acquire or qualify dated current compaction-state evidence without substituting modal SoilPhys density.','request_notes':'Admission covers profile identity/layer context only. Screening fractions are diagnostics, not exact area weights. modal_bulk_density_g_cm3 is deliberately separate from soil_state.bulk_density_g_cm3.'})
+          write_rows(p,fields,rows)
 
-          summaries=[]
-          for name, geom_type in layers:
-              if 'Polygon' not in str(geom_type):
-                  continue
-              gdf = gpd.read_file(gdb, layer=str(name))
-              if gdf.crs is None:
-                  continue
-              source_crs = str(gdf.crs)
-              gdf = gdf.to_crs(28992)
-              candidates = gdf[gdf.geometry.intersects(ot02)]
-              if candidates.empty:
-                  continue
-              clipped = gpd.overlay(candidates, ot02_gdf, how='intersection', keep_geom_type=False)
-              clipped = clipped[~clipped.geometry.is_empty].copy()
-              clipped['intersection_area_m2'] = clipped.geometry.area
-              clipped['intersection_area_ha'] = clipped['intersection_area_m2'] / 10000.0
-              fields = [c for c in clipped.columns if c != clipped.geometry.name]
-              records=[]
-              for _, row in clipped.iterrows():
-                  rec={}
-                  for c in fields:
-                      v=row[c]
-                      if hasattr(v,'item'):
-                          try: v=v.item()
-                          except Exception: pass
-                      if v is not None and str(v) != 'nan':
-                          rec[str(c)]=v
-                  records.append(rec)
-              summaries.append({
-                  'layer': str(name),
-                  'geometry_type': str(geom_type),
-                  'source_crs': source_crs,
-                  'source_columns': [str(c) for c in gdf.columns],
-                  'intersection_feature_count': int(len(clipped)),
-                  'intersection_area_ha_sum': float(clipped['intersection_area_ha'].sum()),
-                  'records': records,
-              })
-              clipped.to_file(out/f'{name}_ot02_clip.geojson', driver='GeoJSON')
+          # Explicit storage paths in dataset contract.
+          path=Path('schema/datasets.yml'); text=path.read_text(encoding='utf-8')
+          text=text.replace('  soil_profile_register:\n    entity: soil_profile\n    role: REFERENCE\n    grain: one row per profile\n    primary_key: [soil_profile_id]\n', '  soil_profile_register:\n    entity: soil_profile\n    role: REFERENCE\n    grain: one row per profile\n    primary_key: [soil_profile_id]\n    storage: data/soil/tollebeek_soil_profiles.csv\n')
+          text=text.replace('  soil_layer_register:\n    entity: soil_layer\n    role: REFERENCE\n    grain: one row per soil profile x depth interval\n    primary_key: [soil_layer_id]\n', '  soil_layer_register:\n    entity: soil_layer\n    role: REFERENCE\n    grain: one row per soil profile x depth interval\n    primary_key: [soil_layer_id]\n    storage: data/soil/tollebeek_soil_layers.csv\n')
+          path.write_text(text,encoding='utf-8')
 
-          result={'source':meta,'gdb':str(gdb),'layers':layer_meta,'intersection_summaries':summaries}
-          (out/'bofek_ot02_intersection.json').write_text(json.dumps(result,ensure_ascii=False,indent=2,default=str),encoding='utf-8')
-          print(json.dumps(result,ensure_ascii=False,indent=2,default=str)[:30000])
+          # Central project validation integration.
+          path=Path('tools/validate_project.py'); text=path.read_text(encoding='utf-8')
+          text=text.replace('from validate_input_readiness import validate as validate_input_readiness\n', 'from validate_input_readiness import validate as validate_input_readiness\nfrom validate_profile_baseline import validate as validate_profile_baseline\n')
+          text=text.replace('    "schema/domain_fields_v0_3.yml",\n', '    "schema/domain_fields_v0_3.yml",\n    "schema/profile_fields_v0_1.yml",\n')
+          text=text.replace('    "data_requests/data_request_register.csv",\n', '    "data_requests/data_request_register.csv",\n    "data/soil/tollebeek_soil_profiles.csv",\n    "data/soil/tollebeek_soil_layers.csv",\n    "data/soil/tollebeek_profile_screening_v0_1.json",\n')
+          text=text.replace('    errors.extend(f"input-readiness: {item}" for item in validate_input_readiness())\n', '    errors.extend(f"input-readiness: {item}" for item in validate_input_readiness())\n    errors.extend(f"profile-baseline: {item}" for item in validate_profile_baseline())\n')
+          text=text.replace('"integrity, source-model input-readiness gates and required review structure."', '"integrity, source-model input-readiness gates, admitted profile-baseline integrity and required review structure."')
+          path.write_text(text,encoding='utf-8')
+
+          # CI compile coverage.
+          path=Path('.github/workflows/ci.yml'); text=path.read_text(encoding='utf-8')
+          text=text.replace('          tools/validate_input_readiness.py\n', '          tools/validate_input_readiness.py\n          tools/validate_profile_baseline.py\n')
+          path.write_text(text,encoding='utf-8')
           PY
-      - name: Upload BOFEK cross-check evidence
-        uses: actions/upload-artifact@v4
-        with:
-          name: tollebeek-bofek-spatial-crosscheck
-          path: bofek_acquisition/
-          retention-days: 7
-          if-no-files-found: error
+      - name: Commit registry and validation delta
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add evidence data_requests schema/datasets.yml tools/validate_project.py .github/workflows/ci.yml
+          git diff --cached --quiet && exit 0
+          git commit -m "Admit bounded OT.02 modal profile context baseline"
+          git push origin HEAD:work/tollebeek-profile-v0.1
