@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from validate_domain_schema import validate as validate_domain_schema
 from validate_evidence import validate as validate_evidence
 from validate_formal_traceability import validate as validate_formal_traceability
 
@@ -21,8 +22,10 @@ REQUIRED_PATHS = [
     "docs/14_documentation_status_a_light.md",
     "docs/17_formal_traceability_register_v0_1.md",
     "docs/18_status_a_light_checkpoint_v0_1.md",
+    "docs/21_data_model_v0_3_contract.md",
     "schema/entities.yml",
     "schema/fields.yml",
+    "schema/domain_fields_v0_3.yml",
     "schema/datasets.yml",
     "schema/relationships.yml",
     "schema/workbook_contract.yml",
@@ -47,6 +50,7 @@ def validate() -> list[str]:
     errors: list[str] = []
     errors.extend(f"evidence: {item}" for item in validate_evidence())
     errors.extend(f"formal-traceability: {item}" for item in validate_formal_traceability())
+    errors.extend(f"domain-schema: {item}" for item in validate_domain_schema())
     errors.extend(f"project-structure: {item}" for item in validate_required_paths())
     return errors
 
@@ -60,7 +64,10 @@ def main() -> int:
         return 1
 
     print("Status-A-light project validation passed.")
-    print("Validated evidence integrity, formal traceability and required review structure.")
+    print(
+        "Validated evidence integrity, formal traceability, Data Model v0.3 domain-schema "
+        "integrity and required review structure."
+    )
     print("This is an integrity verdict, not a scientific qualification of data-gated capabilities.")
     return 0
 
