@@ -1,4 +1,4 @@
-schema_version: 0.2.0
+schema_version: 0.2.1
 
 vocabularies:
   soil_state_role:
@@ -63,6 +63,19 @@ vocabularies:
     - QUALIFIED_WITH_LIMITATIONS
     - REJECTED
     - BLOCKED_DATA
+
+  capability_status:
+    - SKELETON
+    - WORKING_BASELINE
+    - ARCHITECTURE_READY
+    - ARCHITECTURE_READY_DATA_GATED
+    - SEMANTICS_READY_DATA_GATED
+    - PARTIAL_METHOD_READY
+    - QUALIFIED_FOR_DEFINED_USE
+    - DATA_GATED
+    - EVIDENCE_GATED
+    - SUPERSEDED
+    - REFERENCE_ONLY
 
   priority:
     - P1

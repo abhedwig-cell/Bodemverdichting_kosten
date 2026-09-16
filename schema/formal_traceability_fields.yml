@@ -1,0 +1,151 @@
+schema_version: 0.2.1
+status: PROVISIONAL_FORMAL_TRACEABILITY_EXTENSION
+
+fields:
+  equation_name:
+    entity: model_equation
+    label: Equation name
+    description: Human-readable name of the formal equation, identity or rule.
+    datatype: string
+    nullable: false
+
+  expression:
+    entity: model_equation
+    label: Formal expression
+    description: Compact mathematical or logical expression used by the project.
+    datatype: string
+    nullable: false
+
+  variables_and_units:
+    entity: model_equation
+    label: Variables and units
+    description: Semicolon-separated variable definitions and units needed to interpret the expression.
+    datatype: string
+    nullable: true
+
+  domain_of_validity:
+    entity: model_equation
+    label: Domain of validity
+    description: Conditions and scope under which the formal relation may be used.
+    datatype: string
+    nullable: false
+
+  null_behavior:
+    entity: model_equation
+    label: Null behaviour
+    description: Required behaviour when one or more scientifically required inputs are unknown.
+    datatype: string
+    nullable: false
+
+  evidence_basis:
+    entity: model_equation
+    label: Evidence or theory basis
+    description: Claim, evidence item, physical identity or documented model principle supporting the relation.
+    datatype: string
+    nullable: true
+
+  code_location:
+    entity: model_equation
+    label: Code location
+    description: Repository implementation location for the relation where executable code exists.
+    datatype: string
+    nullable: true
+
+  test_location:
+    entity: model_equation
+    label: Test location
+    description: Repository test location covering software, identity or qualification semantics for the relation.
+    datatype: string
+    nullable: true
+
+  exclusions:
+    entity: model_equation
+    label: Exclusions
+    description: Explicit uses, interpretations or shortcuts that the relation does not permit.
+    datatype: string
+    nullable: true
+
+  capability_id:
+    entity: traceability_link
+    label: Capability ID
+    description: Stable identifier for one reviewable project capability in the cross-layer traceability chain.
+    datatype: string
+    nullable: false
+
+  capability_name:
+    entity: traceability_link
+    label: Capability name
+    description: Human-readable name of the reviewable capability.
+    datatype: string
+    nullable: false
+
+  theory_reference:
+    entity: traceability_link
+    label: Theory reference
+    description: Canonical documentation section and/or claim identifiers defining the scientific meaning.
+    datatype: string
+    nullable: true
+
+  conceptual_reference:
+    entity: traceability_link
+    label: Conceptual reference
+    description: Canonical conceptual-model object or documentation reference.
+    datatype: string
+    nullable: true
+
+  formal_reference:
+    entity: traceability_link
+    label: Formal reference
+    description: Equation or formal-rule identifiers implementing the capability semantics.
+    datatype: string
+    nullable: true
+
+  dataset_ids:
+    entity: traceability_link
+    label: Dataset IDs
+    description: Semicolon-separated canonical dataset identifiers used or produced by the capability.
+    datatype: string
+    nullable: true
+
+  implementation_paths:
+    entity: traceability_link
+    label: Implementation paths
+    description: Semicolon-separated repository code or adapter paths implementing the capability.
+    datatype: string
+    nullable: true
+
+  test_paths:
+    entity: traceability_link
+    label: Test paths
+    description: Semicolon-separated repository test locations covering the capability.
+    datatype: string
+    nullable: true
+
+  evidence_or_claim_ids:
+    entity: traceability_link
+    label: Evidence or claim IDs
+    description: Semicolon-separated canonical evidence and/or claim identifiers supporting or constraining the capability.
+    datatype: string
+    nullable: true
+
+  capability_status:
+    entity: traceability_link
+    label: Capability status
+    description: Controlled current maturity or data-gate state of the capability.
+    datatype: enum
+    vocabulary: capability_status
+    nullable: false
+
+  broken_link:
+    entity: traceability_link
+    label: Broken link
+    description: Current missing connection that prevents the capability from advancing to the next maturity state.
+    datatype: string
+    nullable: true
+
+  review_trigger:
+    entity: traceability_link
+    label: Review trigger
+    description: Dependency change or new evidence that requires the capability row to be reviewed.
+    datatype: string
+    nullable: true

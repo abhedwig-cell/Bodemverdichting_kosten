@@ -1,4 +1,4 @@
-schema_version: 0.2.0
+schema_version: 0.2.1
 status: MIGRATION_BASELINE
 
 entities:
@@ -97,6 +97,10 @@ entities:
   model_equation:
     description: Formal equation, identity or rule used by the model framework.
     grain: one row per equation/version
+
+  traceability_link:
+    description: Cross-layer mapping for one reviewable capability across theory, conceptual model, formal rules, datasets, implementation, tests and evidence.
+    grain: one row per capability/version
 
   governance_rule:
     description: Explicit project rule, gate or validation check.
