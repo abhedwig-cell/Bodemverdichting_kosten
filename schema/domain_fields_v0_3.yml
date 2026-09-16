@@ -50,3 +50,11 @@ fields:
     description: Stable identifier for one versioned drainage representation.
     datatype: string
     nullable: false
+
+  soil_state_id:
+    entity: soil_state
+    label: Soil state ID
+    description: Stable identifier for one current, reference or explicit scenario soil state at its declared profile/layer grain.
+    datatype: string
+    nullable: false
+    guardrail: The v0.3 canonical identifier is soil_state_id; legacy state_id usage must not create a second identity for the same soil-state object.
