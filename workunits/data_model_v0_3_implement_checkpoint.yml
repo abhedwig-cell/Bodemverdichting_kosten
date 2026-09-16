@@ -1,0 +1,45 @@
+workunit_id: DATA_MODEL_V0_3
+phase: IMPLEMENT
+status: IMPLEMENTED_AWAITING_QUALIFICATION
+branch: work/data-model-v0.3
+base_head: 870515997f85d472a084b662622a40bcef92fa14
+implementation_head: 0c2cc0034e0464005cd41d060ed877fd1dc482df
+
+implemented:
+  - docs/21_data_model_v0_3_contract.md
+  - docs/22_domain_traceability_v0_3.md
+  - schema/domain_fields_v0_3.yml
+  - schema/datasets.yml
+  - schema/relationships.yml
+  - tools/validate_domain_schema.py
+  - tests/test_domain_schema_v0_3.py
+  - tools/validate_project.py
+  - .github/workflows/ci.yml
+
+semantic_changes:
+  - add stable land_use_crop_register for the already documented LandUseCrop object
+  - add stable model_configuration_register for the already documented ModelConfiguration object
+  - standardize v0.3 soil-state identity as soil_state_id while retaining legacy state_id without assigning a second meaning
+  - make profile/layer/state relationships explicit
+  - make model-run control relations explicit for spatial unit, event, soil state, model configuration, drainage configuration and land-use/crop context
+  - keep current/reference pairing reconstructable rather than introducing an attribution_pair entity
+
+not_changed:
+  - hydrological equations
+  - economic equations or coefficients
+  - Tollebeek numerical inputs or results
+  - workbook v0.2 artifact contract
+  - current evidence qualifications
+  - legacy workbook lineage
+
+scientific_boundaries:
+  current_tollebeek_hydrological_attribution: blocked
+  current_reference_swap_result: not_admitted
+  current_pump_operation_and_cost: blocked
+  current_ot02_geometry: data_gated
+  current_compaction_state: data_gated
+
+next_permitted_action: >-
+  QUALIFY the branch with CI, schema integrity checks and diff review. Do not admit if
+  the new domain validator exposes a pre-existing contract inconsistency that would
+  require broad unrelated migration work; record such issues separately instead.
