@@ -22,6 +22,7 @@ jobs:
           tools/workbook_generator/generate.py
           tools/workbook_generator/contract.py
           tools/validate_evidence.py
+          tools/validate_current_state_gate.py
           tools/validate_formal_traceability.py
           tools/validate_domain_schema.py
           tools/validate_input_readiness.py
