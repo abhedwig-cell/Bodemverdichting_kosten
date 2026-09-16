@@ -1,0 +1,96 @@
+schema_version: 0.3.1
+status: STATUS_A_LIGHT_INPUT_READINESS_BASELINE
+
+fields:
+  requirement_kind:
+    entity: data_request_item
+    label: Requirement kind
+    description: Classification of whether the missing prerequisite is external data, a derived input, a scientific decision or model configuration.
+    datatype: enum
+    vocabulary: input_requirement_kind
+    nullable: false
+
+  capability_id:
+    entity: data_request_item
+    label: Capability ID
+    description: Capability that is blocked or constrained by this requested input or decision.
+    datatype: string
+    nullable: false
+
+  input_role:
+    entity: data_request_item
+    label: Input role
+    description: Short stable role name for the prerequisite within the source-model workflow.
+    datatype: string
+    nullable: false
+
+  requirement_statement:
+    entity: data_request_item
+    label: Requirement
+    description: What must be supplied, derived or decided before the blocked capability can be scientifically reviewed.
+    datatype: string
+    nullable: false
+
+  request_spatial_scope:
+    entity: data_request_item
+    label: Spatial scope
+    description: Spatial scope to which this request applies.
+    datatype: string
+    nullable: true
+
+  request_time_scope:
+    entity: data_request_item
+    label: Time scope
+    description: Time, event or version scope required for this request where applicable.
+    datatype: string
+    nullable: true
+
+  input_readiness_status:
+    entity: data_request_item
+    label: Input readiness status
+    description: Current project readiness of this prerequisite. PARTIAL_EVIDENCE means relevant context exists but the required project input is not yet admitted.
+    datatype: enum
+    vocabulary: input_readiness_status
+    nullable: false
+
+  current_evidence_ids:
+    entity: data_request_item
+    label: Current evidence IDs
+    description: Semicolon-separated canonical evidence IDs that currently inform or constrain the request. Blank means no canonical evidence is currently linked.
+    datatype: string
+    nullable: true
+
+  current_claim_ids:
+    entity: data_request_item
+    label: Current claim IDs
+    description: Semicolon-separated canonical claim IDs that currently inform or constrain the request. Blank means no canonical claim is currently linked.
+    datatype: string
+    nullable: true
+
+  acceptance_criteria:
+    entity: data_request_item
+    label: Acceptance criteria
+    description: Minimum semantic and provenance conditions that a candidate input must satisfy before it can move to scientific review or admission.
+    datatype: string
+    nullable: false
+
+  blocking_reason:
+    entity: data_request_item
+    label: Blocking reason
+    description: Why the current project state is insufficient for the intended source-model use.
+    datatype: string
+    nullable: false
+
+  next_action:
+    entity: data_request_item
+    label: Next action
+    description: Next bounded acquisition, derivation or review action. This is not itself evidence that the action has been completed.
+    datatype: string
+    nullable: false
+
+  request_notes:
+    entity: data_request_item
+    label: Notes
+    description: Additional guardrails or scope notes for the request.
+    datatype: string
+    nullable: true
