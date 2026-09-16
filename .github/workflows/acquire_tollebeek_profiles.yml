@@ -1,0 +1,75 @@
+name: Temporary Tollebeek profile acquisition
+
+on:
+  push:
+    branches:
+      - work/tollebeek-profile-v0.1
+
+permissions:
+  contents: read
+
+jobs:
+  acquire:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install acquisition dependencies
+        run: python -m pip install shapely pyproj requests
+      - name: Discover SoilPhys response schema inside admitted OT.02 polygon
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          import requests
+          from shapely.geometry import shape, Point
+          from pyproj import Transformer
+
+          data = json.loads(Path('data/spatial/tollebeek_ot02_current.geojson').read_text(encoding='utf-8'))
+          poly = shape(data['features'][0]['geometry'])
+          minx, miny, maxx, maxy = poly.bounds
+          cx, cy = poly.representative_point().coords[0]
+
+          candidates = [
+              ('representative_point', cx, cy),
+              ('center', (minx+maxx)/2, (miny+maxy)/2),
+              ('west_mid', minx + 0.20*(maxx-minx), (miny+maxy)/2),
+              ('east_mid', minx + 0.80*(maxx-minx), (miny+maxy)/2),
+              ('south_mid', (minx+maxx)/2, miny + 0.20*(maxy-miny)),
+              ('north_mid', (minx+maxx)/2, miny + 0.80*(maxy-miny)),
+          ]
+          points=[]
+          for name,x,y in candidates:
+              p=Point(x,y)
+              if poly.contains(p):
+                  points.append((name,x,y))
+              else:
+                  # deterministic nearest fallback: interpolate from representative point.
+                  q=Point(cx + 0.6*(x-cx), cy + 0.6*(y-cy))
+                  if poly.contains(q):
+                      points.append((name+'_fallback',q.x,q.y))
+
+          to_wgs = Transformer.from_crs(28992, 4326, always_xy=True)
+          out=[]
+          s=requests.Session()
+          s.headers.update({'User-Agent':'Bodemverdichting-kosten-profile-qualification/0.1'})
+          for name,x,y in points:
+              lon,lat=to_wgs.transform(x,y)
+              r=s.get('https://www.soilphysics.wur.nl/soil.php', params={'latitude':lat,'longitude':lon}, timeout=60)
+              r.raise_for_status()
+              payload=r.json()
+              out.append({'sample_id':name,'rd_x':x,'rd_y':y,'latitude':lat,'longitude':lon,'response':payload})
+              print(name, json.dumps(payload, ensure_ascii=False)[:4000])
+
+          Path('acquisition').mkdir(exist_ok=True)
+          Path('acquisition/soilphys_discovery.json').write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding='utf-8')
+          PY
+      - name: Upload discovery evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: tollebeek-profile-discovery
+          path: acquisition/
+          retention-days: 7
+          if-no-files-found: error
