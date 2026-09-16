@@ -128,6 +128,14 @@ datasets:
     role: MODEL_INPUT
     grain: one row per event/simulation window
     primary_key: [event_id]
+    storage: data/events/tollebeek_events.csv
+
+  meteorological_forcing_register:
+    entity: meteorological_forcing_observation
+    role: MODEL_INPUT
+    grain: one row per event x source station/location x observation interval
+    primary_key: [forcing_observation_id]
+    storage: data/events/tollebeek_1998_marknesse_hourly.csv
 
   model_configuration_register:
     entity: model_configuration

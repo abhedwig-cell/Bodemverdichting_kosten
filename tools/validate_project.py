@@ -4,6 +4,7 @@ from pathlib import Path
 
 from validate_current_state_gate import validate as validate_current_state_gate
 from validate_drainage_gate import validate as validate_drainage_gate
+from validate_event_forcing_gate import validate as validate_event_forcing_gate
 from validate_domain_schema import validate as validate_domain_schema
 from validate_evidence import validate as validate_evidence
 from validate_formal_traceability import validate as validate_formal_traceability
@@ -30,11 +31,13 @@ REQUIRED_PATHS = [
     "docs/21_data_model_v0_3_contract.md",
     "docs/25_tollebeek_current_state_evidence_route_v0_1.md",
     "docs/26_tollebeek_drainage_evidence_route_v0_1.md",
+    "docs/27_tollebeek_event_forcing_baseline_v0_1.md",
     "docs/24_tollebeek_profile_baseline_v0_1.md",
     "schema/entities.yml",
     "schema/fields.yml",
     "schema/domain_fields_v0_3.yml",
     "schema/profile_fields_v0_1.yml",
+    "schema/event_forcing_fields_v0_1.yml",
     "schema/data_request_fields.yml",
     "schema/datasets.yml",
     "schema/relationships.yml",
@@ -49,6 +52,8 @@ REQUIRED_PATHS = [
     "data/soil/tollebeek_soil_profiles.csv",
     "data/soil/tollebeek_soil_layers.csv",
     "data/soil/tollebeek_profile_screening_v0_1.json",
+    "data/events/tollebeek_events.csv",
+    "data/events/tollebeek_1998_marknesse_hourly.csv",
     "data/spatial/tollebeek_ot02_current.geojson",
     "model/equations.csv",
     "model/traceability.csv",
@@ -69,6 +74,7 @@ def validate() -> list[str]:
     errors.extend(f"formal-traceability: {item}" for item in validate_formal_traceability())
     errors.extend(f"current-state-gate: {item}" for item in validate_current_state_gate())
     errors.extend(f"drainage-gate: {item}" for item in validate_drainage_gate())
+    errors.extend(f"event-forcing-gate: {item}" for item in validate_event_forcing_gate())
     errors.extend(f"domain-schema: {item}" for item in validate_domain_schema())
     errors.extend(f"input-readiness: {item}" for item in validate_input_readiness())
     errors.extend(f"profile-baseline: {item}" for item in validate_profile_baseline())
