@@ -1,0 +1,52 @@
+review_baseline_version: 0.1.0
+status: REVIEW_READY
+created_at: 2026-09-16
+repository: abhedwig-cell/Bodemverdichting_kosten
+canonical_snapshot:
+  commit: 9eaa16c9053688eae219a3838b53f9e942f96f6e
+  commit_message: "Merge pull request #14 from abhedwig-cell/work/colleague-review-record-v0.1"
+  ci_workflow: CI
+  ci_run_id: 35040936709
+  ci_conclusion: success
+  ci_url: https://github.com/abhedwig-cell/Bodemverdichting_kosten/actions/runs/35040936709
+purpose: >-
+  Pin the first colleague-reviewable Status-A-light project state so later main-branch
+  development cannot silently change the material that was reviewed.
+minimum_review_package:
+  - docs/00_colleague_reader_guide.md
+  - docs/18_status_a_light_checkpoint_v0_1.md
+  - docs/20_colleague_review_package_v0_1.md
+  - review/pre_read_manifest_v0_1.csv
+  - review/review_record_v0_1.csv
+  - artifact: Bodemverdichting_Tollebeek_ReviewWorkbook_v0_2.xlsx
+review_workbook:
+  filename: Bodemverdichting_Tollebeek_ReviewWorkbook_v0_2.xlsx
+  artifact_class: REVIEW_ARTIFACT
+  canonical_status: NON_CANONICAL_DERIVED_ARTIFACT
+  sha256: 22d9783f06267a521439cee75dc17fbde517739dd487c63cdf22f9c3b4ad237b
+  note: >-
+    The workbook is a generated review interface. Its scientific meaning comes from
+    the pinned repository schema, evidence, documentation and code; it is not itself
+    the canonical project database.
+review_questions:
+  - R1_theoretical_decomposition
+  - R2_current_reference_and_attribution
+  - R3_entities_grain_and_null_semantics
+  - R4_claim_evidence_qualification_separation
+  - R5_data_gates
+  - R6_traceability
+allowed_dispositions:
+  - ACCEPT
+  - CHANGE
+  - EVIDENCE_REQUIRED
+  - OPEN_QUESTION
+scientific_boundary:
+  current_tollebeek_attribution: NO_GO
+  application_product: NOT_STARTED_AS_PRODUCT
+  reason: >-
+    Current geometry, drainage, depth-resolved soil/compaction state, matched reference,
+    event forcing/boundary conditions, transfer evidence and current pump-operation data
+    remain data-gated.
+next_permitted_step_after_review: >-
+  Implement accepted review changes through normal traceable repository changes; only
+  then proceed toward the first spatial current/reference source model.
