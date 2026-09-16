@@ -10,6 +10,8 @@ For documentation governance and Status-A-light expectations, see [`14_documenta
 
 For a compact cross-layer review of the current architecture, see [`15_traceability_matrix_v0_1.md`](15_traceability_matrix_v0_1.md).
 
+The first explicit evidence baseline for the general theoretical framework is [`16_theory_evidence_baseline_v0_1.md`](16_theory_evidence_baseline_v0_1.md).
+
 ## Core reader path
 
 1. [`01_overview.md`](01_overview.md) — project purpose, scope, maturity and how the calculation is decomposed
@@ -36,14 +38,15 @@ A colleague who wants to understand **what we are doing and why** should normall
 
 The generated workbook has since advanced to an evidence-aware v0.2 artifact: canonical evidence registers are populated into the workbook while scientifically blocked model-result datasets remain explicit blank templates. The repository remains canonical; the workbook remains a generated review interface.
 
-## Status-A-light governance and traceability
+## Status-A-light governance, traceability and theory evidence
 
 14. [`14_documentation_status_a_light.md`](14_documentation_status_a_light.md) — documentation layers, maturity states, minimum metadata, scientific-claim discipline and review triggers
 15. [`15_traceability_matrix_v0_1.md`](15_traceability_matrix_v0_1.md) — theory-to-code/evidence traceability for the main current capabilities and broken-link review
+16. [`16_theory_evidence_baseline_v0_1.md`](16_theory_evidence_baseline_v0_1.md) — first source/evidence/claim/qualification baseline for the general theoretical framework
 
 ## Suggested reading paths
 
-**Scientific colleague / reviewer:** `00 → 01 → 02 → 03 → 04 → 07 → 15`
+**Scientific colleague / reviewer:** `00 → 01 → 02 → 16 → 03 → 04 → 07 → 15`
 
 **Data/software colleague:** `00 → 05 → 06 → 08 → 11 → 12 → 15`
 
