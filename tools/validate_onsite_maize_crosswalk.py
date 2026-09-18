@@ -108,6 +108,36 @@ def validate() -> list[str]:
     if qualified_count == 0 and acquisition.get("run_authorized") is not False:
         errors.append("zero qualified soil mappings cannot authorize a run")
 
+    mapping_contract = acquisition.get("mapping_contract", {})
+    if mapping_contract.get("family_proposal_rules") != (
+        "config/bro_ccnl6_family_rules_v0_1.csv"
+    ):
+        errors.append("acquisition contract missing canonical family proposal rules")
+    if mapping_contract.get("proposal_generator") != (
+        "tools/propose_bro_ccnl6_mapping.py"
+    ):
+        errors.append("acquisition contract missing canonical proposal generator")
+    if "AUTO_PROPOSAL_IS_NOT_ADMISSION" not in (
+        mapping_contract.get("proposal_policy") or ""
+    ):
+        errors.append("acquisition contract must preserve proposal-not-admission policy")
+
+    output_contract = acquisition.get("output_contract", {})
+    if output_contract.get("unmapped_report") != (
+        "data/derived/onsite_maize_soil_unmapped_codes_2025.csv"
+    ):
+        errors.append("unexpected or missing unmapped-code diagnostic path")
+    if output_contract.get("proposal_report") != (
+        "data/derived/onsite_maize_soil_mapping_proposals_2025.csv"
+    ):
+        errors.append("unexpected or missing proposal-report path")
+
+    workflow = acquisition.get("workflow") or []
+    if not any("review" in str(item).casefold() for item in workflow):
+        errors.append("acquisition workflow must include explicit proposal review")
+    if not any("QUALIFIED" in str(item) for item in workflow):
+        errors.append("acquisition workflow must require qualified mappings before overlay")
+
     return errors
 
 
