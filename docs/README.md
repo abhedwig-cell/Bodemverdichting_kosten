@@ -4,7 +4,9 @@ The documentation is organised from scientific meaning to implementation and evi
 
 ## Start here
 
-If you are new to the project, begin with [`00_colleague_reader_guide.md`](00_colleague_reader_guide.md). It explains the scientific chain, current/reference attribution, the Tollebeek pilot, evidence qualification, the role of GitHub and Excel, and the main current data gates.
+If you are new to the project or taking the work over from someone else, begin with [`00_project_handover_and_continuation.md`](00_project_handover_and_continuation.md). It restores the broad project philosophy: minimum necessary computation, parallel on-site/off-site chains, literature/evidence shortcuts, uncertainty and source ensembles, and the role of Tollebeek/SWAP as optional deepening rather than the project definition.
+
+Then read [`00_colleague_reader_guide.md`](00_colleague_reader_guide.md). It explains the more detailed scientific/evidence architecture, current/reference attribution, the Tollebeek pilot, the role of GitHub and Excel, and the main current data gates.
 
 For documentation governance and Status-A-light expectations, see [`14_documentation_status_a_light.md`](14_documentation_status_a_light.md).
 
@@ -15,6 +17,8 @@ For the current transfer/review moment, use [`18_status_a_light_checkpoint_v0_1.
 For the actual first colleague review, use [`19_colleague_review_session_v0_1.md`](19_colleague_review_session_v0_1.md) together with [`20_colleague_review_package_v0_1.md`](20_colleague_review_package_v0_1.md) and the templates under [`../review/`](../review/).
 
 The first explicit evidence baseline for the general theoretical framework is [`16_theory_evidence_baseline_v0_1.md`](16_theory_evidence_baseline_v0_1.md).
+
+For the project-wide continuation surface, see [`49_project_effect_pathway_matrix_v0_1.md`](49_project_effect_pathway_matrix_v0_1.md). The companion source-ensemble rules are in [`50_evidence_ensemble_protocol_v0_1.md`](50_evidence_ensemble_protocol_v0_1.md).
 
 For the bounded Data Model v0.3 architecture step, use [`21_data_model_v0_3_contract.md`](21_data_model_v0_3_contract.md) and [`22_domain_traceability_v0_3.md`](22_domain_traceability_v0_3.md). These documents do not add new science; they make already documented domain and run-control semantics machine-readable.
 

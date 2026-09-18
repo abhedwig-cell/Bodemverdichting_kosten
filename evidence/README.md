@@ -38,3 +38,9 @@ python tools/validate_evidence.py
 ```
 
 to check identifiers, foreign keys and controlled-vocabulary values.
+
+
+## Project-wide effect and ensemble registers
+
+- `effect_pathway_matrix_v0_1.csv` is the machine-readable on-site/off-site continuation matrix.
+- `evidence_ensemble_register_v0_1.csv` seeds conservative source ensembles. Legacy-workbook members remain explicitly marked `LEGACY_WORKBOOK_NOT_YET_CANONICAL` until migrated/qualified; their presence in the register does not admit them as current Dutch coefficients.
