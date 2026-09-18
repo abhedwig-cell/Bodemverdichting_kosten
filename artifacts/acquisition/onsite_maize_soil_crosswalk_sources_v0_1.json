@@ -1,0 +1,51 @@
+{
+  "artifact_id": "ACQ_ONSITE_MAIZE_SOIL_CROSSWALK_V0_1",
+  "created_date": "2026-09-18",
+  "purpose": "Acquire versioned BRP 2025 silage-maize geometry and a versioned BRO SGM soil map for a reproducible maize-by-CCNL6 spatial crosswalk.",
+  "scientific_status": "ACQUISITION_ROUTES_QUALIFIED_RAW_DATA_NOT_MATERIALIZED",
+  "run_authorized": false,
+  "target_crs": "EPSG:28992",
+  "inputs": [
+    {
+      "input_id": "BRP_2025_SILAGE_MAIZE",
+      "source_id": "SRC_BRP2025_PDOK",
+      "dataset": "BRP Gewaspercelen 2025 definitief",
+      "service": "https://api.pdok.nl/rvo/gewaspercelen/ogc/v1/collections/brpgewas",
+      "selection": {
+        "gewascode": 259,
+        "gewas": "Mais, snij-",
+        "jaar": 2025,
+        "status": "Definitief"
+      },
+      "required_fields": ["gewascode", "gewas", "jaar", "status", "geometry"],
+      "raw_file_status": "NOT_MATERIALIZED"
+    },
+    {
+      "input_id": "BRO_SGM_SOIL_MAP",
+      "source_id": "SRC_BRO_SGM",
+      "dataset": "BRO Bodemkaart (SGM)",
+      "official_model_page": "https://basisregistratieondergrond.nl/inhoud-bro/registratieobjecten/modellen/bodemkaart-sgm/",
+      "pdok_atom_route": "https://service.pdok.nl/bzk/bro-bodemkaart/atom/index.xml",
+      "required_fields": ["soil_unit_code", "soil_classification", "main_soil_classification", "geometry"],
+      "version_requirement": "Persist exact downloaded model/version metadata and SHA-256 before transformation.",
+      "raw_file_status": "NOT_MATERIALIZED"
+    }
+  ],
+  "mapping_contract": {
+    "class_definition": "config/ccnl6_class_definition_v0_1.csv",
+    "soil_unit_mapping": "config/bro_sgm_to_ccnl6_mapping_v0_1.csv",
+    "policy": "FAIL_CLOSED_ON_UNMAPPED_OR_UNQUALIFIED_SOIL_UNIT_CODE",
+    "historical_boundary": "BRO SGM is a current/versioned spatial model; it is not identical to the historical LSK profile-domain basis used for the 2018 CC-NL area estimates."
+  },
+  "output_contract": {
+    "builder": "tools/build_onsite_maize_soil_crosswalk.py",
+    "summary_csv": "data/derived/onsite_maize_soil_crosswalk_2025.csv",
+    "manifest_json": "data/derived/onsite_maize_soil_crosswalk_2025_manifest.json",
+    "admission_rule": "No crosswalk is admitted unless mapping coverage is complete, geometry closure is within declared tolerance, provenance hashes are persisted, and the BRO-to-CCNL6 mapping has been independently reviewed."
+  },
+  "current_blockers": [
+    "Raw BRP/BRO files are not materialized in the repository.",
+    "BRO soil_unit_code to CCNL6 mapping has zero qualified rows and requires soil-expert review.",
+    "A current crop-soil crosswalk remains a spatial approximation to the six CC-NL reporting domains, not a reconstruction of historical LSK domain membership."
+  ]
+}
