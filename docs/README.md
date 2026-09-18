@@ -14,7 +14,7 @@ For a compact cross-layer review of the current architecture, see [`15_traceabil
 
 For the current transfer/review moment, use [`18_status_a_light_checkpoint_v0_1.md`](18_status_a_light_checkpoint_v0_1.md). It summarises maturity per layer, current Tollebeek data gates, what the tests do and do not prove, and the next scientific milestone.
 
-For the actual first colleague review, use [`19_colleague_review_session_v0_1.md`](19_colleague_review_session_v0_1.md) together with [`20_colleague_review_package_v0_1.md`](20_colleague_review_package_v0_1.md) and the templates under [`../review/`](../review/).
+For the current broad colleague review, start with [`57_colleague_review_package_v0_2.md`](57_colleague_review_package_v0_2.md). It is deliberately self-contained and leads with project intent, theory, minimum-necessary computation, balanced on-site/off-site chains, uncertainty/source ensembles and the dashboard as a transparent view of the evidence state. The older [`19_colleague_review_session_v0_1.md`](19_colleague_review_session_v0_1.md) and [`20_colleague_review_package_v0_1.md`](20_colleague_review_package_v0_1.md) remain historical review-design records.
 
 The first explicit evidence baseline for the general theoretical framework is [`16_theory_evidence_baseline_v0_1.md`](16_theory_evidence_baseline_v0_1.md).
 
