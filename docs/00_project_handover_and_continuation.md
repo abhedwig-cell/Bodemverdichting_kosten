@@ -576,7 +576,9 @@ Een route die niet volledig kan worden gemonetariseerd kan nog steeds een belang
 De brede filosofie uit dit document is uitgewerkt in:
 
 - `docs/49_project_effect_pathway_matrix_v0_1.md`;
-- `evidence/effect_pathway_matrix_v0_1.csv`.
+- `evidence/effect_pathway_matrix_v0_1.csv`;
+- `docs/50_evidence_ensemble_protocol_v0_1.md`;
+- `evidence/evidence_ensemble_register_v0_1.csv`.
 
 Die matrix is het aanbevolen werkoppervlak voor de volgende inhoudelijke fase. Per on-site en off-site route legt zij vast:
 
