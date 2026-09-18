@@ -1,0 +1,11 @@
+question_id,theme,question,why_it_matters,suggested_disposition
+R2_Q01,Projectframe,"Is minimum necessary computation de juiste hoofdstrategie voor deze onderzoeksvraag?","Bepaalt of literatuur/data/eenvoudige regels leidend blijven of procesmodellering eerder moet worden ingezet.","CONFIRM / ADJUST / INVESTIGATE"
+R2_Q02,Causaliteit,"Is de current/reference-benadering scherp genoeg voor attributie aan bodemverdichting?","Voorkomt dat verschillen in weer, gewas, drainage of beheer ten onrechte aan bodemtoestand worden toegeschreven.","CONFIRM / ADJUST / INVESTIGATE"
+R2_Q03,On-site,"Zijn de belangrijkste on-site effect- en kostenroutes compleet?","Bepaalt of opbrengst, kwaliteit, beregening en extra bedrijfsoperaties voldoende dekking geven.","CONFIRM / ADD / DEFER"
+R2_Q04,Off-site,"Zijn de belangrijkste off-site routes en receptoren compleet en is transfer/connectiviteit voldoende als eigen laag behandeld?","Voorkomt dat perceeleffect direct als systeemschade wordt geïnterpreteerd.","CONFIRM / ADD / ADJUST"
+R2_Q05,Evidence shortcut,"Wanneer is een directe empirische relatie volgens jou sterk genoeg om mechanistische tussenschakels niet opnieuw door te rekenen?","Bepaalt de grens van de low-computation methode.","CONFIRM / TIGHTEN / RELAX"
+R2_Q06,Onzekerheid,"Is het terecht om meerdere bronnen eerst als ensemble/scenario-set te bewaren in plaats van standaard te middelen?","Bepaalt hoe binnen-bron, tussen-bron en structurele onzekerheid zichtbaar blijven.","CONFIRM / ADJUST"
+R2_Q07,Waardering,"Zijn private kosten, publieke uitgaven en maatschappelijke welvaart voldoende van elkaar gescheiden?","Voorkomt dubbeltelling en onduidelijke eurototalen.","CONFIRM / ADJUST / INVESTIGATE"
+R2_Q08,Dashboard,"Laat het dashboard volgens jou goed genoeg zien wat we weten, wat ontbreekt en waar een resultaat vandaan komt?","De interface moet de wetenschappelijke structuur ondersteunen in plaats van verbergen.","CONFIRM / REDESIGN"
+R2_Q09,Balans,"Zijn on-site en off-site nu weer voldoende gelijkwaardig gepositioneerd?","De technische Tollebeek-lijn mag het bredere project niet definiëren.","CONFIRM / REBALANCE"
+R2_Q10,Prioriteit,"Welke 2–3 vervolgstappen leveren volgens jou de meeste informatiewinst voor de eindraming?","Stuurt verdere inzet op relevante onzekerheid in plaats van technische volledigheid.","PRIORITISE"

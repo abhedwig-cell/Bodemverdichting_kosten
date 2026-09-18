@@ -1,0 +1,9 @@
+order,item,purpose,required,notes
+1,docs/57_colleague_review_package_v0_2.md,"Hoofdverhaal: bedoeling, theorie, werkwijze, dashboardlogica, huidige state en reviewvragen",YES,"Start hier; bedoeld als zelfstandige pre-read."
+2,Dashboard overview screen,"Laat zien dat ready/blocked/uncertainty samen op het eerste scherm horen",YES,"Ontwerpscherm; getoonde prototype-aantallen zijn niet de canonieke actuele state."
+3,Dashboard on-site + Case A screens,"Laat bodem×gewas-segmentatie, evidence ranges en blockers zien",YES,"Gebruik voor inhoudelijke interface-review, niet voor actuele cijferstatus."
+4,Dashboard off-site screen,"Laat perceel→systeem transferketen en ontbrekende schakels zien",YES,"Tollebeek is reality check/pilot, niet projectdefinitie."
+5,Dashboard provenance screen,"Laat resultaat→regel→bron→blocker zien",YES,"Prototype-telling van bronnen/claims is historisch; principe is leidend."
+6,docs/49_project_effect_pathway_matrix_v0_1.md,"Verdieping per on-site/off-site route",NO,"Alleen raadplegen waar reviewer wil inzoomen."
+7,docs/50_evidence_ensemble_protocol_v0_1.md,"Verdieping onzekerheid en meerdere bronnen",NO,"Relevant bij discussie over combineren van studies."
+8,review/colleague_review_questions_v0_2.csv,"Vaste vragen om review te structureren",YES,"Gebruik CONFIRM/ADJUST/INVESTIGATE als eenvoudige disposition."
