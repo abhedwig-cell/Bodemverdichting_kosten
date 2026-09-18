@@ -52,3 +52,5 @@ The current silage-maize crop-area refinement uses a fail-closed spatial route: 
 
 The mapping workflow now has a separate proposal layer in `../config/bro_ccnl6_family_rules_v0_1.csv`. Official BRO family semantics can generate `AUTO_PROPOSAL` candidates, but proposals never become production mappings automatically. Ambiguous or unknown codes remain `REVIEW_REQUIRED`; only explicitly reviewed `QUALIFIED` rows in `bro_sgm_to_ccnl6_mapping_v0_1.csv` may be used by the overlay.
 
+The corresponding source-materialization step is executable through `../tools/acquire_onsite_maize_soil_sources.py`. It preserves and hashes source-native BRP response pages and the original BRO SGM download under gitignored local data directories before transformation. Successful acquisition is provenance evidence, not scientific admission of a crop×soil result.
+
