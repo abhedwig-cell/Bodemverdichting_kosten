@@ -13,6 +13,7 @@ from validate_initial_state_gate import validate as validate_initial_state_gate
 from validate_managed_boundary_gate import validate as validate_managed_boundary_gate
 from validate_land_use_gate import validate as validate_land_use_gate
 from validate_model_config_gate import validate as validate_model_config_gate
+from validate_onsite_bounded_surface import validate as validate_onsite_bounded_surface
 from validate_profile_baseline import validate as validate_profile_baseline
 from validate_spatial_geometry import validate as validate_spatial_geometry
 
@@ -56,6 +57,9 @@ REQUIRED_PATHS = [
     "evidence/evidence_register.csv",
     "evidence/claims.csv",
     "evidence/qualification_register.csv",
+    "evidence/evidence_ensemble_register_v0_1.csv",
+    "evidence/onsite_bounded_calculation_surface_v0_1.csv",
+    "docs/52_onsite_bounded_calculation_surface_v0_1.md",
     "data_requests/data_request_register.csv",
     "data_requests/tollebeek_current_state_data_request_v0_1.md",
     "data_requests/tollebeek_drainage_data_request_v0_1.md",
@@ -95,6 +99,7 @@ def validate() -> list[str]:
     errors.extend(f"managed-boundary-gate: {item}" for item in validate_managed_boundary_gate())
     errors.extend(f"land-use-gate: {item}" for item in validate_land_use_gate())
     errors.extend(f"model-config-gate: {item}" for item in validate_model_config_gate())
+    errors.extend(f"onsite-bounded-surface: {item}" for item in validate_onsite_bounded_surface())
     errors.extend(f"profile-baseline: {item}" for item in validate_profile_baseline())
     errors.extend(f"spatial-geometry: {item}" for item in validate_spatial_geometry())
     errors.extend(f"project-structure: {item}" for item in validate_required_paths())
