@@ -4,10 +4,14 @@ import csv
 import json
 from pathlib import Path
 
+from propose_bro_ccnl6_mapping import read_csv as read_rule_csv
+from propose_bro_ccnl6_mapping import validate_rules
+
 
 ROOT = Path(__file__).resolve().parents[1]
 CLASS_DEFS = ROOT / "config" / "ccnl6_class_definition_v0_1.csv"
 MAPPING = ROOT / "config" / "bro_sgm_to_ccnl6_mapping_v0_1.csv"
+FAMILY_RULES = ROOT / "config" / "bro_ccnl6_family_rules_v0_1.csv"
 ACQUISITION = (
     ROOT / "artifacts" / "acquisition" / "onsite_maize_soil_crosswalk_sources_v0_1.json"
 )
@@ -31,7 +35,7 @@ def read_csv(path: Path) -> list[dict[str, str]]:
 def validate() -> list[str]:
     errors: list[str] = []
 
-    for path in (CLASS_DEFS, MAPPING, ACQUISITION):
+    for path in (CLASS_DEFS, MAPPING, FAMILY_RULES, ACQUISITION):
         if not path.exists():
             errors.append(f"missing required maize-soil-crosswalk path: {path.relative_to(ROOT)}")
     if errors:
@@ -76,14 +80,23 @@ def validate() -> list[str]:
         if code in seen:
             errors.append(f"duplicate mapped soil_unit_code: {code}")
         seen.add(code)
-        if klass not in EXPECTED_CLASSES:
-            errors.append(f"{code}: invalid ccnl6_class {klass!r}")
         if status not in {"REVIEW_REQUIRED", "QUALIFIED", "REJECTED"}:
             errors.append(f"{code}: invalid mapping_status {status!r}")
         if status == "QUALIFIED":
             qualified_count += 1
+            if klass not in EXPECTED_CLASSES:
+                errors.append(
+                    f"{code}: QUALIFIED mapping requires valid ccnl6_class; got {klass!r}"
+                )
             if not basis:
                 errors.append(f"{code}: QUALIFIED mapping requires mapping_basis")
+        elif klass and klass not in EXPECTED_CLASSES:
+            errors.append(
+                f"{code}: non-qualified mapping has invalid candidate class {klass!r}"
+            )
+
+    rule_errors = validate_rules(read_rule_csv(FAMILY_RULES))
+    errors.extend(f"family-rules: {item}" for item in rule_errors)
 
     acquisition = json.loads(ACQUISITION.read_text(encoding="utf-8"))
     if acquisition.get("run_authorized") is not False:
