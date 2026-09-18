@@ -50,3 +50,5 @@ to check identifiers, foreign keys and controlled-vocabulary values.
 
 The current silage-maize crop-area refinement uses a fail-closed spatial route: definitive BRP 2025 crop parcels intersect a versioned BRO SGM soil model, after every encountered `soil_unit_code` has been explicitly reviewed against the six CC-NL reporting classes. The class contract is in `../config/ccnl6_class_definition_v0_1.csv`; the code mapping register is `../config/bro_sgm_to_ccnl6_mapping_v0_1.csv`. An empty mapping is a valid data-gated state; it does not authorize classification or output.
 
+The mapping workflow now has a separate proposal layer in `../config/bro_ccnl6_family_rules_v0_1.csv`. Official BRO family semantics can generate `AUTO_PROPOSAL` candidates, but proposals never become production mappings automatically. Ambiguous or unknown codes remain `REVIEW_REQUIRED`; only explicitly reviewed `QUALIFIED` rows in `bro_sgm_to_ccnl6_mapping_v0_1.csv` may be used by the overlay.
+

@@ -42,12 +42,21 @@ def validate_mapping_rows(rows: Iterable[dict[str, str]]) -> list[str]:
             errors.append(f"row {i}: duplicate soil_unit_code {code}")
         seen.add(code)
 
-        if klass not in CCNL6_CLASSES:
-            errors.append(f"row {i}: invalid ccnl6_class {klass!r} for {code}")
         if status not in {"REVIEW_REQUIRED", "QUALIFIED", "REJECTED"}:
             errors.append(f"row {i}: invalid mapping_status {status!r} for {code}")
-        if status == QUALIFIED_MAPPING_STATUS and not basis:
-            errors.append(f"row {i}: QUALIFIED mapping {code} requires mapping_basis")
+        if status == QUALIFIED_MAPPING_STATUS:
+            if klass not in CCNL6_CLASSES:
+                errors.append(
+                    f"row {i}: QUALIFIED mapping {code} requires a valid "
+                    f"ccnl6_class; got {klass!r}"
+                )
+            if not basis:
+                errors.append(f"row {i}: QUALIFIED mapping {code} requires mapping_basis")
+        elif klass and klass not in CCNL6_CLASSES:
+            errors.append(
+                f"row {i}: non-qualified mapping {code} has invalid "
+                f"candidate ccnl6_class {klass!r}"
+            )
 
     return errors
 
@@ -113,6 +122,15 @@ def parse_args() -> argparse.Namespace:
         "--manifest",
         type=Path,
         default=Path("data/derived/onsite_maize_soil_crosswalk_2025_manifest.json"),
+    )
+    p.add_argument(
+        "--unmapped-report",
+        type=Path,
+        default=Path("data/derived/onsite_maize_soil_unmapped_codes_2025.csv"),
+        help=(
+            "Diagnostic CSV written when intersecting BRO soil codes are missing "
+            "or not yet QUALIFIED."
+        ),
     )
     p.add_argument(
         "--closure-tolerance",
@@ -211,6 +229,25 @@ def main() -> int:
 
     missing, unqualified = mapping_coverage(candidate_codes, mapping_rows)
     if missing or unqualified:
+        problem_codes = set(missing) | set(unqualified)
+        report = soil.loc[
+            soil["soil_unit_code"].astype(str).str.strip().isin(problem_codes),
+            [
+                "soil_unit_code",
+                "soil_classification",
+                "main_soil_classification",
+            ],
+        ].copy()
+        report["soil_unit_code"] = report["soil_unit_code"].astype(str).str.strip()
+        report = report.drop_duplicates(subset=["soil_unit_code"]).sort_values(
+            "soil_unit_code"
+        )
+        report["mapping_state"] = report["soil_unit_code"].map(
+            lambda code: "MISSING" if code in set(missing) else "UNQUALIFIED"
+        )
+        args.unmapped_report.parent.mkdir(parents=True, exist_ok=True)
+        report.to_csv(args.unmapped_report, index=False)
+
         if missing:
             print("ERROR: unmapped intersecting BRO soil_unit_code values:")
             for code in missing:
@@ -219,6 +256,7 @@ def main() -> int:
             print("ERROR: intersecting BRO soil_unit_code values not QUALIFIED:")
             for code in unqualified:
                 print(f"  - {code}")
+        print(f"Wrote review diagnostic: {args.unmapped_report}")
         print(
             "Crosswalk aborted. Add/review explicit mappings in "
             "config/bro_sgm_to_ccnl6_mapping_v0_1.csv; no fallback class is allowed."

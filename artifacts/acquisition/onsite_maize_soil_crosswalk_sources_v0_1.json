@@ -17,7 +17,13 @@
         "jaar": 2025,
         "status": "Definitief"
       },
-      "required_fields": ["gewascode", "gewas", "jaar", "status", "geometry"],
+      "required_fields": [
+        "gewascode",
+        "gewas",
+        "jaar",
+        "status",
+        "geometry"
+      ],
       "raw_file_status": "NOT_MATERIALIZED"
     },
     {
@@ -26,7 +32,12 @@
       "dataset": "BRO Bodemkaart (SGM)",
       "official_model_page": "https://basisregistratieondergrond.nl/inhoud-bro/registratieobjecten/modellen/bodemkaart-sgm/",
       "pdok_atom_route": "https://service.pdok.nl/bzk/bro-bodemkaart/atom/index.xml",
-      "required_fields": ["soil_unit_code", "soil_classification", "main_soil_classification", "geometry"],
+      "required_fields": [
+        "soil_unit_code",
+        "soil_classification",
+        "main_soil_classification",
+        "geometry"
+      ],
       "version_requirement": "Persist exact downloaded model/version metadata and SHA-256 before transformation.",
       "raw_file_status": "NOT_MATERIALIZED"
     }
@@ -35,17 +46,32 @@
     "class_definition": "config/ccnl6_class_definition_v0_1.csv",
     "soil_unit_mapping": "config/bro_sgm_to_ccnl6_mapping_v0_1.csv",
     "policy": "FAIL_CLOSED_ON_UNMAPPED_OR_UNQUALIFIED_SOIL_UNIT_CODE",
-    "historical_boundary": "BRO SGM is a current/versioned spatial model; it is not identical to the historical LSK profile-domain basis used for the 2018 CC-NL area estimates."
+    "historical_boundary": "BRO SGM is a current/versioned spatial model; it is not identical to the historical LSK profile-domain basis used for the 2018 CC-NL area estimates.",
+    "family_proposal_rules": "config/bro_ccnl6_family_rules_v0_1.csv",
+    "proposal_generator": "tools/propose_bro_ccnl6_mapping.py",
+    "proposal_policy": "AUTO_PROPOSAL_IS_NOT_ADMISSION; all used soil_unit_code mappings must still be explicitly QUALIFIED"
   },
   "output_contract": {
     "builder": "tools/build_onsite_maize_soil_crosswalk.py",
     "summary_csv": "data/derived/onsite_maize_soil_crosswalk_2025.csv",
     "manifest_json": "data/derived/onsite_maize_soil_crosswalk_2025_manifest.json",
-    "admission_rule": "No crosswalk is admitted unless mapping coverage is complete, geometry closure is within declared tolerance, provenance hashes are persisted, and the BRO-to-CCNL6 mapping has been independently reviewed."
+    "admission_rule": "No crosswalk is admitted unless mapping coverage is complete, geometry closure is within declared tolerance, provenance hashes are persisted, and the BRO-to-CCNL6 mapping has been independently reviewed.",
+    "unmapped_report": "data/derived/onsite_maize_soil_unmapped_codes_2025.csv",
+    "proposal_report": "data/derived/onsite_maize_soil_mapping_proposals_2025.csv"
   },
   "current_blockers": [
     "Raw BRP/BRO files are not materialized in the repository.",
-    "BRO soil_unit_code to CCNL6 mapping has zero qualified rows and requires soil-expert review.",
+    "BRO soil_unit_code to CCNL6 mapping has zero qualified rows; official-legend family rules can generate review proposals but not admissions.",
     "A current crop-soil crosswalk remains a spatial approximation to the six CC-NL reporting domains, not a reconstruction of historical LSK domain membership."
+  ],
+  "workflow": [
+    "Materialize and hash source-native BRP 2025 and BRO SGM inputs.",
+    "Run build_onsite_maize_soil_crosswalk.py. A first run is expected to fail closed while emitting the exact intersecting missing/unqualified BRO soil-unit-code report.",
+    "Run propose_bro_ccnl6_mapping.py on that diagnostic to generate official-legend-based candidate mappings.",
+    "Review every proposal. Ambiguous families remain REVIEW_REQUIRED; AUTO_PROPOSAL never becomes QUALIFIED automatically.",
+    "Persist reviewed rows in config/bro_sgm_to_ccnl6_mapping_v0_1.csv.",
+    "Rerun the overlay. Proceed only when all intersecting mappings are QUALIFIED and area closure passes.",
+    "Compare the total with independent national crop context without proportional rescaling.",
+    "Qualify/admit the resulting crop-by-soil shares before binding them into the on-site calculation surface."
   ]
 }

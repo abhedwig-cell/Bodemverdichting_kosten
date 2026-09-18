@@ -60,6 +60,20 @@ class OnsiteMaizeSoilCrosswalkTests(unittest.TestCase):
         self.assertEqual(missing, ["EXAMPLE_C"])
         self.assertEqual(unqualified, ["EXAMPLE_B"])
 
+    def test_review_required_mapping_may_remain_unclassified(self):
+        rows = [
+            {
+                "soil_unit_code": "AMBIGUOUS",
+                "ccnl6_class": "",
+                "mapping_basis": "",
+                "mapping_status": "REVIEW_REQUIRED",
+            }
+        ]
+        self.assertEqual(validate_mapping_rows(rows), [])
+        missing, unqualified = mapping_coverage(["AMBIGUOUS"], rows)
+        self.assertEqual(missing, [])
+        self.assertEqual(unqualified, ["AMBIGUOUS"])
+
     def test_invalid_qualified_mapping_requires_basis(self):
         errors = validate_mapping_rows(
             [
