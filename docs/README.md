@@ -4,7 +4,9 @@ The documentation is organised from scientific meaning to implementation and evi
 
 ## Start here
 
-If you are new to the project, begin with [`00_colleague_reader_guide.md`](00_colleague_reader_guide.md). It explains the scientific chain, current/reference attribution, the Tollebeek pilot, evidence qualification, the role of GitHub and Excel, and the main current data gates.
+If you are new to the project or taking the work over from someone else, begin with [`00_project_handover_and_continuation.md`](00_project_handover_and_continuation.md). It restores the broad project philosophy: minimum necessary computation, parallel on-site/off-site chains, literature/evidence shortcuts, uncertainty and source ensembles, and the role of Tollebeek/SWAP as optional deepening rather than the project definition.
+
+Then read [`00_colleague_reader_guide.md`](00_colleague_reader_guide.md). It explains the more detailed scientific/evidence architecture, current/reference attribution, the Tollebeek pilot, the role of GitHub and Excel, and the main current data gates.
 
 For documentation governance and Status-A-light expectations, see [`14_documentation_status_a_light.md`](14_documentation_status_a_light.md).
 
