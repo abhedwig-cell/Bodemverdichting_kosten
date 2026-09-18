@@ -73,5 +73,15 @@
     "Rerun the overlay. Proceed only when all intersecting mappings are QUALIFIED and area closure passes.",
     "Compare the total with independent national crop context without proportional rescaling.",
     "Qualify/admit the resulting crop-by-soil shares before binding them into the on-site calculation surface."
-  ]
+  ],
+  "materialization_contract": {
+    "tool": "tools/acquire_onsite_maize_soil_sources.py",
+    "raw_root": "data/raw/onsite_maize_soil_v0_1",
+    "interim_root": "data/interim/onsite_maize_soil_v0_1",
+    "local_manifest": "data/interim/onsite_maize_soil_v0_1/acquisition_manifest.json",
+    "brp_strategy": "OGC API Features + CQL2 server-side filter; preserve and hash each raw response page before merging.",
+    "brp_filter": "gewascode = 259 AND jaar = 2025 AND status = 'Definitief'",
+    "bro_strategy": "Resolve GPKG from official Atom feed; preserve and hash Atom response and original GPKG.",
+    "git_policy": "Raw and interim source files remain gitignored; only reviewed provenance/qualification checkpoints are persisted in the repository."
+  }
 }

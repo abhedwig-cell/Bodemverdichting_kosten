@@ -138,6 +138,20 @@ def validate() -> list[str]:
     if not any("QUALIFIED" in str(item) for item in workflow):
         errors.append("acquisition workflow must require qualified mappings before overlay")
 
+    materialization = acquisition.get("materialization_contract", {})
+    if materialization.get("tool") != "tools/acquire_onsite_maize_soil_sources.py":
+        errors.append("acquisition contract missing canonical source materialization tool")
+    if materialization.get("raw_root") != "data/raw/onsite_maize_soil_v0_1":
+        errors.append("unexpected raw source-materialization root")
+    if materialization.get("interim_root") != "data/interim/onsite_maize_soil_v0_1":
+        errors.append("unexpected interim source-materialization root")
+    if "gewascode = 259" not in (materialization.get("brp_filter") or ""):
+        errors.append("materialization contract must pin silage-maize BRP filter")
+    if "status = 'Definitief'" not in (materialization.get("brp_filter") or ""):
+        errors.append("materialization contract must pin definitive BRP status")
+    if "Atom" not in (materialization.get("bro_strategy") or ""):
+        errors.append("materialization contract must preserve official BRO Atom route")
+
     return errors
 
 
