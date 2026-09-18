@@ -1,0 +1,7 @@
+ccnl6_class,label_nl,definition,source_basis,mapping_status,notes
+ZE,Zand met dikke eerdlaag,"Zandgronden met een eerdlaag van 30 cm of dikker","CC-NL 2018 / WER 3048; six-class reporting system",DEFINED,"BRO translation must use explicit profile/soil-unit evidence; name matching alone is insufficient."
+ZO,Overige zandgronden,"Zandgronden not classified as ZE and not organic/clay/loam classes","CC-NL 2018 / WER 3048; six-class reporting system",DEFINED,"Residual only within explicitly established sandy mineral soils; never use as catch-all for unknown codes."
+K,Kleigronden,"Kleigronden including kleibrikgronden and oude kleigronden","CC-NL 2018 / WER 3048; six-class reporting system",DEFINED,"Exact BRO soil-unit families must be reviewed."
+L,Leemgronden,"Leemgronden including leembrikgronden","CC-NL 2018 / WER 3048; six-class reporting system",DEFINED,"Exact BRO soil-unit families must be reviewed."
+M,Moerige gronden,"Moerige gronden including moerige podzolgronden; organic layer thinner than peat criterion but beginning within 40 cm","CC-NL six-class rationale / WER 2974 and WER 3048",DEFINED,"Do not collapse into peat; current BRO updates may differ from historical LSK classification."
+V,Veengronden,"Veengronden; in the six-class rationale more than 40 cm moerig material within 80 cm","CC-NL six-class rationale / WER 2974 and WER 3048",DEFINED,"Current BRO mapping may differ from historical LSK classification due peat oxidation and updates."
