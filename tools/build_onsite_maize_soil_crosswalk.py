@@ -42,12 +42,21 @@ def validate_mapping_rows(rows: Iterable[dict[str, str]]) -> list[str]:
             errors.append(f"row {i}: duplicate soil_unit_code {code}")
         seen.add(code)
 
-        if klass not in CCNL6_CLASSES:
-            errors.append(f"row {i}: invalid ccnl6_class {klass!r} for {code}")
         if status not in {"REVIEW_REQUIRED", "QUALIFIED", "REJECTED"}:
             errors.append(f"row {i}: invalid mapping_status {status!r} for {code}")
-        if status == QUALIFIED_MAPPING_STATUS and not basis:
-            errors.append(f"row {i}: QUALIFIED mapping {code} requires mapping_basis")
+        if status == QUALIFIED_MAPPING_STATUS:
+            if klass not in CCNL6_CLASSES:
+                errors.append(
+                    f"row {i}: QUALIFIED mapping {code} requires a valid "
+                    f"ccnl6_class; got {klass!r}"
+                )
+            if not basis:
+                errors.append(f"row {i}: QUALIFIED mapping {code} requires mapping_basis")
+        elif klass and klass not in CCNL6_CLASSES:
+            errors.append(
+                f"row {i}: non-qualified mapping {code} has invalid "
+                f"candidate ccnl6_class {klass!r}"
+            )
 
     return errors
 
