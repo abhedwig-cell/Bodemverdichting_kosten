@@ -14,6 +14,7 @@ from validate_managed_boundary_gate import validate as validate_managed_boundary
 from validate_land_use_gate import validate as validate_land_use_gate
 from validate_model_config_gate import validate as validate_model_config_gate
 from validate_onsite_bounded_surface import validate as validate_onsite_bounded_surface
+from validate_onsite_maize_crosswalk import validate as validate_onsite_maize_crosswalk
 from validate_profile_baseline import validate as validate_profile_baseline
 from validate_spatial_geometry import validate as validate_spatial_geometry
 
@@ -60,6 +61,10 @@ REQUIRED_PATHS = [
     "evidence/evidence_ensemble_register_v0_1.csv",
     "evidence/onsite_bounded_calculation_surface_v0_1.csv",
     "docs/52_onsite_bounded_calculation_surface_v0_1.md",
+    "docs/54_onsite_maize_soil_crosswalk_v0_1.md",
+    "config/ccnl6_class_definition_v0_1.csv",
+    "config/bro_sgm_to_ccnl6_mapping_v0_1.csv",
+    "artifacts/acquisition/onsite_maize_soil_crosswalk_sources_v0_1.json",
     "data_requests/data_request_register.csv",
     "data_requests/tollebeek_current_state_data_request_v0_1.md",
     "data_requests/tollebeek_drainage_data_request_v0_1.md",
@@ -100,6 +105,7 @@ def validate() -> list[str]:
     errors.extend(f"land-use-gate: {item}" for item in validate_land_use_gate())
     errors.extend(f"model-config-gate: {item}" for item in validate_model_config_gate())
     errors.extend(f"onsite-bounded-surface: {item}" for item in validate_onsite_bounded_surface())
+    errors.extend(f"onsite-maize-crosswalk: {item}" for item in validate_onsite_maize_crosswalk())
     errors.extend(f"profile-baseline: {item}" for item in validate_profile_baseline())
     errors.extend(f"spatial-geometry: {item}" for item in validate_spatial_geometry())
     errors.extend(f"project-structure: {item}" for item in validate_required_paths())
