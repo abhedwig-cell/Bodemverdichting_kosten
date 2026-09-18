@@ -570,6 +570,27 @@ Een route die niet volledig kan worden gemonetariseerd kan nog steeds een belang
 
 ---
 
+
+## 12A. Praktisch werkinstrument: effect-pathway matrix
+
+De brede filosofie uit dit document is uitgewerkt in:
+
+- `docs/49_project_effect_pathway_matrix_v0_1.md`;
+- `evidence/effect_pathway_matrix_v0_1.csv`.
+
+Die matrix is het aanbevolen werkoppervlak voor de volgende inhoudelijke fase. Per on-site en off-site route legt zij vast:
+
+- de volledige causale keten;
+- reeds beschikbare evidence;
+- bron- en transferonzekerheid;
+- mogelijke empirische verkorting;
+- monetariseringsroute;
+- huidig verdict;
+- de lichtste volgende actie;
+- expliciete verboden shortcuts.
+
+De matrix is geen verzameling centrale schadecoëfficiënten. Zij is juist bedoeld om zichtbaar te maken wanneer meerdere bronnen als ensemble of scenario naast elkaar moeten blijven staan.
+
 ## 13. Praktische overname voor een nieuwe collega
 
 Een collega die vanaf hier instapt hoeft niet de volledige commitgeschiedenis te reconstrueren.
