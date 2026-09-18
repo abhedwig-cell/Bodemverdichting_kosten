@@ -46,3 +46,7 @@ to check identifiers, foreign keys and controlled-vocabulary values.
 - `evidence_ensemble_register_v0_1.csv` seeds conservative source ensembles. Legacy-workbook members remain explicitly marked `LEGACY_WORKBOOK_NOT_YET_CANONICAL` until migrated/qualified; their presence in the register does not admit them as current Dutch coefficients.
 - `onsite_bounded_calculation_surface_v0_1.csv` is the first machine-readable soil×crop×exposure calculation surface. It is intentionally gated: current exposure and economic values are blank, maize crop share remains unresolved, and no damage result is permitted until those causal terms are qualified.
 
+## Maize × soil crosswalk
+
+The current silage-maize crop-area refinement uses a fail-closed spatial route: definitive BRP 2025 crop parcels intersect a versioned BRO SGM soil model, after every encountered `soil_unit_code` has been explicitly reviewed against the six CC-NL reporting classes. The class contract is in `../config/ccnl6_class_definition_v0_1.csv`; the code mapping register is `../config/bro_sgm_to_ccnl6_mapping_v0_1.csv`. An empty mapping is a valid data-gated state; it does not authorize classification or output.
+
