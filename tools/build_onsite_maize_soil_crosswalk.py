@@ -115,6 +115,15 @@ def parse_args() -> argparse.Namespace:
         default=Path("data/derived/onsite_maize_soil_crosswalk_2025_manifest.json"),
     )
     p.add_argument(
+        "--unmapped-report",
+        type=Path,
+        default=Path("data/derived/onsite_maize_soil_unmapped_codes_2025.csv"),
+        help=(
+            "Diagnostic CSV written when intersecting BRO soil codes are missing "
+            "or not yet QUALIFIED."
+        ),
+    )
+    p.add_argument(
         "--closure-tolerance",
         type=float,
         default=0.005,
@@ -211,6 +220,25 @@ def main() -> int:
 
     missing, unqualified = mapping_coverage(candidate_codes, mapping_rows)
     if missing or unqualified:
+        problem_codes = set(missing) | set(unqualified)
+        report = soil.loc[
+            soil["soil_unit_code"].astype(str).str.strip().isin(problem_codes),
+            [
+                "soil_unit_code",
+                "soil_classification",
+                "main_soil_classification",
+            ],
+        ].copy()
+        report["soil_unit_code"] = report["soil_unit_code"].astype(str).str.strip()
+        report = report.drop_duplicates(subset=["soil_unit_code"]).sort_values(
+            "soil_unit_code"
+        )
+        report["mapping_state"] = report["soil_unit_code"].map(
+            lambda code: "MISSING" if code in set(missing) else "UNQUALIFIED"
+        )
+        args.unmapped_report.parent.mkdir(parents=True, exist_ok=True)
+        report.to_csv(args.unmapped_report, index=False)
+
         if missing:
             print("ERROR: unmapped intersecting BRO soil_unit_code values:")
             for code in missing:
@@ -219,6 +247,7 @@ def main() -> int:
             print("ERROR: intersecting BRO soil_unit_code values not QUALIFIED:")
             for code in unqualified:
                 print(f"  - {code}")
+        print(f"Wrote review diagnostic: {args.unmapped_report}")
         print(
             "Crosswalk aborted. Add/review explicit mappings in "
             "config/bro_sgm_to_ccnl6_mapping_v0_1.csv; no fallback class is allowed."
