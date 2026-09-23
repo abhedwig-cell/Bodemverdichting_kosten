@@ -1,8 +1,10 @@
 # Traceability matrix v0.1
 
-Status: **working baseline**
+Status: **historical early baseline; current project-wide authority is `../PROJECT_ARCHITECTURE_STATUS.md` plus `../model/traceability.csv`**
 
-Purpose: show whether major project capabilities are connected across theory, conceptual model, formal model, data model, implementation and evidence/qualification.
+Purpose: show the first major project capabilities connected across theory, conceptual model, formal model, data model, implementation and evidence/qualification.
+
+This file predates the later project-wide on-site evidence ensembles, bounded calculation surface and BRP × BRO crosswalk. It is retained for review history and should not be read as a complete list of current priorities.
 
 This is a lightweight review surface, not a duplicate database of all project information.
 

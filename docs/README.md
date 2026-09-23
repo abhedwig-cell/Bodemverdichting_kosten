@@ -1,5 +1,7 @@
 # Documentation map
 
+**Current project-wide status authority:** [`../PROJECT_ARCHITECTURE_STATUS.md`](../PROJECT_ARCHITECTURE_STATUS.md). Use that page to determine current readiness and which underlying documents are authoritative. Dated checkpoints remain useful history but do not override the current status page.
+
 The documentation is organised from scientific meaning to implementation and evidence. The first documents form the **core colleague reader path**; later documents record migration, implementation and governance milestones.
 
 ## Start here
@@ -10,9 +12,9 @@ Then read [`00_colleague_reader_guide.md`](00_colleague_reader_guide.md). It exp
 
 For documentation governance and Status-A-light expectations, see [`14_documentation_status_a_light.md`](14_documentation_status_a_light.md).
 
-For a compact cross-layer review of the current architecture, see [`15_traceability_matrix_v0_1.md`](15_traceability_matrix_v0_1.md). The machine-readable equation and capability traceability baseline is documented in [`17_formal_traceability_register_v0_1.md`](17_formal_traceability_register_v0_1.md).
+For the original compact cross-layer baseline, see [`15_traceability_matrix_v0_1.md`](15_traceability_matrix_v0_1.md). It is retained as an early pilot-biased traceability surface. Current machine-readable capability authority is `../model/traceability.csv`, interpreted through `../PROJECT_ARCHITECTURE_STATUS.md`; the register design is documented in [`17_formal_traceability_register_v0_1.md`](17_formal_traceability_register_v0_1.md).
 
-For the current transfer/review moment, use [`18_status_a_light_checkpoint_v0_1.md`](18_status_a_light_checkpoint_v0_1.md). It summarises maturity per layer, current Tollebeek data gates, what the tests do and do not prove, and the next scientific milestone.
+[`18_status_a_light_checkpoint_v0_1.md`](18_status_a_light_checkpoint_v0_1.md) is retained as the 16 September 2026 checkpoint. It is no longer the current project-wide readiness authority because the project subsequently restored the broader on-site/off-site balance and minimum-necessary-computation framing.
 
 For the current review, start with [`57_colleague_review_package_v0_2.md`](57_colleague_review_package_v0_2.md). It is deliberately self-contained and written in plain language: project intent, the reasoning behind the calculation, effects on and outside the parcel, uncertainty, the role of existing studies and the dashboard as an explanation tool rather than a number-only display. The older [`19_colleague_review_session_v0_1.md`](19_colleague_review_session_v0_1.md) and [`20_colleague_review_package_v0_1.md`](20_colleague_review_package_v0_1.md) remain historical review-design records.
 

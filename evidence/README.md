@@ -13,10 +13,7 @@ Files:
 - `claims.csv`: project interpretations that may combine or constrain multiple evidence items;
 - `qualification_register.csv`: intended-use qualification of evidence items.
 
-The registers currently contain two bounded baselines:
-
-- the Tollebeek managed-system / pump-dispatch evidence baseline;
-- the v0.1 general theory evidence baseline linking core project principles to Keller 2019, Graves 2015, Groenendijk 2017, Kuhlman 2010 and Romero-Ruiz 2026.
+The evidence layer now contains both bounded source/evidence/claim/qualification baselines and project-wide control surfaces. The earlier Tollebeek managed-system baseline and v0.1 general theory baseline remain important, but they no longer define the whole project. Newer project-wide material includes effect pathways, source ensembles and a fail-closed on-site calculation surface.
 
 Readable indexes are available in `docs/13_tollebeek_evidence_baseline_v0_1.md` and `docs/16_theory_evidence_baseline_v0_1.md`.
 

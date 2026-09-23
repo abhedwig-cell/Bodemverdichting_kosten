@@ -1,5 +1,7 @@
 # Status-A-light checkpoint v0.1
 
+> **Historical checkpoint, superseded as current project-wide status.** This file records the state on 16 September 2026. Use [`../PROJECT_ARCHITECTURE_STATUS.md`](../PROJECT_ARCHITECTURE_STATUS.md) for current architecture/readiness. In particular, the later project-wide repositioning restores equal on-site/off-site treatment and minimum necessary computation; the Tollebeek source-model milestone below is no longer the single projectwide next step.
+
 **Datum:** 2026-09-16  
 **Doel:** een collega-reviewbare momentopname van wat inhoudelijk, formeel en technisch bestaat, wat daarvan gekwalificeerd is en welke data-gates de volgende wetenschappelijke stap blokkeren.
 
