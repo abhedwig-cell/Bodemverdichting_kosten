@@ -1,12 +1,12 @@
 # 5. Data model
 
-Status: **Data Model v0.2 migration baseline**
+Status: **Status-A-light composite data-model baseline (dataset/relationship layer v0.3.1)**
 
 ## 5.1 Purpose
 
 The data model defines scientific meaning independently of Excel, Python, databases or the future application.
 
-Canonical machine-readable definitions live under [`../schema/`](../schema/). The current model is a migration baseline rather than a final v1 schema, but it is already the preferred place to define stable identities, grains, fields and relationships.
+Canonical machine-readable definitions live under [`../schema/`](../schema/). The current model is a composed migration baseline rather than a final v1 schema. Core field files still retain their own bounded version labels, while the current dataset/relationship graph is at the v0.3.x line. The repository-level authority is the composed schema under schema/, not the version label of one individual YAML file.
 
 The central design rule is:
 
@@ -296,7 +296,7 @@ The important requirement is semantic compatibility, not forcing every byte into
 
 ## 5.14 Promotion toward v1
 
-Data Model v0.2 can move toward v1 when:
+The current composite data model can move toward v1 when:
 
 - key entity grains no longer depend on legacy workbook layout;
 - field definitions cover the first production workflows without incompatible overlays;

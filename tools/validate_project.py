@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from validate_architecture_contract import validate as validate_architecture_contract
+from validate_project_pathways import validate as validate_project_pathways
 from validate_current_state_gate import validate as validate_current_state_gate
 from validate_drainage_gate import validate as validate_drainage_gate
 from validate_event_forcing_gate import validate as validate_event_forcing_gate
@@ -64,6 +66,8 @@ REQUIRED_PATHS = [
     "docs/54_onsite_maize_soil_crosswalk_v0_1.md",
     "docs/55_bro_ccnl6_rule_proposals_v0_1.md",
     "docs/57_colleague_review_package_v0_2.md",
+    "docs/58_project_architecture_status_v0_1.md",
+    "schema/project_pathway_fields_v0_1.yml",
     "review/pre_read_manifest_v0_2.csv",
     "review/colleague_review_questions_v0_2.csv",
     "config/bro_ccnl6_family_rules_v0_1.csv",
@@ -99,6 +103,8 @@ def validate_required_paths() -> list[str]:
 
 def validate() -> list[str]:
     errors: list[str] = []
+    errors.extend(f"architecture-contract: {item}" for item in validate_architecture_contract())
+    errors.extend(f"project-pathways: {item}" for item in validate_project_pathways())
     errors.extend(f"evidence: {item}" for item in validate_evidence())
     errors.extend(f"formal-traceability: {item}" for item in validate_formal_traceability())
     errors.extend(f"current-state-gate: {item}" for item in validate_current_state_gate())
@@ -128,7 +134,7 @@ def main() -> int:
 
     print("Status-A-light project validation passed.")
     print(
-        "Validated evidence integrity, formal traceability, Data Model v0.4 hydraulic-extension domain-schema "
+        "Validated architecture contracts, project-wide pathways, evidence integrity, formal traceability, composite domain-schema "
         "integrity, source-model input-readiness gates, admitted spatial geometry and profile-baseline integrity "
         "and required review structure."
     )

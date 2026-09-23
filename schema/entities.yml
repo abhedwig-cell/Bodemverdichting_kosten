@@ -121,3 +121,15 @@ entities:
   data_request_item:
     description: Requested external or internal data item with purpose, priority and fulfilment status.
     grain: one row per request item
+
+  effect_pathway:
+    description: Project-wide causal effect pathway connecting compaction/state to a physical, operational or valuation consequence.
+    grain: one row per pathway definition/version
+
+  evidence_ensemble_member:
+    description: One explicitly typed evidence member within a pathway-specific evidence ensemble.
+    grain: one row per ensemble x evidence member
+
+  bounded_calculation_surface:
+    description: One fail-closed calculation context that binds reporting area, exposure, response and valuation readiness without inventing missing values.
+    grain: one row per bounded calculation context/version

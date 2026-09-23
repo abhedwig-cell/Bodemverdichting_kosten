@@ -228,3 +228,24 @@ datasets:
     role: ARTIFACT_METADATA
     grain: one row per canonical field definition
     primary_key: [field_id]
+
+  effect_pathway_register:
+    entity: effect_pathway
+    role: GOVERNANCE
+    grain: one row per effect pathway definition/version
+    primary_key: [pathway_id]
+    storage: evidence/effect_pathway_matrix_v0_1.csv
+
+  evidence_ensemble_register:
+    entity: evidence_ensemble_member
+    role: EVIDENCE
+    grain: one row per ensemble x evidence member
+    primary_key: [ensemble_id, member_evidence_id]
+    storage: evidence/evidence_ensemble_register_v0_1.csv
+
+  onsite_bounded_calculation_surface_register:
+    entity: bounded_calculation_surface
+    role: CONFIGURATION
+    grain: one row per bounded on-site calculation context/version
+    primary_key: [surface_id]
+    storage: evidence/onsite_bounded_calculation_surface_v0_1.csv

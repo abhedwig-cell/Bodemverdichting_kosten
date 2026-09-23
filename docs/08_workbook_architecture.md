@@ -51,7 +51,7 @@ Machine- and human-readable artifact metadata. Minimum fields:
 
 - `project_id`
 - `artifact_id`
-- `artifact_type`
+- `artifact_class`
 - `artifact_version`
 - `framework_version`
 - `schema_version`

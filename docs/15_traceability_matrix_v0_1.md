@@ -1,6 +1,8 @@
 # Traceability matrix v0.1
 
-Status: **working baseline**
+Status: **partial capability baseline; Tollebeek-first snapshot**
+
+Current project-wide architecture/readiness authority: `58_project_architecture_status_v0_1.md`. This matrix remains useful for the detailed source → transfer → dispatch capability chain but should not be read as the full project priority map.
 
 Purpose: show whether major project capabilities are connected across theory, conceptual model, formal model, data model, implementation and evidence/qualification.
 

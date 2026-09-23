@@ -39,6 +39,7 @@ class WorkbookGeneratorContractTests(unittest.TestCase):
     def test_no_unknown_field_names(self):
         fields, _, spec = load_all()
         for dataset in spec["datasets"]:
+            self.assertTrue(dataset.get("canonical_status"))
             for field_id in dataset["fields"]:
                 self.assertIn(field_id, fields)
 

@@ -103,7 +103,7 @@ def build(root: Path, output: Path, git_commit: str | None = None) -> None:
         ["artifact_id", artifact["artifact_id"]],
         ["artifact_class", artifact["artifact_class"]],
         ["artifact_version", artifact["artifact_version"]],
-        ["framework_version", "Status-A-light / data-model v0.2"],
+        ["framework_version", "Status-A-light / composite data-model v0.3.1"],
         ["schema_version", artifact["schema_version"]],
         ["generated_on", date.today().isoformat()],
         ["git_commit", git_commit or ""],
@@ -254,7 +254,7 @@ def build(root: Path, output: Path, git_commit: str | None = None) -> None:
             ["role", dataset.get("role", "")],
             ["grain", dataset.get("grain", "")],
             ["primary_key", ", ".join(dataset.get("primary_key", []))],
-            ["canonical_status", "MIGRATION_BASELINE"],
+            ["canonical_status", dataset_spec.get("canonical_status", "WORKING_BASELINE")],
             ["source_file", data_file or "generated template / not yet populated"],
         ]
         sheet.get_range("A2:B8").values = metadata_rows

@@ -1,22 +1,19 @@
 # Source code
 
-Scientific and data-processing code is migrated here progressively.
+Deze map bevat gedeelde wetenschappelijke code die niet afhankelijk hoort te zijn van Excel, dashboards of één specifieke pilot.
 
-Current separation:
+## Huidig geïmplementeerd
 
-- `hydrology/` — source-response and hydrological calculations/adapters
-- `transfer/` — event-conditioned source-to-receptor transfer
-- `water_system/` — routing, pump dispatch, capacity and energy
-- `valuation/` — explicit valuation relations and cost categories
-- `io/` — data/workbook/application adapters
+- transfer/volume.py: omzetting van een gekwalificeerd bronverschil in waterdiepte naar gegenereerd volume;
+- water_system/dispatch.py: expliciete twee-zone/twee-pomp allocatiesemantiek zonder verborgen availability- of assist-defaults;
+- water_system/energy.py: pompenergie met expliciete head en efficiency.
 
-The first implemented vertical slice is documented in
-[`docs/11_tollebeek_vertical_slice_v0_2.md`](../docs/11_tollebeek_vertical_slice_v0_2.md).
+De functies zijn generiek geschreven. De huidige tests gebruiken de Tollebeek vertical slice als eerste concrete toepassing, maar de code mag Tollebeek-specifieke waarden niet als universele defaults vastleggen.
 
-Current code in that slice is deliberately generic:
+## Nog geen geïmplementeerde package
 
-- `transfer/volume.py` implements the generated-volume identity;
-- `water_system/dispatch.py` implements explicit two-zone/two-pump allocation without hidden operational defaults;
-- `water_system/energy.py` implements the pump-energy identity with explicit head and efficiency.
+Hydrologie/modeladapters, waardering en I/O/application services zijn in de architectuur beschreven, maar bestaan nog niet als algemene src-packages. Documentatie mag zulke toekomstige namespaces niet presenteren alsof ze al geïmplementeerd zijn.
+
+Nieuwe code hoort pas naar src/ wanneer een formele relatie of adapter daadwerkelijk herbruikbaar is. Een case-specifieke acquisitie- of reviewtool kan onder tools/ blijven.
 
 Do not duplicate scientific equations independently in multiple interfaces when a shared tested implementation is possible.

@@ -21,6 +21,8 @@ jobs:
           python -m py_compile
           tools/workbook_generator/generate.py
           tools/workbook_generator/contract.py
+          tools/validate_architecture_contract.py
+          tools/validate_project_pathways.py
           tools/validate_evidence.py
           tools/validate_current_state_gate.py
           tools/validate_drainage_gate.py

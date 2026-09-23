@@ -1,5 +1,7 @@
 # Status-A-light checkpoint v0.1
 
+Status: **HISTORICAL CHECKPOINT — superseded for current project-wide status by `58_project_architecture_status_v0_1.md`**
+
 **Datum:** 2026-09-16  
 **Doel:** een collega-reviewbare momentopname van wat inhoudelijk, formeel en technisch bestaat, wat daarvan gekwalificeerd is en welke data-gates de volgende wetenschappelijke stap blokkeren.
 
