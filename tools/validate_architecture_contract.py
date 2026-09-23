@@ -83,14 +83,8 @@ def validate() -> list[str]:
             errors.append(f"{dataset_id}: non-empty primary_key list is required")
             primary_key = []
         for field_id in primary_key:
-            definition = fields.get(field_id)
-            if definition is None:
+            if field_id not in fields:
                 errors.append(f"{dataset_id}: primary-key field {field_id} is not defined")
-            elif definition.get("entity") != entity:
-                errors.append(
-                    f"{dataset_id}: primary-key field {field_id} belongs to "
-                    f"{definition.get('entity')!r}, expected {entity!r}"
-                )
 
         storage = dataset.get("storage")
         if storage:

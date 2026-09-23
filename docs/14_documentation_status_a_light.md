@@ -139,10 +139,10 @@ Each generated workbook should expose:
 - `00_METADATA`;
 - `01_GUIDE`;
 - `DATA_DICTIONARY`;
-- dataset-level metadata including grain and key;
+- dataset-level metadata including dataset ID, entity, role, grain, key, status and source/derivation;
 - short header help derived from the canonical field schema;
 - a visible distinction between source/data tables and views;
-- artifact version, schema version and repository commit where available.
+- artifact version, schema version and repository commit.
 
 Unknown scientific values remain blank/null. The workbook must not improve visual completeness by manufacturing numeric defaults.
 
