@@ -163,6 +163,25 @@ State-specific hydraulic properties are represented through a separate `Hydrauli
 
 This separation matters because the matched counterfactual normally changes soil state while preserving profile context and transformation semantics.
 
+### 5.7a Scenario and context semantics
+
+A scenario is not automatically a new canonical entity. At the current maturity level, most scenario meaning should be reconstructed from explicit existing dimensions such as:
+
+```text
+soil_state_id
+land_use_crop_id
+event_id / forcing context
+drainage_configuration_id
+model_configuration_id
+water-system context
+valuation_relation_id
+time/frequency semantics where relevant
+```
+
+This avoids opaque labels that hide which assumptions changed.
+
+A separate scenario entity should only be introduced when scenarios require independent stable identity, provenance, qualification, versioning or reuse across multiple workflows. Until that need exists, adding a universal scenario table would create framework structure without adding scientific information.
+
 ## 5.8 Evidence model
 
 The evidence datasets are canonical machine-readable project records rather than annotations attached informally to Excel cells.

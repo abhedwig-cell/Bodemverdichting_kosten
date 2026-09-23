@@ -18,12 +18,12 @@ workbook:
       - artifact_version
       - schema_version
       - generated_on
+      - git_commit
       - purpose
       - scope
       - canonical_status
     recommended:
       - framework_version
-      - git_commit
       - intended_audience
       - input_datasets
       - evidence_snapshot
@@ -39,15 +39,15 @@ workbook:
       - grain
       - primary_key
       - canonical_status
+      - source_or_derivation
     recommended:
       - dataset_version
       - purpose
-      - source_or_derivation
       - qualification_status
       - known_limitations
 
   field_help:
-    canonical_source: schema/fields.yml
+    canonical_source: merged canonical field registry
     preferred_excel_surface:
       - header_note_or_comment
       - data_validation_input_message
@@ -60,3 +60,4 @@ workbook:
     - views_are_not_source_tables
     - artifact_version_does_not_imply_cumulative_inheritance
     - provenance_and_qualification_must_survive_into_artifacts
+    - scenario_context_must_be_explicit_when_it_changes_interpretation
