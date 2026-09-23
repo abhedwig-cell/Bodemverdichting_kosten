@@ -7,7 +7,13 @@ from pathlib import Path
 
 from artifact_tool import SpreadsheetFile, Workbook
 
-from contract import field_help, load_yaml, merged_fields, validate_spec
+from contract import (
+    dataset_metadata_rows,
+    field_help,
+    load_yaml,
+    merged_fields,
+    validate_spec,
+)
 
 NAVY = "#17365D"
 BLUE = "#1F4E78"
@@ -248,15 +254,7 @@ def build(root: Path, output: Path, git_commit: str | None = None) -> None:
             "color": WHITE,
             "size": 15,
         }
-        metadata_rows = [
-            ["dataset_id", dataset_id],
-            ["entity", dataset.get("entity", "")],
-            ["role", dataset.get("role", "")],
-            ["grain", dataset.get("grain", "")],
-            ["primary_key", ", ".join(dataset.get("primary_key", []))],
-            ["canonical_status", dataset_spec.get("canonical_status", "PROVISIONAL")],
-            ["source_file", data_file or "generated template / not yet populated"],
-        ]
+        metadata_rows = dataset_metadata_rows(dataset_id, dataset, dataset_spec)
         sheet.get_range("A2:B8").values = metadata_rows
         sheet.get_range("A2:A8").format.fill = LIGHT_BLUE
         sheet.get_range("A2:A8").format.font = {"bold": True, "color": NAVY}
