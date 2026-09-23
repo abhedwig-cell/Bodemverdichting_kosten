@@ -28,6 +28,12 @@ REQUIRED_WORKBOOK_DATASET_METADATA = {
     "grain",
     "primary_key",
     "canonical_status",
+    "source_or_derivation",
+}
+
+REQUIRED_WORKBOOK_ARTIFACT_METADATA = {
+    "schema_version",
+    "git_commit",
 }
 
 
@@ -145,6 +151,20 @@ def validate() -> list[str]:
         errors.append(
             "workbook contract misses required dataset metadata: "
             + ", ".join(sorted(missing_metadata))
+        )
+
+    required_artifact_metadata = set(
+        workbook_contract.get("workbook", {})
+        .get("metadata_fields", {})
+        .get("required", [])
+    )
+    missing_artifact_metadata = (
+        REQUIRED_WORKBOOK_ARTIFACT_METADATA - required_artifact_metadata
+    )
+    if missing_artifact_metadata:
+        errors.append(
+            "workbook contract misses required artifact metadata: "
+            + ", ".join(sorted(missing_artifact_metadata))
         )
 
     authority = ROOT / "docs" / "58_project_architecture_status_v0_1.md"
