@@ -63,6 +63,24 @@ def validate() -> list[str]:
     fields, field_errors = merged_fields()
     errors.extend(field_errors)
 
+    vocab = load_yaml(SCHEMA / "controlled_vocabularies.yml").get("vocabularies", {})
+    allowed_canonical_status = set(vocab.get("canonical_status", []))
+    artifact_spec = load_yaml(
+        SCHEMA / "artifacts" / "tollebeek_vertical_slice_workbook.yml"
+    )
+    artifact_status = artifact_spec.get("artifact", {}).get("canonical_status")
+    if artifact_status not in allowed_canonical_status:
+        errors.append(
+            f"workbook artifact canonical_status {artifact_status!r} is not controlled"
+        )
+    for item in artifact_spec.get("datasets", []):
+        status = item.get("canonical_status")
+        if status not in allowed_canonical_status:
+            errors.append(
+                f"workbook dataset {item.get('dataset_id')}: canonical_status "
+                f"{status!r} is not controlled"
+            )
+
     for dataset_id, dataset in datasets.items():
         entity = dataset.get("entity")
         if entity not in entities:

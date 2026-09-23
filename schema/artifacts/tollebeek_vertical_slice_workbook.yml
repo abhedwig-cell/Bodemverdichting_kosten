@@ -13,42 +13,42 @@ artifact:
 
 datasets:
   - dataset_id: source_register
-    canonical_status: CANONICAL_POPULATED
+    canonical_status: CANONICAL
     sheet_name: SOURCE
     data_file: evidence/sources.csv
     fields: [source_id, source_title, source_type, source_year, source_url, source_status, source_notes]
   - dataset_id: evidence_register
-    canonical_status: CANONICAL_POPULATED
+    canonical_status: CANONICAL
     sheet_name: EVIDENCE
     data_file: evidence/evidence_register.csv
     fields: [evidence_id, source_id, evidence_statement, spatial_scope, time_scope, evidence_value, evidence_unit, provenance_class, intended_use, guardrail, evidence_status]
   - dataset_id: claim_register
-    canonical_status: CANONICAL_POPULATED
+    canonical_status: CANONICAL
     sheet_name: CLAIMS
     data_file: evidence/claims.csv
     fields: [claim_id, claim_statement, claim_type, evidence_ids, spatial_scope, qualification_status, guardrail]
   - dataset_id: qualification_register
-    canonical_status: CANONICAL_POPULATED
+    canonical_status: CANONICAL
     sheet_name: QUALIFICATION
     data_file: evidence/qualification_register.csv
     fields: [qualification_id, evidence_id, intended_use, dependencies, test_or_review, qualification_status, review_date, qualification_notes]
   - dataset_id: spatial_unit_register
-    canonical_status: DATA_GATED_TEMPLATE
+    canonical_status: BLOCKED
     sheet_name: SPATIAL_UNIT
     fields: [spatial_unit_id]
   - dataset_id: hydrological_response_register
-    canonical_status: DATA_GATED_TEMPLATE
+    canonical_status: BLOCKED
     sheet_name: HYDRO_RESPONSE
     fields: [response_id, model_run_id, affected_area_ha, delta_runoff_mm, generated_increment_m3]
   - dataset_id: transfer_event_register
-    canonical_status: DATA_GATED_TEMPLATE
+    canonical_status: BLOCKED
     sheet_name: TRANSFER_EVENT
     fields: [transfer_event_id, event_id, spatial_unit_id, transfer_stage, delivered_volume_m3, event_delivery_factor, water_system_unit_id]
   - dataset_id: pump_asset_register
-    canonical_status: PARTIAL_EVIDENCE_TEMPLATE
+    canonical_status: PROVISIONAL
     sheet_name: PUMP_ASSET
     fields: [pump_asset_id, installed_capacity_m3_min]
   - dataset_id: pump_dispatch_register
-    canonical_status: DATA_GATED_TEMPLATE
+    canonical_status: BLOCKED
     sheet_name: PUMP_DISPATCH
     fields: [pump_dispatch_id, event_id, source_zone_id, pump_asset_id, pumped_volume_m3, availability_fraction, assist_fraction, pump_hours, response_window_h, capacity_pressure_fraction, total_dynamic_head_m, pump_efficiency, energy_kwh]

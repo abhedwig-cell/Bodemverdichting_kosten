@@ -104,15 +104,15 @@ Each data-bearing sheet should expose a compact metadata block before or beside 
 Minimum dataset metadata:
 
 - `dataset_id`
-- `dataset_version`
-- `purpose`
 - `entity`
+- `role`
 - `grain`
 - `primary_key`
 - `canonical_status`
-- `source_or_derivation`
-- `qualification_status`
-- `known_limitations`
+
+Recommended contextual metadata includes `dataset_version`, purpose, source or derivation, qualification status and known limitations when those are separately defined. Do not invent those values to make the workbook look complete.
+
+Here `canonical_status` uses the shared controlled vocabulary for canonicality/readiness of the exposed dataset instance. More detailed operational states such as `WAIT_DATA` or `PARTIAL_EVIDENCE` belong in explicit readiness/status views and must not be smuggled into `canonical_status`.
 
 ## Field-level help in Excel
 
