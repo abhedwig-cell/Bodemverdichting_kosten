@@ -1,6 +1,6 @@
 # Reviewdocument — kosten van bodemverdichting
 
-**Tussenstand voor inhoudelijke bespreking — 18 september 2026**
+**Werkversie voor inhoudelijke bespreking — bijgewerkt 23 september 2026**
 
 Dit document legt in gewone taal uit wat we met het project willen bereiken, hoe we het aanpakken, wat er al staat en waar nog keuzes of kennis ontbreken.
 
@@ -46,6 +46,53 @@ Om een gevolg echt aan bodemverdichting toe te kunnen schrijven, vergelijken we 
 Een eenvoudig voorbeeld: als twee maïspercelen hetzelfde gewas, hetzelfde weer en hetzelfde waterbeheer hebben, maar één bodem sterker verdicht is, kunnen we een verschil in opbrengst beter aan de bodemtoestand koppelen dan wanneer tegelijk ook gewas of waterstand verschillen.
 
 De referentie hoeft niet per se een volledig onbereden of “natuurlijke” bodem te zijn. Zij moet passen bij de vraag die we stellen.
+
+### Geen vast schadegetal, maar een conditionele raming
+
+Een belangrijke consequentie is dat we waarschijnlijk **niet één schadegetal per bodemtype × landgebruikcombinatie** kunnen geven dat onder alle omstandigheden geldig is.
+
+De schade hangt af van meerdere soorten condities. Aan de kant van de bodem kan het bijvoorbeeld gaan om:
+
+- ernst van de verdichting;
+- diepte en dikte van de verdichte laag;
+- actuele vochttoestand of uitgangstoestand;
+- gekozen referentietoestand.
+
+Aan de kant van de respons kan het onder meer gaan om:
+
+- gewas en groeifase;
+- een gemiddeld, droog of nat jaar;
+- grootte en timing van een piekbui;
+- grondwater- en drainagecondities;
+- beschikbare berging, afvoercapaciteit of wateraanvoer;
+- economische prijzen en de gekozen manier van waarderen.
+
+Daarom zien we het eindproduct niet als een tabel met één vaste schadefactor, maar als een **conditionele kostenraming**. Voor een duidelijk omschreven combinatie van omstandigheden geven we wat op dat moment verantwoord kan worden afgeleid: een getal, een bandbreedte, een set scenario's of expliciet nog geen kwantitatief resultaat.
+
+### Wat bedoelen we met een scenario?
+
+Een scenario is hier geen vrij toekomstverhaal. Het is een expliciete combinatie van omstandigheden waarvan we verwachten dat die de uitkomst wezenlijk beïnvloedt.
+
+```text
+bodem + landgebruik
++ mate en diepte van verdichting
++ weer of gebeurtenis
++ hydrologische / operationele systeemcontext
++ economische waarderingscontext
+= conditionele schade of kosten
+```
+
+Voor een opbrengsteffect kan een droog jaar dus een relevant scenario zijn. Voor een off-site waterroute kan juist de grootte van een piekbui, de voorafgaande natheid en de beschikbare systeemcapaciteit bepalend zijn.
+
+We hoeven niet vooraf alle denkbare scenario's te definiëren. Dat zou een onbeheersbare combinatietabel opleveren en schijnvolledigheid suggereren. Wel moet de systematiek kunnen vastleggen **welke omstandigheden bij een resultaat horen** en voor welk toepassingsbereik dat resultaat geldig is.
+
+### Een systeem dat kan doorgroeien
+
+De huidige uitwerking is bewust geen eindproduct dat voor altijd vastligt. Het moet dit jaar bruikbare resultaten kunnen opleveren, maar ook laten zien waar kennis ontbreekt en waar vervolgonderzoek volgend jaar de meeste winst kan geven.
+
+Nieuwe literatuur, metingen of gerichte rekenexperimenten kunnen later als nieuwe evidence, scenario's of betere relaties worden toegevoegd zonder de hele systematiek opnieuw te bouwen.
+
+Daarbij is niet iedere fysische onzekerheid automatisch een onderzoeksprioriteit. De hoofdvraag blijft: **welke onzekerheid bepaalt in belangrijke mate hoeveel schade of kosten we uiteindelijk ramen?** Extra onderzoek heeft vooral waarde wanneer het die onzekerheid aantoonbaar kan verkleinen.
 
 ### Twee soorten gevolgen
 
@@ -332,11 +379,11 @@ Voorbeelden:
 3. **Gevolgen op het perceel** — Welke belangrijke gevolgen voor gewas of bedrijfsvoering ontbreken nog?
 4. **Gevolgen buiten het perceel** — Is de stap van perceel naar watersysteem goed genoeg uitgewerkt?
 5. **Gebruik van bestaande studies** — Wanneer is een bestaande relatie sterk genoeg om tussenstappen niet opnieuw te modelleren?
-6. **Onzekerheid** — Is het terecht om verschillende bronnen eerst naast elkaar te laten staan in plaats van ze standaard te middelen?
+6. **Scenario's en onzekerheid** — Is het terecht om schade conditioneel te rapporteren voor expliciete omstandigheden en verschillende bronnen/scenario's eerst naast elkaar te laten staan in plaats van ze standaard tot één getal te middelen?
 7. **Vertaling naar geld** — Zijn kosten voor boer, publieke partijen en maatschappij voldoende van elkaar gescheiden?
-8. **Dashboard** — Laat het scherm duidelijk genoeg zien wat we weten, wat nog ontbreekt en waarom?
+8. **Dashboard** — Laat het scherm duidelijk genoeg zien wat we weten, welke scenario- en randvoorwaarden bij een resultaat horen, wat nog ontbreekt en waarom?
 9. **Balans** — Zijn de gevolgen op het perceel en buiten het perceel nu voldoende gelijkwaardig uitgewerkt?
-10. **Prioriteit** — Welke twee of drie vervolgstappen leveren volgens jou de meeste nieuwe kennis op?
+10. **Prioriteit** — Welke onzekerheden bepalen volgens jou het sterkst de uiteindelijke schade- of kostenraming, en welke twee of drie vervolgstappen verkleinen juist díé onzekerheid het meest?
 
 Een goede uitkomst van de review is geen “go/no-go”, maar per belangrijk punt bijvoorbeeld:
 

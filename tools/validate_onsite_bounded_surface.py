@@ -48,7 +48,7 @@ def validate() -> list[str]:
         "formula_contract",
         "current_output_status",
         "primary_blocker",
-        "next_action",
+        "surface_next_action",
     }
     if rows:
         missing = required_columns - set(rows[0])
@@ -119,8 +119,8 @@ def validate() -> list[str]:
             errors.append(f"{sid}: formula_contract must be explicit")
         if not row["primary_blocker"].strip():
             errors.append(f"{sid}: primary_blocker must be explicit")
-        if not row["next_action"].strip():
-            errors.append(f"{sid}: next_action must be explicit")
+        if not row["surface_next_action"].strip():
+            errors.append(f"{sid}: surface_next_action must be explicit")
 
     return errors
 

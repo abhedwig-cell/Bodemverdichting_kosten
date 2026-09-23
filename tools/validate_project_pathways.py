@@ -50,6 +50,10 @@ def validate() -> list[str]:
             errors.append(
                 f"{ensemble_id}: unknown member {member_id} must remain explicitly legacy until migrated"
             )
+        if row["central_value_allowed"].strip().lower() not in {"true", "false"}:
+            errors.append(f"{ensemble_id}: central_value_allowed must be true/false")
+        if not row["ensemble_next_action"].strip():
+            errors.append(f"{ensemble_id}: ensemble_next_action is required")
 
     surface_ids = [row["surface_id"] for row in surfaces]
     if len(surface_ids) != len(set(surface_ids)):
@@ -62,6 +66,8 @@ def validate() -> list[str]:
             errors.append(
                 f"{sid}: unknown response_ensemble_id {row['response_ensemble_id']}"
             )
+        if not row["surface_next_action"].strip():
+            errors.append(f"{sid}: surface_next_action is required")
 
     return errors
 

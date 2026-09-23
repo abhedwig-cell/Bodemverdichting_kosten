@@ -185,6 +185,13 @@ fields:
     datatype: string
     nullable: true
 
+  ensemble_next_action:
+    entity: evidence_ensemble_member
+    label: Ensemble next action
+    description: Next bounded evidence, migration or context-matching action for this ensemble member.
+    datatype: string
+    nullable: true
+
   migration_status:
     entity: evidence_ensemble_member
     label: Migration status
@@ -355,5 +362,12 @@ fields:
     entity: bounded_calculation_surface
     label: Primary blocker
     description: Main missing causal term preventing a stronger result.
+    datatype: string
+    nullable: true
+
+  surface_next_action:
+    entity: bounded_calculation_surface
+    label: Surface next action
+    description: Next bounded acquisition, binding or qualification action for this calculation context.
     datatype: string
     nullable: true

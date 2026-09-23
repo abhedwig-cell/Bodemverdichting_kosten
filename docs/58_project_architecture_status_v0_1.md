@@ -2,7 +2,7 @@
 
 **Status:** CURRENT STATUS-A-LIGHT PROJECT AUTHORITY  
 **Datum:** 23 september 2026  
-**Gereconcilieerde main:** 7ccc2cab8c05fc21611226d88c7224842ad4cbbc  
+**Reconciliation basis:** `main @ 1db7e85fb764e8afffed81fb8fc5a1a6a0f30bec`  
 **Doel:** één actuele wegwijzer voor architectuur, traceability, overdraagbaarheid, blockers en de eerstvolgende ontwikkelstap. Deze pagina dupliceert de onderliggende theorie, evidence of schema's niet.
 
 ## 1. Projectpositie
@@ -32,6 +32,27 @@ Daarbinnen zijn on-site en off-site gelijkwaardige paden. Tollebeek is een lokal
 | Gebruikers-/reviewview | docs/57_colleague_review_package_v0_2.md en review/ | legt het project in gewone taal uit en verzamelt inhoudelijke feedback |
 
 Oudere checkpoints en Tollebeek-workunits blijven traceerbare geschiedenis. Zij zijn niet automatisch de actuele projectbrede authority.
+
+## 2A. Eindproduct en scenariosemantiek
+
+De projectarchitectuur werkt niet toe naar één contextvrije schadefactor per bodemtype × landgebruik. Het beoogde resultaat is een uitbreidbare **conditionele kostenraming**.
+
+Een uitkomst hoort daarom bij een expliciete context, bijvoorbeeld:
+
+```text
+soil / land use
++ compaction state
++ weather / event
++ system state and capacity
++ valuation context
+→ bounded physical and monetary consequence
+```
+
+De scenario-as kan zowel aan de bronkant liggen, zoals verschillende ernst of diepte van verdichting, als aan de responskant, zoals droogte, piekbui, antecedente natheid of systeemcapaciteit.
+
+Niet alle combinaties worden vooraf als aparte scenario-objecten gemodelleerd. De architectuur moet alleen garanderen dat relevante conditionerende dimensies zichtbaar en uitbreidbaar blijven. Een afzonderlijk scenario-object is pas gerechtvaardigd wanneer scenario's een eigen lifecycle, provenance of hergebruik nodig hebben.
+
+Onderzoeksprioriteit volgt daarom niet automatisch de grootste fysische onzekerheid. Prioriteit krijgt onzekerheid die de uiteindelijke schade- of kostenbandbreedte sterk bepaalt én door aanvullende evidence of berekening zinvol kan worden verkleind.
 
 ## 3. Huidige readiness per laag
 
@@ -169,7 +190,7 @@ De logisch volgende stap is niet nog een frameworkversie en ook niet automatisch
 
 Werk in twee gecontroleerde sporen:
 
-**Wetenschappelijke inhoud:** bind de eerste nationale on-site surfaces verder met actuele exposure, maïs × bodem en economische data zodra die daadwerkelijk gekwalificeerd beschikbaar zijn. Kies per pathway steeds de lichtste route die de dominante onzekerheid reduceert.
+**Wetenschappelijke inhoud:** bind de eerste nationale on-site surfaces verder met actuele exposure, maïs × bodem en economische data zodra die daadwerkelijk gekwalificeerd beschikbaar zijn. Kies per pathway steeds de lichtste route die de dominante onzekerheid in de uiteindelijke schade- of kostenraming reduceert. Een fysisch interessante onzekerheid is niet automatisch een projectprioriteit als zij nauwelijks doorwerkt in het eindresultaat.
 
 **Applicatie/overdracht:** bouw eerst een generieke read-only application/workbook view over pathway → evidence/ensemble → calculation readiness → blocker → allowed output. Die view moet rechtstreeks uit de geregistreerde canonieke datasets komen. Pas daarna is invoer/editing of een productiebackend zinvol.
 
