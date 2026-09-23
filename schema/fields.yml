@@ -397,3 +397,38 @@ fields:
     datatype: enum
     vocabulary: priority
     nullable: true
+
+  rule_id:
+    entity: governance_rule
+    label: Governance rule ID
+    description: Stable identifier for one explicit project governance rule or validation rule.
+    datatype: string
+    nullable: false
+
+  change_id:
+    entity: change_record
+    label: Change record ID
+    description: Stable identifier for one semantic, schema, evidence or artifact change record.
+    datatype: string
+    nullable: false
+
+  valuation_relation_id:
+    entity: valuation_relation
+    label: Valuation relation ID
+    description: Stable identifier for one versioned relation translating a qualified physical effect into a defined economic valuation category.
+    datatype: string
+    nullable: false
+
+  cost_estimate_id:
+    entity: cost_estimate
+    label: Cost estimate ID
+    description: Stable identifier for one cost estimate at its declared physical-effect, valuation and scope grain.
+    datatype: string
+    nullable: false
+
+  notes:
+    entity: event
+    label: Notes
+    description: Additional context or guardrails attached to the registered event record.
+    datatype: string
+    nullable: true

@@ -10,13 +10,6 @@ fields:
     vocabulary: input_requirement_kind
     nullable: false
 
-  capability_id:
-    entity: data_request_item
-    label: Capability ID
-    description: Capability that is blocked or constrained by this requested input or decision.
-    datatype: string
-    nullable: false
-
   input_role:
     entity: data_request_item
     label: Input role
