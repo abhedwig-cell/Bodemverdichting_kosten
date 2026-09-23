@@ -67,6 +67,7 @@ REQUIRED_PATHS = [
     "docs/55_bro_ccnl6_rule_proposals_v0_1.md",
     "docs/57_colleague_review_package_v0_2.md",
     "docs/58_project_architecture_status_v0_1.md",
+    "docs/59_bespreekschema_werkwijze_en_einddoel_v0_1.md",
     "schema/project_pathway_fields_v0_1.yml",
     "review/pre_read_manifest_v0_2.csv",
     "review/colleague_review_questions_v0_2.csv",
