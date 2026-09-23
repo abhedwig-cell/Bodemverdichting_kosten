@@ -28,6 +28,12 @@ REQUIRED_WORKBOOK_DATASET_METADATA = {
     "grain",
     "primary_key",
     "canonical_status",
+    "source_or_derivation",
+}
+
+REQUIRED_WORKBOOK_ARTIFACT_METADATA = {
+    "schema_version",
+    "git_commit",
 }
 
 
@@ -77,8 +83,14 @@ def validate() -> list[str]:
             errors.append(f"{dataset_id}: non-empty primary_key list is required")
             primary_key = []
         for field_id in primary_key:
-            if field_id not in fields:
+            definition = fields.get(field_id)
+            if definition is None:
                 errors.append(f"{dataset_id}: primary-key field {field_id} is not defined")
+            elif definition.get("entity") != entity:
+                errors.append(
+                    f"{dataset_id}: primary-key field {field_id} belongs to "
+                    f"{definition.get('entity')!r}, expected {entity!r}"
+                )
 
         storage = dataset.get("storage")
         if storage:
@@ -127,6 +139,20 @@ def validate() -> list[str]:
         errors.append(
             "workbook contract misses required dataset metadata: "
             + ", ".join(sorted(missing_metadata))
+        )
+
+    required_artifact_metadata = set(
+        workbook_contract.get("workbook", {})
+        .get("metadata_fields", {})
+        .get("required", [])
+    )
+    missing_artifact_metadata = (
+        REQUIRED_WORKBOOK_ARTIFACT_METADATA - required_artifact_metadata
+    )
+    if missing_artifact_metadata:
+        errors.append(
+            "workbook contract misses required artifact metadata: "
+            + ", ".join(sorted(missing_artifact_metadata))
         )
 
     authority = ROOT / "docs" / "58_project_architecture_status_v0_1.md"

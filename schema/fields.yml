@@ -382,6 +382,30 @@ fields:
     unit: null
     nullable: false
 
+  change_id:
+    entity: change_record
+    label: Change ID
+    description: Stable identifier for one semantic, schema, evidence or artifact change record.
+    datatype: string
+    unit: null
+    nullable: false
+
+  valuation_relation_id:
+    entity: valuation_relation
+    label: Valuation relation ID
+    description: Stable identifier for one versioned relation translating a qualified physical effect into an economic valuation category.
+    datatype: string
+    unit: null
+    nullable: false
+
+  cost_estimate_id:
+    entity: cost_estimate
+    label: Cost estimate ID
+    description: Stable identifier for one cost estimate at its declared effect, valuation and scope grain.
+    datatype: string
+    unit: null
+    nullable: false
+
   data_request_id:
     entity: data_request_item
     label: Data request ID

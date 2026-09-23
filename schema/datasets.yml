@@ -68,7 +68,7 @@ datasets:
     entity: governance_rule
     role: GOVERNANCE
     grain: one row per explicit rule/check
-    primary_key: [rule_id]
+    primary_key: [governance_rule_id]
     legacy_mappings:
       - PROV_04_Checks
       - DATA_108_v43_Governance
