@@ -4,9 +4,11 @@ Wetenschappelijk raamwerk en software-/data-infrastructuur voor het project **De
 
 ## Start hier
 
-Ben je nieuw in het project, begin dan met [`docs/00_colleague_reader_guide.md`](docs/00_colleague_reader_guide.md). Die geeft eerst het inhoudelijke verhaal: wat we proberen te berekenen, waarom current versus reference centraal staat, hoe de off-site waterketen is opgebouwd, waarom Tollebeek als pilot wordt gebruikt, hoe evidence wordt gekwalificeerd en welke rol GitHub, Excel en de toekomstige applicatie hebben.
+Ben je nieuw in het project, begin dan met [`docs/57_colleague_review_package_v0_2.md`](docs/57_colleague_review_package_v0_2.md). Dat document legt in gewone taal uit wat het project wil weten, waarom we zo weinig mogelijk onnodig rekenen, hoe on-site en off-site effecten naast elkaar staan en waar onzekerheid of ontbrekende informatie de berekening begrenst.
 
-De actuele projectbrede architectuur en readiness staan in [`PROJECT_ARCHITECTURE_STATUS.md`](PROJECT_ARCHITECTURE_STATUS.md). Gebruik die pagina als authority voor de huidige stand en als wegwijzer naar de onderliggende canonieke onderdelen. De volledige documentatiekaart staat in [`docs/README.md`](docs/README.md). De Status-A-light documentatieregels staan in [`docs/14_documentation_status_a_light.md`](docs/14_documentation_status_a_light.md), met formele traceability in [`model/traceability.csv`](model/traceability.csv) en [`docs/17_formal_traceability_register_v0_1.md`](docs/17_formal_traceability_register_v0_1.md). `docs/18_status_a_light_checkpoint_v0_1.md` blijft een historische checkpoint van 16 september 2026.
+Gebruik daarna [`docs/58_project_architecture_status_v0_1.md`](docs/58_project_architecture_status_v0_1.md) als actuele architectuur- en readinesspagina. Die pagina verwijst naar de canonieke theorie, modellen, schema's, evidence, code, tests en artifactcontracten zonder die inhoud te dupliceren.
+
+De volledige documentatiekaart staat in [`docs/README.md`](docs/README.md). [`docs/00_colleague_reader_guide.md`](docs/00_colleague_reader_guide.md) blijft de verdiepende uitleg van current/reference, evidence en de Tollebeek-pilot.
 
 Wil je bijdragen aan het project, lees dan [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
@@ -29,7 +31,7 @@ De repository bevindt zich in een **Status-A-light opbouwfase**. Het doel is nog
 - reproduceerbare implementatie en tests;
 - duidelijke status van wat gemeten, afgeleid, scenario, benchmark, gekwalificeerd of nog geblokkeerd is.
 
-De repository bevat zowel projectbrede on-site/off-site control surfaces als een ver uitgewerkte Tollebeek vertical slice voor source → transfer → dispatch. Tollebeek is een pilot en kwalificatielijn, niet het nationale projectmodel. Actuele landelijke schadeberekeningen blijven bewust data-gated zolang onder meer current compaction exposure, contextmatch, transfer en economische input niet voldoende zijn gekwalificeerd.
+De repository bevat inmiddels zowel projectbrede on-site effect- en evidence-oppervlakken als de Tollebeek off-site vertical slice. Tollebeek blijft een pilot voor source → transfer → dispatch en is niet de projectruggengraat. Landelijke schadeberekeningen blijven bewust data-gated waar actuele exposure, transfer of economische waardering ontbreekt.
 
 ## Documentatiestructuur
 

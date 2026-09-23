@@ -1,21 +1,19 @@
 # Source code
 
-`src/` contains shared scientific calculations whose meaning should not depend on Excel, a dashboard or a future application.
+Deze map bevat gedeelde wetenschappelijke code die niet afhankelijk hoort te zijn van Excel, dashboards of één specifieke pilot.
 
-## Currently implemented
+## Huidig geïmplementeerd
 
-- `transfer/volume.py`: generated source-volume identity;
-- `water_system/dispatch.py`: explicit two-zone/two-pump allocation semantics without hidden assist or availability defaults;
-- `water_system/energy.py`: pump-energy identity with explicit total dynamic head and efficiency.
+- transfer/volume.py: omzetting van een gekwalificeerd bronverschil in waterdiepte naar gegenereerd volume;
+- water_system/dispatch.py: expliciete twee-zone/twee-pomp allocatiesemantiek zonder verborgen availability- of assist-defaults;
+- water_system/energy.py: pompenergie met expliciete head en efficiency.
 
-These implementations are generic even though the first qualification case was Tollebeek. Site-specific values belong in qualified data/configuration, not in scientific core functions.
+De functies zijn generiek geschreven. De huidige tests gebruiken de Tollebeek vertical slice als eerste concrete toepassing, maar de code mag Tollebeek-specifieke waarden niet als universele defaults vastleggen.
 
-## Intended future separation
+## Nog geen geïmplementeerde package
 
-Additional packages such as hydrology/source-response adapters, valuation and I/O may be added when real workflows require them. They are architectural directions, not directories that are assumed to exist today.
+Hydrologie/modeladapters, waardering en I/O/application services zijn in de architectuur beschreven, maar bestaan nog niet als algemene src-packages. Documentatie mag zulke toekomstige namespaces niet presenteren alsof ze al geïmplementeerd zijn.
 
-Do not create empty package structure merely to mirror a diagram. Add a module only when a formal relation or reusable data-processing responsibility has a concrete implementation and test.
-
-The current vertical-slice history is documented in [`docs/11_tollebeek_vertical_slice_v0_2.md`](../docs/11_tollebeek_vertical_slice_v0_2.md). The current project-wide architecture/readiness is in [`PROJECT_ARCHITECTURE_STATUS.md`](../PROJECT_ARCHITECTURE_STATUS.md).
+Nieuwe code hoort pas naar src/ wanneer een formele relatie of adapter daadwerkelijk herbruikbaar is. Een case-specifieke acquisitie- of reviewtool kan onder tools/ blijven.
 
 Do not duplicate scientific equations independently in multiple interfaces when a shared tested implementation is possible.

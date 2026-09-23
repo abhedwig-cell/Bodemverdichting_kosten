@@ -1,0 +1,359 @@
+schema_version: 0.1.0
+status: STATUS_A_LIGHT_PROJECT_PATHWAY_BASELINE
+
+fields:
+  pathway_id:
+    entity: effect_pathway
+    label: Effect pathway ID
+    description: Stable identifier for one project-wide causal effect pathway.
+    datatype: string
+    nullable: false
+
+  branch:
+    entity: effect_pathway
+    label: Branch
+    description: Project branch in which the pathway is positioned, such as ONSITE or OFFSITE.
+    datatype: string
+    nullable: false
+
+  pathway_name:
+    entity: effect_pathway
+    label: Pathway name
+    description: Human-readable name of the physical, operational or valuation pathway.
+    datatype: string
+    nullable: false
+
+  evidence_state:
+    entity: effect_pathway
+    label: Evidence state
+    description: Short description of the evidence currently available for the pathway.
+    datatype: string
+    nullable: true
+
+  source_candidates:
+    entity: effect_pathway
+    label: Source candidates
+    description: Candidate sources or source families relevant to the pathway.
+    datatype: string
+    nullable: true
+
+  uncertainty_mode:
+    entity: effect_pathway
+    label: Uncertainty mode
+    description: Main uncertainty representation appropriate to the pathway.
+    datatype: string
+    nullable: true
+
+  shortcut_mode:
+    entity: effect_pathway
+    label: Minimum-computation route
+    description: Lightest defensible empirical or calculation shortcut currently allowed.
+    datatype: string
+    nullable: true
+
+  monetization_route:
+    entity: effect_pathway
+    label: Monetization route
+    description: Valuation route that may follow after the physical effect has been qualified.
+    datatype: string
+    nullable: true
+
+  current_verdict:
+    entity: effect_pathway
+    label: Current verdict
+    description: Current bounded readiness classification of the pathway.
+    datatype: string
+    nullable: false
+
+  next_minimal_action:
+    entity: effect_pathway
+    label: Next minimal action
+    description: Smallest useful next action consistent with minimum necessary computation.
+    datatype: string
+    nullable: true
+
+  do_not_do:
+    entity: effect_pathway
+    label: Prohibited shortcut
+    description: Explicit interpretation or calculation shortcut that is not admitted.
+    datatype: string
+    nullable: true
+
+  ensemble_id:
+    entity: evidence_ensemble_member
+    label: Evidence ensemble ID
+    description: Stable identifier grouping evidence members that address one bounded target question.
+    datatype: string
+    nullable: false
+
+  target_question:
+    entity: evidence_ensemble_member
+    label: Target question
+    description: Scientific response question the evidence ensemble is intended to inform.
+    datatype: string
+    nullable: false
+
+  member_evidence_id:
+    entity: evidence_ensemble_member
+    label: Member evidence ID
+    description: Evidence-item identifier or explicitly marked legacy evidence identifier for this ensemble member.
+    datatype: string
+    nullable: false
+    guardrail: A legacy identifier is not canonical evidence until it has been migrated and qualified.
+
+  member_role:
+    entity: evidence_ensemble_member
+    label: Member role
+    description: Role of the member, such as direct evidence, proxy, bound, benchmark, scenario or guardrail.
+    datatype: string
+    nullable: false
+
+  effect_direction:
+    entity: evidence_ensemble_member
+    label: Effect direction
+    description: Direction or qualitative shape of the reported member response.
+    datatype: string
+    nullable: true
+
+  member_value_low:
+    entity: evidence_ensemble_member
+    label: Member low value
+    description: Lower quantitative value reported or retained for this member where applicable.
+    datatype: float
+    nullable: true
+
+  member_value_base:
+    entity: evidence_ensemble_member
+    label: Member base value
+    description: Central or single quantitative value reported for this member where applicable.
+    datatype: float
+    nullable: true
+
+  member_value_high:
+    entity: evidence_ensemble_member
+    label: Member high value
+    description: Upper quantitative value reported or retained for this member where applicable.
+    datatype: float
+    nullable: true
+
+  unit:
+    entity: evidence_ensemble_member
+    label: Unit
+    description: Unit applying to the member values.
+    datatype: string
+    nullable: true
+
+  context_summary:
+    entity: evidence_ensemble_member
+    label: Context summary
+    description: Compact crop, soil, weather, treatment or geographic context needed to interpret the member.
+    datatype: string
+    nullable: true
+
+  transferability:
+    entity: evidence_ensemble_member
+    label: Transferability
+    description: Qualitative transferability classification for the target question.
+    datatype: string
+    nullable: true
+
+  ensemble_verdict:
+    entity: evidence_ensemble_member
+    label: Ensemble verdict
+    description: Current rule for how the member participates in the ensemble.
+    datatype: string
+    nullable: false
+
+  central_value_allowed:
+    entity: evidence_ensemble_member
+    label: Central value allowed
+    description: Whether the current ensemble authority permits reduction to one central value.
+    datatype: boolean
+    nullable: false
+
+  allowed_use:
+    entity: evidence_ensemble_member
+    label: Allowed use
+    description: Intended use currently supported for this member.
+    datatype: string
+    nullable: true
+
+  prohibited_use:
+    entity: evidence_ensemble_member
+    label: Prohibited use
+    description: Use that would overstate or misapply the member evidence.
+    datatype: string
+    nullable: true
+
+  migration_status:
+    entity: evidence_ensemble_member
+    label: Migration status
+    description: Whether the member is canonical qualified evidence or still a legacy-workbook candidate.
+    datatype: string
+    nullable: false
+
+  surface_id:
+    entity: bounded_calculation_surface
+    label: Calculation surface ID
+    description: Stable identifier for one bounded calculation context.
+    datatype: string
+    nullable: false
+
+  parent_reporting_unit:
+    entity: bounded_calculation_surface
+    label: Parent reporting unit
+    description: Reporting stratum from which the bounded calculation context starts.
+    datatype: string
+    nullable: false
+
+  landuse:
+    entity: bounded_calculation_surface
+    label: Land use
+    description: Land-use context of the bounded calculation row.
+    datatype: string
+    nullable: false
+
+  soil_context:
+    entity: bounded_calculation_surface
+    label: Soil context
+    description: Soil class or soil context relevant to the response/evidence matching.
+    datatype: string
+    nullable: false
+
+  crop_context:
+    entity: bounded_calculation_surface
+    label: Crop context
+    description: Crop context to which the response and valuation route applies.
+    datatype: string
+    nullable: false
+
+  parent_area_ha:
+    entity: bounded_calculation_surface
+    label: Parent area
+    description: Area of the parent reporting unit before current compaction exposure is applied.
+    datatype: float
+    unit: ha
+    nullable: true
+
+  area_basis_year:
+    entity: bounded_calculation_surface
+    label: Area basis year
+    description: Year represented by the parent-area source.
+    datatype: integer
+    nullable: true
+
+  area_basis_source:
+    entity: bounded_calculation_surface
+    label: Area basis source
+    description: Source identifier or migration source supporting the parent area.
+    datatype: string
+    nullable: true
+
+  area_basis_status:
+    entity: bounded_calculation_surface
+    label: Area basis status
+    description: Qualification or migration status of the parent-area value.
+    datatype: string
+    nullable: false
+
+  crop_share:
+    entity: bounded_calculation_surface
+    label: Crop share
+    description: Fraction of the parent reporting unit occupied by the crop where a crop crosswalk is required.
+    datatype: float
+    unit: fraction
+    nullable: true
+
+  crop_share_status:
+    entity: bounded_calculation_surface
+    label: Crop share status
+    description: Readiness/status of the crop-share term.
+    datatype: string
+    nullable: false
+
+  compaction_exposure_low:
+    entity: bounded_calculation_surface
+    label: Compaction exposure low
+    description: Lower bounded fraction of the relevant area exposed to the defined compaction state.
+    datatype: float
+    unit: fraction
+    nullable: true
+
+  compaction_exposure_base:
+    entity: bounded_calculation_surface
+    label: Compaction exposure base
+    description: Central exposure value only when separately admitted.
+    datatype: float
+    unit: fraction
+    nullable: true
+
+  compaction_exposure_high:
+    entity: bounded_calculation_surface
+    label: Compaction exposure high
+    description: Upper bounded fraction of the relevant area exposed to the defined compaction state.
+    datatype: float
+    unit: fraction
+    nullable: true
+
+  exposure_dimension:
+    entity: bounded_calculation_surface
+    label: Exposure dimension
+    description: Dimensions that define exposure, for example depth x severity.
+    datatype: string
+    nullable: false
+
+  exposure_status:
+    entity: bounded_calculation_surface
+    label: Exposure status
+    description: Readiness/status of the current compaction-exposure term.
+    datatype: string
+    nullable: false
+
+  response_ensemble_id:
+    entity: bounded_calculation_surface
+    label: Response ensemble ID
+    description: Evidence ensemble selected as the bounded response candidate for this context.
+    datatype: string
+    nullable: false
+
+  response_status:
+    entity: bounded_calculation_surface
+    label: Response status
+    description: Qualification/readiness of the response ensemble for this context.
+    datatype: string
+    nullable: false
+
+  economic_value_status:
+    entity: bounded_calculation_surface
+    label: Economic value status
+    description: Readiness of the economic valuation inputs for this context.
+    datatype: string
+    nullable: false
+
+  formula_contract:
+    entity: bounded_calculation_surface
+    label: Formula contract
+    description: Explicit calculation structure allowed after all prerequisite terms are qualified.
+    datatype: string
+    nullable: false
+
+  current_output_status:
+    entity: bounded_calculation_surface
+    label: Current output status
+    description: Current fail-closed status of the result for this context.
+    datatype: string
+    nullable: false
+
+  allowed_output:
+    entity: bounded_calculation_surface
+    label: Allowed output
+    description: Result or context information that may currently be reported without overclaiming.
+    datatype: string
+    nullable: true
+
+  primary_blocker:
+    entity: bounded_calculation_surface
+    label: Primary blocker
+    description: Main missing causal term preventing a stronger result.
+    datatype: string
+    nullable: true

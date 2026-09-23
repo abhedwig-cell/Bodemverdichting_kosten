@@ -75,6 +75,8 @@ def validate_spec(
         if dataset_id in seen_datasets:
             errors.append(f"Duplicate dataset_id: {dataset_id}")
         seen_datasets.add(dataset_id)
+        if not item.get("canonical_status"):
+            errors.append(f"dataset {dataset_id}: canonical_status is required")
         if not sheet_name:
             errors.append(f"dataset {dataset_id}: sheet_name is required")
         elif sheet_name in seen_sheets:

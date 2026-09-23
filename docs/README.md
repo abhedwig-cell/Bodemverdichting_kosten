@@ -1,7 +1,5 @@
 # Documentation map
 
-**Current project-wide status authority:** [`../PROJECT_ARCHITECTURE_STATUS.md`](../PROJECT_ARCHITECTURE_STATUS.md). Use that page to determine current readiness and which underlying documents are authoritative. Dated checkpoints remain useful history but do not override the current status page.
-
 The documentation is organised from scientific meaning to implementation and evidence. The first documents form the **core colleague reader path**; later documents record migration, implementation and governance milestones.
 
 ## Start here
@@ -12,11 +10,11 @@ Then read [`00_colleague_reader_guide.md`](00_colleague_reader_guide.md). It exp
 
 For documentation governance and Status-A-light expectations, see [`14_documentation_status_a_light.md`](14_documentation_status_a_light.md).
 
-For the original compact cross-layer baseline, see [`15_traceability_matrix_v0_1.md`](15_traceability_matrix_v0_1.md). It is retained as an early pilot-biased traceability surface. Current machine-readable capability authority is `../model/traceability.csv`, interpreted through `../PROJECT_ARCHITECTURE_STATUS.md`; the register design is documented in [`17_formal_traceability_register_v0_1.md`](17_formal_traceability_register_v0_1.md).
+For a compact cross-layer review of the current architecture, see [`15_traceability_matrix_v0_1.md`](15_traceability_matrix_v0_1.md). The machine-readable equation and capability traceability baseline is documented in [`17_formal_traceability_register_v0_1.md`](17_formal_traceability_register_v0_1.md).
 
-[`18_status_a_light_checkpoint_v0_1.md`](18_status_a_light_checkpoint_v0_1.md) is retained as the 16 September 2026 checkpoint. It is no longer the current project-wide readiness authority because the project subsequently restored the broader on-site/off-site balance and minimum-necessary-computation framing.
+[`18_status_a_light_checkpoint_v0_1.md`](18_status_a_light_checkpoint_v0_1.md) is retained as the 16 September 2026 Tollebeek-first checkpoint. For the current project-wide architecture and readiness authority, use [`58_project_architecture_status_v0_1.md`](58_project_architecture_status_v0_1.md).
 
-For the current review, start with [`57_colleague_review_package_v0_2.md`](57_colleague_review_package_v0_2.md). It is deliberately self-contained and written in plain language: project intent, the reasoning behind the calculation, effects on and outside the parcel, uncertainty, the role of existing studies and the dashboard as an explanation tool rather than a number-only display. The older [`19_colleague_review_session_v0_1.md`](19_colleague_review_session_v0_1.md) and [`20_colleague_review_package_v0_1.md`](20_colleague_review_package_v0_1.md) remain historical review-design records.
+For the current review, start with [`57_colleague_review_package_v0_2.md`](57_colleague_review_package_v0_2.md). It is deliberately self-contained and written in plain language: project intent, the reasoning behind the calculation, effects on and outside the parcel, uncertainty, the role of existing studies and the dashboard as an explanation tool rather than a number-only display. Then use [`58_project_architecture_status_v0_1.md`](58_project_architecture_status_v0_1.md) to see which repository layer is authoritative for each meaning and which capabilities are currently ready, partial or blocked. The older [`19_colleague_review_session_v0_1.md`](19_colleague_review_session_v0_1.md) and [`20_colleague_review_package_v0_1.md`](20_colleague_review_package_v0_1.md) remain historical review-design records.
 
 The first explicit evidence baseline for the general theoretical framework is [`16_theory_evidence_baseline_v0_1.md`](16_theory_evidence_baseline_v0_1.md).
 
@@ -66,7 +64,7 @@ The corresponding machine-readable formal registers live under [`model/`](../mod
 
 ## Suggested reading paths
 
-**Scientific colleague / reviewer:** `00 → 01 → 02 → 16 → 03 → 04 → 07 → 15 → 17 → 18 → 19 → 21 → 22`
+**Scientific colleague / reviewer:** `57 → 58 → 02 → 49 → 50 → 07` for the project story first; use `03 → 04 → 05 → 17 → 21 → 22` only when more architecture detail is needed.
 
 **Data/software colleague:** `00 → 05 → 06 → 08 → 11 → 12 → 15 → 17 → 18 → 21 → 22`
 

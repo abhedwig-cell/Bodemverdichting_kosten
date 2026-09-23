@@ -164,9 +164,9 @@ Passing software tests does not qualify a physical model result.
 
 The project maintains a lightweight traceability matrix linking major scientific capabilities across documentation, schema, implementation and evidence.
 
-The current baseline is `15_traceability_matrix_v0_1.md`.
+The machine-readable capability register in `model/traceability.csv` is the integrity-controlled traceability baseline. `15_traceability_matrix_v0_1.md` remains a readable Tollebeek-first capability snapshot. Current project-wide maturity and authority are summarised in `58_project_architecture_status_v0_1.md`.
 
-The matrix is not intended to duplicate all information from the repository. Its purpose is to reveal broken links in the chain.
+These surfaces are not intended to duplicate all information from the repository. Their purpose is to reveal broken links and direct reviewers to the canonical layer.
 
 ## 11. Review triggers
 

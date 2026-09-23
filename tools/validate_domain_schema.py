@@ -17,6 +17,7 @@ FIELD_FILES = [
     "profile_fields_v0_1.yml",
     "event_forcing_fields_v0_1.yml",
     "hydraulic_parameterization_fields_v0_1.yml",
+    "project_pathway_fields_v0_1.yml",
 ]
 
 REQUIRED_V03_DATASETS = {
@@ -195,7 +196,7 @@ def main() -> int:
             print(f"ERROR: {error}")
         return 1
 
-    print("Data Model v0.4 hydraulic-extension domain-schema validation passed.")
+    print("Composite Data Model v0.3.x domain-schema validation passed.")
     print(
         "Validated documented domain datasets, profile/hydraulic/run-control relationships, "
         "field identity and the no-premature-attribution-pair boundary."

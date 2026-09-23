@@ -1,10 +1,10 @@
 # Traceability matrix v0.1
 
-Status: **historical early baseline; current project-wide authority is `../PROJECT_ARCHITECTURE_STATUS.md` plus `../model/traceability.csv`**
+Status: **partial capability baseline; Tollebeek-first snapshot**
 
-Purpose: show the first major project capabilities connected across theory, conceptual model, formal model, data model, implementation and evidence/qualification.
+Current project-wide architecture/readiness authority: `58_project_architecture_status_v0_1.md`. This matrix remains useful for the detailed source → transfer → dispatch capability chain but should not be read as the full project priority map.
 
-This file predates the later project-wide on-site evidence ensembles, bounded calculation surface and BRP × BRO crosswalk. It is retained for review history and should not be read as a complete list of current priorities.
+Purpose: show whether major project capabilities are connected across theory, conceptual model, formal model, data model, implementation and evidence/qualification.
 
 This is a lightweight review surface, not a duplicate database of all project information.
 

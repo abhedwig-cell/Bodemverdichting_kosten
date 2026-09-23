@@ -1,5 +1,5 @@
-contract_version: 0.1.0
-status: PROVISIONAL
+contract_version: 0.2.0
+status: STATUS_A_LIGHT_WORKING_BASELINE
 
 workbook:
   required_front_matter:
@@ -34,13 +34,14 @@ workbook:
   dataset_metadata:
     required:
       - dataset_id
-      - dataset_version
-      - purpose
       - entity
+      - role
       - grain
+      - primary_key
       - canonical_status
     recommended:
-      - primary_key
+      - dataset_version
+      - purpose
       - source_or_derivation
       - qualification_status
       - known_limitations

@@ -1,12 +1,12 @@
 # 5. Data model
 
-Status: **Composite Status-A-light data-model baseline: v0.2 core with v0.3 domain extensions**
+Status: **Status-A-light composite data-model baseline (dataset/relationship layer v0.3.1)**
 
 ## 5.1 Purpose
 
 The data model defines scientific meaning independently of Excel, Python, databases or the future application.
 
-Canonical machine-readable definitions live under [`../schema/`](../schema/). The current model is a composite migration baseline rather than one monolithic schema release or a final v1 schema. Component files have their own versions because the core and bounded domain extensions matured at different times. Together they are the preferred place to define stable identities, grains, fields and relationships.
+Canonical machine-readable definitions live under [`../schema/`](../schema/). The current model is a composed migration baseline rather than a final v1 schema. Core field files still retain their own bounded version labels, while the current dataset/relationship graph is at the v0.3.x line. The repository-level authority is the composed schema under schema/, not the version label of one individual YAML file.
 
 The central design rule is:
 
@@ -53,10 +53,8 @@ A `dataset_id` should survive workbook sheet renaming or migration to another st
 Field definitions currently live in:
 
 - [`../schema/fields.yml`](../schema/fields.yml) for the core migration baseline;
-- [`../schema/evidence_fields.yml`](../schema/evidence_fields.yml) for the evidence-register extension;
-- [`../schema/domain_fields_v0_3.yml`](../schema/domain_fields_v0_3.yml), profile/event/hydraulic field files and bounded vertical-slice schema files for concepts that were added after the core baseline.
-
-These files form one merged semantic registry. A duplicate field with incompatible meaning is an error, not a version-selection mechanism.
+- [`../schema/evidence_fields.yml`](../schema/evidence_fields.yml) for the current evidence-register extension;
+- bounded vertical-slice schema files where a concept is not yet mature enough to promote globally.
 
 Over time these should converge toward a coherent canonical field registry without incompatible duplicate definitions.
 
@@ -298,7 +296,7 @@ The important requirement is semantic compatibility, not forcing every byte into
 
 ## 5.14 Promotion toward v1
 
-The composite Status-A-light data model can move toward v1 when:
+The current composite data model can move toward v1 when:
 
 - key entity grains no longer depend on legacy workbook layout;
 - field definitions cover the first production workflows without incompatible overlays;
