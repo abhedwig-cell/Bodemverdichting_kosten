@@ -246,6 +246,25 @@ Examples:
 
 The project does not reduce these automatically to one generic confidence score. A result may have strong evidence for the source state and weak evidence for transfer, or vice versa. That distinction is scientifically useful and should remain visible.
 
+### Scenario interpretation and decision-relevant uncertainty
+
+The final damage or cost is not a fixed function of soil type and land use alone. It is conditional on the combination of state, forcing, system context and valuation that is relevant to the pathway.
+
+In this project a **scenario** is therefore an explicit conditioning set, not a free-form future story and not automatically a new domain entity. Depending on the pathway, relevant dimensions can include:
+
+- compaction severity, depth, spatial extent and reference state;
+- crop, rooting or management context;
+- drought, antecedent wetness, rainfall amount, peak intensity and duration;
+- groundwater, drainage, storage, connectivity, system capacity and operating rules;
+- valuation perspective, price year and economic receptor;
+- event, year, climate sequence or qualified occurrence frequency.
+
+A full factorial combination of all dimensions is neither required nor desirable. A calculation should expose only the conditions that materially change its interpretation.
+
+Project outputs may therefore legitimately be separate scenario results, a bounded range over qualified scenarios, a frequency-weighted expected result only when occurrence frequencies are independently qualified, or no numerical result when the relevant conditioning set is not sufficiently supported.
+
+Research priority follows the project endpoint. A physical uncertainty deserves deeper investigation when reducing it is expected to materially reduce uncertainty in the final damage or cost estimate. Physical interest alone is not sufficient reason for a larger model campaign.
+
 ## 2.12 Evidence and theory
 
 The theory defines **what kind of relation is required**. The evidence layer defines **whether a specific relation or value is sufficiently supported for a project use**.
