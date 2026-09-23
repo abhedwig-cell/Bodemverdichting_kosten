@@ -1,0 +1,62 @@
+{
+  "schema_version": "tollebeek_current_state_receipt_contract_v0.1",
+  "capability": "DR_SM_CURRENT_STATE",
+  "purpose": "Machine-readable intake and acceptance contract for future source-holder delivery of WER3382/Flevo-land-in-beweging source-native CURRENT-state records.",
+  "precondition": "An actual external source-holder response or file delivery has been received.",
+  "receipt_state": "NO_RECEIPT_YET",
+  "required_receipt_metadata": [
+    "source_holder_or_sender",
+    "received_timestamp_or_date",
+    "original_message_context",
+    "terms_or_restrictions",
+    "original_filename",
+    "raw_file_sha256",
+    "dataset_or_version_identifier_if_supplied"
+  ],
+  "required_source_semantics": [
+    "stable_site_or_location_id",
+    "stable_sample_or_replicate_id_if_available",
+    "coordinates_and_crs_or_auditable_holder_side_ot02_selection",
+    "measurement_date",
+    "exact_depth_or_depth_interval",
+    "dry_bulk_density_measurement_or_traceable_mean",
+    "measurement_method_or_ring_volume_if_available",
+    "qc_or_status_semantics"
+  ],
+  "optional_but_requested_semantics": [
+    "penetration_resistance_depth_series_or_source_native_summary",
+    "soil_moisture_context",
+    "texture_or_lutum_context",
+    "data_dictionary_or_codebook"
+  ],
+  "acceptance_sequence": [
+    "IDENTIFY",
+    "HASH",
+    "SCHEMA_QC",
+    "SPATIAL_VERIFY",
+    "TEMPORAL_CLASSIFY",
+    "STATE_MAPPING",
+    "QUALIFY",
+    "ADMIT_OR_CLOSE"
+  ],
+  "fail_fast_conditions": [
+    "dataset_identity_not_established",
+    "raw_bytes_not_preserved_before_transformation",
+    "coordinate_crs_semantics_unresolved_and_no_auditable_holder_side_selection",
+    "measurement_depth_semantics_unresolved",
+    "bulk_density_field_is_derived_or_ambiguous_without_traceability",
+    "missing_or_sentinel_values_would_require_default_or_zero_substitution",
+    "ot02_membership_would_require_figure_digitisation_or_private_location_reconstruction"
+  ],
+  "scientific_guardrails": [
+    "Receipt is ACQUIRED, not ADMITTED.",
+    "2020-2021 measurements may not be silently backdated to October 1998 or promoted to a 2026 state.",
+    "Sparse point count may not be converted directly to area weights without a separately qualified spatial representation method.",
+    "Bulk-density evidence does not by itself admit hydraulic parameters.",
+    "No null, blank, unavailable field or sentinel may be silently converted to zero.",
+    "No SWAP run is authorised by receipt alone."
+  ],
+  "on_success_next_state": "READY_FOR_BOUNDED_SOURCE_CLASSIFICATION_WORKUNIT",
+  "dr_sm_current_state_before_receipt": "PARTIAL_EVIDENCE",
+  "run_authorized": false
+}

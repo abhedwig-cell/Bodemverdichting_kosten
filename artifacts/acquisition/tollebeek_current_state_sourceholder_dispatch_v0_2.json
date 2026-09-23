@@ -1,0 +1,52 @@
+{
+  "schema_version": "tollebeek_current_state_sourceholder_dispatch_v0.2",
+  "capability": "DR_SM_CURRENT_STATE",
+  "created_date": "2026-09-16",
+  "canonical_start": "621b6d487f721e0bbb83616540d51542d7f1b53e",
+  "qualified_handoff": "data_requests/tollebeek_current_state_sourceholder_handoff_v0_1.md",
+  "target_dataset": {
+    "project": "Flevo - land in beweging",
+    "raak_pro": "RAAK.PRO02.021",
+    "wer_project": "5200043298",
+    "report": "WER Rapport 3382",
+    "doi": "10.18174/672577",
+    "campaign": "2020-09 through 2021-06",
+    "target_area": "Tollebeek OT.02",
+    "geometry": "data/spatial/tollebeek_ot02_current.geojson"
+  },
+  "dispatch_routes": [
+    {
+      "priority": 1,
+      "holder_route": "Aeres Hogeschool / RAAK-PRO",
+      "contact": "Karin Pepers",
+      "address_or_route": "k.pepers@aeres.nl",
+      "request_text_authority": "handoff section 2",
+      "status": "PENDING_EXTERNAL_SEND"
+    },
+    {
+      "priority": 2,
+      "holder_route": "WUR/WER",
+      "contact": "Fenny van Egmond",
+      "address_or_route": "current public WUR profile/contact route; no email address invented",
+      "request_text_authority": "handoff section 3",
+      "status": "PENDING_EXTERNAL_SEND"
+    },
+    {
+      "priority": 3,
+      "holder_route": "Actieplan Bodem & Water Flevoland",
+      "contact": "programme referral route",
+      "address_or_route": "info@bodemenwaterflevoland.nl",
+      "request_text_authority": "handoff section 4",
+      "status": "PENDING_EXTERNAL_SEND"
+    }
+  ],
+  "minimum_requested_content_authority": "handoff section 5",
+  "privacy_preserving_ot02_fallback_authority": "handoff section 6",
+  "receipt_protocol_authority": "handoff section 7",
+  "post_receipt_acceptance_authority": "handoff section 8",
+  "scientific_status": "EXTERNAL_ACQUISITION_PENDING",
+  "dr_sm_current_state": "PARTIAL_EVIDENCE",
+  "data_acquired": false,
+  "run_authorized": false,
+  "next_action": "Send one or more qualified source-holder requests externally; on response, preserve message/attachment provenance and raw bytes before transformation."
+}
