@@ -6,6 +6,17 @@ from typing import Any
 import yaml
 
 
+DATASET_METADATA_FIELDS = (
+    "dataset_id",
+    "entity",
+    "role",
+    "grain",
+    "primary_key",
+    "canonical_status",
+    "source_or_derivation",
+)
+
+
 def load_yaml(path: Path) -> dict[str, Any]:
     with path.open("r", encoding="utf-8") as f:
         return yaml.safe_load(f)
@@ -25,6 +36,28 @@ def merged_fields(base: dict[str, Any], overlay: dict[str, Any]) -> dict[str, An
             )
         fields[key] = value
     return fields
+
+
+def dataset_metadata_rows(
+    dataset_id: str,
+    dataset: dict[str, Any],
+    dataset_spec: dict[str, Any],
+) -> list[list[str]]:
+    data_file = dataset_spec.get("data_file")
+    values = {
+        "dataset_id": dataset_id,
+        "entity": dataset.get("entity", ""),
+        "role": dataset.get("role", ""),
+        "grain": dataset.get("grain", ""),
+        "primary_key": ", ".join(dataset.get("primary_key", [])),
+        "canonical_status": dataset_spec.get("canonical_status", "PROVISIONAL"),
+        "source_or_derivation": (
+            data_file
+            or dataset.get("storage")
+            or "generated template / not yet populated"
+        ),
+    }
+    return [[field, values[field]] for field in DATASET_METADATA_FIELDS]
 
 
 def field_help(field_id: str, definition: dict[str, Any]) -> str:

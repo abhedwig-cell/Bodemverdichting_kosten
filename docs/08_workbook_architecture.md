@@ -4,7 +4,7 @@
 
 This document defines how Excel workbooks fit into the project architecture.
 
-The workbook is a **user-facing artifact**, not the canonical data model. Scientific meaning, dataset definitions, field definitions, evidence status and model semantics live in the repository. Workbooks should expose that canonical meaning in a readable form.
+The workbook is a **user-facing artifact**, not the canonical data model. Scientific meaning, dataset definitions, field definitions, evidence status and model semantics live in the repository. Workbooks expose that canonical meaning in a readable form.
 
 The governing chain is:
 
@@ -18,90 +18,72 @@ Evidence and qualification connect to every layer.
 
 A table should not mix unrelated grains. If two sections have different row meaning, they are different datasets even when they happen to fit on one worksheet.
 
-Every dataset needs:
-
-- a stable `dataset_id`;
-- a clear purpose;
-- an owning entity or relationship;
-- an explicit grain;
-- a primary key or candidate key where applicable;
-- canonical field definitions;
-- provenance and qualification semantics;
-- a declared artifact role.
+Dataset identity, role, grain, key and field meaning come from the canonical repository contracts. A workbook may add presentation metadata, but it must not create a competing scientific definition.
 
 ## Workbook classes
 
-The prototype lineage already contains more than one kind of workbook. These classes are now explicit:
+The prototype lineage contains more than one kind of workbook. These classes are explicit:
 
 - `FULL_FRAMEWORK_SNAPSHOT`: broad integrated workbook intended to expose many project domains.
-- `BOUNDED_MODULE`: a focused workbook for one capability, case, pilot or evidence campaign.
-- `REVIEW_ARTIFACT`: a workbook primarily intended for review/decision support.
-- `GENERATED_REPORT`: a workbook generated from canonical project state.
+- `BOUNDED_MODULE`: focused workbook for one capability, case, pilot or evidence campaign.
+- `REVIEW_ARTIFACT`: workbook primarily intended for review/decision support.
+- `GENERATED_REPORT`: workbook generated from canonical project state.
 - `LEGACY_PROTOTYPE`: historical workbook retained for traceability but not used as canonical state.
 
-A higher version number does **not** imply that a workbook contains all earlier sheets or is a cumulative replacement.
+A higher artifact version does not imply that the workbook contains all earlier sheets or is a cumulative scientific replacement.
 
 ## Required workbook front matter
 
-Future generated workbooks should begin with:
+Generated workbooks begin with:
 
 ### `00_METADATA`
 
-Machine- and human-readable artifact metadata. Minimum fields:
+Required artifact metadata are:
 
 - `project_id`
 - `artifact_id`
 - `artifact_class`
 - `artifact_version`
-- `framework_version`
 - `schema_version`
 - `generated_on`
 - `git_commit`
 - `purpose`
 - `scope`
-- `intended_audience`
 - `canonical_status`
-- `input_datasets`
-- `evidence_snapshot`
-- `known_limitations`
-- `owner`
-- `contact`
+
+Additional metadata such as framework version, intended audience, input datasets, evidence snapshot, known limitations, owner and contact can be included where useful.
+
+A blank or missing Git commit is not a substitute for provenance. A distributed artifact should identify the repository state from which it was produced.
 
 ### `01_GUIDE`
 
-A short reader guide explaining:
+The guide explains:
 
 - what the workbook contains;
 - which sheets are source data, model inputs, outputs, evidence, qualification or views;
-- which cells are editable;
-- which values are examples/scenarios;
+- which values are examples or scenarios;
 - which outputs are blocked or not yet qualified;
-- where to find the canonical definitions.
+- where the canonical definitions live.
 
 ### `DATA_DICTIONARY`
 
-A generated view of canonical field definitions used in the workbook.
-
-Minimum columns:
+The current generator exposes the canonical field definitions used by the artifact. Its baseline columns are:
 
 - `field_id`
 - `label`
 - `description`
 - `entity`
-- `dataset_id`
 - `datatype`
 - `unit`
 - `nullable`
-- `vocabulary`
-- `provenance_class`
-- `qualification_rule`
+- `allowed_values`
 - `guardrail`
+
+Future adapters may add dataset context, provenance or qualification metadata, but those additions must be derived from canonical repository contracts rather than hand-maintained workbook text.
 
 ## Dataset-level metadata
 
-Each data-bearing sheet should expose a compact metadata block before or beside the table, or through a standard linked metadata sheet.
-
-Minimum dataset metadata:
+Each data-bearing sheet exposes at least:
 
 - `dataset_id`
 - `entity`
@@ -109,38 +91,29 @@ Minimum dataset metadata:
 - `grain`
 - `primary_key`
 - `canonical_status`
+- `source_or_derivation`
 
-Recommended contextual metadata includes `dataset_version`, purpose, source or derivation, qualification status and known limitations when those are separately defined. Do not invent those values to make the workbook look complete.
+Dataset version, purpose, qualification status and known limitations may be added where they have independent meaning.
 
-Here `canonical_status` uses the shared controlled vocabulary for canonicality/readiness of the exposed dataset instance. More detailed operational states such as `WAIT_DATA` or `PARTIAL_EVIDENCE` belong in explicit readiness/status views and must not be smuggled into `canonical_status`.
+Here `canonical_status` uses the controlled canonical-status vocabulary. Operational states such as `WAIT_DATA` or `PARTIAL_EVIDENCE` belong in explicit readiness/status views rather than being overloaded into canonicality.
+
+## Scenario and context
+
+A workbook may show scenario-dependent results, but a scenario label must not hide the conditions that change interpretation.
+
+When a result materially depends on compaction severity or depth, crop, weather or event, groundwater/drainage, water-system state, time horizon or valuation perspective, those conditions must remain explicit in canonical fields, linked datasets or artifact/view metadata.
+
+The project does not require the workbook to enumerate every conceivable scenario in advance. It should expose only the context dimensions needed by the calculation or review surface at hand.
 
 ## Field-level help in Excel
 
-Column labels must stay short enough to keep tables readable.
+Column labels should remain compact. Long definitions belong in the canonical field registry.
 
-Long definitions belong in the canonical field dictionary. Workbooks should expose contextual help on the column header through a supported mechanism, for example:
-
-1. cell note/comment, preferably generated from the canonical field description; or
-2. data-validation input message when comments are not supported by the generator.
-
-The help text should normally contain:
-
-- human-readable definition;
-- unit;
-- row/grain context if needed;
-- provenance/status cue;
-- one important guardrail where relevant.
-
-Example:
-
-> **Extra generated surface runoff**  
-> Difference in generated parcel runoff between matched current and reference states for the same event. Unit: mm/event. This is not field-edge, ditch or pump volume.
-
-`DATA_DICTIONARY` remains authoritative when tooltip/help mechanisms differ between spreadsheet software.
+Workbooks expose contextual help on headers through a supported mechanism, for example a cell note/comment or a data-validation input message. `DATA_DICTIONARY` remains the fallback when spreadsheet clients differ.
 
 ## Sheet roles
 
-A workbook may expose the following roles:
+A workbook may expose roles such as:
 
 - `METADATA`
 - `GUIDE`
@@ -159,7 +132,7 @@ Views and dashboards must not silently become source tables.
 
 ## Workbook generation rule
 
-The preferred long-term direction is:
+The preferred direction is:
 
 **canonical schema + canonical data/evidence + code → generated workbook**
 
@@ -167,4 +140,6 @@ rather than:
 
 **hand-edited workbook → reverse-engineered application**
 
-Manual workbook edits may remain useful during research, but any scientifically relevant change should ultimately be reconciled back into canonical project state.
+The current generator is a bounded Tollebeek review adapter that demonstrates this contract. It is not the canonical project database and not the future application backend.
+
+Manual workbook edits may remain useful during research, but any scientifically relevant change must ultimately be reconciled back into canonical project state.
