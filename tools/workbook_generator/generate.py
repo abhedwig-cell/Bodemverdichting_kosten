@@ -254,7 +254,7 @@ def build(root: Path, output: Path, git_commit: str | None = None) -> None:
             ["role", dataset.get("role", "")],
             ["grain", dataset.get("grain", "")],
             ["primary_key", ", ".join(dataset.get("primary_key", []))],
-            ["canonical_status", dataset_spec.get("canonical_status", "WORKING_BASELINE")],
+            ["canonical_status", dataset_spec.get("canonical_status", "PROVISIONAL")],
             ["source_file", data_file or "generated template / not yet populated"],
         ]
         sheet.get_range("A2:B8").values = metadata_rows

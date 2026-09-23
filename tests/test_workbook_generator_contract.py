@@ -14,37 +14,39 @@ def load_all():
     vertical = load_yaml(ROOT / "schema/tollebeek_vertical_slice.yml")
     evidence = load_yaml(ROOT / "schema/evidence_fields.yml")
     datasets = load_yaml(ROOT / "schema/datasets.yml")["datasets"]
+    vocab = load_yaml(ROOT / "schema/controlled_vocabularies.yml")["vocabularies"]
     spec = load_yaml(ROOT / "schema/artifacts/tollebeek_vertical_slice_workbook.yml")
     fields = merged_fields(base, vertical)
     fields = merged_fields({"fields": fields}, evidence)
-    return fields, datasets, spec
+    return fields, datasets, spec, vocab
 
 
 class WorkbookGeneratorContractTests(unittest.TestCase):
     def test_artifact_spec_resolves(self):
-        fields, datasets, spec = load_all()
+        fields, datasets, spec, _ = load_all()
         self.assertEqual(validate_spec(spec, fields, datasets), [])
 
     def test_help_contains_guardrail(self):
-        fields, _, _ = load_all()
+        fields, _, _, _ = load_all()
         text = field_help("delta_runoff_mm", fields["delta_runoff_mm"])
         self.assertIn("not field-edge", text)
         self.assertIn("mm/event", text)
 
     def test_evidence_help_is_defined(self):
-        fields, _, _ = load_all()
+        fields, _, _, _ = load_all()
         text = field_help("evidence_statement", fields["evidence_statement"])
         self.assertIn("Atomic fact", text)
 
     def test_no_unknown_field_names(self):
-        fields, _, spec = load_all()
+        fields, _, spec, vocab = load_all()
+        allowed = set(vocab["canonical_status"])
         for dataset in spec["datasets"]:
-            self.assertTrue(dataset.get("canonical_status"))
+            self.assertIn(dataset.get("canonical_status"), allowed)
             for field_id in dataset["fields"]:
                 self.assertIn(field_id, fields)
 
     def test_csv_backed_datasets_have_required_columns(self):
-        _, _, spec = load_all()
+        _, _, spec, _ = load_all()
         for dataset in spec["datasets"]:
             data_file = dataset.get("data_file")
             if not data_file:

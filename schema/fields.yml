@@ -1,4 +1,4 @@
-schema_version: 0.2.0
+schema_version: 0.2.1
 status: MIGRATION_BASELINE
 
 fields:
@@ -376,11 +376,12 @@ fields:
 
   governance_rule_id:
     entity: governance_rule
-    label: Governance rule ID
-    description: Stable identifier for an explicit project rule or gate.
+    label: Legacy governance rule ID
+    description: Legacy alias retained for migration traceability. New canonical governance-rule records use rule_id.
     datatype: string
     unit: null
     nullable: false
+    guardrail: Do not introduce new datasets keyed by governance_rule_id; governance_rule_register uses rule_id.
 
   data_request_id:
     entity: data_request_item
