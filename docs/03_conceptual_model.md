@@ -8,13 +8,14 @@ Its main purpose is to answer: **what kinds of things exist in this project, wha
 
 ## 3.1 Design principles
 
-The conceptual model follows five rules.
+The conceptual model follows six rules.
 
 1. **Scientific objects exist independently of software representation.** A soil layer is not an Excel row and a pump dispatch is not a dashboard widget.
 2. **State and event are explicit.** A value that changes by scenario, time or operating condition should not be attached permanently to the wrong object.
 3. **Source facts and project interpretations are different objects.** Evidence is not a claim and a claim is not automatically an admitted parameter.
 4. **Transfer stages are explicit.** Generated parcel water, field-edge water, network water and pump volume are not synonyms.
 5. **Views do not create new scientific entities.** Aggregated tables and dashboards should be derived from registered objects.
+6. **A scenario is first a combination of existing context dimensions.** Introduce a separate scenario entity only when scenarios need their own stable identity, provenance, review lifecycle or reuse across workflows.
 
 ## 3.2 Main object families
 
@@ -83,6 +84,24 @@ A run is not itself a scientific conclusion. It is an execution whose outputs ma
 Hydrological output associated with a run. The data model may store responses in long or compatible wide form, but conceptually the response belongs to the run.
 
 Examples include surface runoff, drainage, evapotranspiration, groundwater state and water-balance diagnostics.
+
+### Scenario context
+
+For the current project maturity, scenario meaning is normally reconstructed from explicit existing objects and fields, for example:
+
+```text
+SoilState
++ LandUseCrop
++ Event / forcing
++ DrainageConfiguration
++ ModelConfiguration / water-system context
++ ValuationRelation
++ time or frequency semantics where relevant
+```
+
+This prevents an opaque label such as `DRY_HIGH_DAMAGE` from hiding which physical or economic assumptions actually changed.
+
+The model does not yet require a universal `Scenario` entity. Such an entity becomes justified only if scenarios acquire independent lifecycle needs, such as stable cross-workflow IDs, separate provenance, explicit approval, reuse or versioning.
 
 ## 3.4 Counterfactual pair
 

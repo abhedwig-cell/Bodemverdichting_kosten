@@ -17,6 +17,16 @@ bodemverdichting → bodemfysische toestand → fysieke/agronomische respons →
 
 Daarbinnen zijn on-site en off-site gelijkwaardige paden. Tollebeek is een lokale managed-system pilot voor source → transfer → dispatch en een kwalificatieomgeving voor hydrologische off-site berekeningen. Het is niet het nationale projectmodel.
 
+### Einddoel: conditionele kosten in plaats van één universele schadefactor
+
+Een bodemtype × landgebruikcombinatie heeft niet één contextvrij schadebedrag. De uitkomst kan veranderen met de verdichtingstoestand, het gewas, droogte of neerslagbelasting, antecedente toestand, grondwater en drainage, watersysteemcapaciteit, tijdshorizon en de gekozen waardering.
+
+De projectoutput moet daarom scenario's en bandbreedtes kunnen dragen. Een scenario is een expliciete combinatie van relevante condities, niet een ongedefinieerd label. Niet alle mogelijke combinaties worden vooraf gemodelleerd. Per pathway worden alleen de condities expliciet die de interpretatie of kostenuitkomst materieel veranderen.
+
+De systematiek is bewust uitbreidbaar. Nieuwe evidence of gerichte rekenexperimenten kunnen later een belangrijke bandbreedte verkleinen zonder de bestaande semantiek te herschrijven.
+
+De prioriteit van vervolgonderzoek wordt uiteindelijk bepaald door de vraag hoeveel onzekerheid het wegneemt in **schade en kosten**. Een grote fysische onzekerheid die nauwelijks doorwerkt in de eindraming heeft een lagere projectprioriteit dan een eenvoudiger onzekerheid die de kostenuitkomst domineert.
+
 ## 2. Waar hoort welke betekenis?
 
 | Laag | Canonieke authority | Huidige functie |
@@ -169,7 +179,7 @@ De logisch volgende stap is niet nog een frameworkversie en ook niet automatisch
 
 Werk in twee gecontroleerde sporen:
 
-**Wetenschappelijke inhoud:** bind de eerste nationale on-site surfaces verder met actuele exposure, maïs × bodem en economische data zodra die daadwerkelijk gekwalificeerd beschikbaar zijn. Kies per pathway steeds de lichtste route die de dominante onzekerheid reduceert.
+**Wetenschappelijke inhoud:** bind de eerste nationale on-site surfaces verder met actuele exposure, maïs × bodem en economische data zodra die daadwerkelijk gekwalificeerd beschikbaar zijn. Leg per prioritaire pathway vast welke scenario/contextdimensies de kostenuitkomst materieel sturen en kies vervolgens de lichtste route die de dominante eindonzekerheid reduceert.
 
 **Applicatie/overdracht:** bouw eerst een generieke read-only application/workbook view over pathway → evidence/ensemble → calculation readiness → blocker → allowed output. Die view moet rechtstreeks uit de geregistreerde canonieke datasets komen. Pas daarna is invoer/editing of een productiebackend zinvol.
 

@@ -84,6 +84,38 @@ We maken onderscheid tussen:
 
 Die mogen niet zomaar bij elkaar worden opgeteld. Soms gaat het om hetzelfde verlies dat vanuit twee kanten wordt bekeken.
 
+### We zoeken niet één schadegetal per bodem en landgebruik
+
+Een belangrijk gevolg is dat we waarschijnlijk niet kunnen eindigen met één vast bedrag voor bijvoorbeeld “maïs op zand” of “gras op zand”.
+
+De schade hangt ook af van de omstandigheden. Aan de bodemkant kan het verschil zitten in hoe sterk en hoe diep de bodem verdicht is. Dezelfde bodemtoestand kan bovendien heel anders uitpakken in een droog jaar, tijdens een gewone bui of tijdens een korte extreme piekbui. Ook grondwater, drainage, berging en capaciteit van het watersysteem kunnen bepalen of een fysiek effect uiteindelijk werkelijk schade veroorzaakt.
+
+Daarom willen we kunnen werken met **scenario's en bandbreedtes**. Met een scenario bedoelen we hier een expliciete combinatie van omstandigheden, bijvoorbeeld:
+
+- lichte, middelmatige of sterke verdichting;
+- een bepaalde diepte of ruimtelijke omvang van de verdichte laag;
+- een gemiddeld, droog of nat jaar;
+- een bui met een bepaalde omvang, intensiteit of duur;
+- een watersysteem met veel of weinig berging of afvoercapaciteit;
+- een bepaalde economische of maatschappelijke waardering.
+
+Niet ieder effect heeft al deze scenario's nodig. Voor opbrengst kan weer en gewas belangrijker zijn dan gemaalcapaciteit. Voor wateroverlast kan juist de combinatie van piekbui, berging en afvoercapaciteit bepalend zijn.
+
+Het schema waar we naartoe werken is daarom eerder:
+
+```text
+bodem en landgebruik
++ mate van verdichting
++ relevante omstandigheden
++ route naar het uiteindelijke effect
++ manier van waarderen
+→ schade of kosten met bandbreedte en toepassingsgrens
+```
+
+We hoeven nu nog niet alle mogelijke scenario's vast te leggen. Dat zou snel onbeheersbaar worden. We moeten wel laten zien dat we begrijpen **waarom de uitkomst afhankelijk is van de omstandigheden**, welke omstandigheden voor een bepaalde route relevant zijn en waar onze systematiek wel en niet toepasbaar is.
+
+Dat maakt de aanpak ook geschikt voor vervolgwerk. Als volgend jaar betere gegevens beschikbaar zijn of een rekenexperiment een belangrijke onzekerheid verkleint, kan die kennis worden toegevoegd zonder dat de hele methode opnieuw hoeft te worden opgebouwd.
+
 ---
 
 ## 3. Hoe we rekenen: eerst eenvoudig
@@ -175,6 +207,10 @@ Daarom laten we verschillende bronnen eerst naast elkaar staan. Een mogelijke ui
 - een bandbreedte;
 - een paar aparte scenario's;
 - of de conclusie dat de studies te verschillend zijn om samen te voegen.
+
+Niet iedere onzekerheid verdient vervolgens evenveel extra onderzoek. Voor het project is vooral relevant **hoe sterk een onzekerheid doorwerkt in de uiteindelijke schade- of kostenraming**. Een fysische parameter kan interessant zijn maar weinig verschil maken voor het eindresultaat. Omgekeerd kan bijvoorbeeld het werkelijk getroffen areaal, een extreme-gebeurtenisfrequentie of een economische waarde de totale kostenraming sterk bepalen.
+
+Bij vervolgonderzoek willen we daarom steeds vragen: *als we dit beter weten, wordt onze uiteindelijke kosteninschatting dan merkbaar beter?*
 
 ### Voorbeelden uit de kennis die nu beschikbaar is
 
@@ -332,11 +368,11 @@ Voorbeelden:
 3. **Gevolgen op het perceel** — Welke belangrijke gevolgen voor gewas of bedrijfsvoering ontbreken nog?
 4. **Gevolgen buiten het perceel** — Is de stap van perceel naar watersysteem goed genoeg uitgewerkt?
 5. **Gebruik van bestaande studies** — Wanneer is een bestaande relatie sterk genoeg om tussenstappen niet opnieuw te modelleren?
-6. **Onzekerheid** — Is het terecht om verschillende bronnen eerst naast elkaar te laten staan in plaats van ze standaard te middelen?
+6. **Scenario's en onzekerheid** — Zijn de belangrijkste omstandigheden die de schade laten variëren goed genoeg in beeld, en moeten we vooral scenario's tonen, bandbreedtes tonen of beide?
 7. **Vertaling naar geld** — Zijn kosten voor boer, publieke partijen en maatschappij voldoende van elkaar gescheiden?
 8. **Dashboard** — Laat het scherm duidelijk genoeg zien wat we weten, wat nog ontbreekt en waarom?
 9. **Balans** — Zijn de gevolgen op het perceel en buiten het perceel nu voldoende gelijkwaardig uitgewerkt?
-10. **Prioriteit** — Welke twee of drie vervolgstappen leveren volgens jou de meeste nieuwe kennis op?
+10. **Prioriteit** — Welke onzekerheden hebben volgens jou waarschijnlijk de grootste invloed op de uiteindelijke schade- of kostenraming, en welke twee of drie vervolgstappen verdienen daarom als eerste verdieping?
 
 Een goede uitkomst van de review is geen “go/no-go”, maar per belangrijk punt bijvoorbeeld:
 
