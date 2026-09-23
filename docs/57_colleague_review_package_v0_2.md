@@ -135,6 +135,19 @@ Die mogen niet zomaar bij elkaar worden opgeteld. Soms gaat het om hetzelfde ver
 
 ## 3. Hoe we rekenen: eerst eenvoudig
 
+Voor de bespreking is de volledige werkwijze ook als één schema uitgewerkt in `59_bespreekschema_werkwijze_en_einddoel_v0_1.md`. De kern daarvan is:
+
+```text
+bodem × landgebruik × verdichtingstoestand × relevante context
+→ kies effectpad
+→ gebruik direct bewijs als dat voldoende is
+→ reken alleen ontbrekende noodzakelijke schakels
+→ stop als de onderbouwing onvoldoende is
+→ waardeer alleen een gekwalificeerd fysiek effect
+→ rapporteer bedrag, bandbreedte, scenario-set of expliciete blocker
+→ onderzoek vervolgens vooral onzekerheid die de eindkosten bepaalt
+```
+
 De hoofdregel is:
 
 > **Zo eenvoudig als het kan, zo uitgebreid als het nodig is.**
