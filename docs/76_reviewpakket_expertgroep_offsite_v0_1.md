@@ -14,25 +14,29 @@ De gezamenlijke onderzoeksvraag is: **welke gevolgen ontstaan buiten het perceel
 
 ```mermaid
 flowchart TD
-    A[Langdurige ondergrondverdichting] --> B[Verandering in bodemstructuur en beworteling]
-    B --> C[Verandering in water, lucht en biologische processen]
-    C --> D1[1. Wateroverlast]
-    C --> D2[2. Extra wateraanvoer]
-    C --> D3[3. Broeikasgassen]
-    C --> D4[4. Nutriënten in water]
-    C --> D5[5. Gewasbeschermingsmiddelen in water]
-    C --> D6[6. Bodembiodiversiteit en externe ecologie]
-    D1 --> E[Gevolgen voor mensen, beheer en ecosystemen]
-    D2 --> E
-    D3 --> E
-    D4 --> E
-    D5 --> E
-    D6 -.-> E
-    E --> F[Geldwaarde waar verantwoord]
-    E --> G[Fysieke effecten en kwalitatieve gevolgen]
+    A[Langdurige ondergrondverdichting] --> B[Verandering in poriën, beworteling en bodemleven]
+    B --> W[Waterberging, waterstroming en wateropname]
+    B --> L[Beluchting en bodemchemische processen]
+    B --> E[Bodemecologische processen]
+    W --> R1[1. Wateroverlast: afvoer naar watersysteem]
+    W --> R2[2. Wateraanvoer: vraag en werkelijke levering]
+    W --> R4[4. Nutriënten: transport naar ontvangend water]
+    W --> R5[5. Gewasbeschermingsmiddelen: transport naar water]
+    L --> R3[3. N₂O en CH₄: mogelijke verandering netto emissies]
+    L --> R4
+    E --> R6[6. Biodiversiteit: lokaal effect en mogelijke externe doorwerking]
+    E --> R4
+    R1 --> O[Toets: treedt buiten perceel een gevolg op?]
+    R2 --> O
+    R3 --> O
+    R4 --> O
+    R5 --> O
+    R6 -.-> O
+    O --> M[Economische schade waar verantwoord]
+    O --> N[Fysieke en ecologische gevolgen zonder geldwaarde]
 ```
 
-**Let op:** de figuur is een overzicht van onderzoeksvragen, geen bewijs dat iedere verbinding altijd bestaat. Bodembiodiversiteit kan ook rechtstreeks binnen het perceel relevant zijn. Alleen aangetoonde externe doorwerking is een zelfstandig off-site effect. De technische figuur met genummerde verbindingen **C01–C14** en bijbehorende matrix staat in [de effectmatrix](75_offsite_causaal_netwerk_en_effectmatrix_v0_1.md).
+**Let op:** dit schema ordent mogelijke processen en onderzoeksvragen. Het is geen bewijs dat iedere verbinding bestaat, of dat de gevolgen altijd toenemen. Bodembiodiversiteit kan ook rechtstreeks binnen het perceel relevant zijn. Alleen aangetoonde externe doorwerking is een zelfstandig off-site effect. De verdiepende figuur met genummerde verbindingen **C01–C14** en bijbehorende matrix staat in [de effectmatrix](75_offsite_causaal_netwerk_en_effectmatrix_v0_1.md).
 
 ## 3. Zes onderzoekslijnen
 
@@ -73,7 +77,11 @@ Een effect kan eindigen als een eurobandbreedte, een fysieke indicator, een kwal
 
 **Tollebeek** is één begrensde casus voor een bemalen watersysteem, geen nationaal model. De huidige softwareproef is synthetisch en niet gevalideerd als werkelijke schade door verdichting.
 
-## 7. Vijf vragen aan de expertgroep
+## 7. Hoe geven de experts feedback?
+
+Gebruik per effect drie korte opmerkingen: **(a)** welke verbinding klopt of ontbreekt, **(b)** welke studie of meting ondersteunt dat oordeel en betreft die werkelijk ondergrondverdichting, **(c)** wat is de eerstvolgende toetsbare stap? Vermeld wanneer een effect mogelijk afneemt of van teken verandert. Een niet-monetair effect hoeft niet van een geldwaarde te worden voorzien.
+
+## 8. Vijf vragen aan de expertgroep
 
 1. Ontbreekt een relevant effect of is een route verkeerd ingedeeld?
 2. Welke verbindingen zijn specifiek voor langdurige ondergrondverdichting voldoende bewezen?
