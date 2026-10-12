@@ -41,7 +41,19 @@ flowchart LR
     V --> Q[Fysieke effecten, kwalitatieve gevolgen en kennislacunes]
 ```
 
-**Belangrijke vereenvoudigingen:** C05 omvat hier twee verschillende uitkomsten, bemaling en wateroverlast, die in de uitwerking afzonderlijk moeten worden beoordeeld. C09 groepeert twee broeikasgassen voor de werkverdeling, niet omdat ze dezelfde biogeochemische productie- en oxidatieprocessen hebben. C14 staat bij de gemeenschappelijke overgang naar gevolgen, maar geldt afzonderlijk voor **alle zes** eindpunten. Hetzelfde geldt voor de pijl van bodemleven naar andere bodemfuncties: die mogelijke terugkoppelingen zijn omwille van leesbaarheid niet allemaal getekend.
+**Belangrijke vereenvoudigingen:** C05 omvat twee verschillende uitkomsten, bemaling en wateroverlast. C09 groepeert N₂O en CH₄ als werkspoor, maar niet als identiek proces. De subcodes C05a/C05b en C09a/C09b hieronder zijn **uitsluitend lees- en reviewlabels**, geen nieuwe officiële effectcodes. C14 geldt afzonderlijk voor **alle zes** eindpunten. Hetzelfde geldt voor de pijl van bodemleven naar andere bodemfuncties: die mogelijke terugkoppelingen zijn omwille van leesbaarheid niet allemaal getekend.
+
+## Waar één pijl meer dan één mechanisme samenvat
+
+| Figuurcode | Leeslabel | Afzonderlijke vraag voor de expert |
+|---|---|---|
+| C05 | C05a: netwerk naar extra bemaling | Verandert de daadwerkelijke pompbediening en energiebehoefte? |
+| C05 | C05b: netwerk naar wateroverlast | Verandert de overschrijdingskans of schade bij een blootgestelde functie? |
+| C09 | C09a: omstandigheden naar netto N₂O | Wat gebeurt er met nitrificatie, denitrificatie en reductie van N₂O tot N₂? |
+| C09 | C09b: omstandigheden naar netto CH₄ | Wat gebeurt er met methaanproductie én methaanoxidatie? |
+| C14 | C14 per eindpunt | Welke fysieke of ecologische verandering is aantoonbaar, en welke schade of niet-monetaire betekenis volgt daaruit? |
+
+**Voor gebruik als formeel causaal model moeten deze bundels later worden gesplitst.** Voor de expertbespreking houden we de figuur leesbaar, maar beoordelen we de subvragen afzonderlijk.
 
 ## Matrix: wat betekent iedere pijl?
 
