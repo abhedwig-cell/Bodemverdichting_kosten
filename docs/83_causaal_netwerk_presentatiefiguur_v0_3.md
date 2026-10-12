@@ -66,13 +66,19 @@ Dit is een conceptuele figuur, geen gekwalificeerd causaal rekenmodel. Zie [docu
 
 De PowerPointversie gebruikt dezelfde pijlen en codes, maar is visueel geordend voor presentatie. De WUR-presentatie en het projectlogo zijn afzonderlijke presentatiebestanden; deze Markdown is de bewerkbare bron voor de netwerkfiguur.
 
+## Toelichting op de bestaande onderzoeksroutes in Git
+
+De **C-codes** (C01–C28) benoemen afzonderlijke causale verbindingen in de figuur. De **F- en O-codes** verwijzen naar de bestaande indeling van het bodemverdichtingsonderzoek in Git; ze zijn geen bewijs dat een relatie al wetenschappelijk is aangetoond. **F1** betreft perceelsafvoer, **F2** overdracht naar het regionale watersysteem, **F3** bemaling, **F4** wateroverlast en schade, **F5** wateraanvoer, **F6** waterkwaliteit (nutriënten en gewasbeschermingsmiddelen), en **O3** de onsite-route voor droogtegevoeligheid en potentiële watervraag. **Kandidaat** betekent dat het voorgestelde onderdeel nog niet als officiële onderzoeksroute is opgenomen. **Gemeenschappelijk** verwijst naar de bodemfysische basis die meerdere routes delen.
+
+Deze indeling is gebaseerd op de bestaande projectmatrix [document 49](49_project_effect_pathway_matrix_v0_1.md). Voor de inhoudelijke beoordeling van een C-code is de bijbehorende causale relatie belangrijker dan de interne routecode.
+
 ## Volledige uitleg per causale verbinding (C01–C28)
 
 De onderstaande toelichtingen volgen letterlijk de **inhoudelijke relaties en onzekerheidsgrenzen** van de effectmatrix in document 81. Ze zijn geen afzonderlijk gevalideerde claims. De kolom 'Wat nog moet worden getoetst' geeft aan waar het bestaande onderzoek nog onvoldoende specifiek of kwantitatief is.
 
 ### Wateroverlast en watersysteem
 
-| Code | Van → naar | Betekenis | Wat nog moet worden getoetst | Voortouw | Projectroute |
+| Code | Van → naar | Betekenis | Wat nog moet worden getoetst | Voortouw | Bestaande onderzoeksroute (Git) |
 |---|---|---|---|---|---|
 | C01 | Langdurige ondergrondverdichting → Poriënstructuur en weerstand | Berijding verandert de poriënstructuur en mechanische weerstand | Sterke fysische basis; omvang en persistentie per laag toetsen | Gezamenlijk | gemeenschappelijk |
 | C02 | Poriënstructuur en weerstand → Doorlatendheid en berging | Poriënstructuur beïnvloedt doorlatendheid en waterberging | Bodemtype en poriënconnectiviteit bepalend | Ab | F1 |
@@ -84,7 +90,7 @@ De onderstaande toelichtingen volgen letterlijk de **inhoudelijke relaties en on
 
 ### Beworteling en watervraag
 
-| Code | Van → naar | Betekenis | Wat nog moet worden getoetst | Voortouw | Projectroute |
+| Code | Van → naar | Betekenis | Wat nog moet worden getoetst | Voortouw | Bestaande onderzoeksroute (Git) |
 |---|---|---|---|---|---|
 | C08 | Poriënstructuur en weerstand → Beworteling en opname | Mechanische weerstand en poriën beïnvloeden beworteling | Diepte en gewasafhankelijk | Ab | O3 |
 | C09 | Beworteling en opname → Potentiële watervraag | Beworteling en opname beïnvloeden potentiële watervraag | Potentiële vraag is geen geleverde hoeveelheid | Ab | O3 |
@@ -94,7 +100,7 @@ De onderstaande toelichtingen volgen letterlijk de **inhoudelijke relaties en on
 
 ### Gastransport en broeikasgassen
 
-| Code | Van → naar | Betekenis | Wat nog moet worden getoetst | Voortouw | Projectroute |
+| Code | Van → naar | Betekenis | Wat nog moet worden getoetst | Voortouw | Bestaande onderzoeksroute (Git) |
 |---|---|---|---|---|---|
 | C13 | Poriënstructuur en weerstand → Gastransport en beluchting | Poriënverandering beïnvloedt gastransport | Ondergrondstudies, bodemafhankelijk | Piet + tweede expert | kandidaat |
 | C14 | Gastransport en beluchting → Zuurstof- en redoxcondities | Gastransport beïnvloedt zuurstofcondities | Vocht, temperatuur en diffusie bepalen respons | Piet + tweede expert | kandidaat |
@@ -105,7 +111,7 @@ De onderstaande toelichtingen volgen letterlijk de **inhoudelijke relaties en on
 
 ### Stoftransport en waterkwaliteit
 
-| Code | Van → naar | Betekenis | Wat nog moet worden getoetst | Voortouw | Projectroute |
+| Code | Van → naar | Betekenis | Wat nog moet worden getoetst | Voortouw | Bestaande onderzoeksroute (Git) |
 |---|---|---|---|---|---|
 | C19 | Waterstroming en bodemvocht → Stofmobilisatie en transportroute | Waterstroming beïnvloedt mobilisatie en transportroute | Preferente stroming kan beide richtingen op veranderen | Piet / Wim | F6 |
 | C20 | Zuurstof- en redoxcondities → Stofmobilisatie en transportroute | Redox kan mobilisatie en omzetting van stoffen beïnvloeden | Stof- en bodemafhankelijk, geen generieke factor | Piet | F6 |
@@ -114,7 +120,7 @@ De onderstaande toelichtingen volgen letterlijk de **inhoudelijke relaties en on
 
 ### Bodemecologie
 
-| Code | Van → naar | Betekenis | Wat nog moet worden getoetst | Voortouw | Projectroute |
+| Code | Van → naar | Betekenis | Wat nog moet worden getoetst | Voortouw | Bestaande onderzoeksroute (Git) |
 |---|---|---|---|---|---|
 | C23 | Poriënstructuur en weerstand → Bodemleven en functies | Verdichting beïnvloedt bodemleven en functies | Directe ondergrondgegevens beperkt | Bodemecoloog via Guido | kandidaat |
 | C24 | Bodemleven en functies → Beworteling en opname | Bodemleven kan beworteling beïnvloeden | Mediator, dubbel tellen vermijden | Bodemecoloog | kandidaat |
@@ -123,7 +129,7 @@ De onderstaande toelichtingen volgen letterlijk de **inhoudelijke relaties en on
 
 ### Ontvangend oppervlaktewater
 
-| Code | Van → naar | Betekenis | Wat nog moet worden getoetst | Voortouw | Projectroute |
+| Code | Van → naar | Betekenis | Wat nog moet worden getoetst | Voortouw | Bestaande onderzoeksroute (Git) |
 |---|---|---|---|---|---|
 | C27 | N- en P-vracht in water → Ecologische toestand ontvangend water | N- en P-vracht kan ontvangend ecosysteem beïnvloeden | Ontvangend systeem en concentratie-respons nodig | Piet | F6 |
 | C28 | Middel-specifieke vracht → Ecologische toestand ontvangend water | Gewasbeschermingsmiddelen kunnen ontvangend ecosysteem beïnvloeden | Blootstelling en toxiciteit stofspecifiek | Wim | F6 |
