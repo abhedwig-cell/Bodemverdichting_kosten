@@ -1,0 +1,9 @@
+profile_id,soil_code,screening_hits,depth_30_100_context,closest_effect_study,transferability,observed_compaction_state,land_use_verified,decision
+SOILPHYS_90115240,Mn15A,70,"25-50cm O9 loamy mineral;50-120cm O8 sandier mineral",WENR2811;Hanse2011,mechanism_only,NO,NO,FIELD_MEASUREMENT_REQUIRED
+SOILPHYS_15100,Mv51A,14,"25-40cm O9 mineral;40-60cm O11 finer mineral;60-120cm O17 high organic material",WENR2811,soil_specific_subsoil_gap,NO,NO,MINERAL_AND_ORGANIC_SEPARATE
+SOILPHYS_15250,Mn15Av,13,"25-50cm O9 mineral;50-85cm O8 mineral;85-105cm O12 fine mineral;105-120cm O17 organic",WENR2811,soil_specific_subsoil_gap,NO,NO,STRATIFIED_LAYERS
+SOILPHYS_90115270,Mn25A,5,"25-50cm O10 fine mineral;50-120cm O9 mineral",WENR2811,mechanism_only,NO,NO,FIELD_MEASUREMENT_REQUIRED
+SOILPHYS_11020,Zn10A,4,"25-120cm O4 fine/silty sand",BoVer3404;WENR2811,conditional_textural_analogy_only,NO,NO,NO_DIRECT_PARAMETER_TRANSFER
+SOILPHYS_12010,Sn13A,3,"25-120cm O3 sand mineral",BoVer3404,conditional_textural_analogy_only,NO,NO,NO_DIRECT_PARAMETER_TRANSFER
+SOILPHYS_11021,Zn10Av,3,"25-70cm O4 mineral;70-120cm O18 high organic material",BoVer3404;WENR2811,conditional_above_organic_layer_only,NO,NO,MINERAL_AND_ORGANIC_SEPARATE
+SOILPHYS_90111050,Zn50A,1,"25-45cm O2 sandy mineral;45-120cm O1 coarse sand",BoVer3404,conditional_textural_analogy_only,NO,NO,NO_DIRECT_PARAMETER_TRANSFER
