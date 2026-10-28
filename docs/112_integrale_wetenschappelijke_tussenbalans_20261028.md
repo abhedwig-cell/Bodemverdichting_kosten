@@ -1,0 +1,222 @@
+# Integrale wetenschappelijke tussenbalans: kosten van ondergrondverdichting
+
+**28 oktober 2026 | SYNTHESIS v1.0 | Onderzoeksstand voor expertbespreking**
+
+**Status: interne wetenschappelijke tussenbalans, geen afgeronde nationale schadeberekening.** Deze tekst is één leesbaar tussentijds onderzoeksresultaat, geen nieuwe methodiek, geen alternatieve bronregistratie en geen nieuwe numerieke admission. De oorspronkelijke autoriteiten blijven [theorie 02](02_theoretical_framework.md), [formeel model 04](04_formal_model.md), [effectpaden 49](49_project_effect_pathway_matrix_v0_1.md), [ensembleprotocol 50](50_evidence_ensemble_protocol_v0_1.md) en [beslisschema 59](59_bespreekschema_werkwijze_en_einddoel_v0_1.md). Voor de zes off-site categorieën wordt aangesloten bij [causaal netwerk v0.7](89_causaal_netwerk_v0_7.md). Detailonderzoek staat in [documenten 90–111](90_teams_literatuur_intake_20261028.md).
+
+> **Kernbevinding:** er zijn overtuigende fysieke mechanismen, enkele direct gemeten of berekende lokale effectgroottes en reeds voorbereide rekensurfaces. Er is nog **geen verdedigbare actuele nationale monetaire schadebandbreedte** voor uitsluitend Nederlandse ondergrondverdichting. Ook een nulbedrag is niet verdedigbaar. Het eerste onderzoeksresultaat is een gespecificeerd bewijs- en onzekerheidsbeeld, met concrete conditional evidence, uitsluitingen en beslispunten.
+
+## 1. Onderzoeksvraag, systeemgrens en bestaande methode
+
+De centrale vraag is wat **huidige schadelijke ondergrondverdichting**, in vergelijking met een relevante en fysisch mogelijke minder verdichte referentie bij dezelfde bodem, hetzelfde landgebruik en vergelijkbare omstandigheden, betekent voor **landbouw en maatschappij**.
+
+De bestaande methode onderscheidt:
+1. **Toestand/exposure**: waar, op welke diepte, welk bodemtype en welke verdichtingsgraad;
+2. **Respons**: hydrologie, wortelgroei, productie, biogeochemische processen en bodemfuncties onder weer en systeemcontext;
+3. **Attributie**: CURRENT minus een expliciet verantwoorde REFERENCE, niet vergelijking met een willekeurig ideale bodem;
+4. **Transfer**: welke perceelsrespons daadwerkelijk een andere actor, het ontvangende water of het regionale systeem bereikt;
+5. **Waardering**: welke additionele private, publieke en maatschappelijke gevolgen kunnen worden gewaardeerd.
+
+We gebruiken de **lichtste verdedigbare route**: direct empirisch bewijs waar mogelijk; anders eenvoudige, controleerbare relaties; alleen wanneer materiële onzekerheid daardoor werkelijk verkleint een gericht procesmodel. Een schadefactor zonder voldoende context wordt niet geïntroduceerd om een totaalcijfer te verkrijgen.
+
+De landelijke verdichtingsmeetset van circa 1.800 locaties en nieuwe SWAP-berekeningen zijn **bewust geparkeerd**. De publieke/historische areaalgegevens worden niet verward met actuele blootstelling. Geen terugwerkende invulling met Defra-percentages.
+
+### 1.1 Twee systemen van F-codes: expliciet onderscheiden
+
+**PATH_F1–PATH_F6** verwijzen als leesalias naar de **oorspronkelijke proces-/effectpadstappen** uit document 49. **EC1–EC6** zijn hier uitsluitend de zes **maatschappelijke effectcategorieën** uit het recente causale netwerk. Zij zijn niet dezelfde variabelen en mogen niet automatisch worden gekoppeld. In de oudere `evidence/offsite_results_matrix_v0_1.csv` staan dezelfde zes categorieën historisch nog onder F1–F6. Dit is een presentatieconflict, geen reden om canonieke sleutels of vergelijkingen zonder migratie te herschrijven.
+
+## 2. Reeds bestaande berekeningsgereedheid: on-site
+
+De bestaande [on-site rekensurface](52_onsite_bounded_calculation_surface_v0_1.md) en `evidence/onsite_bounded_calculation_surface_v0_1.csv` bevatten **vier** expliciete doelstrata, met een historische rapportageareaalbasis uit **2018**. De oppervlaktewaarden zijn gemarkeerd `MIGRATION_BASELINE_REVERIFY_TABLE`: nog geen volledig opnieuw geverifieerde huidige areaalinputs.
+
+| Stratum | Historisch ouder-areaal (2018) | Ensemble | Hoofdblokkade |
+|---|---:|---|---|
+| Gras / overige zandgronden | 331.592 ha | ENS_O1_GRASS_SAND | Actuele diepte×ernst-exposure; referentie; prijs/marge |
+| Gras / zandige eerdgronden | 124.495 ha | ENS_O1_GRASS_SAND, transfer te toetsen | Als boven plus bodemtype-overdracht |
+| Akkerbouw / overige zandgronden; snijmaïs als deelgewas | 348.814 ha **akkerbouw**, niet mais | ENS_O1_MAIZE_SAND | Maïsaandeel, exposure, responsmatch, waardering |
+| Akkerbouw / zandige eerdgronden; snijmaïs als deelgewas | 94.578 ha **akkerbouw**, niet mais | ENS_O1_MAIZE_SAND, transfer te toetsen | Maïsaandeel, exposure en contexttransfer |
+
+**Geen van de vier heeft een actuele schade-euro-uitkomst.** Ook bij een correcte gebiedsoppervlakte ontbreekt de verdichte fractie met passende diepte/severiteit; bij de akkerbouwstrata ontbreekt daarnaast de juiste gewasoppervlakte. De volgende uitkomststatus blijft `BOUNDED_NO_DAMAGE_RESULT`.
+
+### 2.1 Kwantitatief beschikbare on-site studie-uitkomsten
+
+| Context | Uitkomst uit bestaand evidence-ensemble | Wat de uitkomst wel zegt | Wat niet |
+|---|---|---|---|
+| Nederlands zand / snijmaïs; Alblas et al. (1994) | Ca. **4%** opbrengstrespons bij 5 Mg aslast en **15%** bij 10 Mg, contextmaximum tot 38% | Experimentele respons op berijdingsbelasting op vier locaties, afhankelijk van bodem en weer | Niet gelijk aan actuele CC-NL-ernstklasse of nationaal verlies |
+| Historische Alblas-inschatting | **7%** Nederlandse snijmaïsproductie | Historische sanity check uit broncontext | Geen 2026-waarde |
+| Gras, langjarig, bodemverbeteringsmodellen Groenendijk et al. (2017) | **3–5%** hogere opbrengst na bodemverbetering | Inverse, profiel-/weersafhankelijke verbetering | Niet automatisch 3–5% verdichtingsschade |
+| Gras, droog jaar, Groenendijk et al. (2017) | **17–23%** verbetering | Droog-jaar scenario, fysische waterbeschikbaarheid belangrijk | Niet naar gemiddeld jaar annualiseren |
+| Snijmaïs, langjarig bodemverbeteringsmodel | **0–2%** verbetering | Modelscenario op gekozen profielen | Niet direct de Alblas-berijdingsbehandeling |
+| Snijmaïs, droog jaar bodemverbeteringsmodel | **3–41%** verbetering | Grote klimaat-/profielgevoeligheid | Geen landelijke onzekerheidsinterval |
+| Arts en Snijders, Nederlands grasland | Niet-monotone en deels van teken veranderende effecten | Positieve én negatieve graskwantificering mogelijk afhankelijk van context | Geen universele afname met meer verdichting |
+| BoVer 3404, fijne zandgrond, maïskolommen | Scheutdrogestof S0 **18,758 g** naar S4 **11,613 g** bij geforceerde droogte; significante hoge-behandelingseffecten | Mechanistisch bewijs voor wortelaanpassing en vroege vegetatieve groei | **Niet** een oogstopbrengstverschil; geen landelijke schade |
+
+De grens tussen bronnen is essentieel: *axle-load-treatment*, *removal of compaction plus soil-improvement*, *laboratoriumkolom* en *landelijke actuele verdichtingsklasse* zijn geen uitwisselbare blootstellingen. Daarom bevat het oorspronkelijke ensembleprotocol voor gras en maïs `SCENARIO_ENSEMBLE`, niet een centraal schadepercentage. [Bronmigratie 51](51_onsite_ensemble_source_migration_v0_1.md), [BoVer-review 97](97_bover_3404_primaire_parameterreview_20261028.md).
+
+### 2.2 Overige on-site gevolgen die zelfstandig moeten blijven
+
+- **O2 productkwaliteit:** crop-specifieke sortering, maat, afkeur en marktwaarde. Copas et al. (2009) bij aardappel waarschuwt dat diep losmaken niet automatisch totale marktbare opbrengst verhoogt; kwaliteit of sortering kan anders reageren. Onvoldoende voor nationale opbrengst-/kwaliteitsschade.
+- **O3 waterstress en beregening:** zie EC2 hieronder. Potentiële waterbehoefte is niet feitelijk toegediend water; laat waterkosten en opbrengstschade niet overlappen zonder expliciet netto boereninkomen te definiëren.
+- **O4 bewerkbaarheid/extra bewerkingen:** meer trekwerk, brandstof, arbeid of timingkosten alleen na gemeten/onderbouwde bedrijfsmatige respons. Britse Defra-aannames vervangen geen Nederlands bedrijfsbewijs.
+- **O5 economische consolidatie:** brutoproductiewaarde, private marge en maatschappelijke welvaartsverandering zijn verschillende perspectieven. Zij worden niet opgeteld.
+
+## 3. Zes off-site effectcategorieën: fysieke en maatschappelijke balans
+
+De hier gebruikte **EC-codes** zijn rapportagecategorieën. Zij veranderen niet de technische `PATH_F1–PATH_F6` of V01–V42.
+
+### EC1. Wateroverlast en bemaling
+
+**Fysisch voldoende onderbouwd:** verandering van poriën, waterretentie, verzadigde/onverzadigde doorlatendheid, worteldiepte en infiltratie kan oppervlakkige afstroming, drainage, bodemopslag en timing beïnvloeden. Reële effecten hangen sterk af van laagdiepte, voornatheid, maaiveldberging, neerslagintensiteit, grondwater en drainage.
+
+**Kwantitatieve bronuitkomsten:**
+- Groenendijk/WENR 2811, onderliggend Schipper 2015: ongeveer **10 mm/jaar** extra perceelsafstroming bij snijmaïs in langjarig modelscenario, ongeveer **12 mm/jaar** bij extremere weerscontext. Dit zijn **geen betrouwbaarheidsgrenzen**.
+- Vlaamse casus Van der Bolt 2016, samengevat in WENR 2811: **5→14 mm/jaar** extra oppervlakkige afstroming volgens samenvatting, **4→14 mm/jaar** volgens tabel 1.1. Het beginverschil is **nog onopgelost** in de bronreconciliatie; dus rapporteer voorlopig **9 of 10 mm/jaar afhankelijk van welk bronvoorbeeld**, niet als een precieze éénwaarde.
+- Deze resultaten zijn modeluitkomsten met onderscheiden huidige/verbeterde scenario's, geen gecontroleerd landelijk veldcontrast uitsluitend van 30–100 cm-verdichting.
+
+**Wat de maatschappelijke kosten zouden vereisen:** perceelsvolume/afvoertiming → werkelijk afgeleverd hydrogram → stuw-/pomp-/bergingrespons → verandering in overstromingskans en blootstelling → werkelijke additionele schade of marginale beheerkosten. Niet alle extra perceelsafvoer veroorzaakt extra pomparbeid of overlast. Pompenergie én resterende overstromingsschade zijn alleen samen rapporteerbaar als het werkelijk verschillende additionele effecten betreft.
+
+**Defra-waarschuwing:** SP1606 Appendix H eindigde voor flooding in een aanname van ongeveer **7%** runoff-effect → **7%** maatschappelijke schadekosten, met centraal **£168 miljoen/jaar**. Geen Nederlandse coefficient en geen gekwalificeerde transferfunctie. [Defra 101](101_defra_appendix_h_occurrence_volledige_methodereconstructie_v0_1.md).
+
+**Tussenuitkomst:** brongebonden lokale hydrologische scenario's beschikbaar; **geen regionale of nationale waterschade** bepaald. Niet-gemonetariseerd: kans op natschade en afhankelijkheid van systeemcapaciteit.
+
+### EC2. Wateraanvoer, waterbeschikbaarheid en grondwater
+
+**Fysische route:** compaction → wortelbereik, opslag, capillaire nalevering en werkelijke ET → *potentiële* beregeningsbehoefte → boerbesluit en bronkeuze → werkelijk extra geleverde hoeveelheid / niet geleverde vraag → regionale schaarste- of omgevingsgevolgen. Diepe percolatie is niet automatisch netto regionale grondwateraanvulling.
+
+**Bestaande grenzen:** WENR 2811 rapporteert in **droge-jaren-modelscenario's** voor gras circa **50 mm** minder potentiële beregeningsbehoefte bij veldpodzol en **60–90 mm** bij ooivaaggrond na bodemverbetering. De Deense overview noemt een via Andersen et al. secundair gerapporteerde circa **90 mm** minder wortelzonewater onder een specifieke ondergrondverdichtingscontext: oorspronkelijke studie/definitie nog niet gecontroleerd. Beide zijn **niet** een landelijke actuele aanvoerbehoefte en meten verschillende eindpunten.
+
+**Maatschappelijke waardering:** daadwerkelijke additionele oppervlaktewateraanvoer of grondwateronttrekking, energie, ruimtelijke allocatie en schaarstekosten zijn onderscheiden. Besparingen door niet-beregenen kunnen samengaan met opbrengstverlies; tel deze niet als twee volledig onafhankelijke welvaartskosten.
+
+**Tussenuitkomst:** fysieke potentie in enkele contexten gekwantificeerd, maatschappelijk gebruik en schade **niet identificeerbaar**. Niet-gemonetariseerd: waterschaarste, druk op grondwater, kwetsbaarheid in droge jaren.
+
+### EC3. Broeikasgassen N₂O en CH₄
+
+**Mechanisme:** minder porieconnectiviteit en gasdiffusie en andere water-/zuurstofcondities kunnen nitrificatie, denitrificatie, N₂O-productie én N₂O-reductie tot N₂ beïnvloeden; CH₄-reactie vraagt eigen C-/redox-/waterregime. Daarom zijn gasdiffusie en gemeten **netto veldflux** niet hetzelfde eindpunt.
+
+**Kwantitatief experimenteel effect:** Bessou et al. (2010) suikerbiet in Noord-Frankrijk: twee cumulatieve N₂O-N-contrasten (g N/ha per gewascyclus) controle **944 en 977**, extra verkeersverdichting **1448 en 1382**, verschillen **+504** en **+405 g N₂O-N/ha**, respectievelijk **+53,4%** en **+41,5%** ten opzichte van controle. De proef is niet als uitsluitend 30–100 cm-verdichting geïsoleerd. Pulido-Moncada et al. (2022) factor **1,3–42** betreft topsoil-effecten; **niet gebruiken voor subsoil**.
+
+**Directer ondergrondmechanisme:** Pulido-Moncada et al. (2024) vergelijkt TopComp, SubComp en NoComp in kernen met N₂O-gastransport. Dat levert *procesbewijs voor de ondergrond*, geen netto jaaremissiefactor.
+
+**Maatschappelijke waardering:** uitsluitend wanneer netto additionele N₂O/CH₄-flux met passende tijd- en ruimtebasis beschikbaar is, transparant omrekenen naar klimaateffect, met consistente karakteriseringsfactor en prijsjaar. Landbouwsector-KEV-emissies zijn slechts een nationale achtergrondbasis.
+
+**Tussenuitkomst:** reële lokale experimentele emissierespons na berijding, direct subsoil-gastransportmechanisme, **nog geen Nederlandse subsoil-netto-emissieband**. Niet-gemonetariseerd: specifieke veranderingen in bodemredox en N-processen waar klimaatschade niet kan worden toegeschreven.
+
+### EC4. Nutriëntenwaterkwaliteit
+
+**Mechanisme:** door verdichting kan water anders verdelen over oppervlakkige afspoeling, drainafvoer, matrixuitspoeling en preferente stroming. Verschillende routeveranderingen hebben mogelijk **tegengesteld teken** voor opgeloste N, opgeloste P en particulaire P. Netto-vracht vereist waterflux × stofconcentratie over dezelfde locatie en periode, rekening houdend met retentie/transformaties.
+
+**Kwantitatieve lokale empirische context:** Deasy et al. (2009) rapporteert gemiddeld circa **1,06 kg TP/ha** minder totaal-P-verlies na loosmaken van rijsporen in Britse akkerproeven, versus onbehandelde rijsporen. Quinton et al. (2024) presenteert TP-belastingen in onderzochte rijspoorplots van circa **0,8–3,9 kg/ha/jaar**, geen overal vergelijkbare treatment differences. Dit betreft **oppervlakkige rijspoorverdichting**, niet uitsluitend ondergrond 30–100 cm. WENR 2811 beschrijft N/P-uit- en afspoelingsrespons bij gecombineerde bodemverbetering als onvoldoende eenduidig.
+
+**Nationale context:** Nederlandse CLO-data laten zien dat landbouwuit- en afspoeling een groot aandeel heeft in oppervlaktewaterbelasting met N/P. Dat is **niet het percentage dat door verdichting wordt veroorzaakt**.
+
+**Tussenuitkomst:** transportmechanisme en concrete oppervlakkige-P-vrachten bekend, **geen subsoil-specific netto N/P-vrachtband**. Niet-gemonetariseerd: eutrofiëringsdruk, KRW-effecten, onderwaternatuur.
+
+### EC5. Gewasbeschermingsmiddelen
+
+**Mechanisme en Nederlandse bron:** Scorza Júnior et al. (2004) toont snelle preferente stroming van bentazon en imidacloprid naar drainagewater via permanente macroporiën in gedraineerde Nederlandse kleigrond, onder meer dieptes 30–100 cm. Sterke stof- en buiafhankelijkheid. Er is **geen gepaard verdicht/niet-verdicht contrast** in die studie. Door verdichting kan snelle bypass afnemen terwijl oppervlakkige afvoer stijgt. Netto-effect daarom niet universeel positief of negatief.
+
+**Tussenuitkomst:** concrete Nederlandse transportevidence en stofspecifieke receptorketen; **geen fysieke effectgrootte die aan uitsluitend verdichting wordt toegeschreven**. Niet-gemonetariseerd: blootstelling van aquatische soorten, chronische ecotoxicologische effecten, monitoring- en beheeruitdagingen. MONOVI-achtergrondtrends mogen geen verdichtingsfactor worden.
+
+### EC6. Bodemleven, biodiversiteit en bodemfuncties
+
+**Mechanismen:** verdichting kan habitatvolume, luchtvoorziening, poreuze verbindingen, regenwormgangen, wortel–microbe interactie en daardoor aggregaatstabiliteit en transportfuncties veranderen. Bodemorganismen kunnen poriën op langere termijn mede herstellen (**V42**), zonder dat hiermee alle schadelijke verdichting wordt opgeheven.
+
+**Kwantitatieve experimentele illustratie:** Capowiez et al. rapporteert in de onderzochte ingreep snelle afname van regenwormen en vertraagd herstel van gangen/infiltratie: herstel van populatiematen na circa **3 maanden** versus functionele eigenschappen na **12–24 maanden**. Dit is een lokale proef, **geen Nederlandse subsoil-herstelconstante**. BoVer 3404: wortels door een verdichte laag zijn **niet** hetzelfde als aantoonbare afname van bulkdichtheid of herstel van totale porositeit.
+
+**Eigenstandig eindpunt:** ecosysteemfuncties en bodemhabitat blijven expliciet in de eindrapportage, óók zonder eurobedrag. **Niet dubbeltellen:** dezelfde hydrologische baat via V42 mag niet ook nog eens als een los jaarlijks geldbedrag voor 'bodemleven' verschijnen.
+
+**Tussenuitkomst:** mechanismen kwalitatief goed onderbouwd, concrete experimentele herstelverschillen, **geen nationale ecologische omvang en geen betrouwbare monetarisering**. Dit is een zelfstandig wetenschappelijk resultaat, geen restcategorie.
+
+## 4. Overzicht: wat is nu bewijs en wat niet?
+
+| Onderdeel | Direct gemeten of berekend? | Bruikbaar bij eigen broncontext? | Nationaal subsoil-effect? | Monetaire uitkomst? |
+|---|---|---|---|---|
+| O1 opbrengst gras/maïs | Ja: veldexperimenten en modelscenario's | Ja, met volledige condities | **Nee** | **Nee** |
+| O2 kwaliteit | Beperkte specifieke studies | Soms | **Nee** | **Nee** |
+| O3/EC2 beregening | Ja: modelscenario's | Ja, potentiële behoefte | **Nee** | **Nee** |
+| EC1 perceelsafstroming | Ja: modelscenario's | Ja, bronrespons | **Nee** | **Nee** |
+| EC3 N₂O | Ja: verkeersbehandeling en ondergrond-gastransport | Ja, verschillende eindpunten | **Nee** | **Nee** |
+| EC4 N/P | Ja: oppervlakkige-P-rijsporen en routekennis | Ja, bij dezelfde behandelingen | **Nee** | **Nee** |
+| EC5 middelen | Ja: transportwaarnemingen | Ja, geen verdichtingscontrast | **Nee** | **Nee** |
+| EC6 ecologie | Ja: beperkte organisme-/herstelmetingen | Ja, contextspecifiek | **Nee** | Niet vereist voor relevantie |
+
+**Geen bekende fysieke verandering aan een route is automatisch een netto welvaartsschade.** Omgekeerd is het ontbreken van monetarisering geen argument om het effect uit de inventarisatie te schrappen.
+
+## 5. Waardering en de partiële schadebalans
+
+Het bestaande formele model en de on-site rekensurface hebben al de benodigde structurele berekeningen. Er worden **geen nieuwe symbolische ‘schadefactorformules’** als alternatieve autoriteit geïntroduceerd.
+
+### 5.1 Wat werkelijk tot geld kan leiden na toelating
+
+| Schadepost | Additionele geldelijke grootheid | Nog noodzakelijk | Risico op dubbeltelling |
+|---|---|---|---|
+| O1 opbrengst | Verloren output/marge per gewas en gebied | Actuele verdichtings-exposure, passende respons en economische eenheid | Productiewaarde versus private marge; droogteschade elders |
+| O2 kwaliteit | Prijs-/sorteringsverschil of afkeur | Relevante teelt/marktrespons | Reeds in opbrengstprijs of marktbaar aandeel |
+| O3 beregening | Werkelijke extra onttrekking en bedrijfskosten, of verschil in netto bedrijfsresultaat | Gedrag, waterbron, werkelijk gebruik | Opbrengstverlies en vermeden beregeningskosten |
+| O4 bewerkingen | Extra arbeid, brandstof, materiaal, werkelijk tijdverlies | Agronomische bedrijfsgegevens | Brandstof-/werkzaamheden reeds in bruto marge |
+| EC1 bemaling | Additionele operationele energie/O&M of aantoonbaar vermijdbare capaciteit | Gekwalificeerde extra pompuren/volume en technische bedrijfscurve | Pompactie vs vermeden overlastschade |
+| EC1 overlast | Verandering van verwachte schade aan blootgestelde receptoren | Overstromingskans, waterdiepte, schadefuncties | Eigen reeds getelde landbouwschade of beheerinvesteringen |
+| EC2 regionale aanvoer | Additionele echte resource-/schaarstekosten | Feitelijke levering, allocatie, tekort | Private beregening, droge-jaar opbrengstschade |
+| EC3 klimaat | Netto additionele N₂O/CH₄ klimaatlast | Subsoil-flux, tijd, areaal, waarderingsjaar | Dubbele emissietelling via N-balans en bemestingsketen |
+| EC4 waterkwaliteit | Extra verwijderings-/zuiveringskosten of ecologisch welvaartsverlies | Receptorvracht, respons en kostenrelatie | KRW-maatregelen vs schade, dezelfde N/P-impact |
+| EC5 middelen | Werkelijke stofspecifieke schade of extra behandeling | Receptorblootstelling en toxiciteit | Met EC4 of algemene waterkwaliteitsmaatregelen |
+| EC6 ecologie | Niet zonder afzonderlijke waarderingsstudie | Zelfstandige ecologische eindpunten, vermijding overlap | V42 hydrologisch herstel reeds bij EC1–EC5 |
+
+### 5.2 Momenteel toegestaan financieel resultaat
+
+Een **landelijk €-totaal ontbreekt**. We rapporteren niet fictief `€0–€X`, en rekenen geen £-bedragen om. De bestaande vier on-site surfaces zijn **rekenkundig gespecificeerd, niet gevuld**; EC1–EC6 hebben alleen brongebonden fysieke en mechanistische bevindingen. Voor expertcommunicatie is een **dekkings- en schadebalans met expliciete lege bedragen** daarom correct.
+
+De latere monetaire bandbreedte mag alleen bestaan uit **toegelaten en niet-overlappende** posten. Het concept ‘on-site + off-site’ is een rapportagestructuur, geen opteltoestemming. Houd private kost, publieke uitgave en maatschappelijke welvaart onderscheiden.
+
+## 6. Onzekerheden en informatiewaarde
+
+| Onzekerheid | Effect op werkelijke conclusie | Wat helpt | Huidige actie |
+|---|---|---|---|
+| Actuele areaal- en toestandspreiding | Blokkeert nationale aggregatie in bijna alle routes | Landelijke meetdataset incl. steekproefontwerp, bodem/landgebruik/diepte | **Later**, door gebruiker geparkeerd |
+| Fysische response-match | Kan teken en omvang wisselen door weer, gewas en comparator | Primair broncontrast en bestaande ensemblekwalificatie | **Nu alleen passende bestaande bronnen** |
+| Runoff-afvoer naar regionaal systeem | Mogelijk grote schadeverandering, maar geen lineaire relatie | Event- en systeemdata met gekoppelde routing/exposure | Later gerichte pilot, geen generiek factor |
+| Emissie van ondergrond | Directe netto emissie door alleen 30–100 cm nog niet geïsoleerd | Specifieke veldstudie N₂O/CH₄, productie en transport gescheiden | Gerichte broncheck, geen factor |
+| N/P-routes | Netto vrachtverandering kan van teken wisselen | Flux×concentratie per route, bemesting en receptor | Eerst empirische identificeerbaarheid |
+| Stoffen en ecologie | Materiële gevolgen kunnen buiten huidige monetarisering vallen | Specifieke stof/organisme, blootstelling en functie | In balans behouden |
+| Economische perspectieven/dubbeltelling | Kan eindtotaal principieel veranderen | Definities private/publieke/welvaart; marginale kosten, receptor | **Nu expliciete expertbeslissing** |
+
+We prioriteren niet alleen op relatief grote Britse kostenbedragen of op wat het gemakkelijkst in euro's is uit te drukken. Informatiewaarde omvat ook ernst, causaliteit, verkleinbaarheid van onzekerheid en het behouden van wezenlijke ecologische/receptor-gevolgen.
+
+## 7. Vijf gerichte beslissingen voor expertgroep
+
+**D1. Afbakening.** Is uitsluitend *schadelijke antropogene ondergrondverdichting* met bodemtype-, diepte- en referentiecontext de juiste primaire nationale causale estimand, met bovenlaag-/rijspoorbewijs slechts proxy?
+
+**D2. Schadebalans en output.** Accepteren we het publieke eindproduct als (a) gekwalificeerd monetair subtotaal/bandbreedte waar verantwoord, **plus** (b) fysieke effecten met eigen bandbreedtes en (c) relevante kwalitatieve ecologische/maatschappelijke effecten, zonder ze te reduceren tot een onvolledig €-totaal?
+
+**D3. Waterbeheer.** Welke twee of drie regionale systeemklassen zijn noodzakelijk, en welke marginaal werkelijke kosten mogen bij eventueel extra bemalen water worden gewaardeerd zonder overlastschade dubbel te tellen?
+
+**D4. Causaliteit van stoffen en emissies.** Welke specifieke proeven zijn als directe **ondergrond**-contrasten aanvaardbaar? Wordt een waterkwaliteitseffect pas als kwantitatief beschouwd als totaalvracht naar de receptor aantoonbaar verandert, en een klimaateffect pas bij netto-flux?
+
+**D5. Prioriteit 2027.** Welke onzekerheid verdient een nieuwe dataset of modelproef? Voor iedere kandidaat expliciet de kans om de schadeband of de ecologische effectbeoordeling werkelijk te veranderen, zonder nu al de landelijke meetdataset of SWAP te heropenen.
+
+### Voorgestelde bespreekstructuur
+
+- **10 minuten:** bevestig de bestaande methodiek (02/04/49/50/59) en het verschil tussen PATH_F1–F6 en EC1–EC6.
+- **15 minuten:** toets de on-site scenario-resultaten en welke resultaten in publicatie als fysiek en conditioneel zijn toegestaan.
+- **20 minuten:** bespreek de zes EC-categorieën en drie belangrijkste ontbrekende causale schakels.
+- **15 minuten:** neem D1–D5 op als besluiten, inclusief schadebegrippen en niet-monetaire rapportage.
+
+Geen nieuwe brede bespreking van alle 42 pijlen; de technische figuren blijven achtergrond.
+
+## 8. Concrete gezamenlijke werkafspraken na deze consolidatie
+
+1. **Houd document 112 als integrale tussenbalans actueel**, niet een oneindige serie evenwijdige literatuurnotities. Wijzig onderliggende bronregisters uitsluitend bij feitelijke bron- en qualificationwijziging.
+2. Gebruik document 49/50 als *methodische authority* en document 52 als bestaande on-site uitvoercontract. Dit is geen herschreven nieuw methodemodel.
+3. Behoud de zes EC-categorieën als aparte rapportage-uitkomsten. Hanteer nooit kale `F1–F6` in gecombineerde tabellen zonder de betekenis te vermelden.
+4. Rapporteer ieder numeriek getal met studie, schaal, jaar/weersituatie, comparator, eenheid, rol en niet-toegestane extrapolatie. De 9/10 mm Vlaanderen-afwijking blijft als onopgeloste broninconsistentie zichtbaar.
+5. Latere integratie van de nationale meetgegevens en SWAP alleen na een gerichte identificeerbare vraag; beide zijn bewust niet gestart in deze ronde.
+
+## 9. Bronkaart en kwaliteitsgrens
+
+**Bestaande projectautoriteiten:** [02](02_theoretical_framework.md), [04](04_formal_model.md), [49](49_project_effect_pathway_matrix_v0_1.md), [50](50_evidence_ensemble_protocol_v0_1.md), [51](51_onsite_ensemble_source_migration_v0_1.md), [52](52_onsite_bounded_calculation_surface_v0_1.md), [59](59_bespreekschema_werkwijze_en_einddoel_v0_1.md).
+
+**Causaal netwerk en synthese:** [89](89_causaal_netwerk_v0_7.md), [93](93_primaire_broncontrole_hydrologie_gewas_N2O_20261028.md), [97](97_bover_3404_primaire_parameterreview_20261028.md), [100](100_graves_defra_nederlandse_eindpunten_omgekeerde_schadebenadering_v0_1.md), [101](101_defra_appendix_h_occurrence_volledige_methodereconstructie_v0_1.md), [102](102_offsite_zes_categorieen_resultatenmatrix_v0_1.md), [103](103_gerichte_bewijstoets_n2o_nutrienten_wateroverlast_20261028.md), [104](104_kwantitatieve_contrasttoets_n2o_en_harde_datagrenzen_20261028.md), [105](105_fysieke_contrasten_nutrienten_n2o_dieptetoets_20261028.md), [107](107_waterbeschikbaarheid_middelen_bodemleven_broncontrole_20261028.md), [108](108_methodiek_verschillenanalyse_20261028.md), [109](109_offsite_ensemble_protocol_toepassing_v0_1.md), [110](110_broncontrole_hydrologische_ensembles_wenr2811_20261028.md), [111](111_schipper_vanderbolt_bronmethodetoets_20261028.md).
+
+**Status van de bronnen:** verschillende getallen komen rechtstreeks uit primaire WUR-rapporten; Deasy/Quinton/Capowiez en enkele recente Deense studies zijn deels via publieke abstracts/publicatiebeschrijvingen beoordeeld. Niet elk genoemd onderzoek is integraal statistisch heranalyseerd. Dit overzicht **erft** de bestaande bronkwalificaties en versterkt ze niet automatisch. Het is een inhoudelijke synthese van het nu beschikbare dossier.
+
+**Review-oordeel:** klaar voor kritische expertbespreking; **niet** klaar voor nationaal jaarschadebedrag. Besloten is niets te wijzigen in de bestaande canonieke formules, claimregisters of het causale netwerk v0.7.
