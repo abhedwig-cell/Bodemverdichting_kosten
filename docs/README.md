@@ -2,6 +2,10 @@
 
 The documentation is organised from scientific meaning to implementation and evidence. The first documents form the **core colleague reader path**; later documents record migration, implementation and governance milestones.
 
+## Actuele wetenschappelijke tussenbalans (28 oktober 2026)
+
+De integrale beoordeling van bestaande on-site resultaten en de zes off-site effectcategorieën, inclusief brongebonden effectgroottes, grenzen aan monetarisering en de beslisagenda, staat in [`112_integrale_wetenschappelijke_tussenbalans_20261028.md`](112_integrale_wetenschappelijke_tussenbalans_20261028.md). Dit is een synthese, geen vervanging van de methodische autoriteiten [`49`](49_project_effect_pathway_matrix_v0_1.md) en [`50`](50_evidence_ensemble_protocol_v0_1.md) of de canonieke bewijsregisters. Landelijke meetdata en nieuwe SWAP-uitvoering zijn voorlopig geparkeerd.
+
 ## Start here
 
 If you are new to the project or taking the work over from someone else, begin with [`00_project_handover_and_continuation.md`](00_project_handover_and_continuation.md). It restores the broad project philosophy: minimum necessary computation, parallel on-site/off-site chains, literature/evidence shortcuts, uncertainty and source ensembles, and the role of Tollebeek/SWAP as optional deepening rather than the project definition.
