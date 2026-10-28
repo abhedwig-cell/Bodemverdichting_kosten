@@ -1,6 +1,6 @@
 # Primaire broncontrole: hydrologie, suikerbieten, emissies en aardappelen
 
-**28 oktober 2026 | DEEP_SOURCE_CHECK_01 | expliciet beperkt tot zes primaire documenten.**
+**28 oktober 2026 | DEEP_SOURCE_CHECK_01 | expliciet beperkt tot vijf primaire documenten.**
 
 Voortbouwend op [intake 90](90_teams_literatuur_intake_20261028.md), [triage 91](91_teams_literatuur_bronreview_ronde1_20261028.md) en [triage 92](92_teams_literatuur_ronde2_en_defra_methodetoets_20261028.md). Dit document bevat opnieuw nagelezen concrete bronpassages met **PDF-paginanummers (1-gebaseerd in aangeleverde bestanden)**. Geen nieuwe canonieke evidence admission en geen automatische Nederlandse modelparameters.
 
