@@ -1,6 +1,6 @@
 # Integrale wetenschappelijke tussenbalans: kosten van ondergrondverdichting
 
-**29 oktober 2026 | SYNTHESIS v1.4 | Centraal inhoudelijk werkdocument voor expertbespreking**
+**29 oktober 2026 | SYNTHESIS v1.5 | Centraal inhoudelijk werkdocument voor expertbespreking**
 
 **Status: interne wetenschappelijke tussenbalans, geen afgeronde nationale schadeberekening.** Deze tekst is één leesbaar tussentijds onderzoeksresultaat, geen nieuwe methodiek, geen alternatieve bronregistratie en geen nieuwe numerieke admission. De oorspronkelijke autoriteiten blijven [theorie 02](02_theoretical_framework.md), [formeel model 04](04_formal_model.md), [effectpaden 49](49_project_effect_pathway_matrix_v0_1.md), [ensembleprotocol 50](50_evidence_ensemble_protocol_v0_1.md) en [beslisschema 59](59_bespreekschema_werkwijze_en_einddoel_v0_1.md). Voor de zes off-site categorieën wordt aangesloten bij [causaal netwerk v0.7](89_causaal_netwerk_v0_7.md). Detailonderzoek staat in [documenten 90–111](90_teams_literatuur_intake_20261028.md).
 
@@ -111,6 +111,27 @@ CBS: `85636NED`, https://www.cbs.nl/nl-nl/cijfers/detail/85636NED. In dezelfde t
 **Kwalificatiebesluit:** `PRIMARY_PUBLICATION_VALUE_VERIFIED; VALUATION_CANDIDATE_ONLY; NOT_ADMITTED_DAMAGE_INPUT`. Deze nieuwe bedragen zijn *wel geverifieerde gerapporteerde modelparameters*, maar **nog geen definitief toegelaten schadeparameters**. De bestaande `WAIT_ECONOMIC_VALUE` op de rekensurfaces wordt daarom niet vervangen door een onterecht `READY`. KWIN-AGV 2025 is volgens de WUR-webwinkel een verkrijgbaar betaald boek met saldoberekeningen, maar de relevante numerieke tabellen zijn niet verworven: https://shop.wur.nl/kwin/kwin-akkerbouw-en-vollegrondsgroenten-2025.html. BINternet biedt wel bedrijfs-/gewastabellen, maar is niet automatisch een marginale prijs voor ondergrondverdichting: https://agrimatie.nl/binternet.aspx.
 
 **Concrete voortgang:** de twee voederprijsvelden zijn nu bronmatig bekend. De resterende kleine invoerstap is de broncontrole van VEM/kVEM per kg DS en een representatief opbrengst-/voederbalansscenario. De nationaal door verdichting getroffen fractie blijft bewust onbekend en SWAP wordt niet gestart.
+
+### H. Doorrekening controleerbare voederwaarde per hectare (29 oktober 2026)
+
+**Invoer uit gepubliceerde Nederlandse bronnen:** CBS (2026), *Dierlijke mest en mineralen 2025*, §3, https://www.cbs.nl/nl-nl/longread/rapportages/2026/dierlijke-mest-en-mineralen-2025/3-rekenmethodiek-graasdieren, rapporteert snijmaïs **16.531 kg droge stof/ha (oogst 2025)**, snijmaïskuil oogst 2025 **998 VEM/kg DS** en graskuil oogst 2025 **916 VEM/kg DS**. Voederwaardeprijzen uit Wageningen Social & Economic Research rapport 2025-158, bijlage 1 p. 42 (zie §G): snijmaïs **€0,130/kVEM**, kuilgras **€0,112/kVEM**. Dit zijn prijzen uit **één bedrijfseconomische modelspecificatie** en geen vrij overdraagbare vervangingskosten.
+
+**Eenheden en berekening:**
+
+```text
+Snijmaïs energie-opbrengst = 16.531 kg DS/ha × 998 VEM/kg DS ÷ 1.000
+                          = 16.497,938 kVEM/ha
+Indicatieve voederboekwaarde = 16.497,938 kVEM/ha × €0,130/kVEM
+                             = €2.144,73/ha (bruto energieboekwaarde)
+```
+
+**Uitsluitend rekenkundige gevoeligheidsvoorbeelden:** een aangenomen **4%** of **15%** verschil in deze voederenergie-opbrengst geeft respectievelijk **€85,79/ha** of **€321,71/ha** verschil in energieboekwaarde. De percentages komen overeen met twee **verschillende** Alblas-berijdingsbehandelingen (5 en 10 Mg aslast). Zij beschrijven geen onzekerheidsinterval, geen actuele Nederlandse verdichtingsklasse, en noch de werkelijke netto boerenschade noch de nationale kost. Jaar-/kwaliteit-/oogstbasis van CBS en die van de historische behandeling zijn niet equivalent: bovenstaande bedragen testen **slechts het rekenschema**.
+
+**Graskuil:** 1.000 kg DS × 916 VEM/kg DS ÷ 1.000 × €0,112/kVEM = **€102,59 per ton droge stof kuilgras** (energieboekwaarde). Daarmee kan een gekwalificeerde fysieke verandering van bijvoorbeeld **100 kg DS/ha** rekenkundig worden vertaald naar **€10,26/ha**. Deze laatste 100 kg is een **zuiver hypothetische rekeninvoer** en niet een waargenomen verdichtingsverlies. Zonder expliciet grasproductiesysteem (weiden, kuilen, hooi, snedes, verliezen en substitutie) wordt geen algemene jaarlijkse grasland-€-per-hectare-waarde ingevuld.
+
+**Causale/waarderingsgrenzen:** droge-stofopbrengst van CBS en voedingswaarde van kuil zijn niet zonder meer dezelfde ketenfase; inkuil- en veldverliezen, DVE-eiwitwaarde, variërende graskwaliteit, rantsoenvervanging, ingekochte voeders en daadwerkelijk vermeden opbrengstafhankelijke kosten zijn niet meegenomen. De voederenergieboekwaarde kan dus afwijken van marktprijs en marginale vervangings- of welvaartswaarde. Voor een gepubliceerde schadeberekening eerst systeemgrens 'geoogst product versus netto gevoerd' reconciliëren en dezelfde referentie/managementkeuze in beide situaties vastleggen. **Geen update van `economic_value_status=WAIT_ECONOMIC_VALUE` naar READY** in de canonieke surfaces.
+
+**Status:** `DIMENSIONAL_CALCULATION_CHECK_COMPLETE`; `ILLUSTRATIVE_ACCOUNTING_ONLY`; `NO_MONETARY_DAMAGE_ADMISSION`. Het ontbreken van een nationale blootstellingsfractie en een voldoende passende ondergrondcontrastrepons blijft beslissend.
 
 ## 1. Onderzoeksvraag, systeemgrens en bestaande methode
 
