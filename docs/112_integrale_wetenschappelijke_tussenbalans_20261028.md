@@ -1,6 +1,6 @@
 # Off-site gevolgen van ondergrondverdichting: wetenschappelijke tussenbalans
 
-**29 oktober 2026 | versie 3.2 | interne onderzoeksrapportage voor expertbespreking**
+**29 oktober 2026 | versie 3.3 | interne onderzoeksrapportage voor expertbespreking**
 
 ## 1. Uitkomst en afbakening
 
@@ -17,7 +17,7 @@ De bestaande methode blijft leidend: [theorie 02](02_theoretical_framework.md), 
 | Categorie | Beste beschikbare uitkomst | Wetenschappelijke toepassingsgrens | Economische uitkomst |
 |---|---|---|---|
 | EC1 Wateroverlast | Lokale afvoerrespons en regionale dagelijkse modelpieken; routecompensatie aangetoond in modelstudie | Samengestelde bodemscenario’s, geen geïsoleerde Nederlandse ondergrondfactor of receptorhydrogram | Alleen illustratieve energieboekhouding; geen toegelaten schade |
-| EC2 Waterbeschikbaarheid | Droogjaarscenario’s van potentiële beregeningsbehoefte | Potentiële vraag is geen werkelijke levering of omgevingsschade | Niet berekend |
+| EC2 Waterbeschikbaarheid | Potentiële beregeningsbehoefte en gecontroleerde gepaarde modelpercolatie; teken gevoelig voor vegetatie | Potentiële vraag is geen werkelijke levering of omgevingsschade | Niet berekend |
 | EC3 N₂O/CH₄ | Experimentele berijdingscontrasten voor N₂O; direct ondergrondprocesbewijs voor gastransport | Gastransport is geen netto veldemissie; geen passende CH₄-factor | Niet berekend |
 | EC4 Nutriënten | Gemeten Britse rijspoor-P-vrachten en maatregelcontrasten | Topsoil/rijspoor, deels overlappende datasets; geen Nederlandse subsoil-receptorvracht | Niet berekend |
 | EC5 Middelen | Nederlandse preferente drainroute voor bentazon en imidacloprid | Geen gepaard verdichtingscontrast; netto richting onbekend | Niet berekend |
@@ -90,6 +90,18 @@ Effectieve worteldiepte is geschat uit worteldichtheid, met grens 0,1 cm wortel/
 
 **Tussenuitkomst:** fysieke potentie in enkele contexten gekwantificeerd, maatschappelijk gebruik en schade **niet identificeerbaar**. Niet-gemonetariseerd: waterschaarste, druk op grondwater, kwetsbaarheid in droge jaren.
 
+**Nieuwe gegevensroute en herberekening:** [Pinza et al. (2025)](https://doi.org/10.5194/soil-11-681-2025) vergelijkt Belgische zandgrond met een harde ijzerhoudende Bsm-horizont rond 40–55/60 cm en uitgegraven/heringerichte profielen. Dit is geen zuivere verkeersverdichtingsproef. HYDRUS gebruikt vrije drainage op 1 m; percolatie daar is geen regionale grondwatervoeding. Beregening diende om zware regen na te bootsen, niet om additionele watervraag te meten.
+
+Het openbare [gegevenspakket](https://doi.org/10.5281/zenodo.16940365) is daadwerkelijk opgehaald. [Controlecode](../tools/check_pinza_water_balance.py) en [resultaat met archiefhash](../evidence/pinza_water_balance_check_20261029.json) reproduceren de volgende verschillen uit de gepubliceerde dagelijkse uitvoer. Gemiddelden over 29 aangepaste jaren per scenario; teken = compact minus losgemaakt, mm/jaar:
+
+| Vegetatie-instelling | Historisch Δpercolatie | Nat toekomstscenario Δpercolatie | Droog toekomstscenario Δpercolatie | Droog ΔET |
+|---|---:|---:|---:|---:|
+| 1: gelijke wortels en LAI | −35,10 | −41,79 | −30,02 | +24,90 |
+| 2: gelijke wortels, verschillende LAI | −32,53 | −36,83 | −28,49 | +24,72 |
+| 3: verschillende wortels en LAI | −4,85 | −6,80 | +20,88 | −23,17 |
+
+Gecontroleerd: unieke gepaarde datums, gelijke neerslag/potentiële ET, volledige aangepaste jaren en ET=E+T. Geen HYDRUS-heruitvoering of volledige opslagbalanscontrole. **Onderzoeksbesluit:** deze route is nuttig voor tekengevoeligheid en waterverdeling, niet voor een onttrekkings- of schadefactor. Zij vervangt geen receptoranalyse.
+
 ### EC3. Broeikasgassen N₂O en CH₄
 
 **Mechanisme:** minder porieconnectiviteit en gasdiffusie en andere water-/zuurstofcondities kunnen nitrificatie, denitrificatie, N₂O-productie én N₂O-reductie tot N₂ beïnvloeden; CH₄-reactie vraagt eigen C-/redox-/waterregime. Daarom zijn gasdiffusie en gemeten **netto veldflux** niet hetzelfde eindpunt.
@@ -153,7 +165,7 @@ De bronbeoordeling is afgerond **voor de gecontroleerde selectie**, niet voor de
 
 De bestaande evidence- en qualification-registers blijven leidend voor numerieke admission. De review-CSV `evidence/offsite_results_matrix_v0_1.csv` is voor EC4/EC5 bijgewerkt met de nieuwe bronafbakening en datasetoverlap; de monetaire status blijft `not_estimable`. De oude F1–F6-sleutels daarin zijn categorieën en mogen niet worden gejoined met de proces-F1–F6 uit document 49. Deze rapportage gebruikt EC1–EC6. Er is geen stille sleutelmigratie of statusverhoging uitgevoerd.
 
-De opslagproef en eerdere rekenbestanden zijn lokaal uitgevoerd; projectvalidator en 61 bestaande tests slaagden op die werkbasis. Dit bewijst software-/registerintegriteit, geen empirische validatie. De huidige herschikking introduceert geen nieuwe numerieke uitkomst of modelcode.
+De opslagproef en eerdere rekenbestanden zijn lokaal uitgevoerd; projectvalidator en 61 bestaande tests slaagden op die werkbasis. Dit bewijst software-/registerintegriteit, geen empirische validatie. De Pinza-uitvoercontrole in versie 3.3 introduceert wel nieuwe, afzonderlijk reproduceerbare modelcontrasten. De genoemde 61 tests zijn hiervoor niet opnieuw uitgevoerd; de controles van het nieuwe script zijn hierboven afzonderlijk beschreven.
 
 ## 7. Drie gerichte vervolgkeuzes
 
@@ -171,6 +183,7 @@ Deze keuzes worden gewogen op causaliteit, ernst, informatiewinst en haalbaarhei
 
 | Bestaande route | Wat is daadwerkelijk gevonden? | Wat kan zij oplossen? | Besluit |
 |---|---|---|---|
+| Pinza et al. 2025 | Open uitvoerarchief opgehaald, gepaarde analyse uitgevoerd; zie EC2 | Teken- en vegetatiegevoeligheid van waterverdeling | Geselecteerd als methodische modelcasus; geen regionale schadefactor |
 | Andersen et al. 2013, wintertarwe op lemig zand | Geïndexeerde primaire methode/resultaten gecontroleerd; tabelcellen en ruwe data ontbreken | Wortelzonecapaciteit en behandelingsafbakening; geen gepaarde waterbalans | Broncontrole afgerond binnen deze toegang; geen regionale waterprijs toepassen |
 | Pulido-Moncada et al. 2024, TopComp/SubComp/NoComp | Open publicatie geïdentificeerd via Padua/Aarhus, DOI 10.1016/j.soilbio.2024.109536; injectie/diffusieproef met kernen en micro-CT | Direct ondergrondprocesbewijs voor transport en porieconnectiviteit | Geen ruwe dataset-ID geverifieerd; geen netto emissieroute afgesloten; PDF-link is geen datasetlevering |
 | TRACE-Soils LTE soil physical data | Expliciet openbare dataset, DOI 10.5281/zenodo.13913150; versiepagina https://zenodo.org/records/13913151 | Bodemfysische metingen en gasdiffusie uit zeven Europese langjarige bewerkingsproeven | **Niet selecteren voor ondergrondattributie:** bemonstering 0–10 en 10–20 cm. Geen vervanging voor SubComp-dataset |
