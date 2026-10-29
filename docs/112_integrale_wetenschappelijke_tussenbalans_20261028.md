@@ -145,7 +145,7 @@ Er is voor geen van de zes categorieën een actuele nationale monetaire factor t
 
 De bronbeoordeling is afgerond **voor de gecontroleerde selectie**, niet voor de volledige literatuur. WUR/STOWA-rapporten zijn deels rechtstreeks gelezen; onder meer Capowiez, Deasy en Scorza zijn voor onderdelen abstract-/synthesegebonden. Geen volledige statistische heranalyse wordt geclaimd.
 
-De bestaande evidence- en qualification-registers blijven leidend voor numerieke admission. De review-CSV `evidence/offsite_results_matrix_v0_1.csv` is inhoudelijk achtergebleven bij de recente broncontrole, met name EC4/EC5. De oude F1–F6-sleutels daarin zijn categorieën en mogen niet worden gejoined met de proces-F1–F6 uit document 49. Deze rapportage gebruikt EC1–EC6. Er is geen stille sleutelmigratie of statusverhoging uitgevoerd.
+De bestaande evidence- en qualification-registers blijven leidend voor numerieke admission. De review-CSV `evidence/offsite_results_matrix_v0_1.csv` is voor EC4/EC5 bijgewerkt met de nieuwe bronafbakening en datasetoverlap; de monetaire status blijft `not_estimable`. De oude F1–F6-sleutels daarin zijn categorieën en mogen niet worden gejoined met de proces-F1–F6 uit document 49. Deze rapportage gebruikt EC1–EC6. Er is geen stille sleutelmigratie of statusverhoging uitgevoerd.
 
 De opslagproef en eerdere rekenbestanden zijn lokaal uitgevoerd; projectvalidator en 61 bestaande tests slaagden op die werkbasis. Dit bewijst software-/registerintegriteit, geen empirische validatie. De huidige herschikking introduceert geen nieuwe numerieke uitkomst of modelcode.
 
