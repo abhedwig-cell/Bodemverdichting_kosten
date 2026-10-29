@@ -1,6 +1,6 @@
 # Integrale wetenschappelijke tussenbalans: kosten van ondergrondverdichting
 
-**29 oktober 2026 | SYNTHESIS v2.3 / RESULTS01 | Centraal inhoudelijk werkdocument voor expertbespreking**
+**29 oktober 2026 | SYNTHESIS v2.4 / RESULTS01 | Centraal inhoudelijk werkdocument voor expertbespreking**
 
 **Status: interne wetenschappelijke tussenbalans, geen afgeronde nationale schadeberekening.** Deze tekst is één leesbaar tussentijds onderzoeksresultaat, geen nieuwe methodiek, geen alternatieve bronregistratie en geen nieuwe numerieke admission. De oorspronkelijke autoriteiten blijven [theorie 02](02_theoretical_framework.md), [formeel model 04](04_formal_model.md), [effectpaden 49](49_project_effect_pathway_matrix_v0_1.md), [ensembleprotocol 50](50_evidence_ensemble_protocol_v0_1.md) en [beslisschema 59](59_bespreekschema_werkwijze_en_einddoel_v0_1.md). Voor de zes off-site categorieën wordt aangesloten bij [causaal netwerk v0.7](89_causaal_netwerk_v0_7.md). Detailonderzoek staat in [documenten 90–111](90_teams_literatuur_intake_20261028.md).
 
@@ -437,6 +437,38 @@ De bron rapporteert afgerond 52% en 29%. Rekening: (6,5−3,1)/6,5 en (4,5−3,2
 **Wat is voor vervolgrekenen concreet nodig?** Oorspronkelijke 1998-reeksen per variant voor RUNOFF, DRN en RIV, op dezelfde gebiedsgrens en met gecontroleerde tekenconventie; de cumulatieve eindwaarden van figuur 4.6; en routing/peil-/bergingsinformatie voor een gekozen receptor. Voor een complete waterbalans daarnaast ET, opslag en externe grondwateruitwisseling. Het rapport bevat een gerichte bronroute hiervoor, maar de ruwe reeksen zijn niet verworven. De Vlaamse bronroute blijft bij directe PDF-toegang 403; geïndexeerde tekst is geen vervanging voor volledige balanscontrole.
 
 **Afgesloten uitkomst:** regionale routecompensatie is nu bronmatig onderbouwd; twee dagelijkse piekverschillen zijn nagerekend; uitsluitend-ondergrondattributie en jaarvolume blijven niet toegelaten. Geen nationale schade, geen extra pompkosten en geen fictieve schadefunctie. EC2–EC6 blijven behouden als zelfstandige effectcategorieën.
+
+### Q. Uitgevoerde systeemgevoeligheid: timing, volume en beheeraanpassing
+
+**29 oktober 2026 | synthetische rekenproef, geen gemeten gebied.** Uitvoering van de volgende werkeenheid voor zover mogelijk zonder ontvangen hydrogrammen. Reproduceer: `python tools/calculate_offsite_storage_sensitivity.py`. Dit kleine experiment past de opslag-/massabalans uit model 04 toe en vervangt geen routingmodel. Alle waterhoeveelheden zijn **aangenomen instroom bij dezelfde ontvangende berging**, niet afgeleid uit bodemverdichting of de Baakse Beek.
+
+**Open aannames:** beginberging 0 m³; beschikbare berging 150 m³; afvoer door een pomp maximaal 100 m³/uur; zes uur rekenvenster. De pomp voert direct af zodra water beschikbaar is. Instroom en pompen zijn binnen elk uur uniform; onder die aanname wordt de maximumopslag exact op een uurgrens bereikt. Geen aanlooptijd, head-afhankelijkheid, neerslag op open water, andere verliezen of netwerkvertraging. Overschrijding verlaat het rekensysteem definitief als overloop en keert niet later terug; dit is geen vastgestelde overlastschade.
+
+**Gepaarde invoer, m³ per achtereenvolgend uur:**
+- Referentie: 80, 80, 80, 80, 0, 0.
+- Zelfde volume, sneller: 240, 80, 0, 0, 0, 0.
+- Sneller én extra volume: 240, 160, 0, 0, 0, 0.
+
+| Scenario | Totale instroom m³ | Pompvolume m³ | Maximum opgeslagen m³ | Overloop m³ |
+|---|---:|---:|---:|---:|
+| Referentie, bestaande berging/capaciteit | 320 | 320 | 0 | 0 |
+| Zelfde volume, sneller; zelfde beheer | 320 | 320 | 140 | 0 |
+| Sneller +80 m³; zelfde beheer | 400 | 350 | 150 | 50 |
+| Zelfde 400 m³; berging naar 200 m³ | 400 | 400 | 200 | 0 |
+| Zelfde 400 m³; capaciteit naar 125 m³/uur | 400 | 400 | 150 | 0 |
+
+Alle scenario’s eindigen met nul opslag. Per scenario sluit instroom = pompvolume + overloop + eindopslag exact. De vrije benodigde berging bij 400 m³ en 100 m³/uur is 200 m³, dus **50 m³ additioneel** tegenover de aangenomen bestaande 150. Bij behoud van die 150 m³ voorkomt een capaciteit van **125 m³/uur** overloop voor precies dit hydrogram: na uur 1 staat 115 m³ en na uur 2 150 m³. Dit is de minimale constante capaciteit voor dit scenario: (400−150)/2=125, met controle dat het eerste uur geen grotere eis stelt. Geen ontwerpwaarde voor een werkelijk systeem.
+
+**Drie concrete uitkomsten:**
+1. Alleen versnelling kan de benodigde berging verhogen zonder extra pompvolume: 140 m³ piekopslag, maar dezelfde 320 m³ bemaling. Bij constante energie-intensiteit ontstaat geen extra volumegerelateerde pompenergie. In werkelijkheid kunnen werkpunt en regeling wel veranderen.
+2. Bij extra water en onvoldoende berging wordt niet alles verpompt: 50 m³ loopt over. Alleen naar pompvolume kijken onderschat de systeembelasting.
+3. Aanpassing voorkomt hier overloop, maar verhoogt pompvolume van 350 naar 400 m³. De extra operatie hoort bij de vermeden overloop; de oorspronkelijke én vermeden schade mogen niet als blijvende schade worden opgeteld.
+
+**Economisch resultaat:** eurobedrag blijft onbekend. De berekende 50 m³ bergingsuitbreiding en 25 m³/uur capaciteitsuitbreiding hebben geen gekwalificeerde locatiekosten. Overloop heeft geen bekende blootstelling/schadefunctie. HHNK-gemiddelde energie-intensiteit wordt niet stilzwijgend aan dit fictieve systeem toegekend. Dit levert twee concreet gespecificeerde alternatieven op die met een echte locatie en kostengegevens gewaardeerd kunnen worden.
+
+**Verificatie:** rekenbestand uitgevoerd; massabalans, zelfde-volumecontrast, het verdwijnen van overloop bij beide aanpassingen en invariatie bij extra ongebruikte berging gecontroleerd met assertions. Projectvalidator PASS en bestaande suite 61 tests PASS op de lokale werkbasis; deze controles kwalificeren implementatie, niet werkelijkheid. Geen nieuwe empirische kwalificatie of productiecodewijziging.
+
+**Volgende grote stap:** vervang de synthetische instroom door één reeds beschikbare gepaarde afvoerreeks op dezelfde receptorgrens en voeg bestaande berging, regeling en capaciteit toe. Zonder die gegevens is verdere scenariovermenigvuldiging weinig informatief. Voor monetarisering zijn vervolgens locatiekosten en resterende blootstelling nodig; de zes EC-categorieën blijven apart zichtbaar.
 
 ## 1. Onderzoeksvraag, systeemgrens en bestaande methode
 
