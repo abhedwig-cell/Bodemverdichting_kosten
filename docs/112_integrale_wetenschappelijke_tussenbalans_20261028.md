@@ -1,6 +1,6 @@
 # Integrale wetenschappelijke tussenbalans: kosten van ondergrondverdichting
 
-**29 oktober 2026 | SYNTHESIS v1.7 / RESULTS01 | Centraal inhoudelijk werkdocument voor expertbespreking**
+**29 oktober 2026 | SYNTHESIS v1.8 / RESULTS01 | Centraal inhoudelijk werkdocument voor expertbespreking**
 
 **Status: interne wetenschappelijke tussenbalans, geen afgeronde nationale schadeberekening.** Deze tekst is één leesbaar tussentijds onderzoeksresultaat, geen nieuwe methodiek, geen alternatieve bronregistratie en geen nieuwe numerieke admission. De oorspronkelijke autoriteiten blijven [theorie 02](02_theoretical_framework.md), [formeel model 04](04_formal_model.md), [effectpaden 49](49_project_effect_pathway_matrix_v0_1.md), [ensembleprotocol 50](50_evidence_ensemble_protocol_v0_1.md) en [beslisschema 59](59_bespreekschema_werkwijze_en_einddoel_v0_1.md). Voor de zes off-site categorieën wordt aangesloten bij [causaal netwerk v0.7](89_causaal_netwerk_v0_7.md). Detailonderzoek staat in [documenten 90–111](90_teams_literatuur_intake_20261028.md).
 
@@ -268,6 +268,31 @@ Berekening: 10 × verschil-mm geeft m³/ha; deel dat door 4 × 3600 of 24 × 360
 **Causale grens:** de profielen zijn gebaseerd op perceelrand, perceelsmidden en kopakker; de tekst noemt ook verschillen in organische stof, beworteling en laagdikte. Zelfs A versus referentie is daarom nog niet bewezen een geïsoleerde verdichting-ingreep bij overigens identieke eigenschappen. Dit is een beter afgebakend **modelscenario**, geen gemeten ondergrondschadefactor. Geen euroconversie met de HHNK-jaarintensiteit: zowel tijdschaal, routing als marginale bedrijfsvoering ontbreken.
 
 **Concrete winst:** naast jaarvolume is nu een ondergrond-georiënteerd scenario met afzonderlijke zomer-/wintervensters beschikbaar. De volgende broncontrole kan zich beperken tot tabel A3.3 en figuur A3.7: welke parameters veranderen bij A versus referentie naast de ondergrond, en welk gewas-/beheerregime geldt? De landelijke meetset en nieuwe modelruns blijven geparkeerd.
+
+### L. Afgesloten brontoets variant A versus referentie
+
+**29 oktober 2026 | parametercontrole tabel A3.3 en context figuur A3.7.** Primaire bron: WENR 2811, gedrukte p.113–114 (PDF-index 113–114), dezelfde STOWA-PDF als §K. Tekst en tabel gelezen; paginaweergaven opgehaald. **Besluit: variant A versus referentie is geen zuiver ondergrondcontrast.** De resterende onzekerheid uit §K is hiermee op dit punt opgelost: de gepubliceerde bovengrondparameters verschillen aantoonbaar.
+
+| Gepubliceerde parameter | Referentie bovengrond 0–30 cm | Variant A bovengrond 0–30 cm | Referentie ondergrond 35–45 cm | Variant A ondergrond 35–45 cm |
+|---|---:|---:|---:|---:|
+| Eerste theta-kolom | 0,040 | 0,025 | 0,015 | 0,015 |
+| Tweede theta-kolom | 0,410 | 0,360 | 0,355 | 0,305 |
+| alpha | 0,014 | 0,018 | 0,022 | 0,013 |
+| n | 1,40 | 1,42 | 1,53 | 2,00 |
+| Ksat | 34 | 34 | 34 | 2,3 |
+| lambda | -0,999 | -0,999 | -1,0 | -1,0 |
+
+De tabelkop drukt beide theta-kolommen af als theta-res; de tweede heeft naar parameterbetekenis vermoedelijk betrekking op theta-s, maar die interpretatie is hier **geen stilzwijgende broncorrectie**. De kolommen zijn daarom naar positie aangeduid. De tabel vermeldt in de kop geen eenheden voor alpha/Ksat; zonder aanvullende inputbestanden worden die niet als nieuw gekwalificeerde parameterinputs geregistreerd.
+
+**Wat volgt wel rechtstreeks uit de getallen?** Vier bovengrondparameters veranderen. Gelijke bovengrond-Ksat betekent dus niet gelijke infiltratie- en bergingsrespons: retentie en onverzadigde geleidbaarheid hangen van de overige parameters af. De tweede theta-kolom daalt bovenin met 0,050. Als die kolom inderdaad verzadigd watergehalte in m³/m³ is en 0–30 cm de laagdikte is, is de bijbehorende verzadigde volumecapaciteit rekenkundig 0,050 × 300 = **15 mm** kleiner. Dat is een **conditionele capaciteitdiagnose**, geen beschikbare eventberging, geen extra runoff en geen gemeten vochtverschil. Onderin is Ksat 2,3/34 = **0,06765 maal** de referentie, circa factor **14,8 lager**; dit verhoudingsgetal vereist geen aanname over de ontbrekende absolute eenheid.
+
+**Diepte en gewas:** de lopende tekst kiest een bovengrond 0–35 cm, de tabel labelt 0–30 cm, en figuurtekst plaatst het begin van verdichting bij A op 30 cm. De parametrisering van 30–35 cm kan hiermee niet exact worden gereconstrueerd. Voor het landgebruik is expliciet **blijvend grasland** aangenomen, niet snijmaïs. De resultaten van §K mogen dus niet als verdieping van het eerdere snijmaïs-jaarvolume worden samengevoegd. Parameters voor dieper dan 45 cm zijn overgenomen uit Schipper; doorlatendheidsrelaties zijn volgens de bron niet gemeten. De modellering gebruikt meetinformatie voor retentie, dichtheid en beworteling, maar is geen volledig empirisch gemeten hydraulische vergelijking.
+
+**Beworteling en organische stof:** de tekst bij figuur A3.7 beschrijft deze als scenario-eigenschappen; de modelvarianten verschillen ook in veronderstelde worteldiepte. Zonder oorspronkelijke inputbestanden en een volledige numerieke vergelijking wordt niet beweerd dat A en referentie op deze punten gelijk zijn. Het reeds bewezen bovengrondverschil is op zichzelf voldoende om zuivere ondergrondattributie af te wijzen; een extra onbekende hoeft daarvoor niet eerst te worden ingevuld.
+
+**Toegestaan eindresultaat:** de vier afvoerverschillen uit §K blijven geldig als aftrekking van de gepubliceerde **samengestelde graslandprofielscenario’s**. Zij zijn niet toegelaten als respons op alleen ondergrondverdichting, niet als causale gemaalbelasting en niet als schade-euro. Bestaande ensemblekwalificaties blijven behouden; geen nieuwe landelijke factor en geen vervangende methodiek.
+
+**Afsluiting en vervolg:** de vraag of deze publicatie al een gecontroleerd A-versus-referentie-ondergrondexperiment levert, is beantwoord: **nee**. Meer prijsscenario’s veranderen dit niet. Voor isolatie zijn bestaande oorspronkelijke SWAP-inputs nodig waarmee men kan vaststellen of elders een gepaarde variant met gelijke bovengrond bestaat; een nieuwe run blijft buiten de huidige opdracht. Het onderzoek hoeft daarop niet te wachten: vervolg de on-site route via het oorspronkelijke Alblas-artikel. Voor de off-site rapportage is de bruikbare uitkomst voorlopig het expliciet gelabelde samengestelde profielscenario, naast de open netto-waterbalans.
 
 ## 1. Onderzoeksvraag, systeemgrens en bestaande methode
 
