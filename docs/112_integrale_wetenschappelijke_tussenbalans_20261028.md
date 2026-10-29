@@ -1,6 +1,6 @@
 # Off-site gevolgen van ondergrondverdichting: wetenschappelijke tussenbalans
 
-**29 oktober 2026 | versie 3.3 | interne onderzoeksrapportage voor expertbespreking**
+**29 oktober 2026 | versie 3.4 | interne onderzoeksrapportage voor expertbespreking**
 
 ## 1. Uitkomst en afbakening
 
@@ -101,6 +101,32 @@ Het openbare [gegevenspakket](https://doi.org/10.5281/zenodo.16940365) is daadwe
 | 3: verschillende wortels en LAI | −4,85 | −6,80 | +20,88 | −23,17 |
 
 Gecontroleerd: unieke gepaarde datums, gelijke neerslag/potentiële ET, volledige aangepaste jaren en ET=E+T. Geen HYDRUS-heruitvoering of volledige opslagbalanscontrole. **Onderzoeksbesluit:** deze route is nuttig voor tekengevoeligheid en waterverdeling, niet voor een onttrekkings- of schadefactor. Zij vervangt geen receptoranalyse.
+
+**Robuustheid binnen deze modelcasus:** onderstaande verdeling is berekend uit dezelfde uitvoer, niet uit onafhankelijke veldreplicaties. Het interval minimum–maximum is geen betrouwbaarheidsinterval; 29 scenariojaren leveren geen kans op een werkelijk Nederlands effect.
+
+| Instelling en klimaat | Mediaan Δpercolatie mm/jaar | Minimum–maximum | Jaren met positieve Δ | Gemiddelde zonder jaar met meeste runoff |
+|---|---:|---:|---:|---:|
+| 1, droog toekomstscenario | −20,89 | −196,80 tot +22,76 | 5/29 | −24,07 |
+| 3, droog toekomstscenario | +23,43 | −14,34 tot +32,18 | 27/29 | +22,13 |
+| 3, historisch | −7,21 | −38,62 tot +29,97 | 10/29 | −4,96 |
+| 3, nat toekomstscenario | −7,22 | −56,60 tot +29,61 | 10/29 | −6,25 |
+
+Het droge tekenverschil tussen instellingen 1 en 3 blijft dus bestaan na weglaten van het jaar met meeste runoff. Dit is een gevoeligheidscontrole; dat jaar blijft in het hoofdresultaat opgenomen.
+
+Bij instelling 3 zijn de gemiddelde seizoensverschillen in percolatie (compact minus losgemaakt, mm per seizoen):
+
+| Klimaat | Winter DJF | Voorjaar MAM | Zomer JJA | Herfst SON |
+|---|---:|---:|---:|---:|
+| Historisch | −5,87 | +9,61 | +2,60 | −11,19 |
+| Nat toekomstscenario | −6,42 | +9,20 | +0,65 | −10,24 |
+| Droog toekomstscenario | −2,74 | +11,88 | +8,79 | +2,95 |
+
+**Gevolg voor off-site beoordeling:** een jaarsaldo verbergt tegengestelde seizoensbijdragen. Extra passage op 1 m in voorjaar/zomer bereikt een beek of onttrekkingsbron niet automatisch in hetzelfde seizoen. Transporttijd, grondwaterberging en verbinding met de receptor moeten daarom bij de regionale beoordeling horen. Minder ET kan bovendien samengaan met verminderde gewasontwikkeling; meer percolatie is op zichzelf geen netto maatschappelijke baat. Geen van deze tekens wordt als algemeen teken van ondergrondverdichtingsschade vastgezet.
+
+**Aanvullende gegevenscontrole:** alle 9 jaarcontrasten en 36 seizoenscontrasten hebben volledige bronkalenders en gelijke gepaarde invoer. Toekomstlabels behouden de historische schrikkeldagen, inclusief 29 februari 2100. De controle valideert die bronkalender door toekomstlabels 100 jaar terug te leggen; geen dag is verwijderd. ET is getoetst als E+T en seizoenssommen reproduceren de jaargemiddelden. Totale profielopslag is niet bewezen uit de opslagkolom voor de bovengrond; daarom blijft een volledige waterbalanssluiting onbevestigd.
+
+**Afronding van deze route:** de openbare uitvoer is nu voldoende benut voor de hier gestelde methodevraag. Verdere uitsplitsing krijgt pas prioriteit bij een concrete regionale receptor of een afzonderlijke validatievraag. De casus levert geen getal voor extra beregening, feitelijke onttrekking of schade.
+
 
 ### EC3. Broeikasgassen N₂O en CH₄
 
