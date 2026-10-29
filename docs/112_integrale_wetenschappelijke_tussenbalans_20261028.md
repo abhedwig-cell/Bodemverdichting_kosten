@@ -1,10 +1,47 @@
 # Integrale wetenschappelijke tussenbalans: kosten van ondergrondverdichting
 
-**29 oktober 2026 | SYNTHESIS v2.2 / RESULTS01 | Centraal inhoudelijk werkdocument voor expertbespreking**
+**29 oktober 2026 | SYNTHESIS v2.3 / RESULTS01 | Centraal inhoudelijk werkdocument voor expertbespreking**
 
 **Status: interne wetenschappelijke tussenbalans, geen afgeronde nationale schadeberekening.** Deze tekst is één leesbaar tussentijds onderzoeksresultaat, geen nieuwe methodiek, geen alternatieve bronregistratie en geen nieuwe numerieke admission. De oorspronkelijke autoriteiten blijven [theorie 02](02_theoretical_framework.md), [formeel model 04](04_formal_model.md), [effectpaden 49](49_project_effect_pathway_matrix_v0_1.md), [ensembleprotocol 50](50_evidence_ensemble_protocol_v0_1.md) en [beslisschema 59](59_bespreekschema_werkwijze_en_einddoel_v0_1.md). Voor de zes off-site categorieën wordt aangesloten bij [causaal netwerk v0.7](89_causaal_netwerk_v0_7.md). Detailonderzoek staat in [documenten 90–111](90_teams_literatuur_intake_20261028.md).
 
 > **Kernbevinding:** er zijn overtuigende fysieke mechanismen, enkele direct gemeten of berekende lokale effectgroottes en reeds voorbereide rekensurfaces. Er is nog **geen verdedigbare actuele nationale monetaire schadebandbreedte** voor uitsluitend Nederlandse ondergrondverdichting. Ook een nulbedrag is niet verdedigbaar. Het eerste onderzoeksresultaat is een gespecificeerd bewijs- en onzekerheidsbeeld, met concrete conditional evidence, uitsluitingen en beslispunten.
+
+## Actuele off-site resultaatmatrix en uitvoeringsbesluit
+
+**29 oktober 2026 | werkeenheid hydrologische effectbasis.** Deze matrix vervangt voor de off-site uitvoering de verspreide vervolgaanwijzingen in §I–P. On-site bedrijfseconomie blijft geparkeerd. Onderliggende analyses blijven brondossiers; een nieuw prijsvoorbeeld of een bronzoekpoging is geen zelfstandig onderzoeksresultaat.
+
+**Samengevoegde hoofdbevinding:** er is brongebonden modelbewijs voor oppervlakteafvoer en voor regionale piekverschillen. Er is bovendien expliciet modelbewijs voor compensatie via andere afvoerroutes. Er is nog geen gekwalificeerde extra jaarafvoer naar een Nederlandse beheerder door uitsluitend ondergrondverdichting. De eerstvolgende economische route is daardoor een conditionele **systeem- en capaciteitsanalyse**, niet een landelijke pompkostenfactor.
+
+| Scenario / primaire bron | Contrast en schaal | Controleerbare fysieke uitkomst | Afgeleverd aan welk systeem? | Ondergrondattributie | Besluit voor vervolg |
+|---|---|---|---|---|---|
+| Schipper 2015, perceelverkenning | Samengestelde bodemkwaliteit, twee bodemtypen en gewassen | Contextgebonden afvoer-/piekrespons; niet combineren met regionale volumes | Modelmatige perceelsuitgang, geen operationele receptor | Niet geïsoleerd | Behouden als mechanistische scenario-evidence; geen extra rekenfactor |
+| WENR 2811, hoofdstuk 2, snijmaïs | Lokale profiel-/wortel-/maaiveldvarianten | Circa 10 mm langjarig effect op oppervlakteafvoer; 12 mm omgerekende 95-percentieluitkomst | Oppervlakteroute; volledige lokale afvoer niet gereconstrueerd | Profiel en beheer moeten samen beoordeeld | Niet omzetten naar netto jaarafvoer/pompvolume |
+| WENR 2811, bijlage 3, gras variant A versus referentie | Samengestelde veldpodzolprofielen; A verdicht vanaf circa 30 cm | Zomer T2/T10: +4/+13 m³/ha per 4-uursvenster; winter: +41/+19 per 24-uursvenster, verschillen tussen kwantielen | Gepubliceerde afvoerpieken naar sloot; geen gemeten receptorhydrogram | Bovengrondparameters veranderen ook | Rekenkundig gesloten modelcontrast; niet ondergrondcausaal of naar gemaal overdragen |
+| Schipper 2015, Baakse Beek 1998 | Regionaal VERDICHT versus VERBETERD, AMIGO | Twee piekdagen 6,5→3,1 en 4,5→3,2 miljoen m³/dag; verschillen 3,4 en 1,3 | Som van gemodelleerde RUNOFF/DRN/RIV; niet bewezen uitstroomhydrogram | Dominante wijziging topgrond-infiltratie 10→40 mm/dag | Toelaatbaar als gecombineerd model-/capaciteitsscenario; geen ondergrondschadefactor |
+| Van der Bolt 2016, Vlaanderen | Vijf gebiedsmodellen, verdicht/niet-verdicht, verschillende klimaatscenario’s | 9/10 mm-conflict uit WENR-synthese niet opgelost; volledige primaire PDF niet toegankelijk | Runoff en grondwatervoeding onderscheiden; vaste grondwaterstand als relevante randvoorwaarde in geïndexeerde conclusies | Nog onvoldoende primair gecontroleerd | Numerieke transfer geblokkeerd; geen herhaalde abstractzoekactie |
+| HHNK 2024 operatie | Leemans/Lely, afdelingsgebonden jaargemiddelden | 32–48 m³/kWh | Werkelijke gemaalcontext, onzekere volumes | Geen bodemcontrast | Energiebenchmark beschikbaar; geen marginale kosten- of hydrologische transferfactor |
+
+**Bronnen en afhankelijkheid:** Schipper 2015 en WENR 2811 zijn rechtstreeks via de STOWA-PDF’s beoordeeld. WENR 2811 citeert en bouwt voort op eerdere studies; herhaling van een getal is geen onafhankelijk ensemblelid. Voor Vlaanderen zijn metadata, synthese en geïndexeerde passages beschikbaar; de volledige tekst is ook bij deze controle niet verworven (403). Die rij blijft expliciet onvolledig.
+
+### Wat deze werkeenheid wel en niet sluit
+
+- **Gesloten:** scenario’s zijn gescheiden naar comparator, schaal, tijdsvenster, route en toepassingsstatus. De 10/12 mm zijn geen onzekerheidsinterval. Kwantielverschillen zijn geen gepaarde regenbuieffecten. Dagvolumes zijn geen instantane piekdebieten.
+- **Gesloten:** de regionale studie rapporteert minder runoff naast meer drainage/waterloopafvoer. Een vaste overdracht ‘runoffverschil = totaal afvoerverschil’ is voor dit bewijs niet houdbaar.
+- **Gesloten:** geen van de gecontroleerde kwantitatieve Nederlandse contrasten levert een geïsoleerde ondergrondfactor op. Dat verwerpt de transfer, niet het bestaan van off-site effecten.
+- **Open:** complete gepaarde jaarbalans, uitlaatrouting, beheerrespons en Vlaamse primaire reconciliatie. De hydrologische effectbasis is dus **geconsolideerd maar niet volledig numeriek gekwalificeerd**.
+
+**Grafiekextractie:** figuren 4.6 en 4.8 van STOWA 2015-19 zijn opnieuw als paginaweergave opgevraagd. De numerieke piekdagwaarden zijn al expliciet in de brontekst gegeven en hebben daarom voorrang boven digitalisering. Er zijn in deze werkeenheid geen betrouwbare nieuwe curvecoördinaten met aantoonbare afleesonnauwkeurigheid verkregen. Daarom geen gefingeerde jaareindwaarden, routecompensatiepercentages of volledige hydrogrammen. Exacte piekdagwaarden bewijzen de cumulatieve jaarbalans niet.
+
+### Volgende grote werkeenheid: systeemrespons onder expliciete aannames
+
+Voer als één samenhangend blok de volgende berekening uit met bestaande methode 04:
+
+1. Kies een afgebakend ontvangend systeem en een **gepaarde tijdreeks**, niet een verschil tussen afzonderlijke extremen. Als geen bronreeks beschikbaar is, gebruik afzonderlijk een expliciet synthetisch belastingsscenario; dat blijft een gevoeligheidsproef.
+2. Bereken met dezelfde beginberging en afvoer-/pompregeling in beide toestanden het maximale bergingstekort en de resterende overschrijding. Gebruik cumulatief instroming minus werkelijk mogelijke afvoer; het verschil tussen benodigde bergingsvolumes kan niet uit één piekdagdelta worden afgeleid.
+3. Waardeer uitsluitend aantoonbaar additionele operatie of een concreet gespecificeerde capaciteitsaanpassing. Zonder marginale prijs blijft het resultaat fysiek. Wateroverlastschade vereist zelfstandig blootstelling en schadefunctie.
+4. Rapporteer het resultaat naast, en niet in plaats van, de andere vijf EC-categorieën.
+
+**Benodigde gerichte verwerving:** oorspronkelijke RUNOFF/DRN/RIV-reeksen en cumulatieve 1998-uitvoer van het Schipper-model, plus ontvangend netwerk/regeling; volledig rapport 2725 voor de Vlaamse balans. Er is geen extern bericht verzonden en geen nieuwe modelcampagne gestart. Tot deze gegevens beschikbaar zijn, is de verantwoorde volgende berekening een **systeemgevoeligheid onder open aannames**, geen raming van werkelijk door ondergrondverdichting veroorzaakte kosten.
 
 ## Actuele werkregie (29 oktober 2026)
 
