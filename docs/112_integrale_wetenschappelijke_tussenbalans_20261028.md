@@ -1,6 +1,6 @@
 # Integrale wetenschappelijke tussenbalans: kosten van ondergrondverdichting
 
-**29 oktober 2026 | SYNTHESIS v1.3 | Centraal inhoudelijk werkdocument voor expertbespreking**
+**29 oktober 2026 | SYNTHESIS v1.4 | Centraal inhoudelijk werkdocument voor expertbespreking**
 
 **Status: interne wetenschappelijke tussenbalans, geen afgeronde nationale schadeberekening.** Deze tekst is één leesbaar tussentijds onderzoeksresultaat, geen nieuwe methodiek, geen alternatieve bronregistratie en geen nieuwe numerieke admission. De oorspronkelijke autoriteiten blijven [theorie 02](02_theoretical_framework.md), [formeel model 04](04_formal_model.md), [effectpaden 49](49_project_effect_pathway_matrix_v0_1.md), [ensembleprotocol 50](50_evidence_ensemble_protocol_v0_1.md) en [beslisschema 59](59_bespreekschema_werkwijze_en_einddoel_v0_1.md). Voor de zes off-site categorieën wordt aangesloten bij [causaal netwerk v0.7](89_causaal_netwerk_v0_7.md). Detailonderzoek staat in [documenten 90–111](90_teams_literatuur_intake_20261028.md).
 
@@ -90,6 +90,27 @@ Voor alle zes EC-categorieën is de beschikbare bronkennis inhoudelijk beoordeel
 **Kwalificatiebesluit:** alle bovenstaande **waarderingsconcepten en rekenroutes** zijn herleidbaar tot de bestaande methode en bestaande input-routebeoordeling. Voor geen van de voorgestelde schadeposten is op basis van deze sessie een **nieuw numeriek schadebedrag** toegelaten. `KWIN_NUMERIC_INPUT = NOT_YET_ACQUIRED` en `economic_value_status = WAIT_ECONOMIC_VALUE` blijven gelden; ontbrekende gegevens blijven onbekend, niet nul. De zes maatschappelijke effectcategorieën vormen geen zes automatisch optelbare eurobedragen. D2 en D3 blijven **open expertbesluiten**, omdat een technisch waarderingscontract nog geen gezamenlijk geaccordeerde systeemgrens is.
 
 **Gerichte volgende uitvoering zonder heropening SWAP/landelijke meetset:** (i) verwerving van toegankelijke brongebonden gewasprijs-/kosteninputs uit KWIN of BINternet met helder jaar en teeltbasis; (ii) keuze voederwaarde voor gras apart van verkoopprijs; (iii) op één *hypothetisch, expliciet niet-empirisch* geval de marginale kostenregels en dubbeltelling controleren; (iv) pas daarna een on-site surface vullen wanneer ook de fysieke exposure en responsmatch zijn toegelaten.
+
+### G. Nieuwe Nederlandse economische brongegevens (29 oktober 2026)
+
+**Primaire publicatie:** Kok, A., Vollebregt, T. & Beldman, A. (2025), *Hoe ver kun je komen? Verkenning van een maatregelpakket voor reductie van broeikasgasemissies op Nederlandse melkveebedrijven*, Wageningen Social & Economic Research Rapport 2025-158, DOI https://doi.org/10.18174/705320, **bijlage 1, gedrukte pagina 42**. De PDF-tabel is visueel tegen het origineel gecontroleerd.
+
+| Economisch gegeven | Waarde | Eenheid | Correcte status |
+|---|---:|---|---|
+| Snijmaïs | **0,130** | EUR/kVEM | Gepubliceerde **gebruikte BBPR-modelprijs**, kandidaat voor voeder-/vervangingswaardescenario |
+| Kuilgras | **0,112** | EUR/kVEM | Gepubliceerde **gebruikte BBPR-modelprijs**, kandidaat voor voeder-/vervangingswaardescenario |
+| Snijmaïsareaal CBS, geoogst 2025 | **182.710** | ha | Nationale productiecontext; **geen** blootstelling aan verdichting |
+| Snijmaïsopbrengst CBS, 2025 | **47,3** | ton versgewicht/ha | Landelijk gemiddelde productiewaardecontext, **geen** kVEM/ha en geen schade |
+
+CBS: `85636NED`, https://www.cbs.nl/nl-nl/cijfers/detail/85636NED. In dezelfde tabel is het beteelde (niet noodzakelijk geoogste) areaal **183.191 ha**. Deze twee arealen zijn niet uitwisselbaar en vullen evenmin de ontbrekende bodem×gewasverdeling.
+
+**Bronbasis en beperkingen:** de voederprijzen zijn geen nieuw bewezen markttransactieprijs, geen actuele 2026 schadeparameter en geen geïsoleerde marginale productieverlieswaarde. Het WUR-rapport gebruikte prijzen mede uit KWIN 2024–2025 en de Agrarische Prijzen-database. Voor berekening is een onderbouwde **VEM-inhoud per eenheid droge stof** en **drogestofopbrengst per hectare** of een direct gekwalificeerde kVEM/ha-opbrengst nodig, inclusief kwaliteitsverschillen en daadwerkelijke vervangings-/rantsoenreactie. Een verse ton snijmaïs vermenigvuldigen met EUR/kVEM is dimensioneel onjuist. Voor gras geldt hetzelfde en moet bovendien het verschil tussen kuilgras, vers gras en marktbaar voer expliciet worden gehouden.
+
+**Minimum noodzakelijke berekening na kwalificatie:** `verloren_kVEM_per_ha × EUR_per_kVEM` geeft hoogstens een **conditionele voederwaarde-boekhoudkundige uitkomst**. Marginale bedrijfsschade moet vervolgens daadwerkelijk vermeden kosten, voerinkoop, beschikbaarheid van eigen voorraad en eventuele melkproductiereactie meewegen; niet tegelijk een forfaitaire volledige voederwaardeschade en dezelfde extra voeraankoop optellen.
+
+**Kwalificatiebesluit:** `PRIMARY_PUBLICATION_VALUE_VERIFIED; VALUATION_CANDIDATE_ONLY; NOT_ADMITTED_DAMAGE_INPUT`. Deze nieuwe bedragen zijn *wel geverifieerde gerapporteerde modelparameters*, maar **nog geen definitief toegelaten schadeparameters**. De bestaande `WAIT_ECONOMIC_VALUE` op de rekensurfaces wordt daarom niet vervangen door een onterecht `READY`. KWIN-AGV 2025 is volgens de WUR-webwinkel een verkrijgbaar betaald boek met saldoberekeningen, maar de relevante numerieke tabellen zijn niet verworven: https://shop.wur.nl/kwin/kwin-akkerbouw-en-vollegrondsgroenten-2025.html. BINternet biedt wel bedrijfs-/gewastabellen, maar is niet automatisch een marginale prijs voor ondergrondverdichting: https://agrimatie.nl/binternet.aspx.
+
+**Concrete voortgang:** de twee voederprijsvelden zijn nu bronmatig bekend. De resterende kleine invoerstap is de broncontrole van VEM/kVEM per kg DS en een representatief opbrengst-/voederbalansscenario. De nationaal door verdichting getroffen fractie blijft bewust onbekend en SWAP wordt niet gestart.
 
 ## 1. Onderzoeksvraag, systeemgrens en bestaande methode
 
