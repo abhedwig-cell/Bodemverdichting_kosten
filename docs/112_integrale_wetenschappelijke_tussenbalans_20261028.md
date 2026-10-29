@@ -1,6 +1,6 @@
 # Integrale wetenschappelijke tussenbalans: kosten van ondergrondverdichting
 
-**29 oktober 2026 | SYNTHESIS v1.9 / RESULTS01 | Centraal inhoudelijk werkdocument voor expertbespreking**
+**29 oktober 2026 | SYNTHESIS v2.0 / RESULTS01 | Centraal inhoudelijk werkdocument voor expertbespreking**
 
 **Status: interne wetenschappelijke tussenbalans, geen afgeronde nationale schadeberekening.** Deze tekst is één leesbaar tussentijds onderzoeksresultaat, geen nieuwe methodiek, geen alternatieve bronregistratie en geen nieuwe numerieke admission. De oorspronkelijke autoriteiten blijven [theorie 02](02_theoretical_framework.md), [formeel model 04](04_formal_model.md), [effectpaden 49](49_project_effect_pathway_matrix_v0_1.md), [ensembleprotocol 50](50_evidence_ensemble_protocol_v0_1.md) en [beslisschema 59](59_bespreekschema_werkwijze_en_einddoel_v0_1.md). Voor de zes off-site categorieën wordt aangesloten bij [causaal netwerk v0.7](89_causaal_netwerk_v0_7.md). Detailonderzoek staat in [documenten 90–111](90_teams_literatuur_intake_20261028.md).
 
@@ -307,6 +307,52 @@ Daarnaast is de precieze eerdere auteursbijdrage geïdentificeerd: Wanink, F., J
 **Stopcriterium voor verdere generieke zoekrondes:** dezelfde samenvatting van 4/15% opnieuw terugvinden levert geen nieuwe informatie over de referentie, laagdiepte of onzekerheid. Verwerving van één van bovenstaande volledige teksten heeft nu voorrang. Er is geen verzoek aan auteurs of bibliotheek verzonden.
 
 **Minimale extractie na verwerving:** locatie en profiel; eerdere diepe grondbewerking; grondwater; behandelingsdatum/aslast/banddruk/aantal passages; controlebehandeling en bodembewerking daarna; bulkdichtheid en indringingsweerstand per diepte; absolute oogst-DS per behandeling/jaar; replicatie en statistische onzekerheid. Alleen waar de tekst de koppeling draagt, wordt de bestaande economische scenariotabel omgezet naar een broncontextspecifieke uitkomst. Nieuwe in zoektekst aangetroffen opbrengstgetallen worden tot die tijd niet doorgerekend.
+
+### N. Primaire Alblas/Wanink-proeftekst verworven: locatiegebonden doorrekening
+
+**29 oktober 2026.** Aangeleverd en volledig gelezen: J. Alblas en F. Wanink, *De invloed van verdichting van zandondergrond op de snijmaïsopbrengst*, gedrukte p.101–105, eDepot 336699. Het document verwijst naar het latere artikel als 1990, in press; bibliografisch jaar van deze bijdrage is niet uit deze vijf pagina’s vastgesteld. Dit is een primaire auteursrapportage, niet de volledige tijdschriftpublicatie uit 1994. Tabel 67 op p.104 is visueel tegen de PDF gecontroleerd. Bronbestand: gebruikersbijlage eDepot 336699, Library-ID libfile_93c296b5f0cc8191aaa7c248f411f223; https://edepot.wur.nl/336699.
+
+**Belangrijkste correctie op de eerdere ongespecificeerde studiecontrole:** object C is **gecontroleerde berijding met 5 ton aslast, steeds hetzelfde spoor**, geen onbereden of onverdichte bodem. A is volvelds, wiel aan wiel, 10 ton aslast; B is volvelds 5 ton. A/B worden na de oogst én voor het ploegen bereden, C alleen na de oogst. Alle behandelingen worden ieder voorjaar tot 25–30 cm geploegd. De behandelingsvergelijking omvat dus rijpatroon, frequentie en bij A ook aslast. Geen geïsoleerde aslast-dosisrespons.
+
+Alle proeven hebben drie herhalingen; veldjes 9 × 25 m, ras Vivia, bemesting iets boven de norm. Periode 1983–1986; Westerhoven/Heino vier jaar, Lemelerveld/Lemelerberg twee jaar, samen 12 locatiejaren. Drie van vier zomers waren relatief droog. Bodemcontext p.101: leemarm/zwaklemig zand; Westerhoven en Lemelerberg enkeerd, zomergrondwater ruim 200 cm; Lemelerveld veldpodzol met 100 cm; Heino beekeerd met 120 cm. Westerhoven was vóór aanleg tot **75 cm losgemaakt**. Daarom is juist het grootste contrast een herverdichtingscontext, geen representatieve doorsnee van huidige Nederlandse zandmaïs.
+
+Tabel 65 geeft organische stof op 30–50 cm: Westerhoven 1,2%, Heino 1,8%, Lemelerveld 1,6%, Lemelerberg 7,6%. De lopende tekst op p.103 noemt de humeuze locatie eenmaal Lemelerveld en een ander Westerhoven-gehalte; dit strookt niet met tabel 65 en de bespreking op p.103–104. Gebruik de expliciete tabelwaarden; behoud deze broninconsistentie, geen stille correctie.
+
+#### N.1 Brongebonden fysieke verschillen
+
+Tabel 67 geeft de referentie C in ton DS/ha en A/B als afgeronde percentages van C. De absolute verschillen hieronder zijn **afgeleid uit die afgeronde tabel**, geen exact ruwe proefgemiddelden. Positief betekent minder productie dan C; negatief meer.
+
+| Locatie/periode | C ton DS/ha | A % van C | B % van C | C minus A ton DS/ha | C minus B ton DS/ha |
+|---|---:|---:|---:|---:|---:|
+| Westerhoven 1983–1986 | 15,3 | 73 | 94 | 4,131 | 0,918 |
+| Heino 1983–1986 | 13,1 | 94 | 97 | 0,786 | 0,393 |
+| Lemelerveld 1984–1985 | 10,8 | 83 | 92 | 1,836 | 0,864 |
+| Lemelerberg 1984–1985 | 12,9 | 97 | 101 | 0,387 | -0,129 |
+
+De bron rapporteert gemiddeld A=85%, B=96%, C=13,4 ton/ha over 12 locatiejaren. Niet het ongewogen gemiddelde van de vier locatierijen gebruiken. Ook gemiddelde relatieve respons × gemiddelde C is niet noodzakelijk het gemiddelde absolute verlies. Daarom blijven de locatieberekeningen afzonderlijk; geen extra gepoold eurogemiddelde.
+
+#### N.2 Conditionele waardering van de historische locatieverschillen
+
+Anders dan §I wordt hier **geen actuele CBS-opbrengst als fictieve onverdichte referentie gebruikt**: de fysieke basis is C uit de oorspronkelijke proef. Alleen de waarderingslaag is overgezet: 998 VEM/kg DS en €0,130/kVEM uit §G/H, met dezelfde 4%-conserveringsvariant. Gelijke kwaliteit en verliesfractie per behandeling zijn aannames, niet gemeten in dit verslag. Geen inflatiecorrectie of interpretatie als historische schade in euro’s.
+
+| Locatie | A versus C bruto energieboekverschil €/ha | A versus C na 4% conservering €/ha | B versus C bruto €/ha | B versus C na conservering €/ha |
+|---|---:|---:|---:|---:|
+| Westerhoven | 535,96 | 514,52 | 119,10 | 114,34 |
+| Heino | 101,98 | 97,90 | 50,99 | 48,95 |
+| Lemelerveld | 238,20 | 228,67 | 112,10 | 107,61 |
+| Lemelerberg | 50,21 | 48,20 | -16,74 | -16,07 |
+
+Reproduceer per cel: (C_ton × (1 − behandelpercentage/100)) × 998 × 0,130; vermenigvuldig afzonderlijk met 0,96 voor conservering. Voorbeeld Westerhoven A: 15,3 × (1 − 0,73) = 4,131 ton DS/ha; ×998×0,130 = €535,95594. De centprecisie dient rekencontrole; de fysieke bronprecisie rechtvaardigt geen even nauwkeurige schaderaming.
+
+**Kwalificatie:** primaire behandelingsrespons en locatiegemiddelden nu rechtstreeks gecontroleerd; de economische uitkomst blijft een **conditioneel energieboekverschil bij historische behandeling**, geen empirische marginale bedrijfsschade en geen actuele Nederlandse ondergrondschadefactor. De +1% B-respons bij Lemelerberg wordt behouden; zonder standaardfout of toetsresultaat is dit geen aangetoonde opbrengstbaat. Het verslag geeft hier geen betrouwbaarheidsintervallen, geen onderbouwde bronvariantie en geen VEM- of kwaliteitsmetingen per object.
+
+#### N.3 Ondergrondmechanisme en begrenzing
+
+Voor Westerhoven geeft p.103/fig.10 in 1986 een wortelbelemmering rond **35 cm** bij A en wortels tot **130 cm** bij C. De beschrijving van drukhoogte op 80 cm in 1984 ondersteunt vochtonttrekking door diepere wortels bij C. Dit maakt het ondergrondmechanisme concreet, maar verdeelt het totale opbrengsteffect niet kwantitatief tussen bovengrond, ondergrond en andere behandelingsverschillen. Jaarlijks ploegen wist niet aantoonbaar alle bovengrondverschillen uit. De maximale 38% uit de samenvatting is geen standaardverlies; het Westerhoven-gemiddelde in tabel 67 is 27%.
+
+Het verslag berekent historisch 0,25×15% + 0,50×4% = **5,75%** op een geschat zandmaïsareaal en rondt af naar circa 6%. Dat verschilt van 7% uit het abstract van 1994. Deze bronnen worden niet geharmoniseerd door één waarde te kiezen: andere versie/afbakening is nog te controleren. Geen van beide percentages is actuele blootstelling of hedendaags nationaal verlies.
+
+**Vervolg met hoogste informatiewaarde:** voor één expliciete context, bij voorkeur niet uitsluitend Westerhoven, een voerbalans en werkelijk volumeafhankelijke oogst-/inkuilkosten toevoegen. De fysieke locatie-opbrengsten hoeven daarvoor niet opnieuw via CBS te worden geconstrueerd. Eerst vaststellen of aanvulling werkelijk wordt gekocht of uit voorraad komt; verlies eigen voederwaarde en dezelfde voerinkoop niet optellen. De huidige bron sluit de proefdefinitie en fysieke opbrengsttabel; private schade en nationale transfer blijven open.
 
 ## 1. Onderzoeksvraag, systeemgrens en bestaande methode
 
