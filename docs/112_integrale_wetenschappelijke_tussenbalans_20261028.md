@@ -1,6 +1,6 @@
 # Integrale wetenschappelijke tussenbalans: kosten van ondergrondverdichting
 
-**29 oktober 2026 | SYNTHESIS v2.0 / RESULTS01 | Centraal inhoudelijk werkdocument voor expertbespreking**
+**29 oktober 2026 | SYNTHESIS v2.1 / RESULTS01 | Centraal inhoudelijk werkdocument voor expertbespreking**
 
 **Status: interne wetenschappelijke tussenbalans, geen afgeronde nationale schadeberekening.** Deze tekst is één leesbaar tussentijds onderzoeksresultaat, geen nieuwe methodiek, geen alternatieve bronregistratie en geen nieuwe numerieke admission. De oorspronkelijke autoriteiten blijven [theorie 02](02_theoretical_framework.md), [formeel model 04](04_formal_model.md), [effectpaden 49](49_project_effect_pathway_matrix_v0_1.md), [ensembleprotocol 50](50_evidence_ensemble_protocol_v0_1.md) en [beslisschema 59](59_bespreekschema_werkwijze_en_einddoel_v0_1.md). Voor de zes off-site categorieën wordt aangesloten bij [causaal netwerk v0.7](89_causaal_netwerk_v0_7.md). Detailonderzoek staat in [documenten 90–111](90_teams_literatuur_intake_20261028.md).
 
@@ -353,6 +353,30 @@ Voor Westerhoven geeft p.103/fig.10 in 1986 een wortelbelemmering rond **35 cm**
 Het verslag berekent historisch 0,25×15% + 0,50×4% = **5,75%** op een geschat zandmaïsareaal en rondt af naar circa 6%. Dat verschilt van 7% uit het abstract van 1994. Deze bronnen worden niet geharmoniseerd door één waarde te kiezen: andere versie/afbakening is nog te controleren. Geen van beide percentages is actuele blootstelling of hedendaags nationaal verlies.
 
 **Vervolg met hoogste informatiewaarde:** voor één expliciete context, bij voorkeur niet uitsluitend Westerhoven, een voerbalans en werkelijk volumeafhankelijke oogst-/inkuilkosten toevoegen. De fysieke locatie-opbrengsten hoeven daarvoor niet opnieuw via CBS te worden geconstrueerd. Eerst vaststellen of aanvulling werkelijk wordt gekocht of uit voorraad komt; verlies eigen voederwaarde en dezelfde voerinkoop niet optellen. De huidige bron sluit de proefdefinitie en fysieke opbrengsttabel; private schade en nationale transfer blijven open.
+
+### O. Off-site prioriteit: afvoerroute, totaalvolume en piek afzonderlijk
+
+**29 oktober 2026 | actuele werkprioriteit op verzoek gebruiker.** Verdere on-site bedrijfseconomische uitwerking uit §N is geparkeerd. Geen Heino-bedrijfscasus starten. Het vervolg betreft off-site effecten, met EC1 als eerste kwantitatieve route; EC2–EC6 blijven zelfstandig in de integrale effectbalans.
+
+**Primaire broncontrole:** WENR 2811 / STOWA 2017-020, hoofdstuk 2 p.25–27, conclusies p.81–82 en bijlage 7 p.122, rechtstreeks gelezen via de STOWA-PDF uit §K. De bron onderscheidt jaarlijkse oppervlakteafvoer van piekafvoer, waarbij de laatste expliciet **drainage plus oppervlakteafvoer** betreft. De voorbeeldcontrolefile voor R-SWAP-extremes vermeldt Runoff én Drainage, die vóór extreme-waardenanalyse per tijdstap worden gesommeerd. Dit voorbeeld bewijst het ondersteunde analysecontract, niet de exacte historische controlefile van iedere tabel.
+
+**Precisering van de eerdere 10/12 mm-vermelding:** p.82 omschrijft 10 mm als langjarig gemiddeld effect op oppervlakkige afstroming voor snijmaïs, en 12 mm als effect op de **95-percentielwaarde, omgerekend naar het langjarig gemiddelde**. Het zijn dus verschillende statistische samenvattingen. De eerdere korte omschrijving ‘extreem weerscenario’ is onvoldoende precies. De rekenidentiteit 12 mm × 10 = 120 m³/ha blijft correct, maar geeft geen zelfstandig waargenomen of gekwalificeerd extra jaarvolume en geen verwachting van extra bemaling.
+
+| Bronuitkomst | Fysieke betekenis | Wat voor EC1 gebruikt mag worden | Wat nog ontbreekt |
+|---|---|---|---|
+| Jaarlijkse oppervlakkige afstroming, circa 10 mm-effect | Verandering in één afvoerroute | Bronrespons in opgegeven modelcontext | Gelijktijdige drainage, netto onderrandflux, ET en opslag |
+| Omgerekende 95-percentieluitkomst, circa 12 mm | Andere statistische samenvatting van oppervlakteafstroming | Gevoeligheid/broncontext | Geen afzonderlijk jaarvolume of frequentiegewicht |
+| Afvoerextremen volgens p.26 | Drainage + oppervlakteafvoer binnen een tijdvenster | Betere indicator van gecombineerde lokale systeembelasting | Gepaarde gebeurtenistijdreeksen, ontvangend netwerk en beheer |
+| Grondwateraanvulling Vlaanderen, 0–2% groter bij verdichting, tabel 1.1 p.18 | Andere flux, mogelijk door lagere verdamping | Waarschuwing dat routeverandering niet gelijk is aan totale-afvoerverandering | Absolute flux, exacte scenario-/jaar-/bodemmatch; niet optellen bij Nederlandse mm |
+| Transpiratiereductie | Tekort tegenover potentiële transpiratie | Informatie over droogtestress | Niet gelijk aan verschil in totale actuele ET tussen toestanden |
+
+**Beschikbare systeemcontext:** voor hoofdstuk 2 zijn zijrandafvoer naar perceelsloot/afwateringsloot en een gemengde grondwateronderrand beschreven. Zijrand: drainageweerstanden 400/1200 dagen, bases 120/150 cm beneden maaiveld, slootafstanden 224/415 m. Onderrand: opgelegde diepe stijghoogte met seizoensvariatie en verticale weerstand. Dit is een gedraineerd perceelmodel met grondwateruitwisseling, **geen gemeten polderpompbalans**. Onderrandverlies mag niet automatisch als lokale slootafvoer worden geteld.
+
+**Beslissend voor totaalvolume:** een toename van oppervlakteafvoer kan samengaan met minder drainage of minder neerwaartse grondwaterflux. Een transpiratieverandering kan het totale wateroverschot veranderen, maar de transpiratiereductie alleen identificeert die verandering niet. In de gecontroleerde passages is geen complete numerieke gepaarde jaarbalans verkregen waarmee de 10 mm in een netto extra lokale afvoer kan worden omgezet. Dit is een conclusie over het nu gecontroleerde bewijs, geen claim dat oorspronkelijke uitvoerbestanden niet bestaan.
+
+**Kleinste uitvoerbare vervolgstap:** richt de extractie op één reeds berekend scenario en dezelfde controle: jaarlijkse sommen Runoff, laterale Drainage, netto onderrandflux, actuele ET (inclusief bodem en interceptie), irrigatie en begin-/eindopslag; daarnaast de gezamenlijke runoff-plus-drainage-tijdreeks voor een afvoervenster. Gebruik oorspronkelijke resultaten als die beschikbaar zijn, geen nieuwe SWAP-campagne. Alleen de daadwerkelijk naar hetzelfde ontvangende systeem gerouteerde verandering kan daarna naar HHNK-achtige operationele kosten worden vertaald. Extra piekdruk zonder netto extra jaarvolume blijft een mogelijke aparte uitkomst, waarvoor berging, capaciteit en resterende schade nodig zijn.
+
+**Resultaatstatus:** de off-site interpretatie is aangescherpt en de statistische betekenis van 12 mm gecorrigeerd. Geen extra pompvolume of nieuwe schade-euro toegelaten. De conceptuele effectroutes blijven leidend; geen nieuwe governance of kostenmethodiek.
 
 ## 1. Onderzoeksvraag, systeemgrens en bestaande methode
 
