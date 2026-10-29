@@ -1,10 +1,49 @@
 # Integrale wetenschappelijke tussenbalans: kosten van ondergrondverdichting
 
-**28 oktober 2026 | SYNTHESIS v1.0 | Onderzoeksstand voor expertbespreking**
+**29 oktober 2026 | SYNTHESIS v1.1 | Centraal inhoudelijk werkdocument voor expertbespreking**
 
 **Status: interne wetenschappelijke tussenbalans, geen afgeronde nationale schadeberekening.** Deze tekst is één leesbaar tussentijds onderzoeksresultaat, geen nieuwe methodiek, geen alternatieve bronregistratie en geen nieuwe numerieke admission. De oorspronkelijke autoriteiten blijven [theorie 02](02_theoretical_framework.md), [formeel model 04](04_formal_model.md), [effectpaden 49](49_project_effect_pathway_matrix_v0_1.md), [ensembleprotocol 50](50_evidence_ensemble_protocol_v0_1.md) en [beslisschema 59](59_bespreekschema_werkwijze_en_einddoel_v0_1.md). Voor de zes off-site categorieën wordt aangesloten bij [causaal netwerk v0.7](89_causaal_netwerk_v0_7.md). Detailonderzoek staat in [documenten 90–111](90_teams_literatuur_intake_20261028.md).
 
 > **Kernbevinding:** er zijn overtuigende fysieke mechanismen, enkele direct gemeten of berekende lokale effectgroottes en reeds voorbereide rekensurfaces. Er is nog **geen verdedigbare actuele nationale monetaire schadebandbreedte** voor uitsluitend Nederlandse ondergrondverdichting. Ook een nulbedrag is niet verdedigbaar. Het eerste onderzoeksresultaat is een gespecificeerd bewijs- en onzekerheidsbeeld, met concrete conditional evidence, uitsluitingen en beslispunten.
+
+## Actuele werkregie (29 oktober 2026)
+
+Dit onderdeel is de **enige actuele lijst van inhoudelijke open besluiten en eerstvolgende acties** voor deze synthese. De uitwerking in de hoofdstukken hieronder blijft de wetenschappelijke onderbouwing. Eerdere documenten 90–111 zijn brondossiers, niet een concurrerende voortgangsplanning.
+
+### A. Vaststaande keuzes, nog niet opnieuw bediscussiëren
+
+| Besluit | Status | Consequentie |
+|---|---|---|
+| Bestaande methodiek 02/04/49/50/59 is leidend | **WERKAFSPRAAK** | Geen nieuwe kostenmethodiek of dubbel evidence-register |
+| Zes maatschappelijke effectcategorieën afzonderlijk rapporteren | **WERKAFSPRAAK** | Niet-monetariseerbare effecten zichtbaar naast het geldelijke subtotaal |
+| Oude pathway-F1–F6 en nieuwe categorieën scheiden | **IDENTIFICATIERISICO BEKEND** | In tekst `PATH_F1–PATH_F6` en `EC1–EC6`; historische CSV-sleutels blijven ongewijzigd tot gecontroleerde migratie |
+| Landelijke nieuwe meetdata en SWAP-uitvoering | **GEPAUZEERD OP VERZOEK** | Niet als noodzakelijk werk voor deze consolidatiefase plannen |
+| Geen nationaal eurobedrag zonder exposure, respons, transfer en waardering | **WETENSCHAPPELIJKE GRENS** | Lege bedragen zijn onbekend, niet nul |
+
+### B. Open expertbesluiten met verwachte uitkomst
+
+| ID | Beslisvraag | Voorgestelde werkhypothese | Vastlegging nodig |
+|---|---|---|---|
+| D1 | Welke referentietoestand en diepteafbakening behoren tot het nationale schadebegrip? | Schadelijke antropogene ondergrondverdichting met bodem-/gewasafhankelijke vergelijking | Geaccordeerde afbakening; uitzonderingen (onder meer veen en rijsporen) |
+| D2 | Hoe presenteren we monetaire en niet-monetaire gevolgen? | Monetair **deelsubtotaal** plus zelfstandige fysieke/ecologische effectbalans | Expliciete keuze voor rapportagestatussen: euro, fysiek, kwalitatief, nog onbekend |
+| D3 | Wanneer mogen bemalingskosten en wateroverlastschade beide worden opgenomen? | Alleen bij onafhankelijke **additionele** veranderingen in operatie en resterende schade | Schadegrens, perspectief en één dubbeltellingvoorbeeld |
+| D4 | Welk bewijs is direct genoeg voor klimaat- en stofvrachtfactoren? | Netto N₂O/CH₄-flux en N/P-/middelenvracht onder aantoonbaar ondergrondcontrast | Minimale eisen aan comparator, diepte, route, periode en receptor |
+| D5 | Welke vervolgmeting/berekening geeft de hoogste informatiewaarde? | Selecteer op onzekerheidsreductie én ecologische/maatschappelijke betekenis | Maximaal drie onderbouwde onderzoekskeuzes; geen automatisch modelleren |
+
+**Status D1–D5:** `OPEN_FOR_EXPERT_REVIEW`. Voorgestelde hypothesen zijn nog geen besluiten van de groep.
+
+### C. Beperkt uitvoerbaar werk zonder nieuwe landelijke data of SWAP
+
+1. **Evidence-reconciliatie:** voor de drie bestaande on-site ensembles en de lokale hydraulische scenario's de directe bron, comparator, diepte, jaarbasis, onzekerheid en mogelijke transfer in bestaande registers controleren. Bronnen die alleen rijspoor/bovengrond meten blijven `PROXY` of `GUARDRAIL` voor ondergrondschade.
+2. **Economische definities reviewen:** expliciet uitwerken wat een private marginale bedrijfsschade, publieke werkelijke meerkosten en maatschappelijke welvaartsschade betekent bij eenzelfde fysiek effect. Alleen additionele, niet-overlappende posten tellen.
+3. **Zes EC-eindpunten als review-view onderhouden:** per categorie de beste brongebonden fysieke uitkomst en de belangrijkste onopgeloste schakel bijwerken in `evidence/offsite_results_matrix_v0_1.csv`. De huidige `F1–F6` kolomwaarden **niet** automatisch koppelen aan de oude methodische `F1–F6`.
+4. **Expertbesluiten vastleggen:** zodra D1–D5 zijn besproken, per besluit vastleggen: datum, gekozen alternatief, argument, bronbasis, consequentie en open voorbehoud. Niet vooraf als ‘akkoord’ bestempelen.
+
+### D. Wanneer de tussenbalans een nieuwe versie krijgt
+
+Werk **ditzelfde document** bij na (i) een inhoudelijk geaccordeerd expertbesluit, (ii) een broncontrole die een bestaande conclusie werkelijk verandert of (iii) een gekwalificeerde nieuwe fysieke/economische uitkomst. Maak alleen een afzonderlijk dossier bij nieuwe primaire bronanalyse of een reproduceerbare technische proef. Een numerieke uitspraak krijgt nooit een hogere status door alleen overname in deze synthese.
+
+**Eerstvolgende inhoudelijke mijlpaal:** de vijf beslissingen D1–D5 laten toetsen door de expertgroep; daarna pas kiezen welke bestaande on-site/off-site component als eerste werkelijk kan worden afgesloten. Er is geen automatisch tijdpad of aangenomen akkoord.
 
 ## 1. Onderzoeksvraag, systeemgrens en bestaande methode
 
