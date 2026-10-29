@@ -1,6 +1,6 @@
 # Integrale wetenschappelijke tussenbalans: kosten van ondergrondverdichting
 
-**29 oktober 2026 | SYNTHESIS v2.1 / RESULTS01 | Centraal inhoudelijk werkdocument voor expertbespreking**
+**29 oktober 2026 | SYNTHESIS v2.2 / RESULTS01 | Centraal inhoudelijk werkdocument voor expertbespreking**
 
 **Status: interne wetenschappelijke tussenbalans, geen afgeronde nationale schadeberekening.** Deze tekst is één leesbaar tussentijds onderzoeksresultaat, geen nieuwe methodiek, geen alternatieve bronregistratie en geen nieuwe numerieke admission. De oorspronkelijke autoriteiten blijven [theorie 02](02_theoretical_framework.md), [formeel model 04](04_formal_model.md), [effectpaden 49](49_project_effect_pathway_matrix_v0_1.md), [ensembleprotocol 50](50_evidence_ensemble_protocol_v0_1.md) en [beslisschema 59](59_bespreekschema_werkwijze_en_einddoel_v0_1.md). Voor de zes off-site categorieën wordt aangesloten bij [causaal netwerk v0.7](89_causaal_netwerk_v0_7.md). Detailonderzoek staat in [documenten 90–111](90_teams_literatuur_intake_20261028.md).
 
@@ -377,6 +377,29 @@ Het verslag berekent historisch 0,25×15% + 0,50×4% = **5,75%** op een geschat 
 **Kleinste uitvoerbare vervolgstap:** richt de extractie op één reeds berekend scenario en dezelfde controle: jaarlijkse sommen Runoff, laterale Drainage, netto onderrandflux, actuele ET (inclusief bodem en interceptie), irrigatie en begin-/eindopslag; daarnaast de gezamenlijke runoff-plus-drainage-tijdreeks voor een afvoervenster. Gebruik oorspronkelijke resultaten als die beschikbaar zijn, geen nieuwe SWAP-campagne. Alleen de daadwerkelijk naar hetzelfde ontvangende systeem gerouteerde verandering kan daarna naar HHNK-achtige operationele kosten worden vertaald. Extra piekdruk zonder netto extra jaarvolume blijft een mogelijke aparte uitkomst, waarvoor berging, capaciteit en resterende schade nodig zijn.
 
 **Resultaatstatus:** de off-site interpretatie is aangescherpt en de statistische betekenis van 12 mm gecorrigeerd. Geen extra pompvolume of nieuwe schade-euro toegelaten. De conceptuele effectroutes blijven leidend; geen nieuwe governance of kostenmethodiek.
+
+### P. Baakse Beek: regionale afvoerroute en piek kwantitatief onderscheiden
+
+**29 oktober 2026.** Primaire bron: Schipper et al. (2015), STOWA 2015-19, hoofdstuk 4, gedrukte p.28–38 (PDF-index 43–54), https://www.stowa.nl/sites/default/files/assets/PUBLICATIES/Publicaties%202015/STOWA%202015-19.pdf. Deze controle levert een concreet regionaal resultaat buiten Tollebeek; geen nieuwe modelrun.
+
+**Afvoerdefinitie:** de studie vergelijkt DRN (drains en permanent drainerende waterlopen), RIV (afvoer naar overige waterlopen) en MetaSWAP-runoff, plus hun som. AMIGO rekent op 100×100 m en met tijdstappen van één dag. Figuur 4.6 toont cumulatieve verschillen over 1998; figuur 4.8 dagelijkse afvoer rondom oktoberbuien. Dit is een gebiedsmodel met expliciete afvoercomponenten, niet automatisch gerouteerde uitstroom bij één meetpunt of gemaal.
+
+**Routecompensatie werkelijk in de bron aangetroffen:** p.35 stelt dat minder runoff in VERBETERD samengaat met hogere afvoeren via drains en overige waterlopen. De vergelijking BETER2 met VERBETERD wijst volgens de auteurs vrijwel volledig op infiltratiecapaciteit als oorzaak. Daarmee is minder oppervlakteafvoer **in dit modelgeval aantoonbaar niet hetzelfde als evenveel minder totale afvoer**. Hoeveel compensatie op jaarbasis optreedt, is uit de nu gelezen numerieke tekst niet exact af te leiden; geen grafiekwaarden als exacte meetgetallen invullen.
+
+| Twee gepubliceerde piekdagen eind oktober 1998 | VERDICHT miljoen m³ per dag | VERBETERD miljoen m³ per dag | Verschil miljoen m³ per dag | Afname berekend uit afgeronde bronwaarden |
+|---|---:|---:|---:|---:|
+| Eerste genoemde zware bui | 6,5 | 3,1 | 3,4 | 52,3% |
+| Tweede genoemde zware bui | 4,5 | 3,2 | 1,3 | 28,9% |
+
+De bron rapporteert afgerond 52% en 29%. Rekening: (6,5−3,1)/6,5 en (4,5−3,2)/4,5. De verschillen zijn **dagvolumes**, niet instantane debieten, geen extra jaarvolume en geen wateroverlastschade. Tel ze niet op als vermeden jaarafvoer: drainage op volgende dagen kan een deel alsnog afvoeren. Zonder routing/berging is ook de volledige dagvolumedelta niet gelijk aan benodigde extra berging.
+
+**Attributie is begrensd:** referentie-infiltratiecapaciteit topgrond 20 mm/dag, VERDICHT 10, VERBETERD 40. Het uiterste contrast omvat dus een factor vier in een expliciete topgrondparameter. Ook bodemfysica en worteldiepte veranderen. BETER1/2/3 zijn gevoeligheidsvarianten rond VERBETERD, geen onafhankelijke veldproeven. Het grote regionale piekeffect kwalificeert een **samengesteld modelscenario met dominante topgrond-infiltratieaanname**, niet uitsluitend ondergrondverdichting. Regionale scenarioreducties mogen niet als Nederlandse subsoil-schadefactor dienen.
+
+**Belang voor off-site keuze:** de bestaande studie ondersteunt vooral de route naar **piekbelasting en berging/capaciteit**, met afvoercompensatie buiten de runoff-route. De route naar jaarlijkse extra pompenergie is niet gesloten. Dit is een inhoudelijke selectiebeslissing: HHNK-jaarenergie blijft benchmark; geen vermenigvuldiging met 3,4 of 1,3 miljoen m³.
+
+**Wat is voor vervolgrekenen concreet nodig?** Oorspronkelijke 1998-reeksen per variant voor RUNOFF, DRN en RIV, op dezelfde gebiedsgrens en met gecontroleerde tekenconventie; de cumulatieve eindwaarden van figuur 4.6; en routing/peil-/bergingsinformatie voor een gekozen receptor. Voor een complete waterbalans daarnaast ET, opslag en externe grondwateruitwisseling. Het rapport bevat een gerichte bronroute hiervoor, maar de ruwe reeksen zijn niet verworven. De Vlaamse bronroute blijft bij directe PDF-toegang 403; geïndexeerde tekst is geen vervanging voor volledige balanscontrole.
+
+**Afgesloten uitkomst:** regionale routecompensatie is nu bronmatig onderbouwd; twee dagelijkse piekverschillen zijn nagerekend; uitsluitend-ondergrondattributie en jaarvolume blijven niet toegelaten. Geen nationale schade, geen extra pompkosten en geen fictieve schadefunctie. EC2–EC6 blijven behouden als zelfstandige effectcategorieën.
 
 ## 1. Onderzoeksvraag, systeemgrens en bestaande methode
 
