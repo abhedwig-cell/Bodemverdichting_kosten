@@ -49,6 +49,17 @@ Werk **ditzelfde document** bij na (i) een inhoudelijk geaccordeerd expertbeslui
 
 Voor alle zes EC-categorieën is de beschikbare bronkennis inhoudelijk beoordeeld. De fysieke lokale resultaten en scenario's zijn beschreven in hoofdstuk 3. Geen van de zes is toegelaten als actuele Nederlandse ondergrondverdichtingsschadefactor. Deze afronding betreft de huidige bronselectie, niet nationale effect- of monetaire admission. De expertbesluiten D1–D5 blijven open.
 
+| Categorie | Afgesloten beoordeling binnen huidige bronnen | Uitkomst die gebruikt mag worden | Nog geblokkeerd |
+|---|---|---|---|
+| EC1 wateroverlast | Lokale modelscenario's en afhankelijkheid van weer en bodem | 10/12 mm/jaar in afzonderlijke Nederlandse scenario's; Vlaanderen 9/10 mm broninconsistent | Regionale routing, beheer, risico en schade |
+| EC2 waterbeschikbaarheid | Verschil tussen potentiële behoefte en echte levering | 50–90 mm droogjaarscenario voor potentiële grasberegening | Feitelijke aanvoer, allocatie en schaarste |
+| EC3 N₂O/CH₄ | Berijdingsproeven gescheiden van subsoil-gastransport | Bessou +504/+405 g N₂O-N/ha per teeltcyclus als behandelingscontrast | Netto subsoil-specifieke jaarflux |
+| EC4 nutriënten | Rijspoor-P-bewijs en route-effecten onderscheiden | Deasy circa 1,06 kg TP/ha minder in specifieke Britse proeven | Netto N/P-vracht bij geïsoleerde ondergrondverdichting |
+| EC5 middelen | Nederlandse preferente transportroute bevestigd | Bentazon/imidacloprid-routebeschrijving zonder effectfactor | Gepaard verdichtingscontrast en receptorvracht |
+| EC6 bodemleven | Biologische effecten en vertraagd structuurherstel onderscheiden | Niet-monetaire effectbeschrijving en lokale herstelwaarnemingen | Landelijke omvang en subsoil-herstelmaat |
+
+**Kwalificatie:** `SOURCE_SCOPE_REVIEW_CLOSED_WITH_LIMITATIONS` voor zes van zes bronbeoordelingen, **nul van zes** categorieën heeft een toegelaten nationale monetaire schadefactor. De cijfers hierboven zijn geen optelbare componenten en de bronnen meten verschillende bodemlagen, behandelingen en tijdschalen. Bron- en kwalificatieregisters blijven leidend. V42 is een ecologische terugkoppeling, geen extra jaarlijks te waarderen schadepost.
+
 ## 1. Onderzoeksvraag, systeemgrens en bestaande methode
 
 De centrale vraag is wat **huidige schadelijke ondergrondverdichting**, in vergelijking met een relevante en fysisch mogelijke minder verdichte referentie bij dezelfde bodem, hetzelfde landgebruik en vergelijkbare omstandigheden, betekent voor **landbouw en maatschappij**.
