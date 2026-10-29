@@ -1,6 +1,6 @@
 # Integrale wetenschappelijke tussenbalans: kosten van ondergrondverdichting
 
-**29 oktober 2026 | SYNTHESIS v1.6 / RESULTS01 | Centraal inhoudelijk werkdocument voor expertbespreking**
+**29 oktober 2026 | SYNTHESIS v1.7 / RESULTS01 | Centraal inhoudelijk werkdocument voor expertbespreking**
 
 **Status: interne wetenschappelijke tussenbalans, geen afgeronde nationale schadeberekening.** Deze tekst is één leesbaar tussentijds onderzoeksresultaat, geen nieuwe methodiek, geen alternatieve bronregistratie en geen nieuwe numerieke admission. De oorspronkelijke autoriteiten blijven [theorie 02](02_theoretical_framework.md), [formeel model 04](04_formal_model.md), [effectpaden 49](49_project_effect_pathway_matrix_v0_1.md), [ensembleprotocol 50](50_evidence_ensemble_protocol_v0_1.md) en [beslisschema 59](59_bespreekschema_werkwijze_en_einddoel_v0_1.md). Voor de zes off-site categorieën wordt aangesloten bij [causaal netwerk v0.7](89_causaal_netwerk_v0_7.md). Detailonderzoek staat in [documenten 90–111](90_teams_literatuur_intake_20261028.md).
 
@@ -247,6 +247,27 @@ Operationeel onderhoud, start/slijtage, arbeid en eventuele capaciteit blijven *
 | Netto extra jaarlijkse bemaling door veranderde bodem | Niet uit jaarintensiteiten alleen | Controleer eerst bestaande gepaarde waterbalans in bronstudie; pas daarna zinvolle aanvullende systeemdata kiezen |
 
 **Prioriteit:** sluit eerst de primaire Alblas-proefdefinitie, omdat die een bestaande Nederlandse veldrespons direct kan koppelen aan de nu uitgerekende waardering. Voor EC1 heeft het herstellen van de **netto-volume-waterbalans** voorrang op verfijning van centen per m³: zonder die schakel blijft elk pompkostenbedrag hypothetisch. Dit zijn beperkte bron-/administratieacties, geen nieuwe SWAP-campagne, geen landelijke blootstellingsinventarisatie en geen automatisch verzoek aan externe personen.
+
+### K. RESULTS01 vervolg: ondergronddiepte en afvoer binnen een tijdvenster
+
+**29 oktober 2026.** De volledige Alblas-proeftekst is nog niet verworven. Een zoekresultaat voor Alblas' historische bijdrage *Bodemverdichting bij de teelt van mais* (https://edepot.wur.nl/350565) levert een aanvullende bronroute, maar directe PDF-toegang gaf 403. Geen nieuwe kwalificatie op basis van alleen de zoektekst.
+
+Wel rechtstreeks gelezen: Groenendijk et al. (2017), WENR 2811 / STOWA 2017-020, bijlage 3, gedrukte p.112–114, tabel A3.4. Publieke PDF: https://www.stowa.nl/sites/default/files/assets/PUBLICATIES/Publicaties%202017/STOWA%202017-20.pdf. Anders dan de algemene jaar-mm geeft deze tabel een specifieke variant A waarbij de verdichting vanaf 30 cm begint; bij B/C begint zij al in de bovengrond. Vergelijk daarom eerst **A met de gemodelleerde referentie**, niet C met de onbereden perceelrand.
+
+| Tijdsvenster en herhalingstijd | Referentie mm | Variant A mm | Verschil mm | Verschil m³ per scenariohectare | Rekenkundig gemiddeld extra debiet over venster, l/s/ha |
+|---|---:|---:|---:|---:|---:|
+| Zomer 4 uur, T=2 jaar | 2,8 | 3,2 | 0,4 | 4 | 0,278 |
+| Zomer 4 uur, T=10 jaar | 8,1 | 9,4 | 1,3 | 13 | 0,903 |
+| Winter 24 uur, T=2 jaar | 0,9 | 5,0 | 4,1 | 41 | 0,475 |
+| Winter 24 uur, T=10 jaar | 3,3 | 5,2 | 1,9 | 19 | 0,220 |
+
+Berekening: 10 × verschil-mm geeft m³/ha; deel dat door 4 × 3600 of 24 × 3600 en vermenigvuldig met 1000 voor l/s/ha. Dit is het **gemiddelde verschil binnen het tijdvenster**, niet het instantane maximum en niet het extra debiet aan een gemaal.
+
+**Statistische grens:** de bron past Gumbelverdelingen toe op berekende afvoeren. Het verschil tussen twee T=10-kwantielen is geen verschil voor dezelfde concrete regenbui. De lagere winterdelta bij T=10 dan T=2 is geen rekenfout en wordt niet gladgestreken. Zonder gekoppelde gebeurtenissen mogen deze verschillen niet als verwachte jaarlijkse extra volumes worden opgeteld of gewogen met 1/T.
+
+**Causale grens:** de profielen zijn gebaseerd op perceelrand, perceelsmidden en kopakker; de tekst noemt ook verschillen in organische stof, beworteling en laagdikte. Zelfs A versus referentie is daarom nog niet bewezen een geïsoleerde verdichting-ingreep bij overigens identieke eigenschappen. Dit is een beter afgebakend **modelscenario**, geen gemeten ondergrondschadefactor. Geen euroconversie met de HHNK-jaarintensiteit: zowel tijdschaal, routing als marginale bedrijfsvoering ontbreken.
+
+**Concrete winst:** naast jaarvolume is nu een ondergrond-georiënteerd scenario met afzonderlijke zomer-/wintervensters beschikbaar. De volgende broncontrole kan zich beperken tot tabel A3.3 en figuur A3.7: welke parameters veranderen bij A versus referentie naast de ondergrond, en welk gewas-/beheerregime geldt? De landelijke meetset en nieuwe modelruns blijven geparkeerd.
 
 ## 1. Onderzoeksvraag, systeemgrens en bestaande methode
 
