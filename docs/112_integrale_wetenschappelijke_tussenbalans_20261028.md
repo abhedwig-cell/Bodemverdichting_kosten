@@ -1,6 +1,6 @@
 # Integrale wetenschappelijke tussenbalans: kosten van ondergrondverdichting
 
-**29 oktober 2026 | SYNTHESIS v1.8 / RESULTS01 | Centraal inhoudelijk werkdocument voor expertbespreking**
+**29 oktober 2026 | SYNTHESIS v1.9 / RESULTS01 | Centraal inhoudelijk werkdocument voor expertbespreking**
 
 **Status: interne wetenschappelijke tussenbalans, geen afgeronde nationale schadeberekening.** Deze tekst is één leesbaar tussentijds onderzoeksresultaat, geen nieuwe methodiek, geen alternatieve bronregistratie en geen nieuwe numerieke admission. De oorspronkelijke autoriteiten blijven [theorie 02](02_theoretical_framework.md), [formeel model 04](04_formal_model.md), [effectpaden 49](49_project_effect_pathway_matrix_v0_1.md), [ensembleprotocol 50](50_evidence_ensemble_protocol_v0_1.md) en [beslisschema 59](59_bespreekschema_werkwijze_en_einddoel_v0_1.md). Voor de zes off-site categorieën wordt aangesloten bij [causaal netwerk v0.7](89_causaal_netwerk_v0_7.md). Detailonderzoek staat in [documenten 90–111](90_teams_literatuur_intake_20261028.md).
 
@@ -293,6 +293,20 @@ De tabelkop drukt beide theta-kolommen af als theta-res; de tweede heeft naar pa
 **Toegestaan eindresultaat:** de vier afvoerverschillen uit §K blijven geldig als aftrekking van de gepubliceerde **samengestelde graslandprofielscenario’s**. Zij zijn niet toegelaten als respons op alleen ondergrondverdichting, niet als causale gemaalbelasting en niet als schade-euro. Bestaande ensemblekwalificaties blijven behouden; geen nieuwe landelijke factor en geen vervangende methodiek.
 
 **Afsluiting en vervolg:** de vraag of deze publicatie al een gecontroleerd A-versus-referentie-ondergrondexperiment levert, is beantwoord: **nee**. Meer prijsscenario’s veranderen dit niet. Voor isolatie zijn bestaande oorspronkelijke SWAP-inputs nodig waarmee men kan vaststellen of elders een gepaarde variant met gelijke bovengrond bestaat; een nieuwe run blijft buiten de huidige opdracht. Het onderzoek hoeft daarop niet te wachten: vervolg de on-site route via het oorspronkelijke Alblas-artikel. Voor de off-site rapportage is de bruikbare uitkomst voorlopig het expliciet gelabelde samengestelde profielscenario, naast de open netto-waterbalans.
+
+### M. Alblas: gerichte bronverwerving en resterende toegangsgrens
+
+**29 oktober 2026.** Gerichte zoekactie naar het oorspronkelijke artikel en eerdere auteursverslagen. De volledige publicatie uit 1994 is niet verworven. Ook rechtstreeks openen van de gevonden eDepot-verslagen gaf 403. Zoekresultaten zijn geen integraal gelezen proefverslagen; de kwalificatie van de maïsscenario’s wordt niet verhoogd.
+
+Twee concrete historische verwervingsdoelen zijn nu bibliografisch teruggevonden in de geïndexeerde literatuurlijst van PAGV (https://edepot.wur.nl/346561):
+- Alblas, J. en F. Wanink (1990), *Invloed verdichting zandondergrond op snijmaïsopbrengst*, Praktijkonderzoek 3, nr.6, p.24–26.
+- Alblas, J., *Bodemverdichting bij de teelt van maïs*, Gewasdag maïs, PAGV-verslag 117, p.24–41; geïndexeerde tekst via https://edepot.wur.nl/350565.
+
+Daarnaast is de precieze eerdere auteursbijdrage geïdentificeerd: Wanink, F., J. Alblas, H.M.G. van der Werf en J.J.H. van den Akker (1990), *Snijmaïsopbrengst beïnvloed door berijding*, Landbouwmechanisatie 41, nr.4, p.28–29. Dit is een concrete alternatieve bronroute voor proefdetails, geen onafhankelijk experiment naast Alblas 1994.
+
+**Stopcriterium voor verdere generieke zoekrondes:** dezelfde samenvatting van 4/15% opnieuw terugvinden levert geen nieuwe informatie over de referentie, laagdiepte of onzekerheid. Verwerving van één van bovenstaande volledige teksten heeft nu voorrang. Er is geen verzoek aan auteurs of bibliotheek verzonden.
+
+**Minimale extractie na verwerving:** locatie en profiel; eerdere diepe grondbewerking; grondwater; behandelingsdatum/aslast/banddruk/aantal passages; controlebehandeling en bodembewerking daarna; bulkdichtheid en indringingsweerstand per diepte; absolute oogst-DS per behandeling/jaar; replicatie en statistische onzekerheid. Alleen waar de tekst de koppeling draagt, wordt de bestaande economische scenariotabel omgezet naar een broncontextspecifieke uitkomst. Nieuwe in zoektekst aangetroffen opbrengstgetallen worden tot die tijd niet doorgerekend.
 
 ## 1. Onderzoeksvraag, systeemgrens en bestaande methode
 
