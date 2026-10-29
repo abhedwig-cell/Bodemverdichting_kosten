@@ -1,7 +1,8 @@
 {
   "source_doi": "10.5281/zenodo.16940365",
   "archive_sha256": "7b92b40a3662fb38591bbb38b740d7b4ecb45b394f454466b4aade1ab052c030",
-  "checks": "paired dates, identical forcing, complete adjusted years, ET=E+T",
+  "checks": "exact case pairs, finite fluxes, identical forcing, exact December-November source calendars, ET=E+T, seasonal sums reproduce annual means",
+  "calendar_note": "Future labels retain historical leap days shifted by 100 years, including 29/02/2100. Calendar checks map future labels back 100 years; no rows dropped.",
   "limitation": "Published outputs only; full storage balance and HYDRUS rerun not verified.",
   "results": [
     {
@@ -10,7 +11,12 @@
       "paired_years": 29,
       "delta_Deep_percolation_mm": -30.0219,
       "delta_Evapotranspiration_actual_mm": 24.8961,
-      "delta_Runoff_mm": 3.2955
+      "delta_Runoff_mm": 3.2955,
+      "delta_percolation_annual_median_mm": -20.8941,
+      "delta_percolation_annual_min_mm": -196.7983,
+      "delta_percolation_annual_max_mm": 22.7574,
+      "years_positive_delta_percolation": 5,
+      "mean_delta_percolation_without_max_runoff_year_mm": -24.0656
     },
     {
       "parameterization": 1,
@@ -18,7 +24,12 @@
       "paired_years": 29,
       "delta_Deep_percolation_mm": -35.0994,
       "delta_Evapotranspiration_actual_mm": 34.0673,
-      "delta_Runoff_mm": 1.0786
+      "delta_Runoff_mm": 1.0786,
+      "delta_percolation_annual_median_mm": -38.1622,
+      "delta_percolation_annual_min_mm": -88.8077,
+      "delta_percolation_annual_max_mm": 19.8298,
+      "years_positive_delta_percolation": 5,
+      "mean_delta_percolation_without_max_runoff_year_mm": -33.7692
     },
     {
       "parameterization": 1,
@@ -26,7 +37,12 @@
       "paired_years": 29,
       "delta_Deep_percolation_mm": -41.7947,
       "delta_Evapotranspiration_actual_mm": 35.4929,
-      "delta_Runoff_mm": 2.5472
+      "delta_Runoff_mm": 2.5472,
+      "delta_percolation_annual_median_mm": -37.7181,
+      "delta_percolation_annual_min_mm": -158.9515,
+      "delta_percolation_annual_max_mm": 19.7187,
+      "years_positive_delta_percolation": 5,
+      "mean_delta_percolation_without_max_runoff_year_mm": -37.6105
     },
     {
       "parameterization": 2,
@@ -34,7 +50,12 @@
       "paired_years": 29,
       "delta_Deep_percolation_mm": -28.4905,
       "delta_Evapotranspiration_actual_mm": 24.7155,
-      "delta_Runoff_mm": 3.2951
+      "delta_Runoff_mm": 3.2951,
+      "delta_percolation_annual_median_mm": -20.6685,
+      "delta_percolation_annual_min_mm": -195.936,
+      "delta_percolation_annual_max_mm": 22.7901,
+      "years_positive_delta_percolation": 5,
+      "mean_delta_percolation_without_max_runoff_year_mm": -22.5103
     },
     {
       "parameterization": 2,
@@ -42,7 +63,12 @@
       "paired_years": 29,
       "delta_Deep_percolation_mm": -32.5278,
       "delta_Evapotranspiration_actual_mm": 31.8375,
-      "delta_Runoff_mm": 1.0798
+      "delta_Runoff_mm": 1.0798,
+      "delta_percolation_annual_median_mm": -35.3238,
+      "delta_percolation_annual_min_mm": -83.56,
+      "delta_percolation_annual_max_mm": 19.8268,
+      "years_positive_delta_percolation": 6,
+      "mean_delta_percolation_without_max_runoff_year_mm": -31.2162
     },
     {
       "parameterization": 2,
@@ -50,7 +76,12 @@
       "paired_years": 29,
       "delta_Deep_percolation_mm": -36.8297,
       "delta_Evapotranspiration_actual_mm": 33.249,
-      "delta_Runoff_mm": 2.5449
+      "delta_Runoff_mm": 2.5449,
+      "delta_percolation_annual_median_mm": -37.5991,
+      "delta_percolation_annual_min_mm": -156.7885,
+      "delta_percolation_annual_max_mm": 19.6726,
+      "years_positive_delta_percolation": 6,
+      "mean_delta_percolation_without_max_runoff_year_mm": -32.5454
     },
     {
       "parameterization": 3,
@@ -58,7 +89,12 @@
       "paired_years": 29,
       "delta_Deep_percolation_mm": 20.8752,
       "delta_Evapotranspiration_actual_mm": -23.1704,
-      "delta_Runoff_mm": 3.2951
+      "delta_Runoff_mm": 3.2951,
+      "delta_percolation_annual_median_mm": 23.4338,
+      "delta_percolation_annual_min_mm": -14.3386,
+      "delta_percolation_annual_max_mm": 32.1828,
+      "years_positive_delta_percolation": 27,
+      "mean_delta_percolation_without_max_runoff_year_mm": 22.1329
     },
     {
       "parameterization": 3,
@@ -66,7 +102,12 @@
       "paired_years": 29,
       "delta_Deep_percolation_mm": -4.8461,
       "delta_Evapotranspiration_actual_mm": 3.5709,
-      "delta_Runoff_mm": 1.0798
+      "delta_Runoff_mm": 1.0798,
+      "delta_percolation_annual_median_mm": -7.2097,
+      "delta_percolation_annual_min_mm": -38.6152,
+      "delta_percolation_annual_max_mm": 29.9654,
+      "years_positive_delta_percolation": 10,
+      "mean_delta_percolation_without_max_runoff_year_mm": -4.9557
     },
     {
       "parameterization": 3,
@@ -74,7 +115,338 @@
       "paired_years": 29,
       "delta_Deep_percolation_mm": -6.8036,
       "delta_Evapotranspiration_actual_mm": 5.0742,
+      "delta_Runoff_mm": 2.5449,
+      "delta_percolation_annual_median_mm": -7.2224,
+      "delta_percolation_annual_min_mm": -56.5959,
+      "delta_percolation_annual_max_mm": 29.6144,
+      "years_positive_delta_percolation": 10,
+      "mean_delta_percolation_without_max_runoff_year_mm": -6.2524
+    }
+  ],
+  "seasonal_results": [
+    {
+      "parameterization": 1,
+      "scenario": "Dry_future",
+      "season": "DJF",
+      "paired_seasons": 29,
+      "delta_Deep_percolation_mm": -22.7687,
+      "delta_Evapotranspiration_actual_mm": -0.0172,
+      "delta_Runoff_mm": 0.0
+    },
+    {
+      "parameterization": 1,
+      "scenario": "Dry_future",
+      "season": "MAM",
+      "paired_seasons": 29,
+      "delta_Deep_percolation_mm": 6.7862,
+      "delta_Evapotranspiration_actual_mm": 20.3096,
+      "delta_Runoff_mm": 0.0
+    },
+    {
+      "parameterization": 1,
+      "scenario": "Dry_future",
+      "season": "JJA",
+      "paired_seasons": 29,
+      "delta_Deep_percolation_mm": -1.6965,
+      "delta_Evapotranspiration_actual_mm": 5.084,
+      "delta_Runoff_mm": 3.2955
+    },
+    {
+      "parameterization": 1,
+      "scenario": "Dry_future",
+      "season": "SON",
+      "paired_seasons": 29,
+      "delta_Deep_percolation_mm": -12.3429,
+      "delta_Evapotranspiration_actual_mm": -0.4803,
+      "delta_Runoff_mm": 0.0
+    },
+    {
+      "parameterization": 1,
+      "scenario": "Historical",
+      "season": "DJF",
+      "paired_seasons": 29,
+      "delta_Deep_percolation_mm": -13.7541,
+      "delta_Evapotranspiration_actual_mm": -0.0034,
+      "delta_Runoff_mm": 0.0
+    },
+    {
+      "parameterization": 1,
+      "scenario": "Historical",
+      "season": "MAM",
+      "paired_seasons": 29,
+      "delta_Deep_percolation_mm": 5.5536,
+      "delta_Evapotranspiration_actual_mm": 15.063,
+      "delta_Runoff_mm": 0.0
+    },
+    {
+      "parameterization": 1,
+      "scenario": "Historical",
+      "season": "JJA",
+      "paired_seasons": 29,
+      "delta_Deep_percolation_mm": -5.771,
+      "delta_Evapotranspiration_actual_mm": 16.3674,
+      "delta_Runoff_mm": 1.0786
+    },
+    {
+      "parameterization": 1,
+      "scenario": "Historical",
+      "season": "SON",
+      "paired_seasons": 29,
+      "delta_Deep_percolation_mm": -21.1279,
+      "delta_Evapotranspiration_actual_mm": 2.6403,
+      "delta_Runoff_mm": 0.0
+    },
+    {
+      "parameterization": 1,
+      "scenario": "Wet_future",
+      "season": "DJF",
+      "paired_seasons": 29,
+      "delta_Deep_percolation_mm": -16.4881,
+      "delta_Evapotranspiration_actual_mm": -0.0062,
+      "delta_Runoff_mm": 0.0
+    },
+    {
+      "parameterization": 1,
+      "scenario": "Wet_future",
+      "season": "MAM",
+      "paired_seasons": 29,
+      "delta_Deep_percolation_mm": 5.0525,
+      "delta_Evapotranspiration_actual_mm": 13.6637,
+      "delta_Runoff_mm": 0.0
+    },
+    {
+      "parameterization": 1,
+      "scenario": "Wet_future",
+      "season": "JJA",
+      "paired_seasons": 29,
+      "delta_Deep_percolation_mm": -10.6784,
+      "delta_Evapotranspiration_actual_mm": 19.0403,
+      "delta_Runoff_mm": 2.5472
+    },
+    {
+      "parameterization": 1,
+      "scenario": "Wet_future",
+      "season": "SON",
+      "paired_seasons": 29,
+      "delta_Deep_percolation_mm": -19.6807,
+      "delta_Evapotranspiration_actual_mm": 2.7951,
+      "delta_Runoff_mm": 0.0
+    },
+    {
+      "parameterization": 2,
+      "scenario": "Dry_future",
+      "season": "DJF",
+      "paired_seasons": 29,
+      "delta_Deep_percolation_mm": -21.8954,
+      "delta_Evapotranspiration_actual_mm": -0.0145,
+      "delta_Runoff_mm": 0.0
+    },
+    {
+      "parameterization": 2,
+      "scenario": "Dry_future",
+      "season": "MAM",
+      "paired_seasons": 29,
+      "delta_Deep_percolation_mm": 6.7866,
+      "delta_Evapotranspiration_actual_mm": 18.1223,
+      "delta_Runoff_mm": 0.0
+    },
+    {
+      "parameterization": 2,
+      "scenario": "Dry_future",
+      "season": "JJA",
+      "paired_seasons": 29,
+      "delta_Deep_percolation_mm": -1.3987,
+      "delta_Evapotranspiration_actual_mm": 6.5705,
+      "delta_Runoff_mm": 3.2951
+    },
+    {
+      "parameterization": 2,
+      "scenario": "Dry_future",
+      "season": "SON",
+      "paired_seasons": 29,
+      "delta_Deep_percolation_mm": -11.983,
+      "delta_Evapotranspiration_actual_mm": 0.0372,
+      "delta_Runoff_mm": 0.0
+    },
+    {
+      "parameterization": 2,
+      "scenario": "Historical",
+      "season": "DJF",
+      "paired_seasons": 29,
+      "delta_Deep_percolation_mm": -12.5473,
+      "delta_Evapotranspiration_actual_mm": -0.0162,
+      "delta_Runoff_mm": 0.0
+    },
+    {
+      "parameterization": 2,
+      "scenario": "Historical",
+      "season": "MAM",
+      "paired_seasons": 29,
+      "delta_Deep_percolation_mm": 5.5569,
+      "delta_Evapotranspiration_actual_mm": 14.1582,
+      "delta_Runoff_mm": 0.0
+    },
+    {
+      "parameterization": 2,
+      "scenario": "Historical",
+      "season": "JJA",
+      "paired_seasons": 29,
+      "delta_Deep_percolation_mm": -5.5471,
+      "delta_Evapotranspiration_actual_mm": 15.7173,
+      "delta_Runoff_mm": 1.0798
+    },
+    {
+      "parameterization": 2,
+      "scenario": "Historical",
+      "season": "SON",
+      "paired_seasons": 29,
+      "delta_Deep_percolation_mm": -19.9902,
+      "delta_Evapotranspiration_actual_mm": 1.9781,
+      "delta_Runoff_mm": 0.0
+    },
+    {
+      "parameterization": 2,
+      "scenario": "Wet_future",
+      "season": "DJF",
+      "paired_seasons": 29,
+      "delta_Deep_percolation_mm": -13.1523,
+      "delta_Evapotranspiration_actual_mm": -0.0012,
+      "delta_Runoff_mm": 0.0
+    },
+    {
+      "parameterization": 2,
+      "scenario": "Wet_future",
+      "season": "MAM",
+      "paired_seasons": 29,
+      "delta_Deep_percolation_mm": 5.0495,
+      "delta_Evapotranspiration_actual_mm": 12.8606,
+      "delta_Runoff_mm": 0.0
+    },
+    {
+      "parameterization": 2,
+      "scenario": "Wet_future",
+      "season": "JJA",
+      "paired_seasons": 29,
+      "delta_Deep_percolation_mm": -10.3563,
+      "delta_Evapotranspiration_actual_mm": 18.4964,
       "delta_Runoff_mm": 2.5449
+    },
+    {
+      "parameterization": 2,
+      "scenario": "Wet_future",
+      "season": "SON",
+      "paired_seasons": 29,
+      "delta_Deep_percolation_mm": -18.3705,
+      "delta_Evapotranspiration_actual_mm": 1.8932,
+      "delta_Runoff_mm": 0.0
+    },
+    {
+      "parameterization": 3,
+      "scenario": "Dry_future",
+      "season": "DJF",
+      "paired_seasons": 29,
+      "delta_Deep_percolation_mm": -2.744,
+      "delta_Evapotranspiration_actual_mm": -0.0042,
+      "delta_Runoff_mm": 0.0
+    },
+    {
+      "parameterization": 3,
+      "scenario": "Dry_future",
+      "season": "MAM",
+      "paired_seasons": 29,
+      "delta_Deep_percolation_mm": 11.8829,
+      "delta_Evapotranspiration_actual_mm": 6.5857,
+      "delta_Runoff_mm": 0.0
+    },
+    {
+      "parameterization": 3,
+      "scenario": "Dry_future",
+      "season": "JJA",
+      "paired_seasons": 29,
+      "delta_Deep_percolation_mm": 8.7889,
+      "delta_Evapotranspiration_actual_mm": -26.4097,
+      "delta_Runoff_mm": 3.2951
+    },
+    {
+      "parameterization": 3,
+      "scenario": "Dry_future",
+      "season": "SON",
+      "paired_seasons": 29,
+      "delta_Deep_percolation_mm": 2.9475,
+      "delta_Evapotranspiration_actual_mm": -3.3422,
+      "delta_Runoff_mm": 0.0
+    },
+    {
+      "parameterization": 3,
+      "scenario": "Historical",
+      "season": "DJF",
+      "paired_seasons": 29,
+      "delta_Deep_percolation_mm": -5.868,
+      "delta_Evapotranspiration_actual_mm": -0.0062,
+      "delta_Runoff_mm": 0.0
+    },
+    {
+      "parameterization": 3,
+      "scenario": "Historical",
+      "season": "MAM",
+      "paired_seasons": 29,
+      "delta_Deep_percolation_mm": 9.607,
+      "delta_Evapotranspiration_actual_mm": 8.0908,
+      "delta_Runoff_mm": 0.0
+    },
+    {
+      "parameterization": 3,
+      "scenario": "Historical",
+      "season": "JJA",
+      "paired_seasons": 29,
+      "delta_Deep_percolation_mm": 2.602,
+      "delta_Evapotranspiration_actual_mm": -3.48,
+      "delta_Runoff_mm": 1.0798
+    },
+    {
+      "parameterization": 3,
+      "scenario": "Historical",
+      "season": "SON",
+      "paired_seasons": 29,
+      "delta_Deep_percolation_mm": -11.1871,
+      "delta_Evapotranspiration_actual_mm": -1.0337,
+      "delta_Runoff_mm": 0.0
+    },
+    {
+      "parameterization": 3,
+      "scenario": "Wet_future",
+      "season": "DJF",
+      "paired_seasons": 29,
+      "delta_Deep_percolation_mm": -6.4198,
+      "delta_Evapotranspiration_actual_mm": 0.0053,
+      "delta_Runoff_mm": 0.0
+    },
+    {
+      "parameterization": 3,
+      "scenario": "Wet_future",
+      "season": "MAM",
+      "paired_seasons": 29,
+      "delta_Deep_percolation_mm": 9.2037,
+      "delta_Evapotranspiration_actual_mm": 7.2035,
+      "delta_Runoff_mm": 0.0
+    },
+    {
+      "parameterization": 3,
+      "scenario": "Wet_future",
+      "season": "JJA",
+      "paired_seasons": 29,
+      "delta_Deep_percolation_mm": 0.6549,
+      "delta_Evapotranspiration_actual_mm": -0.3538,
+      "delta_Runoff_mm": 2.5449
+    },
+    {
+      "parameterization": 3,
+      "scenario": "Wet_future",
+      "season": "SON",
+      "paired_seasons": 29,
+      "delta_Deep_percolation_mm": -10.2424,
+      "delta_Evapotranspiration_actual_mm": -1.7808,
+      "delta_Runoff_mm": 0.0
     }
   ]
 }
