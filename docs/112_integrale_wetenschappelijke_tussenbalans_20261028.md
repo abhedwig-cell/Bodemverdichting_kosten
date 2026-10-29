@@ -1,6 +1,6 @@
 # Integrale wetenschappelijke tussenbalans: kosten van ondergrondverdichting
 
-**29 oktober 2026 | SYNTHESIS v2.4 / RESULTS01 | Centraal inhoudelijk werkdocument voor expertbespreking**
+**29 oktober 2026 | SYNTHESIS v2.5 / RESULTS01 | Centraal inhoudelijk werkdocument voor expertbespreking**
 
 **Status: interne wetenschappelijke tussenbalans, geen afgeronde nationale schadeberekening.** Deze tekst is één leesbaar tussentijds onderzoeksresultaat, geen nieuwe methodiek, geen alternatieve bronregistratie en geen nieuwe numerieke admission. De oorspronkelijke autoriteiten blijven [theorie 02](02_theoretical_framework.md), [formeel model 04](04_formal_model.md), [effectpaden 49](49_project_effect_pathway_matrix_v0_1.md), [ensembleprotocol 50](50_evidence_ensemble_protocol_v0_1.md) en [beslisschema 59](59_bespreekschema_werkwijze_en_einddoel_v0_1.md). Voor de zes off-site categorieën wordt aangesloten bij [causaal netwerk v0.7](89_causaal_netwerk_v0_7.md). Detailonderzoek staat in [documenten 90–111](90_teams_literatuur_intake_20261028.md).
 
@@ -469,6 +469,25 @@ Alle scenario’s eindigen met nul opslag. Per scenario sluit instroom = pompvol
 **Verificatie:** rekenbestand uitgevoerd; massabalans, zelfde-volumecontrast, het verdwijnen van overloop bij beide aanpassingen en invariatie bij extra ongebruikte berging gecontroleerd met assertions. Projectvalidator PASS en bestaande suite 61 tests PASS op de lokale werkbasis; deze controles kwalificeren implementatie, niet werkelijkheid. Geen nieuwe empirische kwalificatie of productiecodewijziging.
 
 **Volgende grote stap:** vervang de synthetische instroom door één reeds beschikbare gepaarde afvoerreeks op dezelfde receptorgrens en voeg bestaande berging, regeling en capaciteit toe. Zonder die gegevens is verdere scenariovermenigvuldiging weinig informatief. Voor monetarisering zijn vervolgens locatiekosten en resterende blootstelling nodig; de zes EC-categorieën blijven apart zichtbaar.
+
+### R. Werkelijke systeemkoppeling: gegevenscontrole en afgebakend vervolg
+
+**29 oktober 2026.** De aanwezige lokale data-/artifactbestanden en het actuele GitHub-datarequestregister zijn gecontroleerd. De aangetroffen tijdreeksen betreffen meteorologische forcing, geen gepaarde receptorafvoer. Het actuele requestregister bevestigt dat voor Tollebeek historische waterstanden, gerealiseerde pompafvoer, regeling en noodpompschema’s nog ontbreken. Een gerichte publieke zoekactie naar de oorspronkelijke AMIGO-uitvoer van STOWA 2015-19 leverde publicaties, maar geen verworven ruwe variantreeksen op. Dit bewijst niet dat die bestanden bij de oorspronkelijke onderzoekers ontbreken.
+
+**Uitkomst:** de synthetische proef uit §Q kan nu niet verantwoord met één volledige empirische systeemcasus worden gevuld. Een werkelijk gemeten afvoerreeks alleen lost ook het counterfactual niet op: die bevat niet automatisch dezelfde gebeurtenis bij een andere bodemtoestand. Een gereconstrueerd modelpaar moet afzonderlijk als modeluitkomst herkenbaar blijven.
+
+**Concreet gegevenspakket voor de Baakse Beek-route, zonder nieuwe modelruns:**
+- Bestaande RUNOFF-, DRN- en RIV-uitvoer voor de oorspronkelijke REFERENTIE, VERDICHT en VERBETERD-runs, inclusief BETER1/2/3 indien bewaard; 1998 compleet, minimaal juni en oktober/november met voorafgaande en volgende afvoerdagen.
+- Tijdstempels, intervalduur, eenheden, tekenconventies, cel-/deelgebiedsgrens, oppervlak en informatie of de reeksen lokale fluxsommen of gerouteerde uitlaatafvoer zijn.
+- Modelconfiguratie/variantbeschrijving die vastlegt welke bodem- en andere parameters verschillen; begin-/eindopslag, ET en externe grondwateruitwisseling wanneer een jaarbalans wordt beoordeeld.
+- Voor een werkelijk ontvangend compartiment: relatie van peil tot beschikbare berging, beginpeil, uitlaat-/stuw-/pompkarakteristiek, regeling, beschikbaarheid en relevante benedenstroomse randvoorwaarden.
+- Voor kosten: de locatiegebonden additionele energie-/exploitatiekosten en eventueel concreet investeringsalternatief; voor schade afzonderlijk blootstelling en schadefunctie.
+
+Dit pakket is een **specificatie voor gerichte verwerving**, geen verzonden verzoek en geen ontvangen dataset. Het oorspronkelijke regionale model hoeft niet alle receptorinformatie te bevatten. Ontbrekende routing moet expliciet blijven; een som van DRN/RIV/RUNOFF wordt niet met alleen een gebiedsnaam een hydrogram bij een kunstwerk.
+
+**Besluit voor werkregie:** EC1 bronanalyse en synthetische gevoeligheid zijn voor de nu beschikbare invoer voldoende uitgewerkt. Geen herhaling van algemene bronzoekrondes, fictieve hydrogrammen of prijsvarianten. De empirische systeemkoppeling krijgt status **WAIT_PAIRED_RECEPTOR_SERIES_AND_SYSTEM_OPERATION**. Bij levering van de bovenstaande gegevens volgt in één blok: semantische controle, waterbalans, gepaarde belasting, berging/capaciteit, waardering en rapportage. Dit is geen wetenschappelijk nuleffect.
+
+**Onafhankelijk voortzetbaar off-site werk:** consolideer EC2–EC6 op hun eigen receptor-eindpunten. Prioriteit voor de volgende onderzoekswerkeenheid is EC4/EC5: routegebonden stofvracht en werkelijk ontvangend water onderscheiden van concentratie, met behoud van tekenonzekerheid en de grens tussen rijspoor-/bovengrond- en ondergrondbewijs. Start geen nieuwe modelcampagne en leid geen vrachtfactor uit het EC1-runoffscenario af.
 
 ## 1. Onderzoeksvraag, systeemgrens en bestaande methode
 
