@@ -1,6 +1,6 @@
 # Integrale wetenschappelijke tussenbalans: kosten van ondergrondverdichting
 
-**29 oktober 2026 | SYNTHESIS v1.1 | Centraal inhoudelijk werkdocument voor expertbespreking**
+**29 oktober 2026 | SYNTHESIS v1.2 | Centraal inhoudelijk werkdocument voor expertbespreking**
 
 **Status: interne wetenschappelijke tussenbalans, geen afgeronde nationale schadeberekening.** Deze tekst is één leesbaar tussentijds onderzoeksresultaat, geen nieuwe methodiek, geen alternatieve bronregistratie en geen nieuwe numerieke admission. De oorspronkelijke autoriteiten blijven [theorie 02](02_theoretical_framework.md), [formeel model 04](04_formal_model.md), [effectpaden 49](49_project_effect_pathway_matrix_v0_1.md), [ensembleprotocol 50](50_evidence_ensemble_protocol_v0_1.md) en [beslisschema 59](59_bespreekschema_werkwijze_en_einddoel_v0_1.md). Voor de zes off-site categorieën wordt aangesloten bij [causaal netwerk v0.7](89_causaal_netwerk_v0_7.md). Detailonderzoek staat in [documenten 90–111](90_teams_literatuur_intake_20261028.md).
 
@@ -44,6 +44,10 @@ Dit onderdeel is de **enige actuele lijst van inhoudelijke open besluiten en eer
 Werk **ditzelfde document** bij na (i) een inhoudelijk geaccordeerd expertbesluit, (ii) een broncontrole die een bestaande conclusie werkelijk verandert of (iii) een gekwalificeerde nieuwe fysieke/economische uitkomst. Maak alleen een afzonderlijk dossier bij nieuwe primaire bronanalyse of een reproduceerbare technische proef. Een numerieke uitspraak krijgt nooit een hogere status door alleen overname in deze synthese.
 
 **Eerstvolgende inhoudelijke mijlpaal:** de vijf beslissingen D1–D5 laten toetsen door de expertgroep; daarna pas kiezen welke bestaande on-site/off-site component als eerste werkelijk kan worden afgesloten. Er is geen automatisch tijdpad of aangenomen akkoord.
+
+### Stand van de off-site bronbeoordeling (29 oktober 2026)
+
+Voor alle zes EC-categorieën is de beschikbare bronkennis inhoudelijk beoordeeld. De fysieke lokale resultaten en scenario's zijn beschreven in hoofdstuk 3. Geen van de zes is toegelaten als actuele Nederlandse ondergrondverdichtingsschadefactor. Deze afronding betreft de huidige bronselectie, niet nationale effect- of monetaire admission. De expertbesluiten D1–D5 blijven open.
 
 ## 1. Onderzoeksvraag, systeemgrens en bestaande methode
 
