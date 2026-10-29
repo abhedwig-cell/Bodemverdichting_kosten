@@ -1,606 +1,78 @@
-# Integrale wetenschappelijke tussenbalans: kosten van ondergrondverdichting
+# Off-site gevolgen van ondergrondverdichting: wetenschappelijke tussenbalans
 
-**29 oktober 2026 | SYNTHESIS v2.6 / RESULTS01 | Centraal inhoudelijk werkdocument voor expertbespreking**
+**29 oktober 2026 | versie 3.0 | interne onderzoeksrapportage voor expertbespreking**
 
-**Status: interne wetenschappelijke tussenbalans, geen afgeronde nationale schadeberekening.** Deze tekst is één leesbaar tussentijds onderzoeksresultaat, geen nieuwe methodiek, geen alternatieve bronregistratie en geen nieuwe numerieke admission. De oorspronkelijke autoriteiten blijven [theorie 02](02_theoretical_framework.md), [formeel model 04](04_formal_model.md), [effectpaden 49](49_project_effect_pathway_matrix_v0_1.md), [ensembleprotocol 50](50_evidence_ensemble_protocol_v0_1.md) en [beslisschema 59](59_bespreekschema_werkwijze_en_einddoel_v0_1.md). Voor de zes off-site categorieën wordt aangesloten bij [causaal netwerk v0.7](89_causaal_netwerk_v0_7.md). Detailonderzoek staat in [documenten 90–111](90_teams_literatuur_intake_20261028.md).
+## 1. Uitkomst en afbakening
 
-> **Kernbevinding:** er zijn overtuigende fysieke mechanismen, enkele direct gemeten of berekende lokale effectgroottes en reeds voorbereide rekensurfaces. Er is nog **geen verdedigbare actuele nationale monetaire schadebandbreedte** voor uitsluitend Nederlandse ondergrondverdichting. Ook een nulbedrag is niet verdedigbaar. Het eerste onderzoeksresultaat is een gespecificeerd bewijs- en onzekerheidsbeeld, met concrete conditional evidence, uitsluitingen en beslispunten.
+Ondergrondverdichting kan via watertransport, gasuitwisseling, stofomzetting en bodemleven gevolgen hebben buiten het perceel. De beschikbare studies onderbouwen mechanismen en enkele lokale fysieke effecten. Zij dragen **nog geen actuele Nederlandse monetaire schadebandbreedte voor uitsluitend ondergrondverdichting**. Dat betekent onbekende schade, niet nul schade.
 
-## Actuele off-site resultaatmatrix en uitvoeringsbesluit
+Deze tussenrapportage behandelt zes effectcategorieën. Zij maakt onderscheid tussen rechtstreeks ondergrondprocesbewijs, bredere berijdings-/bodembehandelingsproeven, modelscenario’s en synthetische rekenvoorbeelden. Geen van deze soorten bewijs wordt stilzwijgend tot een landelijke factor verheven. De focus ligt op off-site; verdere on-site bedrijfseconomie is geparkeerd.
 
-**29 oktober 2026 | werkeenheid hydrologische effectbasis.** Deze matrix vervangt voor de off-site uitvoering de verspreide vervolgaanwijzingen in §I–P. On-site bedrijfseconomie blijft geparkeerd. Onderliggende analyses blijven brondossiers; een nieuw prijsvoorbeeld of een bronzoekpoging is geen zelfstandig onderzoeksresultaat.
+De bestaande methode blijft leidend: [theorie 02](02_theoretical_framework.md), [formeel model 04](04_formal_model.md), [effectpaden 49](49_project_effect_pathway_matrix_v0_1.md), [ensembleprotocol 50](50_evidence_ensemble_protocol_v0_1.md) en [beslisschema 59](59_bespreekschema_werkwijze_en_einddoel_v0_1.md). Ondergrond betekent een expliciet beschreven laag onder de bouwvoor; 30–100 cm is een onderzoeksafbakening, geen voor iedere bron bewezen behandelingsdiepte. Huidige en referentietoestand moeten per uitkomst bij dezelfde context horen.
 
-**Samengevoegde hoofdbevinding:** er is brongebonden modelbewijs voor oppervlakteafvoer en voor regionale piekverschillen. Er is bovendien expliciet modelbewijs voor compensatie via andere afvoerroutes. Er is nog geen gekwalificeerde extra jaarafvoer naar een Nederlandse beheerder door uitsluitend ondergrondverdichting. De eerstvolgende economische route is daardoor een conditionele **systeem- en capaciteitsanalyse**, niet een landelijke pompkostenfactor.
+**Rapportagegrens ecologie:** bodemhabitat op het perceel is strikt genomen een on-site eindpunt, maar blijft als zelfstandig ecologisch gevolg in de integrale balans staan. Externe ecologische gevolgen en hydrologische terugkoppeling worden daarvan onderscheiden. EC6 is dus niet zonder meer een volledig externe schadepost.
 
-| Scenario / primaire bron | Contrast en schaal | Controleerbare fysieke uitkomst | Afgeleverd aan welk systeem? | Ondergrondattributie | Besluit voor vervolg |
-|---|---|---|---|---|---|
-| Schipper 2015, perceelverkenning | Samengestelde bodemkwaliteit, twee bodemtypen en gewassen | Contextgebonden afvoer-/piekrespons; niet combineren met regionale volumes | Modelmatige perceelsuitgang, geen operationele receptor | Niet geïsoleerd | Behouden als mechanistische scenario-evidence; geen extra rekenfactor |
-| WENR 2811, hoofdstuk 2, snijmaïs | Lokale profiel-/wortel-/maaiveldvarianten | Circa 10 mm langjarig effect op oppervlakteafvoer; 12 mm omgerekende 95-percentieluitkomst | Oppervlakteroute; volledige lokale afvoer niet gereconstrueerd | Profiel en beheer moeten samen beoordeeld | Niet omzetten naar netto jaarafvoer/pompvolume |
-| WENR 2811, bijlage 3, gras variant A versus referentie | Samengestelde veldpodzolprofielen; A verdicht vanaf circa 30 cm | Zomer T2/T10: +4/+13 m³/ha per 4-uursvenster; winter: +41/+19 per 24-uursvenster, verschillen tussen kwantielen | Gepubliceerde afvoerpieken naar sloot; geen gemeten receptorhydrogram | Bovengrondparameters veranderen ook | Rekenkundig gesloten modelcontrast; niet ondergrondcausaal of naar gemaal overdragen |
-| Schipper 2015, Baakse Beek 1998 | Regionaal VERDICHT versus VERBETERD, AMIGO | Twee piekdagen 6,5→3,1 en 4,5→3,2 miljoen m³/dag; verschillen 3,4 en 1,3 | Som van gemodelleerde RUNOFF/DRN/RIV; niet bewezen uitstroomhydrogram | Dominante wijziging topgrond-infiltratie 10→40 mm/dag | Toelaatbaar als gecombineerd model-/capaciteitsscenario; geen ondergrondschadefactor |
-| Van der Bolt 2016, Vlaanderen | Vijf gebiedsmodellen, verdicht/niet-verdicht, verschillende klimaatscenario’s | 9/10 mm-conflict uit WENR-synthese niet opgelost; volledige primaire PDF niet toegankelijk | Runoff en grondwatervoeding onderscheiden; vaste grondwaterstand als relevante randvoorwaarde in geïndexeerde conclusies | Nog onvoldoende primair gecontroleerd | Numerieke transfer geblokkeerd; geen herhaalde abstractzoekactie |
-| HHNK 2024 operatie | Leemans/Lely, afdelingsgebonden jaargemiddelden | 32–48 m³/kWh | Werkelijke gemaalcontext, onzekere volumes | Geen bodemcontrast | Energiebenchmark beschikbaar; geen marginale kosten- of hydrologische transferfactor |
+## 2. Integrale resultaatbalans
 
-**Bronnen en afhankelijkheid:** Schipper 2015 en WENR 2811 zijn rechtstreeks via de STOWA-PDF’s beoordeeld. WENR 2811 citeert en bouwt voort op eerdere studies; herhaling van een getal is geen onafhankelijk ensemblelid. Voor Vlaanderen zijn metadata, synthese en geïndexeerde passages beschikbaar; de volledige tekst is ook bij deze controle niet verworven (403). Die rij blijft expliciet onvolledig.
-
-### Wat deze werkeenheid wel en niet sluit
-
-- **Gesloten:** scenario’s zijn gescheiden naar comparator, schaal, tijdsvenster, route en toepassingsstatus. De 10/12 mm zijn geen onzekerheidsinterval. Kwantielverschillen zijn geen gepaarde regenbuieffecten. Dagvolumes zijn geen instantane piekdebieten.
-- **Gesloten:** de regionale studie rapporteert minder runoff naast meer drainage/waterloopafvoer. Een vaste overdracht ‘runoffverschil = totaal afvoerverschil’ is voor dit bewijs niet houdbaar.
-- **Gesloten:** geen van de gecontroleerde kwantitatieve Nederlandse contrasten levert een geïsoleerde ondergrondfactor op. Dat verwerpt de transfer, niet het bestaan van off-site effecten.
-- **Open:** complete gepaarde jaarbalans, uitlaatrouting, beheerrespons en Vlaamse primaire reconciliatie. De hydrologische effectbasis is dus **geconsolideerd maar niet volledig numeriek gekwalificeerd**.
-
-**Grafiekextractie:** figuren 4.6 en 4.8 van STOWA 2015-19 zijn opnieuw als paginaweergave opgevraagd. De numerieke piekdagwaarden zijn al expliciet in de brontekst gegeven en hebben daarom voorrang boven digitalisering. Er zijn in deze werkeenheid geen betrouwbare nieuwe curvecoördinaten met aantoonbare afleesonnauwkeurigheid verkregen. Daarom geen gefingeerde jaareindwaarden, routecompensatiepercentages of volledige hydrogrammen. Exacte piekdagwaarden bewijzen de cumulatieve jaarbalans niet.
-
-### Volgende grote werkeenheid: systeemrespons onder expliciete aannames
-
-Voer als één samenhangend blok de volgende berekening uit met bestaande methode 04:
-
-1. Kies een afgebakend ontvangend systeem en een **gepaarde tijdreeks**, niet een verschil tussen afzonderlijke extremen. Als geen bronreeks beschikbaar is, gebruik afzonderlijk een expliciet synthetisch belastingsscenario; dat blijft een gevoeligheidsproef.
-2. Bereken met dezelfde beginberging en afvoer-/pompregeling in beide toestanden het maximale bergingstekort en de resterende overschrijding. Gebruik cumulatief instroming minus werkelijk mogelijke afvoer; het verschil tussen benodigde bergingsvolumes kan niet uit één piekdagdelta worden afgeleid.
-3. Waardeer uitsluitend aantoonbaar additionele operatie of een concreet gespecificeerde capaciteitsaanpassing. Zonder marginale prijs blijft het resultaat fysiek. Wateroverlastschade vereist zelfstandig blootstelling en schadefunctie.
-4. Rapporteer het resultaat naast, en niet in plaats van, de andere vijf EC-categorieën.
-
-**Benodigde gerichte verwerving:** oorspronkelijke RUNOFF/DRN/RIV-reeksen en cumulatieve 1998-uitvoer van het Schipper-model, plus ontvangend netwerk/regeling; volledig rapport 2725 voor de Vlaamse balans. Er is geen extern bericht verzonden en geen nieuwe modelcampagne gestart. Tot deze gegevens beschikbaar zijn, is de verantwoorde volgende berekening een **systeemgevoeligheid onder open aannames**, geen raming van werkelijk door ondergrondverdichting veroorzaakte kosten.
-
-## Actuele werkregie (29 oktober 2026)
-
-Dit onderdeel is de **enige actuele lijst van inhoudelijke open besluiten en eerstvolgende acties** voor deze synthese. De uitwerking in de hoofdstukken hieronder blijft de wetenschappelijke onderbouwing. Eerdere documenten 90–111 zijn brondossiers, niet een concurrerende voortgangsplanning.
-
-### A. Vaststaande keuzes, nog niet opnieuw bediscussiëren
-
-| Besluit | Status | Consequentie |
-|---|---|---|
-| Bestaande methodiek 02/04/49/50/59 is leidend | **WERKAFSPRAAK** | Geen nieuwe kostenmethodiek of dubbel evidence-register |
-| Zes maatschappelijke effectcategorieën afzonderlijk rapporteren | **WERKAFSPRAAK** | Niet-monetariseerbare effecten zichtbaar naast het geldelijke subtotaal |
-| Oude pathway-F1–F6 en nieuwe categorieën scheiden | **IDENTIFICATIERISICO BEKEND** | In tekst `PATH_F1–PATH_F6` en `EC1–EC6`; historische CSV-sleutels blijven ongewijzigd tot gecontroleerde migratie |
-| Landelijke nieuwe meetdata en SWAP-uitvoering | **GEPAUZEERD OP VERZOEK** | Niet als noodzakelijk werk voor deze consolidatiefase plannen |
-| Geen nationaal eurobedrag zonder exposure, respons, transfer en waardering | **WETENSCHAPPELIJKE GRENS** | Lege bedragen zijn onbekend, niet nul |
-
-### B. Open expertbesluiten met verwachte uitkomst
-
-| ID | Beslisvraag | Voorgestelde werkhypothese | Vastlegging nodig |
+| Categorie | Beste beschikbare uitkomst | Wetenschappelijke toepassingsgrens | Economische uitkomst |
 |---|---|---|---|
-| D1 | Welke referentietoestand en diepteafbakening behoren tot het nationale schadebegrip? | Schadelijke antropogene ondergrondverdichting met bodem-/gewasafhankelijke vergelijking | Geaccordeerde afbakening; uitzonderingen (onder meer veen en rijsporen) |
-| D2 | Hoe presenteren we monetaire en niet-monetaire gevolgen? | Monetair **deelsubtotaal** plus zelfstandige fysieke/ecologische effectbalans | Expliciete keuze voor rapportagestatussen: euro, fysiek, kwalitatief, nog onbekend |
-| D3 | Wanneer mogen bemalingskosten en wateroverlastschade beide worden opgenomen? | Alleen bij onafhankelijke **additionele** veranderingen in operatie en resterende schade | Schadegrens, perspectief en één dubbeltellingvoorbeeld |
-| D4 | Welk bewijs is direct genoeg voor klimaat- en stofvrachtfactoren? | Netto N₂O/CH₄-flux en N/P-/middelenvracht onder aantoonbaar ondergrondcontrast | Minimale eisen aan comparator, diepte, route, periode en receptor |
-| D5 | Welke vervolgmeting/berekening geeft de hoogste informatiewaarde? | Selecteer op onzekerheidsreductie én ecologische/maatschappelijke betekenis | Maximaal drie onderbouwde onderzoekskeuzes; geen automatisch modelleren |
+| EC1 Wateroverlast | Lokale afvoerrespons en regionale dagelijkse modelpieken; routecompensatie aangetoond in modelstudie | Samengestelde bodemscenario’s, geen geïsoleerde Nederlandse ondergrondfactor of receptorhydrogram | Alleen illustratieve energieboekhouding; geen toegelaten schade |
+| EC2 Waterbeschikbaarheid | Droogjaarscenario’s van potentiële beregeningsbehoefte | Potentiële vraag is geen werkelijke levering of omgevingsschade | Niet berekend |
+| EC3 N₂O/CH₄ | Experimentele berijdingscontrasten voor N₂O; direct ondergrondprocesbewijs voor gastransport | Gastransport is geen netto veldemissie; geen passende CH₄-factor | Niet berekend |
+| EC4 Nutriënten | Gemeten Britse rijspoor-P-vrachten en maatregelcontrasten | Topsoil/rijspoor, deels overlappende datasets; geen Nederlandse subsoil-receptorvracht | Niet berekend |
+| EC5 Middelen | Nederlandse preferente drainroute voor bentazon en imidacloprid | Geen gepaard verdichtingscontrast; netto richting onbekend | Niet berekend |
+| EC6 Bodemleven | Lokale verschillen in organismen en herstel van functies | Geen Nederlandse ondergrond-herstelconstante; interne functie en externe receptor gescheiden | Zelfstandige niet-monetaire beoordeling |
 
-**Status D1–D5:** `OPEN_FOR_EXPERT_REVIEW`. Voorgestelde hypothesen zijn nog geen besluiten van de groep.
+De categorieën worden niet gerangschikt naar hun mogelijke eurobedrag. Een ontbrekende prijs verlaagt het ecologische of maatschappelijke belang niet. Effecten zijn niet automatisch optelbaar.
 
-### C. Beperkt uitvoerbaar werk zonder nieuwe landelijke data of SWAP
+## 3. Wateroverlast: wat is werkelijk gekwantificeerd?
 
-1. **Evidence-reconciliatie:** voor de drie bestaande on-site ensembles en de lokale hydraulische scenario's de directe bron, comparator, diepte, jaarbasis, onzekerheid en mogelijke transfer in bestaande registers controleren. Bronnen die alleen rijspoor/bovengrond meten blijven `PROXY` of `GUARDRAIL` voor ondergrondschade.
-2. **Economische definities reviewen:** expliciet uitwerken wat een private marginale bedrijfsschade, publieke werkelijke meerkosten en maatschappelijke welvaartsschade betekent bij eenzelfde fysiek effect. Alleen additionele, niet-overlappende posten tellen.
-3. **Zes EC-eindpunten als review-view onderhouden:** per categorie de beste brongebonden fysieke uitkomst en de belangrijkste onopgeloste schakel bijwerken in `evidence/offsite_results_matrix_v0_1.csv`. De huidige `F1–F6` kolomwaarden **niet** automatisch koppelen aan de oude methodische `F1–F6`.
-4. **Expertbesluiten vastleggen:** zodra D1–D5 zijn besproken, per besluit vastleggen: datum, gekozen alternatief, argument, bronbasis, consequentie en open voorbehoud. Niet vooraf als ‘akkoord’ bestempelen.
+### 3.1 Jaarvolume en piek zijn verschillende eindpunten
 
-### D. Wanneer de tussenbalans een nieuwe versie krijgt
+WENR 2811 / STOWA 2017-020 rapporteert voor snijmaïs circa 10 mm langjarig effect op oppervlakkige afstroming. De circa 12 mm betreft een **95-percentieluitkomst omgerekend naar langjarig gemiddelde**, geen tweede onafhankelijk jaarscenario en geen onzekerheidsinterval. Die bronroute is niet gelijk aan totale afvoer of pompvolume. Zie [broncontrole 110](110_broncontrole_hydrologische_ensembles_wenr2811_20261028.md) en de precisering in deze rapportage.
 
-Werk **ditzelfde document** bij na (i) een inhoudelijk geaccordeerd expertbesluit, (ii) een broncontrole die een bestaande conclusie werkelijk verandert of (iii) een gekwalificeerde nieuwe fysieke/economische uitkomst. Maak alleen een afzonderlijk dossier bij nieuwe primaire bronanalyse of een reproduceerbare technische proef. Een numerieke uitspraak krijgt nooit een hogere status door alleen overname in deze synthese.
+Bijlage 3 vergelijkt graslandprofielen. Voor variant A versus referentie zijn de afvoerverschillen uit tabel A3.4:
+- zomer, 4-uursvenster: +4 en +13 m³/ha bij T=2 en T=10 jaar;
+- winter, 24-uursvenster: +41 en +19 m³/ha bij T=2 en T=10 jaar.
 
-**Actuele inhoudelijke mijlpaal RESULTS01:** conditionele berekeningen uitvoeren binnen de bestaande methode, naast de nog open expertbesluiten D1–D5. De uitkomsten en concrete vervolgkeuze staan in §I/J. Een berekening is geen aangenomen expertakkoord.
+Dit zijn aftrekkingen van gepubliceerde kwantielen, geen effecten voor dezelfde concrete bui. Variant A begint volgens de beschrijving met verdichting rond 30 cm, maar ook de bovengrondparameters verschillen van de referentie. De vergelijking is dus geen zuiver ondergrondcontrast. De laaggrens 30/35 cm is bovendien niet consistent beschreven. De getallen blijven bruikbaar als samengestelde profielscenario’s.
 
-### Stand van de off-site bronbeoordeling (29 oktober 2026)
+### 3.2 Regionale routecompensatie en dagvolumes
 
-Voor alle zes EC-categorieën is de beschikbare bronkennis inhoudelijk beoordeeld. De fysieke lokale resultaten en scenario's zijn beschreven in hoofdstuk 3. Geen van de zes is toegelaten als actuele Nederlandse ondergrondverdichtingsschadefactor. Deze afronding betreft de huidige bronselectie, niet nationale effect- of monetaire admission. De expertbesluiten D1–D5 blijven open.
+Schipper et al. (2015), STOWA 2015-19, hoofdstuk 4, onderscheidt RUNOFF, DRN en RIV. Minder runoff in de verbeterde variant gaat samen met **meer afvoer via drains en waterlopen**. Voor twee zware buien eind oktober 1998 zijn de dagelijkse modelvolumes:
 
-| Categorie | Afgesloten beoordeling binnen huidige bronnen | Uitkomst die gebruikt mag worden | Nog geblokkeerd |
-|---|---|---|---|
-| EC1 wateroverlast | Lokale modelscenario's en afhankelijkheid van weer en bodem | 10/12 mm/jaar in afzonderlijke Nederlandse scenario's; Vlaanderen 9/10 mm broninconsistent | Regionale routing, beheer, risico en schade |
-| EC2 waterbeschikbaarheid | Verschil tussen potentiële behoefte en echte levering | 50–90 mm droogjaarscenario voor potentiële grasberegening | Feitelijke aanvoer, allocatie en schaarste |
-| EC3 N₂O/CH₄ | Berijdingsproeven gescheiden van subsoil-gastransport | Bessou +504/+405 g N₂O-N/ha per teeltcyclus als behandelingscontrast | Netto subsoil-specifieke jaarflux |
-| EC4 nutriënten | Rijspoor-P-bewijs en route-effecten onderscheiden | Deasy circa 1,06 kg TP/ha minder in specifieke Britse proeven | Netto N/P-vracht bij geïsoleerde ondergrondverdichting |
-| EC5 middelen | Nederlandse preferente transportroute bevestigd | Bentazon/imidacloprid-routebeschrijving zonder effectfactor | Gepaard verdichtingscontrast en receptorvracht |
-| EC6 bodemleven | Biologische effecten en vertraagd structuurherstel onderscheiden | Niet-monetaire effectbeschrijving en lokale herstelwaarnemingen | Landelijke omvang en subsoil-herstelmaat |
+| Dag | Verdicht miljoen m³/dag | Verbeterd miljoen m³/dag | Verschil miljoen m³/dag |
+|---|---:|---:|---:|
+| Eerste genoemde piekdag | 6,5 | 3,1 | 3,4 |
+| Tweede genoemde piekdag | 4,5 | 3,2 | 1,3 |
 
-**Kwalificatie:** `SOURCE_SCOPE_REVIEW_CLOSED_WITH_LIMITATIONS` voor zes van zes bronbeoordelingen, **nul van zes** categorieën heeft een toegelaten nationale monetaire schadefactor. De cijfers hierboven zijn geen optelbare componenten en de bronnen meten verschillende bodemlagen, behandelingen en tijdschalen. Bron- en kwalificatieregisters blijven leidend. V42 is een ecologische terugkoppeling, geen extra jaarlijks te waarderen schadepost.
+De bronreducties zijn afgerond 52% en 29%. Zij komen vooral voort uit de gekozen topgrond-infiltratiecapaciteit: 10 tegenover 40 mm/dag in het uiterste contrast. Ook beworteling en bodemfysica veranderen. Geen geïsoleerd ondergrondeffect.
 
-### F. Economische waardering: kwalificatie van bestaande routes (29 oktober 2026)
+De som van lokale afvoercomponenten is niet bewezen een gerouteerd uitlaathydrogram. Een piekdagverschil is geen extra jaarvolume of benodigde berging: nalevering en afvoercapaciteit tellen mee. Betrouwbare nieuwe grafiekcoördinaten of volledige variantreeksen zijn niet verworven. Een volledige gepaarde jaarbalans is daarom niet gereconstrueerd.
 
-**Doel:** het beschikbare rekencontract afsluiten op betekenis en dubbeltelling, zonder ontbrekende economische inputs te verzinnen. Dit is toepassing van [formeel model 04](04_formal_model.md), [waarderingsroutes 53](53_onsite_crop_and_valuation_input_routes_v0_1.md) en de bestaande on-site surface 52; geen nieuwe methode.
+### 3.3 Vlaamse gegevens blijven apart
 
-| Economisch eindpunt | Basis voor waardering | Bestaande bronroute/status | Uitkomst nu |
-|---|---|---|---|
-| Gewasopbrengst snijmaïs | Kwalificeer bruto geldopbrengst en afzonderlijk marginale private bedrijfsschade | KWIN-AGV 2025 is geïdentificeerd, **numerieke tabellen nog niet verworven**; BINternet als empirische controle, geen automatische marginale schade | **WAARDERINGSROUTE GEREED / BEDRAG GEBLOKKEERD** |
-| Graslandopbrengst | Voedervervangingswaarde of bedrijfsspecifieke verandering voerbalans, niet zonder meer marktprijs × grasopbrengst | Bestaande document 53 benoemt voer, ruwvoervoorraad, substitutie en melkproductie; nog geen gekwalificeerde eenheidswaarde | **BEGRIPSROUTE GEREED / BEDRAG GEBLOKKEERD** |
-| Gewaskwaliteit | Extra prijsverschil/afkeur op dezelfde fysieke gewasuitkomst | Geen crop-specifieke empirische kwaliteit-respons toegelaten | **FYSIEKE EN PRIJSINPUT ONTBREKEN** |
-| Extra bewerkingen | Additionele werkelijk uitgevoerde bewerkingen en variabele arbeid, brandstof, machines | Geen Nederlands verdichtingsspecifiek operatieverschil toegelaten; Defra geen automatische overdracht | **BEDRAG GEBLOKKEERD** |
-| EC1 regionale bemaling | Extra kWh plus direct toerekenbare variabele O&M; formule uit 04 §4.9–4.10 | Dynamic head, efficiency, werkelijk extra verpompt volume en prijs moeten dezelfde bedrijfscontext hebben | **REKENRELATIE GEREED / INPUTS GEBLOKKEERD** |
-| EC1 wateroverlast | Verandering in verwachte schade aan werkelijk blootgestelde receptoren | Geen Nederlandse gekwalificeerde runoff → overschrijding → blootstelling → schade-relatie; Defra 7% slechts benchmark | **FYSIEKE TRANSFER EN SCHADEFUNCTIE ONTBREKEN** |
-| EC2 regionale watervoorziening | Marginale hulpbronnen-/schaarstekosten van *werkelijke* extra levering of aantoonbaar onvervulde vraag | Potentiële mm waterbehoefte is geen geleverde m³ | **LEVERING EN WAARDERING ONTBREKEN** |
-| EC3 klimaat | Netto extra N₂O/CH₄ na kwalificeerbare uitstootvergelijking, consistente klimaateenheid en waarderingsjaar | Netto ondergrond-specifieke flux ontbreekt; nationale emissiebaseline of Bessou-contrast is niet overdraagbaar | **FYSIEKE ATTRIBUTIE GEBLOKKEERD** |
-| EC4/EC5 waterkwaliteit | Additionele receptorbelasting × passend economisch eindpunt (zuivering, schade, maatregelen: afzonderlijke definities) | Geen gekwalificeerde netto subsoil-vracht of ontvangend watersysteem | **FYSIEKE TRANSFER GEBLOKKEERD** |
-| EC6 bodemleven | Zelfstandige niet-monetaire ecologische effectbalans; eventueel later aparte welvaartswaardering | Geen onafhankelijk gekwalificeerde Nederlandse biologische effectomvang | **NIET-MONETAIRE BEOORDELING BLIJFT VOLWAARDIG** |
+Van der Bolt et al. (2016), rapport 2725, is beoordeeld via metadata, geïndexeerde passages en WENR 2811; de volledige PDF is niet verworven. De vermeldingen 5→14 en 4→14 mm blijven een onopgelost 9/10-mm-bronconflict. Deze zijn geen Nederlandse transferfactor. Een vaste grondwaterstand in de modelcontext begrenst de interpretatie van grondwatervoeding.
 
-**Dubbeltellingsproef op hetzelfde gedrag, niet op abstracte categorieën:**
+### 3.4 Operationele energie en synthetische systeemproef
 
-1. **O1 opbrengst en O3 beregening:** definieer eerst opbrengst mét de feitelijke irrigatiebeslissing. De mogelijke opbrengstderving *zonder* beregening mag niet ook worden opgeteld bij kosten *met* beregening. Marginale meerkosten en overblijvende opbrengstderving kunnen wel naast elkaar bestaan na dezelfde gedragsreferentie.
-2. **O1 opbrengst en O2 kwaliteit:** boek een partij die is afgekeurd niet zowel als volledig volumeverlies als een tweede volledige kwaliteitskorting. Gebruik hoeveelheid × gerealiseerde kwaliteitsprijs met één consistente counterfactual.
-3. **Privéomzet en privébedrijfsschade:** bruto verlies aan productiewaarde omvat niet de bespaarde variabele kosten; tel het niet bovenop het daaruit afgeleide netto private verlies.
-4. **Private en publieke uitgaven:** boerenberegeningsrekening is mogelijk een betaling aan een waterleverancier, niet automatisch tweemaal maatschappelijke hulpbronnenschade. Onderscheid geldtransfers van extra energie, arbeid, schaarste en productieverlies.
-5. **EC1 pompen en overlast:** extra pompen kan schade voorkomen; gebruik de **werkelijk resterende** schade bij de aanpassing, naast daadwerkelijk additionele pompuitgaven. Een reeds afgewende bruto overlastschade is geen tweede actuele kostenpost.
-6. **EC4/EC5 waterkwaliteit en EC6 ecologie:** dezelfde ecologische schade mag niet zonder zelfstandige incrementele eindpunten nogmaals worden gewaardeerd via KRW-maatregelen, zuivering en biodiversiteit.
-7. **EC3 en bemestingskosten:** veranderde N₂O-emissie is een klimaateffect; extra kunstmest of bedrijfsrespons kan een bedrijfsuitgave zijn, maar alleen als feitelijk additioneel én niet al in de gebruikte bedrijfsbalans opgenomen.
+HHNK-document 25.1082761 geeft voor 2024 bij Leemans/Lely afdelingsgemiddelden van 32–48 m³/kWh. Het zijn jaarlijkse operationele benchmarks met onzekere volumes, geen marginale energiecurven. Het tarief ‘0,25 cent/kWh’ strookt niet met de genoemde €100.000 bij 400.000 kWh; dat bedrag impliceert €0,25/kWh.
 
-**Kwalificatiebesluit:** alle bovenstaande **waarderingsconcepten en rekenroutes** zijn herleidbaar tot de bestaande methode en bestaande input-routebeoordeling. Voor geen van de voorgestelde schadeposten is op basis van deze sessie een **nieuw numeriek schadebedrag** toegelaten. `KWIN_NUMERIC_INPUT = NOT_YET_ACQUIRED` en `economic_value_status = WAIT_ECONOMIC_VALUE` blijven gelden; ontbrekende gegevens blijven onbekend, niet nul. De zes maatschappelijke effectcategorieën vormen geen zes automatisch optelbare eurobedragen. D2 en D3 blijven **open expertbesluiten**, omdat een technisch waarderingscontract nog geen gezamenlijk geaccordeerde systeemgrens is.
+Onder expliciete aannames geeft 100 m³ extra bemaling bij 48 m³/kWh en €0,25/kWh **€0,52 energiekosten**. Dit is illustratieve boekhouding, geen bodemgerelateerde kostenraming; overdracht, marginale intensiteit en werkelijk tarief zijn niet gekwalificeerd.
 
-**Gerichte volgende uitvoering zonder heropening SWAP/landelijke meetset:** (i) verwerving van toegankelijke brongebonden gewasprijs-/kosteninputs uit KWIN of BINternet met helder jaar en teeltbasis; (ii) keuze voederwaarde voor gras apart van verkoopprijs; (iii) op één *hypothetisch, expliciet niet-empirisch* geval de marginale kostenregels en dubbeltelling controleren; (iv) pas daarna een on-site surface vullen wanneer ook de fysieke exposure en responsmatch zijn toegelaten.
+De afzonderlijke synthetische proef is reproduceerbaar met [rekenbestand](../tools/calculate_offsite_storage_sensitivity.py). Beginberging nul, opslag 150 m³, pomp 100 m³/uur; instroom is aangenomen bij de berging en uniform binnen elk uur:
 
-### G. Nieuwe Nederlandse economische brongegevens (29 oktober 2026)
-
-**Primaire publicatie:** Kok, A., Vollebregt, T. & Beldman, A. (2025), *Hoe ver kun je komen? Verkenning van een maatregelpakket voor reductie van broeikasgasemissies op Nederlandse melkveebedrijven*, Wageningen Social & Economic Research Rapport 2025-158, DOI https://doi.org/10.18174/705320, **bijlage 1, gedrukte pagina 42**. De PDF-tabel is in de voorafgaande sessie visueel tegen het origineel gecontroleerd. RESULTS01 erft die controle; hernieuwde eDepot-toegang gaf 403.
-
-| Economisch gegeven | Waarde | Eenheid | Correcte status |
-|---|---:|---|---|
-| Snijmaïs | **0,130** | EUR/kVEM | Gepubliceerde **gebruikte BBPR-modelprijs**, kandidaat voor voeder-/vervangingswaardescenario |
-| Kuilgras | **0,112** | EUR/kVEM | Gepubliceerde **gebruikte BBPR-modelprijs**, kandidaat voor voeder-/vervangingswaardescenario |
-| Snijmaïsareaal CBS, geoogst 2025 | **182.710** | ha | Nationale productiecontext; **geen** blootstelling aan verdichting |
-| Snijmaïsopbrengst CBS, 2025 | **47,3** | ton versgewicht/ha | Landelijk gemiddelde productiewaardecontext, **geen** kVEM/ha en geen schade |
-
-CBS: `85636NED`, https://www.cbs.nl/nl-nl/cijfers/detail/85636NED. In dezelfde tabel is het beteelde (niet noodzakelijk geoogste) areaal **183.191 ha**. Deze twee arealen zijn niet uitwisselbaar en vullen evenmin de ontbrekende bodem×gewasverdeling.
-
-**Bronbasis en beperkingen:** de voederprijzen zijn geen nieuw bewezen markttransactieprijs, geen actuele 2026 schadeparameter en geen geïsoleerde marginale productieverlieswaarde. Het WUR-rapport gebruikte prijzen mede uit KWIN 2024–2025 en de Agrarische Prijzen-database. Voor berekening is een onderbouwde **VEM-inhoud per eenheid droge stof** en **drogestofopbrengst per hectare** of een direct gekwalificeerde kVEM/ha-opbrengst nodig, inclusief kwaliteitsverschillen en daadwerkelijke vervangings-/rantsoenreactie. Een verse ton snijmaïs vermenigvuldigen met EUR/kVEM is dimensioneel onjuist. Voor gras geldt hetzelfde en moet bovendien het verschil tussen kuilgras, vers gras en marktbaar voer expliciet worden gehouden.
-
-**Minimum noodzakelijke berekening na kwalificatie:** `verloren_kVEM_per_ha × EUR_per_kVEM` geeft hoogstens een **conditionele voederwaarde-boekhoudkundige uitkomst**. Marginale bedrijfsschade moet vervolgens daadwerkelijk vermeden kosten, voerinkoop, beschikbaarheid van eigen voorraad en eventuele melkproductiereactie meewegen; niet tegelijk een forfaitaire volledige voederwaardeschade en dezelfde extra voeraankoop optellen.
-
-**Kwalificatiebesluit:** `PRIMARY_PUBLICATION_VALUE_VERIFIED; VALUATION_CANDIDATE_ONLY; NOT_ADMITTED_DAMAGE_INPUT`. Deze nieuwe bedragen zijn *wel geverifieerde gerapporteerde modelparameters*, maar **nog geen definitief toegelaten schadeparameters**. De bestaande `WAIT_ECONOMIC_VALUE` op de rekensurfaces wordt daarom niet vervangen door een onterecht `READY`. KWIN-AGV 2025 is volgens de WUR-webwinkel een verkrijgbaar betaald boek met saldoberekeningen, maar de relevante numerieke tabellen zijn niet verworven: https://shop.wur.nl/kwin/kwin-akkerbouw-en-vollegrondsgroenten-2025.html. BINternet biedt wel bedrijfs-/gewastabellen, maar is niet automatisch een marginale prijs voor ondergrondverdichting: https://agrimatie.nl/binternet.aspx.
-
-**Concrete voortgang:** de twee voederprijsvelden zijn nu bronmatig bekend. De resterende kleine invoerstap is de broncontrole van VEM/kVEM per kg DS en een representatief opbrengst-/voederbalansscenario. De nationaal door verdichting getroffen fractie blijft bewust onbekend en SWAP wordt niet gestart.
-
-### H. Doorrekening controleerbare voederwaarde per hectare (29 oktober 2026)
-
-**Invoer uit gepubliceerde Nederlandse bronnen:** CBS (2026), *Dierlijke mest en mineralen 2025*, §3, https://www.cbs.nl/nl-nl/longread/rapportages/2026/dierlijke-mest-en-mineralen-2025/3-rekenmethodiek-graasdieren, rapporteert snijmaïs **16.531 kg droge stof/ha (oogst 2025)**, snijmaïskuil oogst 2025 **998 VEM/kg DS** en graskuil oogst 2025 **916 VEM/kg DS**. Voederwaardeprijzen uit Wageningen Social & Economic Research rapport 2025-158, bijlage 1 p. 42 (zie §G): snijmaïs **€0,130/kVEM**, kuilgras **€0,112/kVEM**. Dit zijn prijzen uit **één bedrijfseconomische modelspecificatie** en geen vrij overdraagbare vervangingskosten.
-
-**Eenheden en berekening:**
-
-```text
-Snijmaïs energie-opbrengst = 16.531 kg DS/ha × 998 VEM/kg DS ÷ 1.000
-                          = 16.497,938 kVEM/ha
-Indicatieve voederboekwaarde = 16.497,938 kVEM/ha × €0,130/kVEM
-                             = €2.144,73/ha (bruto energieboekwaarde)
-```
-
-**Uitsluitend rekenkundige gevoeligheidsvoorbeelden:** een aangenomen **4%** of **15%** verschil in deze voederenergie-opbrengst geeft respectievelijk **€85,79/ha** of **€321,71/ha** verschil in energieboekwaarde. De percentages komen overeen met twee **verschillende** Alblas-berijdingsbehandelingen (5 en 10 Mg aslast). Zij beschrijven geen onzekerheidsinterval, geen actuele Nederlandse verdichtingsklasse, en noch de werkelijke netto boerenschade noch de nationale kost. Jaar-/kwaliteit-/oogstbasis van CBS en die van de historische behandeling zijn niet equivalent: bovenstaande bedragen testen **slechts het rekenschema**.
-
-**Graskuil:** 1.000 kg DS × 916 VEM/kg DS ÷ 1.000 × €0,112/kVEM = **€102,59 per ton droge stof kuilgras** (energieboekwaarde). Daarmee kan een gekwalificeerde fysieke verandering van bijvoorbeeld **100 kg DS/ha** rekenkundig worden vertaald naar **€10,26/ha**. Deze laatste 100 kg is een **zuiver hypothetische rekeninvoer** en niet een waargenomen verdichtingsverlies. Zonder expliciet grasproductiesysteem (weiden, kuilen, hooi, snedes, verliezen en substitutie) wordt geen algemene jaarlijkse grasland-€-per-hectare-waarde ingevuld.
-
-**Causale/waarderingsgrenzen:** droge-stofopbrengst van CBS en voedingswaarde van kuil zijn niet zonder meer dezelfde ketenfase; inkuil- en veldverliezen, DVE-eiwitwaarde, variërende graskwaliteit, rantsoenvervanging, ingekochte voeders en daadwerkelijk vermeden opbrengstafhankelijke kosten zijn niet meegenomen. De voederenergieboekwaarde kan dus afwijken van marktprijs en marginale vervangings- of welvaartswaarde. Voor een gepubliceerde schadeberekening eerst systeemgrens 'geoogst product versus netto gevoerd' reconciliëren en dezelfde referentie/managementkeuze in beide situaties vastleggen. **Geen update van `economic_value_status=WAIT_ECONOMIC_VALUE` naar READY** in de canonieke surfaces.
-
-**Status:** `DIMENSIONAL_CALCULATION_CHECK_COMPLETE`; `ILLUSTRATIVE_ACCOUNTING_ONLY`; `NO_MONETARY_DAMAGE_ADMISSION`. Het ontbreken van een nationale blootstellingsfractie en een voldoende passende ondergrondcontrastrepons blijft beslissend.
-
-### I. RESULTS01: conditionele on-site doorrekening en economische betekenis
-
-**29 oktober 2026.** Deze paragraaf actualiseert de berekeningsstatus uit §F/H, zonder de daar vastgelegde schadebeperkingen op te heffen. Reproduceer met `python tools/calculate_results01.py`. Er is geen nationaal areaal vermenigvuldigd en geen nieuw schadepercentage toegelaten.
-
-#### I.1 Snijmaïs: twee behandelingen, drie verschillende economische vragen
-
-Alblas et al. (1994), DOI https://doi.org/10.1016/0167-1987(94)90052-3, is in document 51 op abstractniveau gekwalificeerd: vier Nederlandse zandlocaties, 1983–1986, gemiddeld circa 4% verlies bij 5 Mg aslast en 15% bij 10 Mg. De volledige oorspronkelijke tabellen konden ook in RESULTS01 niet worden verworven: uitgeverspagina gaf 403. Daarom blijven exacte laagdiepte, profielgebonden dichtheid, berijdingsfrequentie, precisie van de referentiebehandeling en onzekerheid per behandeling **onvoldoende gecontroleerd**. Geen toewijzing aan een actuele 30–100 cm toestand. De onafhankelijke Nederlandse publicatie Brus & Van den Akker (2018), https://doi.org/10.5194/soil-4-37-2018, noemt dezelfde effecten met **wiellasten** van 2,5 en 5 Mg. Dat is consistent met de genoemde aslasten voor een as met twee gelijk belaste wielen; het is geen extra onafhankelijk effectexperiment en geen bewijs van de exacte proefconfiguratie.
-
-De volgende tabel heeft een **expliciet aangenomen referentieopbrengst** van 16.531 kg DS/ha, gelijkgesteld aan het CBS-gemiddelde oogst 2025. Dit gemiddelde is zelf niet aangetoond onverdicht. De hypothetische behandelde opbrengst is respectievelijk 0,96 en 0,85 maal die referentie. Voederwaarde 998 VEM/kg DS en BBPR-modelprijs €0,130/kVEM blijven constant. Historische respons × moderne productie × modelprijs is een **hybride scenario**, geen gemeten economische proefuitkomst.
-
-| Context en huidige/referentietoestand | Fysiek verschil kg oogst-DS/ha | Bruto energieboekverschil €/ha | Conditionele vervanging na conservering €/ha | Private marginale schade |
-|---|---:|---:|---:|---|
-| Zand/snijmaïs; historische 5 Mg aslast versus studiecontrole, vertaald naar aangenomen referentie 2025; verlies 4% | 661,24 | 85,79 | 82,36 | Onbekend |
-| Zand/snijmaïs; historische 10 Mg aslast versus studiecontrole, dezelfde aangenomen referentie; verlies 15% | 2.479,65 | 321,71 | 308,84 | Onbekend |
-
-**Bruto:** `Δkg oogst-DS × 998 / 1000 × 0,130`. **Conditionele vervanging:** CBS §3.1 vermeldt 4% conserveringsverlies voor snijmaïs; bij gelijke verliezen in beide toestanden is verloren geconserveerde energie 0,96 maal het oogstverschil. Onder de extra aannames dat exact dezelfde energie wordt teruggekocht, dezelfde modelprijs geldt en kwaliteit, beschikbaarheid en rantsoen niet beperken, zijn de bedragen €82,36 en €308,84. Dit zijn geen waargenomen voertransacties. De 5% voerverliezen die CBS daarnaast bij verbruik optelt zijn een andere ketenstap; die worden hier niet nogmaals afgetrokken. Bij vergelijking van netto opgenomen voer moeten vervangend en eigen voer op dezelfde verliesbasis worden gebracht.
-
-**Marginale bedrijfsschade:** bij gelijkblijvende melkproductie en volledige aanvulling is de relevante route extra voeruitgaven minus echt bespaarde kosten plus extra uitvoering. Tel daar niet ook de volledige verloren eigen voederwaarde bij op. Zonder aanvulling kunnen voorraadonttrekking, minder melk of een ander rantsoen optreden; CBS beschrijft voorraadbuffering, maar levert geen verdichtingsspecifieke bedrijfsreactie. DVE/eiwit, structuur, conserveringskwaliteit en transport zijn niet met alleen VEM afgedekt.
-
-| Kostenpost bij kleiner oogstvolume, dezelfde beteelde ha | Wat in dit scenario werkelijk vermijdbaar kan zijn | Rekenstatus |
-|---|---|---|
-| Zaad, pacht, reeds gemaakte grondbewerking en bemesting | Geen besparing uitsluitend door een later vastgesteld opbrengstverschil | Niet proportioneel verminderen met 4/15% |
-| Hakselen, afvoer, inkuilen | Alleen volumeafhankelijk contractdeel of aantoonbaar minder uren/ritten; een ha-tarief blijft mogelijk gelijk | Contract/tijdregistratie ontbreekt; geen bedrag ingevuld |
-| Conservering en voerbehandeling | Minder materiaal/energie alleen voor werkelijk vervallen activiteit | Hoeveelheden en marginale tarieven ontbreken |
-| Herstelbewerking en beregening | Alleen daadwerkelijk andere handelingen onder dezelfde opbrengst- en gedragsreferentie | Niet automatisch toevoegen |
-
-**Kwalificatie:** beide routes zijn volledig **rekenkundig** doorgerekend voor onderscheiden behandelingsscenario’s; `ILLUSTRATIVE_ACCOUNTING_ONLY`. Geen volledig primair geverifieerd ondergrondcontrast en geen empirisch private schadebedrag. €85,79 en €321,71 vormen geen onzekerheidsinterval of bewezen bovengrens voor bedrijfsschade.
-
-#### I.2 Gras: productiecomponenten behouden, geen uniforme graslandfactor
-
-Nieuwe primaire bron: CBS tabel **7140gras**, versie 30 juni 2026, https://www.cbs.nl/nl-nl/cijfers/detail/7140gras. Voorlopig 2025: **950.000 ha** totaal grasland, **5.918 miljoen kg DS kuilgras** en **247 miljoen kg DS hooi**. CBS *Dierlijke mest en mineralen 2025*, §3.1, tabel 3.1.2, voegt **1.812 miljoen kg DS weidegras** toe. Die laatste productie is een **voerbalansrestpost**, geen gemeten weidegrasopbrengst. Tabel 7140gras bevat vanaf 2018 ook natuurlijk grasland met landbouwfunctie. Het totaalareaal is dus geen areaal gespecialiseerd kuilgras.
-
-| Productiecomponent 2025 | Afgeleid kg DS per ha **totaal** grasland | Waardering |
-|---|---:|---|
-| Kuilgras | 6.229,47 | 916 VEM/kg DS × €0,112/kVEM: €639,09 per ha totaal grasland |
-| Hooi | 260,00 | Geen hooiprijs toegelaten; niet waarderen met kuilgrasprijs |
-| Weidegras | 1.907,37 | Restpost; geen passende marginale weidegrasprijs of rantsoenreactie toegelaten |
-
-Dit is een productiesamenstelling per gemeenschappelijke nationale noemer, **niet** 6.229 kg per uitsluitend gemaaide hectare en niet de opbrengst van Nederlands zandgrasland. De 2025-regiocijfers in 7140gras bieden differentiatie naar weideregio, maar niet de benodigde bodem×gebruik×ondergrondtoestand. Specialisatie naar uitsluitend maaien, beweiding en extensief natuurbeheer blijft daarom open. Voor hooi en weidegras is nu bewust geen euro per ha ingevuld.
-
-Om wel de economische orde in een expliciet scenario te tonen: neem **uitsluitend als rekenaanname** een hectare met de bovenstaande kuilgrascomponent als huidige productie, gelijkblijvende 916 VEM/kg DS en €0,112/kVEM. Veronderstel vervolgens dat het Groenendijk-verbeteringspercentage ook op deze geconserveerde component werkt en dat de fractie die kuil wordt niet verandert. Dit is een ongekwalificeerde transfer van totale gewasrespons naar netto kuilcomponent; de bedragen mogen uitsluitend als gevoeligheid worden gebruikt.
-
-| Verbeteringsscenario uit bestaand ensemble | Veronderstelde extra kuil-DS kg/ha | Extra energieboekwaarde €/ha | Toepassingsgrens |
-|---|---:|---:|---|
-| Langjarig +3% | 186,88 | 19,17 | Verbeteringsproxy, geen vastgesteld verlies |
-| Langjarig +5% | 311,47 | 31,95 | Zelfde contextaanname; geen confidence interval |
-| Droog jaar +17% | 1.059,01 | 108,65 | Productiebasis 2025 wordt voor gevoeligheid vastgehouden; geen werkelijk droogjaar voorspeld |
-| Droog jaar +23% | 1.432,78 | 146,99 | Niet annualiseren of combineren met langjarig scenario |
-
-**Referentienoemer:** bij verbetering `Y_ref = Y_current × (1+b)` is de ontbrekende productie `b × Y_current`, maar het verlies als aandeel van de verbeterde referentie is `b/(1+b)`. De percentages 3/5/17/23 zijn dus zelfs algebraïsch geen identieke schadepercentages van die referentie. Deze identiteit bewijst nog geen omkeerbare causale ingreep.
-
-Arts (1994) en Snijders (1994) blijven volwaardige guardrails: matige belasting kan hoger produceren dan sterk losgemaakte grond en het teken kan met jaar en watervoorziening wisselen. De tabel selecteert geen positieve schadecoëfficiënt uit deze veldresultaten. Een gering, nul of tegengesteld effect blijft mogelijk; zonder passend kwantitatief contrast krijgt dat geen verzonnen eurobedrag. Private marginale schade is ook hier onbekend. Een daling in eigen gras is geen extra voerinkoop zolang voorraad en werkelijk rantsoengedrag dat niet bevestigen.
-
-### J. RESULTS01: empirische pompenergie en conditionele waterbeheerkosten
-
-#### J.1 Nieuwe Nederlandse operationele bron, buiten Tollebeek
-
-**HHNK**, technische beantwoording *Uitvoeringskrediet realisatie gemaal Kwelvaart in de Wieringermeer*, commissie W&I 1 oktober 2025, document **25.1082761**, https://hhnk.bestuurlijkeinformatie.nl/Document/View/bbace53b-aa83-4a9b-bd01-e327a26f2266, PDF p.1–3. Deze bron gebruikt TMX-registraties over **2024** en schat verpompte volumes; geen verdichtingsproef. Het document waarschuwt voor onzekere debieten, verschillende frequenties, variërende opvoerhoogte en toenemende leidingverliezen bij gelijktijdige pompinzet. Daarom spreken we van gerapporteerde jaarlijkse **specifieke energie**, niet gemeten hydraulisch rendement of marginale energiecurve.
-
-| Gemaal/afdeling | Gerapporteerd volume miljoen m³ | m³/kWh | Afgeleid kWh/m³ | Scenario €/m³ bij €0,25/kWh |
+| Scenario | Instroom m³ | Pompvolume m³ | Maximale opslag m³ | Overloop m³ |
 |---|---:|---:|---:|---:|
-| Leemans afd.1 | 70,5 | 39 | 0,025641 | 0,006410 |
-| Leemans afd.3 | 113,8 | 32 | 0,031250 | 0,007813 |
-| Lely afd.2 | 24,7 | 48 | 0,020833 | 0,005208 |
-| Lely afd.3 | 11,3 | 41 | 0,024390 | 0,006098 |
-| Lely afd.4 | 3,7 | 39 | 0,025641 | 0,006410 |
-
-**Broninconsistentie tarief:** PDF p.2 zegt letterlijk “0,25 cent” per kWh, maar rekent 400.000 kWh om naar €100.000. Dat bedrag impliceert **€0,25/kWh**, terwijl letterlijk €0,0025/kWh €1.000 geeft. De screenshot is visueel gecontroleerd. De eurokolom gebruikt de gereconstrueerde €0,25 uitsluitend als scenario, **niet als bewezen werkelijk contracttarief**. Met de letterlijke centwaarde zijn alle euro-uitkomsten honderdmaal lager. De afgeronde gemaaltotalen op p.1 leveren bovendien 5,1/184 = 0,02772 en 0,86/40 = 0,02150 kWh/m³; kleine verschillen met afdelingscijfers zijn geen grond om te herijken zonder ongeronde registraties.
-
-**Vergelijking met formeel model 04:** `E/V = 0,00272407 × H/eta` bij ρ=1.000 kg/m³ en g=9,80665 m/s². De afdelingswaarden impliceren een equivalente `H/eta` van **7,65 tot 11,47 m**. Dit is een dimensiecontrole, geen onafhankelijke validatie: de waargenomen verhouding identificeert H en eta niet afzonderlijk en kan installatie-/aandrijvingsverliezen omvatten. De formule vergt een efficiency op dezelfde energiemeetgrens; alleen pomprendement gebruiken bij ingekochte elektriciteit is onvoldoende. Geen ontbrekende opvoerhoogte of efficiency ingevuld.
-
-#### J.2 Van perceelsvolume naar systeemvolume: de beslissende blokkade
-
-| Stap | Beschikbaar bewijs of berekening | Ontbrekend voor Nederlandse schade |
-|---|---|---|
-| Bodemtoestand → perceelsafstroming | Schipper/Groenendijk: onderscheiden 10 en 12 mm/jaar modelcontexten; doc.110/111 | Geïsoleerd ondergrondcontrast en match met concrete polder ontbreken |
-| Perceelsafstroming → gegenereerd bronvolume | 1 ha × 10/12 mm = **100/120 m³**; identiteit doc.04 | Geen pompvolume |
-| Bronvolume → werkelijk afgeleverd water | Bestaand transfercontract, geen universele factor | Connectiviteit, tijdelijke berging, infiltratie, drainageverandering |
-| Afgeleverd water → watersysteem/pompen | HHNK bewijst contextafhankelijke routing en inzet | Gepaarde waterbalans, vrij verval, inlaat, kwel en beheer ontbreken |
-| Extra pompen → elektriciteit | Jaarintensiteiten hierboven beschikbaar | Incrementele bedrijfsuren, head en efficiency op relevante werkpunten |
-| Elektriciteit → kosten | Navolgbaar tariefscenario | Werkelijk variabel tarief; additionele O&M niet bekend |
-| Belasting → overlastschade | Geen lokale gekoppelde kans-/schadegegevens | Piek, overschrijding, blootstelling en schadefunctie |
-
-**Fysisch wezenlijk:** meer oppervlakteafstroming kan minder drainage of een andere timing betekenen. Zelfs bij volledige aflevering aan de sloot kan het jaarlijkse totale pompvolume onveranderd zijn. Daarom is 100% aflevering geen bewijs voor 100% extra bemaling. Voor dezelfde gebiedsgrens en jaarperiode moeten veranderingen in neerslag/inlaat/kwel, ET, opslag en andere uitlaten samen de verandering in totaal pompvolume verklaren. Jaar-mm bewijzen geen extra piekbelasting of benodigde capaciteit.
-
-#### J.3 Volledig navolgbaar, maar expliciet hypothetisch kostenvoorbeeld
-
-Neem één hectare uit het **10 mm-bronscenario** en veronderstel (niet gemeten): al het extra bronvolume wordt **netto extra pompvolume**, andere afvoerroutes compenseren niet, geen cascadebemaling, en marginale intensiteit is gelijk aan het 2024-gemiddelde van **Lely afd.2**. Bij het gereconstrueerde tarief:
-
-`100 m³ × (1/48 kWh/m³) × €0,25/kWh = €0,52083 per bronhectare per jaar`.
-
-Voor 12 mm is dezelfde illustratie **€0,62500/ha/jaar**. Met Leemans afd.3 worden dat **€0,78125** en **€0,93750**. De vier getallen zijn afzonderlijke combinaties van bron- en gemaalscenario’s, geen betrouwbaarheidsinterval en geen bewezen Nederlandse schadeband. Per **1.000 m³ daadwerkelijk extra pompvolume** zijn de illustratieve energiekosten **€5,21 bij Lely afd.2** of **€7,81 bij Leemans afd.3**. Het jaarvolume is brongebonden; de eurostap gebruikt zowel een tariefinterpretatie als een gemiddelde-naar-marginaal-aanname.
-
-**Resultaatstatus:** `EMPIRICAL_ANNUAL_ENERGY_BENCHMARK` voor de HHNK-intensiteiten; `ILLUSTRATIVE_ACCOUNTING_ONLY` voor bovenstaande euro’s; **geen empirisch begrensde causale kostenraming** en geen `ADMITTED_DAMAGE_RESULT`. Er is wel een Nederlandse operationele benchmark gevonden, maar nog geen gekwalificeerde marginale eenheidskost. Gemiddelde energie per m³ is niet de afgeleide dE/dV als extra vraag leidt tot hogere toerentallen of extra pompen.
-
-Operationeel onderhoud, start/slijtage, arbeid en eventuele capaciteit blijven **onbekend**, niet nul. Jaarbegrotingen door totaalvolume delen zou gemiddelde integrale kosten geven, geen marginale O&M. Investeringen zijn pas toerekenbaar bij aantoonbaar extra benodigde capaciteit onder hetzelfde beheer; maatschappelijke wateroverlast vereist de resterende verwachte schade na de feitelijke pompactie. Die posten zijn niet toegevoegd, evenmin de Defra-7%-aanname.
-
-#### J.4 Bereikte status en kleinste vervolgactie
-
-**Verificatie RESULTS01:** projectvalidator PASS; volledige bestaande unittest-suite **61 tests PASS**; rekenbestand uitgevoerd inclusief eenhedenidentiteiten en behoud van onbekende waarden. Dit is software-/registercontrole, geen empirische validatie. Integratie volgt de open concept-PR #65; main blijft achter de bestaande expertreviewgrens.
-
-**Werkelijk nieuw:** reproduceerbare conserveringsvariant bij de twee maïsscenario’s; uitgesplitste CBS-grascomponenten met expliciete hectare-noemer; afzonderlijke grasgevoeligheden; empirische Nederlandse gemaalintensiteiten en een gedocumenteerde tariefinconsistentie. De fysieke/monetaire nationale surfaces blijven ongewijzigd. Alle zes EC-categorieën blijven in hoofdstuk 3 aanwezig.
-
-**Nog niet bereikt:** een primair volledig geverifieerd Alblas-bodemcontrast, private marginale bedrijfsschade, een gekwalificeerde runoff→extra-bemaling-overdracht of een toegelaten economische schade-uitkomst. Het succescriterium van een ondergrond-causaal gekwalificeerde schadeberekening is dus **niet volledig gehaald**; een extra vermenigvuldiging zou die bewijsleemte niet oplossen.
-
-| Concrete leemte | Zonder nieuw model beschikbaar te maken? | Eerstvolgende gerichte actie |
-|---|---|---|
-| Maïscontrast: studiecontrole, diepte, profiel en precisie | Ja, oorspronkelijk artikel/tabellen | Verwerf en lees Alblas volledige tekst; extra artikelmetadata sluiten deze leemte niet |
-| Werkelijk vermeden oogst-/inkuilkosten en aanvullend voer | Ja, bestaande contracten en bedrijfsadministratie | Eén bedrijfscasus met ha-/ton-/uurtarieven en voorraad-/voerreactie, nog geen externe benadering uitgevoerd |
-| Grashectare met maaien/weiden, netto voer en toestand | Deels, BIN/KringloopWijzer en proefgegevens | Kies één bestaande zandgrasproef met absolute opbrengsten en gebruiksverdeling, niet een landelijke gemiddelde hectare |
-| Marginale pompenergie en prijs | Ja, bestaande TMX/SCADA plus contract | Voor één HHNK-afdeling tijdreeksen volume/kWh/head/toerental en tarief-eenheid controleren; geen nieuw systeemmodel nodig |
-| Netto extra jaarlijkse bemaling door veranderde bodem | Niet uit jaarintensiteiten alleen | Controleer eerst bestaande gepaarde waterbalans in bronstudie; pas daarna zinvolle aanvullende systeemdata kiezen |
-
-**Prioriteit:** sluit eerst de primaire Alblas-proefdefinitie, omdat die een bestaande Nederlandse veldrespons direct kan koppelen aan de nu uitgerekende waardering. Voor EC1 heeft het herstellen van de **netto-volume-waterbalans** voorrang op verfijning van centen per m³: zonder die schakel blijft elk pompkostenbedrag hypothetisch. Dit zijn beperkte bron-/administratieacties, geen nieuwe SWAP-campagne, geen landelijke blootstellingsinventarisatie en geen automatisch verzoek aan externe personen.
-
-### K. RESULTS01 vervolg: ondergronddiepte en afvoer binnen een tijdvenster
-
-**29 oktober 2026.** De volledige Alblas-proeftekst is nog niet verworven. Een zoekresultaat voor Alblas' historische bijdrage *Bodemverdichting bij de teelt van mais* (https://edepot.wur.nl/350565) levert een aanvullende bronroute, maar directe PDF-toegang gaf 403. Geen nieuwe kwalificatie op basis van alleen de zoektekst.
-
-Wel rechtstreeks gelezen: Groenendijk et al. (2017), WENR 2811 / STOWA 2017-020, bijlage 3, gedrukte p.112–114, tabel A3.4. Publieke PDF: https://www.stowa.nl/sites/default/files/assets/PUBLICATIES/Publicaties%202017/STOWA%202017-20.pdf. Anders dan de algemene jaar-mm geeft deze tabel een specifieke variant A waarbij de verdichting vanaf 30 cm begint; bij B/C begint zij al in de bovengrond. Vergelijk daarom eerst **A met de gemodelleerde referentie**, niet C met de onbereden perceelrand.
-
-| Tijdsvenster en herhalingstijd | Referentie mm | Variant A mm | Verschil mm | Verschil m³ per scenariohectare | Rekenkundig gemiddeld extra debiet over venster, l/s/ha |
-|---|---:|---:|---:|---:|---:|
-| Zomer 4 uur, T=2 jaar | 2,8 | 3,2 | 0,4 | 4 | 0,278 |
-| Zomer 4 uur, T=10 jaar | 8,1 | 9,4 | 1,3 | 13 | 0,903 |
-| Winter 24 uur, T=2 jaar | 0,9 | 5,0 | 4,1 | 41 | 0,475 |
-| Winter 24 uur, T=10 jaar | 3,3 | 5,2 | 1,9 | 19 | 0,220 |
-
-Berekening: 10 × verschil-mm geeft m³/ha; deel dat door 4 × 3600 of 24 × 3600 en vermenigvuldig met 1000 voor l/s/ha. Dit is het **gemiddelde verschil binnen het tijdvenster**, niet het instantane maximum en niet het extra debiet aan een gemaal.
-
-**Statistische grens:** de bron past Gumbelverdelingen toe op berekende afvoeren. Het verschil tussen twee T=10-kwantielen is geen verschil voor dezelfde concrete regenbui. De lagere winterdelta bij T=10 dan T=2 is geen rekenfout en wordt niet gladgestreken. Zonder gekoppelde gebeurtenissen mogen deze verschillen niet als verwachte jaarlijkse extra volumes worden opgeteld of gewogen met 1/T.
-
-**Causale grens:** de profielen zijn gebaseerd op perceelrand, perceelsmidden en kopakker; de tekst noemt ook verschillen in organische stof, beworteling en laagdikte. Zelfs A versus referentie is daarom nog niet bewezen een geïsoleerde verdichting-ingreep bij overigens identieke eigenschappen. Dit is een beter afgebakend **modelscenario**, geen gemeten ondergrondschadefactor. Geen euroconversie met de HHNK-jaarintensiteit: zowel tijdschaal, routing als marginale bedrijfsvoering ontbreken.
-
-**Concrete winst:** naast jaarvolume is nu een ondergrond-georiënteerd scenario met afzonderlijke zomer-/wintervensters beschikbaar. De volgende broncontrole kan zich beperken tot tabel A3.3 en figuur A3.7: welke parameters veranderen bij A versus referentie naast de ondergrond, en welk gewas-/beheerregime geldt? De landelijke meetset en nieuwe modelruns blijven geparkeerd.
-
-### L. Afgesloten brontoets variant A versus referentie
-
-**29 oktober 2026 | parametercontrole tabel A3.3 en context figuur A3.7.** Primaire bron: WENR 2811, gedrukte p.113–114 (PDF-index 113–114), dezelfde STOWA-PDF als §K. Tekst en tabel gelezen; paginaweergaven opgehaald. **Besluit: variant A versus referentie is geen zuiver ondergrondcontrast.** De resterende onzekerheid uit §K is hiermee op dit punt opgelost: de gepubliceerde bovengrondparameters verschillen aantoonbaar.
-
-| Gepubliceerde parameter | Referentie bovengrond 0–30 cm | Variant A bovengrond 0–30 cm | Referentie ondergrond 35–45 cm | Variant A ondergrond 35–45 cm |
-|---|---:|---:|---:|---:|
-| Eerste theta-kolom | 0,040 | 0,025 | 0,015 | 0,015 |
-| Tweede theta-kolom | 0,410 | 0,360 | 0,355 | 0,305 |
-| alpha | 0,014 | 0,018 | 0,022 | 0,013 |
-| n | 1,40 | 1,42 | 1,53 | 2,00 |
-| Ksat | 34 | 34 | 34 | 2,3 |
-| lambda | -0,999 | -0,999 | -1,0 | -1,0 |
-
-De tabelkop drukt beide theta-kolommen af als theta-res; de tweede heeft naar parameterbetekenis vermoedelijk betrekking op theta-s, maar die interpretatie is hier **geen stilzwijgende broncorrectie**. De kolommen zijn daarom naar positie aangeduid. De tabel vermeldt in de kop geen eenheden voor alpha/Ksat; zonder aanvullende inputbestanden worden die niet als nieuw gekwalificeerde parameterinputs geregistreerd.
-
-**Wat volgt wel rechtstreeks uit de getallen?** Vier bovengrondparameters veranderen. Gelijke bovengrond-Ksat betekent dus niet gelijke infiltratie- en bergingsrespons: retentie en onverzadigde geleidbaarheid hangen van de overige parameters af. De tweede theta-kolom daalt bovenin met 0,050. Als die kolom inderdaad verzadigd watergehalte in m³/m³ is en 0–30 cm de laagdikte is, is de bijbehorende verzadigde volumecapaciteit rekenkundig 0,050 × 300 = **15 mm** kleiner. Dat is een **conditionele capaciteitdiagnose**, geen beschikbare eventberging, geen extra runoff en geen gemeten vochtverschil. Onderin is Ksat 2,3/34 = **0,06765 maal** de referentie, circa factor **14,8 lager**; dit verhoudingsgetal vereist geen aanname over de ontbrekende absolute eenheid.
-
-**Diepte en gewas:** de lopende tekst kiest een bovengrond 0–35 cm, de tabel labelt 0–30 cm, en figuurtekst plaatst het begin van verdichting bij A op 30 cm. De parametrisering van 30–35 cm kan hiermee niet exact worden gereconstrueerd. Voor het landgebruik is expliciet **blijvend grasland** aangenomen, niet snijmaïs. De resultaten van §K mogen dus niet als verdieping van het eerdere snijmaïs-jaarvolume worden samengevoegd. Parameters voor dieper dan 45 cm zijn overgenomen uit Schipper; doorlatendheidsrelaties zijn volgens de bron niet gemeten. De modellering gebruikt meetinformatie voor retentie, dichtheid en beworteling, maar is geen volledig empirisch gemeten hydraulische vergelijking.
-
-**Beworteling en organische stof:** de tekst bij figuur A3.7 beschrijft deze als scenario-eigenschappen; de modelvarianten verschillen ook in veronderstelde worteldiepte. Zonder oorspronkelijke inputbestanden en een volledige numerieke vergelijking wordt niet beweerd dat A en referentie op deze punten gelijk zijn. Het reeds bewezen bovengrondverschil is op zichzelf voldoende om zuivere ondergrondattributie af te wijzen; een extra onbekende hoeft daarvoor niet eerst te worden ingevuld.
-
-**Toegestaan eindresultaat:** de vier afvoerverschillen uit §K blijven geldig als aftrekking van de gepubliceerde **samengestelde graslandprofielscenario’s**. Zij zijn niet toegelaten als respons op alleen ondergrondverdichting, niet als causale gemaalbelasting en niet als schade-euro. Bestaande ensemblekwalificaties blijven behouden; geen nieuwe landelijke factor en geen vervangende methodiek.
-
-**Afsluiting en vervolg:** de vraag of deze publicatie al een gecontroleerd A-versus-referentie-ondergrondexperiment levert, is beantwoord: **nee**. Meer prijsscenario’s veranderen dit niet. Voor isolatie zijn bestaande oorspronkelijke SWAP-inputs nodig waarmee men kan vaststellen of elders een gepaarde variant met gelijke bovengrond bestaat; een nieuwe run blijft buiten de huidige opdracht. Het onderzoek hoeft daarop niet te wachten: vervolg de on-site route via het oorspronkelijke Alblas-artikel. Voor de off-site rapportage is de bruikbare uitkomst voorlopig het expliciet gelabelde samengestelde profielscenario, naast de open netto-waterbalans.
-
-### M. Alblas: gerichte bronverwerving en resterende toegangsgrens
-
-**29 oktober 2026.** Gerichte zoekactie naar het oorspronkelijke artikel en eerdere auteursverslagen. De volledige publicatie uit 1994 is niet verworven. Ook rechtstreeks openen van de gevonden eDepot-verslagen gaf 403. Zoekresultaten zijn geen integraal gelezen proefverslagen; de kwalificatie van de maïsscenario’s wordt niet verhoogd.
-
-Twee concrete historische verwervingsdoelen zijn nu bibliografisch teruggevonden in de geïndexeerde literatuurlijst van PAGV (https://edepot.wur.nl/346561):
-- Alblas, J. en F. Wanink (1990), *Invloed verdichting zandondergrond op snijmaïsopbrengst*, Praktijkonderzoek 3, nr.6, p.24–26.
-- Alblas, J., *Bodemverdichting bij de teelt van maïs*, Gewasdag maïs, PAGV-verslag 117, p.24–41; geïndexeerde tekst via https://edepot.wur.nl/350565.
-
-Daarnaast is de precieze eerdere auteursbijdrage geïdentificeerd: Wanink, F., J. Alblas, H.M.G. van der Werf en J.J.H. van den Akker (1990), *Snijmaïsopbrengst beïnvloed door berijding*, Landbouwmechanisatie 41, nr.4, p.28–29. Dit is een concrete alternatieve bronroute voor proefdetails, geen onafhankelijk experiment naast Alblas 1994.
-
-**Stopcriterium voor verdere generieke zoekrondes:** dezelfde samenvatting van 4/15% opnieuw terugvinden levert geen nieuwe informatie over de referentie, laagdiepte of onzekerheid. Verwerving van één van bovenstaande volledige teksten heeft nu voorrang. Er is geen verzoek aan auteurs of bibliotheek verzonden.
-
-**Minimale extractie na verwerving:** locatie en profiel; eerdere diepe grondbewerking; grondwater; behandelingsdatum/aslast/banddruk/aantal passages; controlebehandeling en bodembewerking daarna; bulkdichtheid en indringingsweerstand per diepte; absolute oogst-DS per behandeling/jaar; replicatie en statistische onzekerheid. Alleen waar de tekst de koppeling draagt, wordt de bestaande economische scenariotabel omgezet naar een broncontextspecifieke uitkomst. Nieuwe in zoektekst aangetroffen opbrengstgetallen worden tot die tijd niet doorgerekend.
-
-### N. Primaire Alblas/Wanink-proeftekst verworven: locatiegebonden doorrekening
-
-**29 oktober 2026.** Aangeleverd en volledig gelezen: J. Alblas en F. Wanink, *De invloed van verdichting van zandondergrond op de snijmaïsopbrengst*, gedrukte p.101–105, eDepot 336699. Het document verwijst naar het latere artikel als 1990, in press; bibliografisch jaar van deze bijdrage is niet uit deze vijf pagina’s vastgesteld. Dit is een primaire auteursrapportage, niet de volledige tijdschriftpublicatie uit 1994. Tabel 67 op p.104 is visueel tegen de PDF gecontroleerd. Bronbestand: gebruikersbijlage eDepot 336699, Library-ID libfile_93c296b5f0cc8191aaa7c248f411f223; https://edepot.wur.nl/336699.
-
-**Belangrijkste correctie op de eerdere ongespecificeerde studiecontrole:** object C is **gecontroleerde berijding met 5 ton aslast, steeds hetzelfde spoor**, geen onbereden of onverdichte bodem. A is volvelds, wiel aan wiel, 10 ton aslast; B is volvelds 5 ton. A/B worden na de oogst én voor het ploegen bereden, C alleen na de oogst. Alle behandelingen worden ieder voorjaar tot 25–30 cm geploegd. De behandelingsvergelijking omvat dus rijpatroon, frequentie en bij A ook aslast. Geen geïsoleerde aslast-dosisrespons.
-
-Alle proeven hebben drie herhalingen; veldjes 9 × 25 m, ras Vivia, bemesting iets boven de norm. Periode 1983–1986; Westerhoven/Heino vier jaar, Lemelerveld/Lemelerberg twee jaar, samen 12 locatiejaren. Drie van vier zomers waren relatief droog. Bodemcontext p.101: leemarm/zwaklemig zand; Westerhoven en Lemelerberg enkeerd, zomergrondwater ruim 200 cm; Lemelerveld veldpodzol met 100 cm; Heino beekeerd met 120 cm. Westerhoven was vóór aanleg tot **75 cm losgemaakt**. Daarom is juist het grootste contrast een herverdichtingscontext, geen representatieve doorsnee van huidige Nederlandse zandmaïs.
-
-Tabel 65 geeft organische stof op 30–50 cm: Westerhoven 1,2%, Heino 1,8%, Lemelerveld 1,6%, Lemelerberg 7,6%. De lopende tekst op p.103 noemt de humeuze locatie eenmaal Lemelerveld en een ander Westerhoven-gehalte; dit strookt niet met tabel 65 en de bespreking op p.103–104. Gebruik de expliciete tabelwaarden; behoud deze broninconsistentie, geen stille correctie.
-
-#### N.1 Brongebonden fysieke verschillen
-
-Tabel 67 geeft de referentie C in ton DS/ha en A/B als afgeronde percentages van C. De absolute verschillen hieronder zijn **afgeleid uit die afgeronde tabel**, geen exact ruwe proefgemiddelden. Positief betekent minder productie dan C; negatief meer.
-
-| Locatie/periode | C ton DS/ha | A % van C | B % van C | C minus A ton DS/ha | C minus B ton DS/ha |
-|---|---:|---:|---:|---:|---:|
-| Westerhoven 1983–1986 | 15,3 | 73 | 94 | 4,131 | 0,918 |
-| Heino 1983–1986 | 13,1 | 94 | 97 | 0,786 | 0,393 |
-| Lemelerveld 1984–1985 | 10,8 | 83 | 92 | 1,836 | 0,864 |
-| Lemelerberg 1984–1985 | 12,9 | 97 | 101 | 0,387 | -0,129 |
-
-De bron rapporteert gemiddeld A=85%, B=96%, C=13,4 ton/ha over 12 locatiejaren. Niet het ongewogen gemiddelde van de vier locatierijen gebruiken. Ook gemiddelde relatieve respons × gemiddelde C is niet noodzakelijk het gemiddelde absolute verlies. Daarom blijven de locatieberekeningen afzonderlijk; geen extra gepoold eurogemiddelde.
-
-#### N.2 Conditionele waardering van de historische locatieverschillen
-
-Anders dan §I wordt hier **geen actuele CBS-opbrengst als fictieve onverdichte referentie gebruikt**: de fysieke basis is C uit de oorspronkelijke proef. Alleen de waarderingslaag is overgezet: 998 VEM/kg DS en €0,130/kVEM uit §G/H, met dezelfde 4%-conserveringsvariant. Gelijke kwaliteit en verliesfractie per behandeling zijn aannames, niet gemeten in dit verslag. Geen inflatiecorrectie of interpretatie als historische schade in euro’s.
-
-| Locatie | A versus C bruto energieboekverschil €/ha | A versus C na 4% conservering €/ha | B versus C bruto €/ha | B versus C na conservering €/ha |
-|---|---:|---:|---:|---:|
-| Westerhoven | 535,96 | 514,52 | 119,10 | 114,34 |
-| Heino | 101,98 | 97,90 | 50,99 | 48,95 |
-| Lemelerveld | 238,20 | 228,67 | 112,10 | 107,61 |
-| Lemelerberg | 50,21 | 48,20 | -16,74 | -16,07 |
-
-Reproduceer per cel: (C_ton × (1 − behandelpercentage/100)) × 998 × 0,130; vermenigvuldig afzonderlijk met 0,96 voor conservering. Voorbeeld Westerhoven A: 15,3 × (1 − 0,73) = 4,131 ton DS/ha; ×998×0,130 = €535,95594. De centprecisie dient rekencontrole; de fysieke bronprecisie rechtvaardigt geen even nauwkeurige schaderaming.
-
-**Kwalificatie:** primaire behandelingsrespons en locatiegemiddelden nu rechtstreeks gecontroleerd; de economische uitkomst blijft een **conditioneel energieboekverschil bij historische behandeling**, geen empirische marginale bedrijfsschade en geen actuele Nederlandse ondergrondschadefactor. De +1% B-respons bij Lemelerberg wordt behouden; zonder standaardfout of toetsresultaat is dit geen aangetoonde opbrengstbaat. Het verslag geeft hier geen betrouwbaarheidsintervallen, geen onderbouwde bronvariantie en geen VEM- of kwaliteitsmetingen per object.
-
-#### N.3 Ondergrondmechanisme en begrenzing
-
-Voor Westerhoven geeft p.103/fig.10 in 1986 een wortelbelemmering rond **35 cm** bij A en wortels tot **130 cm** bij C. De beschrijving van drukhoogte op 80 cm in 1984 ondersteunt vochtonttrekking door diepere wortels bij C. Dit maakt het ondergrondmechanisme concreet, maar verdeelt het totale opbrengsteffect niet kwantitatief tussen bovengrond, ondergrond en andere behandelingsverschillen. Jaarlijks ploegen wist niet aantoonbaar alle bovengrondverschillen uit. De maximale 38% uit de samenvatting is geen standaardverlies; het Westerhoven-gemiddelde in tabel 67 is 27%.
-
-Het verslag berekent historisch 0,25×15% + 0,50×4% = **5,75%** op een geschat zandmaïsareaal en rondt af naar circa 6%. Dat verschilt van 7% uit het abstract van 1994. Deze bronnen worden niet geharmoniseerd door één waarde te kiezen: andere versie/afbakening is nog te controleren. Geen van beide percentages is actuele blootstelling of hedendaags nationaal verlies.
-
-**Vervolg met hoogste informatiewaarde:** voor één expliciete context, bij voorkeur niet uitsluitend Westerhoven, een voerbalans en werkelijk volumeafhankelijke oogst-/inkuilkosten toevoegen. De fysieke locatie-opbrengsten hoeven daarvoor niet opnieuw via CBS te worden geconstrueerd. Eerst vaststellen of aanvulling werkelijk wordt gekocht of uit voorraad komt; verlies eigen voederwaarde en dezelfde voerinkoop niet optellen. De huidige bron sluit de proefdefinitie en fysieke opbrengsttabel; private schade en nationale transfer blijven open.
-
-### O. Off-site prioriteit: afvoerroute, totaalvolume en piek afzonderlijk
-
-**29 oktober 2026 | actuele werkprioriteit op verzoek gebruiker.** Verdere on-site bedrijfseconomische uitwerking uit §N is geparkeerd. Geen Heino-bedrijfscasus starten. Het vervolg betreft off-site effecten, met EC1 als eerste kwantitatieve route; EC2–EC6 blijven zelfstandig in de integrale effectbalans.
-
-**Primaire broncontrole:** WENR 2811 / STOWA 2017-020, hoofdstuk 2 p.25–27, conclusies p.81–82 en bijlage 7 p.122, rechtstreeks gelezen via de STOWA-PDF uit §K. De bron onderscheidt jaarlijkse oppervlakteafvoer van piekafvoer, waarbij de laatste expliciet **drainage plus oppervlakteafvoer** betreft. De voorbeeldcontrolefile voor R-SWAP-extremes vermeldt Runoff én Drainage, die vóór extreme-waardenanalyse per tijdstap worden gesommeerd. Dit voorbeeld bewijst het ondersteunde analysecontract, niet de exacte historische controlefile van iedere tabel.
-
-**Precisering van de eerdere 10/12 mm-vermelding:** p.82 omschrijft 10 mm als langjarig gemiddeld effect op oppervlakkige afstroming voor snijmaïs, en 12 mm als effect op de **95-percentielwaarde, omgerekend naar het langjarig gemiddelde**. Het zijn dus verschillende statistische samenvattingen. De eerdere korte omschrijving ‘extreem weerscenario’ is onvoldoende precies. De rekenidentiteit 12 mm × 10 = 120 m³/ha blijft correct, maar geeft geen zelfstandig waargenomen of gekwalificeerd extra jaarvolume en geen verwachting van extra bemaling.
-
-| Bronuitkomst | Fysieke betekenis | Wat voor EC1 gebruikt mag worden | Wat nog ontbreekt |
-|---|---|---|---|
-| Jaarlijkse oppervlakkige afstroming, circa 10 mm-effect | Verandering in één afvoerroute | Bronrespons in opgegeven modelcontext | Gelijktijdige drainage, netto onderrandflux, ET en opslag |
-| Omgerekende 95-percentieluitkomst, circa 12 mm | Andere statistische samenvatting van oppervlakteafstroming | Gevoeligheid/broncontext | Geen afzonderlijk jaarvolume of frequentiegewicht |
-| Afvoerextremen volgens p.26 | Drainage + oppervlakteafvoer binnen een tijdvenster | Betere indicator van gecombineerde lokale systeembelasting | Gepaarde gebeurtenistijdreeksen, ontvangend netwerk en beheer |
-| Grondwateraanvulling Vlaanderen, 0–2% groter bij verdichting, tabel 1.1 p.18 | Andere flux, mogelijk door lagere verdamping | Waarschuwing dat routeverandering niet gelijk is aan totale-afvoerverandering | Absolute flux, exacte scenario-/jaar-/bodemmatch; niet optellen bij Nederlandse mm |
-| Transpiratiereductie | Tekort tegenover potentiële transpiratie | Informatie over droogtestress | Niet gelijk aan verschil in totale actuele ET tussen toestanden |
-
-**Beschikbare systeemcontext:** voor hoofdstuk 2 zijn zijrandafvoer naar perceelsloot/afwateringsloot en een gemengde grondwateronderrand beschreven. Zijrand: drainageweerstanden 400/1200 dagen, bases 120/150 cm beneden maaiveld, slootafstanden 224/415 m. Onderrand: opgelegde diepe stijghoogte met seizoensvariatie en verticale weerstand. Dit is een gedraineerd perceelmodel met grondwateruitwisseling, **geen gemeten polderpompbalans**. Onderrandverlies mag niet automatisch als lokale slootafvoer worden geteld.
-
-**Beslissend voor totaalvolume:** een toename van oppervlakteafvoer kan samengaan met minder drainage of minder neerwaartse grondwaterflux. Een transpiratieverandering kan het totale wateroverschot veranderen, maar de transpiratiereductie alleen identificeert die verandering niet. In de gecontroleerde passages is geen complete numerieke gepaarde jaarbalans verkregen waarmee de 10 mm in een netto extra lokale afvoer kan worden omgezet. Dit is een conclusie over het nu gecontroleerde bewijs, geen claim dat oorspronkelijke uitvoerbestanden niet bestaan.
-
-**Kleinste uitvoerbare vervolgstap:** richt de extractie op één reeds berekend scenario en dezelfde controle: jaarlijkse sommen Runoff, laterale Drainage, netto onderrandflux, actuele ET (inclusief bodem en interceptie), irrigatie en begin-/eindopslag; daarnaast de gezamenlijke runoff-plus-drainage-tijdreeks voor een afvoervenster. Gebruik oorspronkelijke resultaten als die beschikbaar zijn, geen nieuwe SWAP-campagne. Alleen de daadwerkelijk naar hetzelfde ontvangende systeem gerouteerde verandering kan daarna naar HHNK-achtige operationele kosten worden vertaald. Extra piekdruk zonder netto extra jaarvolume blijft een mogelijke aparte uitkomst, waarvoor berging, capaciteit en resterende schade nodig zijn.
-
-**Resultaatstatus:** de off-site interpretatie is aangescherpt en de statistische betekenis van 12 mm gecorrigeerd. Geen extra pompvolume of nieuwe schade-euro toegelaten. De conceptuele effectroutes blijven leidend; geen nieuwe governance of kostenmethodiek.
-
-### P. Baakse Beek: regionale afvoerroute en piek kwantitatief onderscheiden
-
-**29 oktober 2026.** Primaire bron: Schipper et al. (2015), STOWA 2015-19, hoofdstuk 4, gedrukte p.28–38 (PDF-index 43–54), https://www.stowa.nl/sites/default/files/assets/PUBLICATIES/Publicaties%202015/STOWA%202015-19.pdf. Deze controle levert een concreet regionaal resultaat buiten Tollebeek; geen nieuwe modelrun.
-
-**Afvoerdefinitie:** de studie vergelijkt DRN (drains en permanent drainerende waterlopen), RIV (afvoer naar overige waterlopen) en MetaSWAP-runoff, plus hun som. AMIGO rekent op 100×100 m en met tijdstappen van één dag. Figuur 4.6 toont cumulatieve verschillen over 1998; figuur 4.8 dagelijkse afvoer rondom oktoberbuien. Dit is een gebiedsmodel met expliciete afvoercomponenten, niet automatisch gerouteerde uitstroom bij één meetpunt of gemaal.
-
-**Routecompensatie werkelijk in de bron aangetroffen:** p.35 stelt dat minder runoff in VERBETERD samengaat met hogere afvoeren via drains en overige waterlopen. De vergelijking BETER2 met VERBETERD wijst volgens de auteurs vrijwel volledig op infiltratiecapaciteit als oorzaak. Daarmee is minder oppervlakteafvoer **in dit modelgeval aantoonbaar niet hetzelfde als evenveel minder totale afvoer**. Hoeveel compensatie op jaarbasis optreedt, is uit de nu gelezen numerieke tekst niet exact af te leiden; geen grafiekwaarden als exacte meetgetallen invullen.
-
-| Twee gepubliceerde piekdagen eind oktober 1998 | VERDICHT miljoen m³ per dag | VERBETERD miljoen m³ per dag | Verschil miljoen m³ per dag | Afname berekend uit afgeronde bronwaarden |
-|---|---:|---:|---:|---:|
-| Eerste genoemde zware bui | 6,5 | 3,1 | 3,4 | 52,3% |
-| Tweede genoemde zware bui | 4,5 | 3,2 | 1,3 | 28,9% |
-
-De bron rapporteert afgerond 52% en 29%. Rekening: (6,5−3,1)/6,5 en (4,5−3,2)/4,5. De verschillen zijn **dagvolumes**, niet instantane debieten, geen extra jaarvolume en geen wateroverlastschade. Tel ze niet op als vermeden jaarafvoer: drainage op volgende dagen kan een deel alsnog afvoeren. Zonder routing/berging is ook de volledige dagvolumedelta niet gelijk aan benodigde extra berging.
-
-**Attributie is begrensd:** referentie-infiltratiecapaciteit topgrond 20 mm/dag, VERDICHT 10, VERBETERD 40. Het uiterste contrast omvat dus een factor vier in een expliciete topgrondparameter. Ook bodemfysica en worteldiepte veranderen. BETER1/2/3 zijn gevoeligheidsvarianten rond VERBETERD, geen onafhankelijke veldproeven. Het grote regionale piekeffect kwalificeert een **samengesteld modelscenario met dominante topgrond-infiltratieaanname**, niet uitsluitend ondergrondverdichting. Regionale scenarioreducties mogen niet als Nederlandse subsoil-schadefactor dienen.
-
-**Belang voor off-site keuze:** de bestaande studie ondersteunt vooral de route naar **piekbelasting en berging/capaciteit**, met afvoercompensatie buiten de runoff-route. De route naar jaarlijkse extra pompenergie is niet gesloten. Dit is een inhoudelijke selectiebeslissing: HHNK-jaarenergie blijft benchmark; geen vermenigvuldiging met 3,4 of 1,3 miljoen m³.
-
-**Wat is voor vervolgrekenen concreet nodig?** Oorspronkelijke 1998-reeksen per variant voor RUNOFF, DRN en RIV, op dezelfde gebiedsgrens en met gecontroleerde tekenconventie; de cumulatieve eindwaarden van figuur 4.6; en routing/peil-/bergingsinformatie voor een gekozen receptor. Voor een complete waterbalans daarnaast ET, opslag en externe grondwateruitwisseling. Het rapport bevat een gerichte bronroute hiervoor, maar de ruwe reeksen zijn niet verworven. De Vlaamse bronroute blijft bij directe PDF-toegang 403; geïndexeerde tekst is geen vervanging voor volledige balanscontrole.
-
-**Afgesloten uitkomst:** regionale routecompensatie is nu bronmatig onderbouwd; twee dagelijkse piekverschillen zijn nagerekend; uitsluitend-ondergrondattributie en jaarvolume blijven niet toegelaten. Geen nationale schade, geen extra pompkosten en geen fictieve schadefunctie. EC2–EC6 blijven behouden als zelfstandige effectcategorieën.
-
-### Q. Uitgevoerde systeemgevoeligheid: timing, volume en beheeraanpassing
-
-**29 oktober 2026 | synthetische rekenproef, geen gemeten gebied.** Uitvoering van de volgende werkeenheid voor zover mogelijk zonder ontvangen hydrogrammen. Reproduceer: `python tools/calculate_offsite_storage_sensitivity.py`. Dit kleine experiment past de opslag-/massabalans uit model 04 toe en vervangt geen routingmodel. Alle waterhoeveelheden zijn **aangenomen instroom bij dezelfde ontvangende berging**, niet afgeleid uit bodemverdichting of de Baakse Beek.
-
-**Open aannames:** beginberging 0 m³; beschikbare berging 150 m³; afvoer door een pomp maximaal 100 m³/uur; zes uur rekenvenster. De pomp voert direct af zodra water beschikbaar is. Instroom en pompen zijn binnen elk uur uniform; onder die aanname wordt de maximumopslag exact op een uurgrens bereikt. Geen aanlooptijd, head-afhankelijkheid, neerslag op open water, andere verliezen of netwerkvertraging. Overschrijding verlaat het rekensysteem definitief als overloop en keert niet later terug; dit is geen vastgestelde overlastschade.
-
-**Gepaarde invoer, m³ per achtereenvolgend uur:**
-- Referentie: 80, 80, 80, 80, 0, 0.
-- Zelfde volume, sneller: 240, 80, 0, 0, 0, 0.
-- Sneller én extra volume: 240, 160, 0, 0, 0, 0.
-
-| Scenario | Totale instroom m³ | Pompvolume m³ | Maximum opgeslagen m³ | Overloop m³ |
-|---|---:|---:|---:|---:|
-| Referentie, bestaande berging/capaciteit | 320 | 320 | 0 | 0 |
-| Zelfde volume, sneller; zelfde beheer | 320 | 320 | 140 | 0 |
-| Sneller +80 m³; zelfde beheer | 400 | 350 | 150 | 50 |
-| Zelfde 400 m³; berging naar 200 m³ | 400 | 400 | 200 | 0 |
-| Zelfde 400 m³; capaciteit naar 125 m³/uur | 400 | 400 | 150 | 0 |
-
-Alle scenario’s eindigen met nul opslag. Per scenario sluit instroom = pompvolume + overloop + eindopslag exact. De vrije benodigde berging bij 400 m³ en 100 m³/uur is 200 m³, dus **50 m³ additioneel** tegenover de aangenomen bestaande 150. Bij behoud van die 150 m³ voorkomt een capaciteit van **125 m³/uur** overloop voor precies dit hydrogram: na uur 1 staat 115 m³ en na uur 2 150 m³. Dit is de minimale constante capaciteit voor dit scenario: (400−150)/2=125, met controle dat het eerste uur geen grotere eis stelt. Geen ontwerpwaarde voor een werkelijk systeem.
-
-**Drie concrete uitkomsten:**
-1. Alleen versnelling kan de benodigde berging verhogen zonder extra pompvolume: 140 m³ piekopslag, maar dezelfde 320 m³ bemaling. Bij constante energie-intensiteit ontstaat geen extra volumegerelateerde pompenergie. In werkelijkheid kunnen werkpunt en regeling wel veranderen.
-2. Bij extra water en onvoldoende berging wordt niet alles verpompt: 50 m³ loopt over. Alleen naar pompvolume kijken onderschat de systeembelasting.
-3. Aanpassing voorkomt hier overloop, maar verhoogt pompvolume van 350 naar 400 m³. De extra operatie hoort bij de vermeden overloop; de oorspronkelijke én vermeden schade mogen niet als blijvende schade worden opgeteld.
-
-**Economisch resultaat:** eurobedrag blijft onbekend. De berekende 50 m³ bergingsuitbreiding en 25 m³/uur capaciteitsuitbreiding hebben geen gekwalificeerde locatiekosten. Overloop heeft geen bekende blootstelling/schadefunctie. HHNK-gemiddelde energie-intensiteit wordt niet stilzwijgend aan dit fictieve systeem toegekend. Dit levert twee concreet gespecificeerde alternatieven op die met een echte locatie en kostengegevens gewaardeerd kunnen worden.
-
-**Verificatie:** rekenbestand uitgevoerd; massabalans, zelfde-volumecontrast, het verdwijnen van overloop bij beide aanpassingen en invariatie bij extra ongebruikte berging gecontroleerd met assertions. Projectvalidator PASS en bestaande suite 61 tests PASS op de lokale werkbasis; deze controles kwalificeren implementatie, niet werkelijkheid. Geen nieuwe empirische kwalificatie of productiecodewijziging.
-
-**Volgende grote stap:** vervang de synthetische instroom door één reeds beschikbare gepaarde afvoerreeks op dezelfde receptorgrens en voeg bestaande berging, regeling en capaciteit toe. Zonder die gegevens is verdere scenariovermenigvuldiging weinig informatief. Voor monetarisering zijn vervolgens locatiekosten en resterende blootstelling nodig; de zes EC-categorieën blijven apart zichtbaar.
-
-### R. Werkelijke systeemkoppeling: gegevenscontrole en afgebakend vervolg
-
-**29 oktober 2026.** De aanwezige lokale data-/artifactbestanden en het actuele GitHub-datarequestregister zijn gecontroleerd. De aangetroffen tijdreeksen betreffen meteorologische forcing, geen gepaarde receptorafvoer. Het actuele requestregister bevestigt dat voor Tollebeek historische waterstanden, gerealiseerde pompafvoer, regeling en noodpompschema’s nog ontbreken. Een gerichte publieke zoekactie naar de oorspronkelijke AMIGO-uitvoer van STOWA 2015-19 leverde publicaties, maar geen verworven ruwe variantreeksen op. Dit bewijst niet dat die bestanden bij de oorspronkelijke onderzoekers ontbreken.
-
-**Uitkomst:** de synthetische proef uit §Q kan nu niet verantwoord met één volledige empirische systeemcasus worden gevuld. Een werkelijk gemeten afvoerreeks alleen lost ook het counterfactual niet op: die bevat niet automatisch dezelfde gebeurtenis bij een andere bodemtoestand. Een gereconstrueerd modelpaar moet afzonderlijk als modeluitkomst herkenbaar blijven.
-
-**Concreet gegevenspakket voor de Baakse Beek-route, zonder nieuwe modelruns:**
-- Bestaande RUNOFF-, DRN- en RIV-uitvoer voor de oorspronkelijke REFERENTIE, VERDICHT en VERBETERD-runs, inclusief BETER1/2/3 indien bewaard; 1998 compleet, minimaal juni en oktober/november met voorafgaande en volgende afvoerdagen.
-- Tijdstempels, intervalduur, eenheden, tekenconventies, cel-/deelgebiedsgrens, oppervlak en informatie of de reeksen lokale fluxsommen of gerouteerde uitlaatafvoer zijn.
-- Modelconfiguratie/variantbeschrijving die vastlegt welke bodem- en andere parameters verschillen; begin-/eindopslag, ET en externe grondwateruitwisseling wanneer een jaarbalans wordt beoordeeld.
-- Voor een werkelijk ontvangend compartiment: relatie van peil tot beschikbare berging, beginpeil, uitlaat-/stuw-/pompkarakteristiek, regeling, beschikbaarheid en relevante benedenstroomse randvoorwaarden.
-- Voor kosten: de locatiegebonden additionele energie-/exploitatiekosten en eventueel concreet investeringsalternatief; voor schade afzonderlijk blootstelling en schadefunctie.
-
-Dit pakket is een **specificatie voor gerichte verwerving**, geen verzonden verzoek en geen ontvangen dataset. Het oorspronkelijke regionale model hoeft niet alle receptorinformatie te bevatten. Ontbrekende routing moet expliciet blijven; een som van DRN/RIV/RUNOFF wordt niet met alleen een gebiedsnaam een hydrogram bij een kunstwerk.
-
-**Besluit voor werkregie:** EC1 bronanalyse en synthetische gevoeligheid zijn voor de nu beschikbare invoer voldoende uitgewerkt. Geen herhaling van algemene bronzoekrondes, fictieve hydrogrammen of prijsvarianten. De empirische systeemkoppeling krijgt status **WAIT_PAIRED_RECEPTOR_SERIES_AND_SYSTEM_OPERATION**. Bij levering van de bovenstaande gegevens volgt in één blok: semantische controle, waterbalans, gepaarde belasting, berging/capaciteit, waardering en rapportage. Dit is geen wetenschappelijk nuleffect.
-
-**Onafhankelijk voortzetbaar off-site werk:** consolideer EC2–EC6 op hun eigen receptor-eindpunten. Prioriteit voor de volgende onderzoekswerkeenheid is EC4/EC5: routegebonden stofvracht en werkelijk ontvangend water onderscheiden van concentratie, met behoud van tekenonzekerheid en de grens tussen rijspoor-/bovengrond- en ondergrondbewijs. Start geen nieuwe modelcampagne en leid geen vrachtfactor uit het EC1-runoffscenario af.
-
-### S. Off-site waterkwaliteit: afgeronde route- en bewijstoets EC4/EC5
-
-**29 oktober 2026.** Bestaande dossiers 103/105/107 geconsolideerd en getoetst aan primaire publicatiepagina’s: Deasy et al. (2009), https://doi.org/10.2134/jeq2009.0028 (abstract); Quinton et al. (2024), https://doi.org/10.1111/sum.13158 (toegankelijke HTML-methoden en resultaten, met name §2.2 en §3.1–3.2); Scorza Júnior et al. (2004), https://doi.org/10.2134/jeq2004.1473 (uitgeversabstract). Geen volledige heranalyse van ruwe datasets of supplementtabellen. Nieuwe hieronder afgebakende informatie verhoogt geen nationale schade-admission.
-
-| Eindpunt en route | Empirisch bewijs | Kwantitatief bruikbaar binnen broncontext | Attributie / receptorgrens | Besluit |
-|---|---|---|---|---|
-| Totaal-P via oppervlakkige afstroming uit rijsporen | Deasy: rijspoorlosmaken versus traditionele rijsporen, Britse hellingproeven | Gemiddeld 1,06 kg TP/ha minder over vijf site-years volgens abstract; niet delen door vijf | Maatregel-/rijspoorcontrast, geen geïsoleerde ondergrond; plotuitvoer is niet ontvangst door waterlichaam | Lokale maatregel-evidence; geen NL-schadefactor |
-| Totaal-P, rijspoor versus geen rijspoor | Quinton §3.1.3 | Gemiddeld circa 40 g TP/ha verschil in gebeurtenisgebaseerde analyse; gepoold niet significant bij gehanteerde p<0,1 vanwege brede intervallen | Per gebeurtenisanalyse, niet jaarverlies; rijspoor herverdeelt ook toestroming | Richting en onzekerheid behouden; geen robuuste positieve jaarschade |
-| Totaal-P na rijspoormaatregelen | Quinton §3.2.3 | 50e-percentiel reducties circa 5 g/ha per event voor rotary harrow en 15 g/ha per event voor combinatie flexibele band + harrow | Niet dezelfde statistiek als Deasy-jaargang; geen statistisch significant totaal behandelingseffect door brede CI’s | Niet poolen/annualiseren zonder gebeurtenissen en toepassingsmatch |
-| Jaarlijkse TP-uitvoer rijspoorplots | Quinton abstract | 0,8–3,9 kg TP/ha/jaar | Belastingsniveaus, geen behandelingseffecten | Alleen broncontext; niet verschil met ondergrondreferentie |
-| Nitraat via drainage/grondwater | Bestaande WENR-synthese en drainage-guardrails | Geen nu toegelaten ondergrondspecifiek vrachtcontrast | Concentratie kan toenemen bij lager watervolume; omzetting/denitrificatie en routes afzonderlijk | Effectgrootte en teken niet invullen |
-| Bentazon/imidacloprid via drains | Scorza: Nederlands kleiperceel 1,2 ha, wintertarwe, drainage 0,8–0,9 m | Eerste afvoergebeurtenis hoogste drainconcentratie; ongeveer orde hoger dan grondwaterconcentratie | Macroporiën 0,3–1,0 m plausibele route; geen verdicht/niet-verdicht-paar | Direct Nederlands transportbewijs; geen verdichtingsrespons |
-| Middelen naar ontvangend oppervlaktewater | Geen passend gepaard receptorbewijs in gecontroleerde selectie | Geen gekwalificeerde delta-kg of delta-concentratie bij receptor | Afbraak, sorptie, routing, verdunning en timing ontbreken | Niet monetariseren; geen universele richting |
-
-**Nieuwe afhankelijkheidscontrole:** Quinton §1 geeft expliciet aan dat het rijspoor/geen-rijspoordeel de data van Deasy 2009 heranalyseert; daarnaast worden andere maatregelgegevens gebruikt. De twee publicaties mogen daarom niet als twee onafhankelijke bevestigingen van hetzelfde TP-effect in een ensemble worden geteld. Eerst dataset/site/jaar-overlap scheiden. Quinton behandelt gebeurtenissen als onafhankelijk; herhaalde waarnemingen aan dezelfde locatie blijven een te toetsen statistische afhankelijkheid. Een gestandaardiseerde effectgrootte neemt milieuverschillen niet weg.
-
-**Geen semantische verwisseling:** het circa 7%-runoffgetal in Quinton gaat over verschil in percentage neerslag dat als runoff verschijnt, geen Nederlandse schadefractie en geen bevestiging van de Britse Defra-aanname. De precieze procentpuntinterpretatie moet aan de variabeledefinitie worden gebonden. Het is niet gebruikt als rekeninput.
-
-#### Receptorbelasting: wat is rekenkundig nodig?
-
-Gebruik per stof, route en tijdsinterval de **gelijktijdige** waterhoeveelheid en representatieve concentratie. Bij V in m³ en C in mg/L is de massa V×C/1000 kg. Een gemiddelde concentratie zonder bijbehorend volume is geen vracht; een rekenkundig gemiddelde van losse monsters is niet automatisch een afvoergewogen gemiddelde. Verschillen worden pas berekend nadat beide behandelingen op dezelfde oppervlakte, periode, stofvorm en doorsnede staan.
-
-- **N:** totaal-N, nitraat en ammonium afzonderlijk; geen optelling van totaal-N met zijn componenten.
-- **P:** totaal-P omvat opgeloste en particulaire fracties; geen dubbeltelling van TP en die fracties. Sedimentmassa alleen bepaalt geen P-vracht.
-- **Middelen:** stofspecifieke massa en toepassingsdosis/tijdstip behouden; metabolieten niet als dezelfde massa-eenheid bij de moederstof optellen zonder omzettingsbasis.
-- **Routes:** afvoer bij de drainuitlaat en dezelfde massa later in de ontvangende sloot zijn opeenvolgende doorsneden, geen twee onafhankelijke emissies. Neerwaartse uitspoeling die later in de drain terugkomt mag niet tweemaal worden geboekt.
-- **Ontvangst:** veldrandmassa is bronbelasting. Retentie, omzetting, latere remobilisatie en tijdvertraging bepalen de belasting van het gekozen waterlichaam.
-
-**Teken van het netto effect blijft open:** minder bypass door beschadigde macroporiën kan samengaan met meer oppervlakteafspoeling. De beschikbare middelendata bewijzen de route, niet dat verdichting die route altijd verlaagt of verhoogt. Voor P kan minder erosieve afvoer baten geven, terwijl grondwater-/draintransport anders reageert. Voor N kunnen veranderde vocht- en redoxcondities naast transport ook omzetting veranderen. Geen daarvan volgt uit de EC1-runofffactor.
-
-#### Afsluiting van deze grote werkeenheid
-
-**Bereikt:** één gezamenlijke EC4/EC5-resultaatmatrix, controle van primaire betekenis van beschikbare getallen, expliciete datasetoverlap, gebeurtenis/jaar- en concentratie/vracht-scheiding, en receptor-/dubbeltellinggrenzen. Het nieuwe resultaat is een beter afgebakende empirische effectbasis, niet een extra monetair scenario.
-
-**Niet bereikt:** netto Nederlandse receptorvracht door geïsoleerde ondergrondverdichting. Daarvoor ontbreekt een passend behandelingspaar met gelijktijdige routevolumes en stofmetingen. Meer berekeningen met alleen runoff of landelijke emissietotalen vullen dat niet aan.
-
-**Gerichte vervolglevering, geen nieuwe brede broninventarisatie:** één bestaande dataset met per behandeling dezelfde toediening/bemesting, bodemdiepte/-toestand, gebeurtenisvolumes en afvoergewogen stofmetingen voor oppervlakteafvoer en drainage. Voor EC5 kan de Nederlandse Andelst-dataset een transportbenchmark zijn, maar zonder bodemcontrast geen attributiecasus. Voor EC4 blijven Britse rijspoorproeven een apart te rapporteren maatregelroute. Kosten van P-reductie of zuivering zijn geen vervangende schadeprijs zolang receptor en additionele beheerreactie ontbreken.
-
-De huidige EC4/EC5-routebeoordeling is hiermee afgesloten **met beperkingen**. Geen nationale stofvrachtfactor, geen extra eurobedrag, geen nieuwe modelcampagne en geen wijziging van bestaande canonieke ensemblekwalificaties. EC2, EC3 en EC6 blijven zelfstandige niet-monetaire/fysieke effectroutes in hoofdstuk 3.
-
-## 1. Onderzoeksvraag, systeemgrens en bestaande methode
-
-De centrale vraag is wat **huidige schadelijke ondergrondverdichting**, in vergelijking met een relevante en fysisch mogelijke minder verdichte referentie bij dezelfde bodem, hetzelfde landgebruik en vergelijkbare omstandigheden, betekent voor **landbouw en maatschappij**.
-
-De bestaande methode onderscheidt:
-1. **Toestand/exposure**: waar, op welke diepte, welk bodemtype en welke verdichtingsgraad;
-2. **Respons**: hydrologie, wortelgroei, productie, biogeochemische processen en bodemfuncties onder weer en systeemcontext;
-3. **Attributie**: CURRENT minus een expliciet verantwoorde REFERENCE, niet vergelijking met een willekeurig ideale bodem;
-4. **Transfer**: welke perceelsrespons daadwerkelijk een andere actor, het ontvangende water of het regionale systeem bereikt;
-5. **Waardering**: welke additionele private, publieke en maatschappelijke gevolgen kunnen worden gewaardeerd.
-
-We gebruiken de **lichtste verdedigbare route**: direct empirisch bewijs waar mogelijk; anders eenvoudige, controleerbare relaties; alleen wanneer materiële onzekerheid daardoor werkelijk verkleint een gericht procesmodel. Een schadefactor zonder voldoende context wordt niet geïntroduceerd om een totaalcijfer te verkrijgen.
-
-De landelijke verdichtingsmeetset van circa 1.800 locaties en nieuwe SWAP-berekeningen zijn **bewust geparkeerd**. De publieke/historische areaalgegevens worden niet verward met actuele blootstelling. Geen terugwerkende invulling met Defra-percentages.
-
-### 1.1 Twee systemen van F-codes: expliciet onderscheiden
-
-**PATH_F1–PATH_F6** verwijzen als leesalias naar de **oorspronkelijke proces-/effectpadstappen** uit document 49. **EC1–EC6** zijn hier uitsluitend de zes **maatschappelijke effectcategorieën** uit het recente causale netwerk. Zij zijn niet dezelfde variabelen en mogen niet automatisch worden gekoppeld. In de oudere `evidence/offsite_results_matrix_v0_1.csv` staan dezelfde zes categorieën historisch nog onder F1–F6. Dit is een presentatieconflict, geen reden om canonieke sleutels of vergelijkingen zonder migratie te herschrijven.
-
-## 2. Reeds bestaande berekeningsgereedheid: on-site
-
-De bestaande [on-site rekensurface](52_onsite_bounded_calculation_surface_v0_1.md) en `evidence/onsite_bounded_calculation_surface_v0_1.csv` bevatten **vier** expliciete doelstrata, met een historische rapportageareaalbasis uit **2018**. De oppervlaktewaarden zijn gemarkeerd `MIGRATION_BASELINE_REVERIFY_TABLE`: nog geen volledig opnieuw geverifieerde huidige areaalinputs.
-
-| Stratum | Historisch ouder-areaal (2018) | Ensemble | Hoofdblokkade |
-|---|---:|---|---|
-| Gras / overige zandgronden | 331.592 ha | ENS_O1_GRASS_SAND | Actuele diepte×ernst-exposure; referentie; prijs/marge |
-| Gras / zandige eerdgronden | 124.495 ha | ENS_O1_GRASS_SAND, transfer te toetsen | Als boven plus bodemtype-overdracht |
-| Akkerbouw / overige zandgronden; snijmaïs als deelgewas | 348.814 ha **akkerbouw**, niet mais | ENS_O1_MAIZE_SAND | Maïsaandeel, exposure, responsmatch, waardering |
-| Akkerbouw / zandige eerdgronden; snijmaïs als deelgewas | 94.578 ha **akkerbouw**, niet mais | ENS_O1_MAIZE_SAND, transfer te toetsen | Maïsaandeel, exposure en contexttransfer |
-
-**Geen van de vier heeft een actuele schade-euro-uitkomst.** Ook bij een correcte gebiedsoppervlakte ontbreekt de verdichte fractie met passende diepte/severiteit; bij de akkerbouwstrata ontbreekt daarnaast de juiste gewasoppervlakte. De volgende uitkomststatus blijft `BOUNDED_NO_DAMAGE_RESULT`.
-
-### 2.1 Kwantitatief beschikbare on-site studie-uitkomsten
-
-| Context | Uitkomst uit bestaand evidence-ensemble | Wat de uitkomst wel zegt | Wat niet |
-|---|---|---|---|
-| Nederlands zand / snijmaïs; Alblas et al. (1994) | Ca. **4%** opbrengstrespons bij 5 Mg aslast en **15%** bij 10 Mg, contextmaximum tot 38% | Experimentele respons op berijdingsbelasting op vier locaties, afhankelijk van bodem en weer | Niet gelijk aan actuele CC-NL-ernstklasse of nationaal verlies |
-| Historische Alblas-inschatting | **7%** Nederlandse snijmaïsproductie | Historische sanity check uit broncontext | Geen 2026-waarde |
-| Gras, langjarig, bodemverbeteringsmodellen Groenendijk et al. (2017) | **3–5%** hogere opbrengst na bodemverbetering | Inverse, profiel-/weersafhankelijke verbetering | Niet automatisch 3–5% verdichtingsschade |
-| Gras, droog jaar, Groenendijk et al. (2017) | **17–23%** verbetering | Droog-jaar scenario, fysische waterbeschikbaarheid belangrijk | Niet naar gemiddeld jaar annualiseren |
-| Snijmaïs, langjarig bodemverbeteringsmodel | **0–2%** verbetering | Modelscenario op gekozen profielen | Niet direct de Alblas-berijdingsbehandeling |
-| Snijmaïs, droog jaar bodemverbeteringsmodel | **3–41%** verbetering | Grote klimaat-/profielgevoeligheid | Geen landelijke onzekerheidsinterval |
-| Arts en Snijders, Nederlands grasland | Niet-monotone en deels van teken veranderende effecten | Positieve én negatieve graskwantificering mogelijk afhankelijk van context | Geen universele afname met meer verdichting |
-| BoVer 3404, fijne zandgrond, maïskolommen | Scheutdrogestof S0 **18,758 g** naar S4 **11,613 g** bij geforceerde droogte; significante hoge-behandelingseffecten | Mechanistisch bewijs voor wortelaanpassing en vroege vegetatieve groei | **Niet** een oogstopbrengstverschil; geen landelijke schade |
-
-De grens tussen bronnen is essentieel: *axle-load-treatment*, *removal of compaction plus soil-improvement*, *laboratoriumkolom* en *landelijke actuele verdichtingsklasse* zijn geen uitwisselbare blootstellingen. Daarom bevat het oorspronkelijke ensembleprotocol voor gras en maïs `SCENARIO_ENSEMBLE`, niet een centraal schadepercentage. [Bronmigratie 51](51_onsite_ensemble_source_migration_v0_1.md), [BoVer-review 97](97_bover_3404_primaire_parameterreview_20261028.md).
-
-### 2.2 Overige on-site gevolgen die zelfstandig moeten blijven
-
-- **O2 productkwaliteit:** crop-specifieke sortering, maat, afkeur en marktwaarde. Copas et al. (2009) bij aardappel waarschuwt dat diep losmaken niet automatisch totale marktbare opbrengst verhoogt; kwaliteit of sortering kan anders reageren. Onvoldoende voor nationale opbrengst-/kwaliteitsschade.
-- **O3 waterstress en beregening:** zie EC2 hieronder. Potentiële waterbehoefte is niet feitelijk toegediend water; laat waterkosten en opbrengstschade niet overlappen zonder expliciet netto boereninkomen te definiëren.
-- **O4 bewerkbaarheid/extra bewerkingen:** meer trekwerk, brandstof, arbeid of timingkosten alleen na gemeten/onderbouwde bedrijfsmatige respons. Britse Defra-aannames vervangen geen Nederlands bedrijfsbewijs.
-- **O5 economische consolidatie:** brutoproductiewaarde, private marge en maatschappelijke welvaartsverandering zijn verschillende perspectieven. Zij worden niet opgeteld.
-
-## 3. Zes off-site effectcategorieën: fysieke en maatschappelijke balans
-
-De hier gebruikte **EC-codes** zijn rapportagecategorieën. Zij veranderen niet de technische `PATH_F1–PATH_F6` of V01–V42.
-
-### EC1. Wateroverlast en bemaling
-
-**Fysisch voldoende onderbouwd:** verandering van poriën, waterretentie, verzadigde/onverzadigde doorlatendheid, worteldiepte en infiltratie kan oppervlakkige afstroming, drainage, bodemopslag en timing beïnvloeden. Reële effecten hangen sterk af van laagdiepte, voornatheid, maaiveldberging, neerslagintensiteit, grondwater en drainage.
-
-**Kwantitatieve bronuitkomsten:**
-- Groenendijk/WENR 2811, onderliggend Schipper 2015: ongeveer **10 mm/jaar** extra perceelsafstroming bij snijmaïs in langjarig modelscenario, ongeveer **12 mm/jaar** bij extremere weerscontext. Dit zijn **geen betrouwbaarheidsgrenzen**.
-- Vlaamse casus Van der Bolt 2016, samengevat in WENR 2811: **5→14 mm/jaar** extra oppervlakkige afstroming volgens samenvatting, **4→14 mm/jaar** volgens tabel 1.1. Het beginverschil is **nog onopgelost** in de bronreconciliatie; dus rapporteer voorlopig **9 of 10 mm/jaar afhankelijk van welk bronvoorbeeld**, niet als een precieze éénwaarde.
-- Deze resultaten zijn modeluitkomsten met onderscheiden huidige/verbeterde scenario's, geen gecontroleerd landelijk veldcontrast uitsluitend van 30–100 cm-verdichting.
-
-**Wat de maatschappelijke kosten zouden vereisen:** perceelsvolume/afvoertiming → werkelijk afgeleverd hydrogram → stuw-/pomp-/bergingrespons → verandering in overstromingskans en blootstelling → werkelijke additionele schade of marginale beheerkosten. Niet alle extra perceelsafvoer veroorzaakt extra pomparbeid of overlast. Pompenergie én resterende overstromingsschade zijn alleen samen rapporteerbaar als het werkelijk verschillende additionele effecten betreft.
-
-**Defra-waarschuwing:** SP1606 Appendix H eindigde voor flooding in een aanname van ongeveer **7%** runoff-effect → **7%** maatschappelijke schadekosten, met centraal **£168 miljoen/jaar**. Geen Nederlandse coefficient en geen gekwalificeerde transferfunctie. [Defra 101](101_defra_appendix_h_occurrence_volledige_methodereconstructie_v0_1.md).
-
-**Tussenuitkomst:** brongebonden lokale hydrologische scenario's beschikbaar; **geen regionale of nationale waterschade** bepaald. Niet-gemonetariseerd: kans op natschade en afhankelijkheid van systeemcapaciteit.
+| 80,80,80,80,0,0 m³ per uur | 320 | 320 | 0 | 0 |
+| 240,80,0,0,0,0 | 320 | 320 | 140 | 0 |
+| 240,160,0,0,0,0 | 400 | 350 | 150 | 50 |
+| Laatste instroom, opslag 200 m³ | 400 | 400 | 200 | 0 |
+| Laatste instroom, pomp 125 m³/uur | 400 | 400 | 150 | 0 |
+
+Alle eindopslagen zijn nul; de massabalansen sluiten. Alleen versnelling kan extra berging vragen zonder extra pompvolume. Overloop is hier definitief verlies uit het rekensysteem, niet berekende maatschappelijke schade. De 50 m³ extra opslag of 25 m³/uur extra capaciteit zijn geen werkelijke ontwerpeisen. De proef controleert systeemlogica en levert geen empirisch effectbewijs.
+
+## 4. Overige fysieke en ecologische effecten
 
 ### EC2. Wateraanvoer, waterbeschikbaarheid en grondwater
 
@@ -650,96 +122,49 @@ De hier gebruikte **EC-codes** zijn rapportagecategorieën. Zij veranderen niet 
 
 **Tussenuitkomst:** mechanismen kwalitatief goed onderbouwd, concrete experimentele herstelverschillen, **geen nationale ecologische omvang en geen betrouwbare monetarisering**. Dit is een zelfstandig wetenschappelijk resultaat, geen restcategorie.
 
-## 4. Overzicht: wat is nu bewijs en wat niet?
 
-| Onderdeel | Direct gemeten of berekend? | Bruikbaar bij eigen broncontext? | Nationaal subsoil-effect? | Monetaire uitkomst? |
-|---|---|---|---|---|
-| O1 opbrengst gras/maïs | Ja: veldexperimenten en modelscenario's | Ja, met volledige condities | **Nee** | **Nee** |
-| O2 kwaliteit | Beperkte specifieke studies | Soms | **Nee** | **Nee** |
-| O3/EC2 beregening | Ja: modelscenario's | Ja, potentiële behoefte | **Nee** | **Nee** |
-| EC1 perceelsafstroming | Ja: modelscenario's | Ja, bronrespons | **Nee** | **Nee** |
-| EC3 N₂O | Ja: verkeersbehandeling en ondergrond-gastransport | Ja, verschillende eindpunten | **Nee** | **Nee** |
-| EC4 N/P | Ja: oppervlakkige-P-rijsporen en routekennis | Ja, bij dezelfde behandelingen | **Nee** | **Nee** |
-| EC5 middelen | Ja: transportwaarnemingen | Ja, geen verdichtingscontrast | **Nee** | **Nee** |
-| EC6 ecologie | Ja: beperkte organisme-/herstelmetingen | Ja, contextspecifiek | **Nee** | Niet vereist voor relevantie |
+### 4.1 Aanscherping EC4/EC5 na primaire publicatiecontrole
 
-**Geen bekende fysieke verandering aan een route is automatisch een netto welvaartsschade.** Omgekeerd is het ontbreken van monetarisering geen argument om het effect uit de inventarisatie te schrappen.
+Quinton (2024), DOI 10.1111/sum.13158, heranalyseert voor rijspoor/geen-rijspoor deels Deasy (2009). Dat zijn geen onafhankelijke datasets. De circa 40 g TP/ha hoort bij de gebeurtenisgebaseerde analyse; het gepoolde contrast was bij de gehanteerde p<0,1 niet significant door brede intervallen. De 5 en 15 g/ha per event voor harrow en combinatiebehandeling zijn weer andere statistische uitkomsten. Geen van deze getallen wordt geannualiseerd of gepoold met 1,06 kg TP/ha uit Deasy. Volledige supplementdata zijn niet herberekend.
 
-## 5. Waardering en de partiële schadebalans
+Bij Scorza Júnior (2004), DOI 10.2134/jeq2004.1473, is circa een orde verschil tussen drain- en grondwaterconcentratie een routewaarneming, geen verdichtingseffect of vrachtverhouding. Een waterkwaliteitsuitkomst vereist gelijktijdige waterhoeveelheid en representatieve stofconcentratie op dezelfde doorsnede. Bij m³ en mg/L: massa in kg = volume × concentratie /1000. Bronvracht, receptorvracht en concentratie na verdunning blijven verschillende grootheden.
 
-Het bestaande formele model en de on-site rekensurface hebben al de benodigde structurele berekeningen. Er worden **geen nieuwe symbolische ‘schadefactorformules’** als alternatieve autoriteit geïntroduceerd.
+## 5. Economische interpretatie en dubbeltelling
 
-### 5.1 Wat werkelijk tot geld kan leiden na toelating
+Er is voor geen van de zes categorieën een actuele nationale monetaire factor toegelaten. Alleen de expliciet beschreven energieboekhouding is numeriek monetair; deze mag niet als werkelijke schade in een subtotaal verschijnen.
 
-| Schadepost | Additionele geldelijke grootheid | Nog noodzakelijk | Risico op dubbeltelling |
+- Extra beheer en **resterende** overlastschade kunnen samen bestaan; tel vermeden schade niet nogmaals als actuele schade.
+- Extra aanvoer vraagt werkelijk geleverd of aantoonbaar onvervuld water, niet alleen potentiële irrigatievraag.
+- Klimaatwaardering vraagt netto stofspecifieke emissie. Gastransport of landelijke landbouwemissies leveren geen toerekenbare flux.
+- Zuiverings-/maatregelkosten zijn niet automatisch welvaartsschade en vervangen ontbrekende receptorvracht niet.
+- Totaal-N/P wordt niet opgeteld bij de eigen componenten. Dezelfde massa bij drain en ontvangende sloot wordt niet tweemaal geboekt.
+- Ecologische terugkoppeling via poriënherstel is geen los jaarlijks bedrag naast dezelfde hydrologische baat.
+- Defra SP1606 blijft methodologische referentie; de 7%-runoff/schadeproportionaliteit is niet overgenomen.
+
+## 6. Bewijscontrole, registers en reproduceerbaarheid
+
+De bronbeoordeling is afgerond **voor de gecontroleerde selectie**, niet voor de volledige literatuur. WUR/STOWA-rapporten zijn deels rechtstreeks gelezen; onder meer Capowiez, Deasy en Scorza zijn voor onderdelen abstract-/synthesegebonden. Geen volledige statistische heranalyse wordt geclaimd.
+
+De bestaande evidence- en qualification-registers blijven leidend voor numerieke admission. De review-CSV `evidence/offsite_results_matrix_v0_1.csv` is inhoudelijk achtergebleven bij de recente broncontrole, met name EC4/EC5. De oude F1–F6-sleutels daarin zijn categorieën en mogen niet worden gejoined met de proces-F1–F6 uit document 49. Deze rapportage gebruikt EC1–EC6. Er is geen stille sleutelmigratie of statusverhoging uitgevoerd.
+
+De opslagproef en eerdere rekenbestanden zijn lokaal uitgevoerd; projectvalidator en 61 bestaande tests slaagden op die werkbasis. Dit bewijst software-/registerintegriteit, geen empirische validatie. De huidige herschikking introduceert geen nieuwe numerieke uitkomst of modelcode.
+
+## 7. Drie gerichte vervolgkeuzes
+
+| Pakket | Wat het ontsluit | Concrete minimale levering | Status |
 |---|---|---|---|
-| O1 opbrengst | Verloren output/marge per gewas en gebied | Actuele verdichtings-exposure, passende respons en economische eenheid | Productiewaarde versus private marge; droogteschade elders |
-| O2 kwaliteit | Prijs-/sorteringsverschil of afkeur | Relevante teelt/marktrespons | Reeds in opbrengstprijs of marktbaar aandeel |
-| O3 beregening | Werkelijke extra onttrekking en bedrijfskosten, of verschil in netto bedrijfsresultaat | Gedrag, waterbron, werkelijk gebruik | Opbrengstverlies en vermeden beregeningskosten |
-| O4 bewerkingen | Extra arbeid, brandstof, materiaal, werkelijk tijdverlies | Agronomische bedrijfsgegevens | Brandstof-/werkzaamheden reeds in bruto marge |
-| EC1 bemaling | Additionele operationele energie/O&M of aantoonbaar vermijdbare capaciteit | Gekwalificeerde extra pompuren/volume en technische bedrijfscurve | Pompactie vs vermeden overlastschade |
-| EC1 overlast | Verandering van verwachte schade aan blootgestelde receptoren | Overstromingskans, waterdiepte, schadefuncties | Eigen reeds getelde landbouwschade of beheerinvesteringen |
-| EC2 regionale aanvoer | Additionele echte resource-/schaarstekosten | Feitelijke levering, allocatie, tekort | Private beregening, droge-jaar opbrengstschade |
-| EC3 klimaat | Netto additionele N₂O/CH₄ klimaatlast | Subsoil-flux, tijd, areaal, waarderingsjaar | Dubbele emissietelling via N-balans en bemestingsketen |
-| EC4 waterkwaliteit | Extra verwijderings-/zuiveringskosten of ecologisch welvaartsverlies | Receptorvracht, respons en kostenrelatie | KRW-maatregelen vs schade, dezelfde N/P-impact |
-| EC5 middelen | Werkelijke stofspecifieke schade of extra behandeling | Receptorblootstelling en toxiciteit | Met EC4 of algemene waterkwaliteitsmaatregelen |
-| EC6 ecologie | Niet zonder afzonderlijke waarderingsstudie | Zelfstandige ecologische eindpunten, vermijding overlap | V42 hydrologisch herstel reeds bij EC1–EC5 |
+| Hydrologie en beheer | Van bronrespons naar piekbelasting en kosten | Gepaarde RUNOFF/DRN/RIV-reeksen, receptor/routing, beginpeil, peil-bergingsrelatie en afvoerregeling | Niet verworven; geen nieuwe zoekrondes naar dezelfde samenvatting |
+| Waterkwaliteit | Netto stofvrachtverschil | Bodemcontrast met dezelfde toediening en gelijktijdige routevolumes/concentraties, receptor en stofvorm | Niet beschikbaar in gecontroleerde selectie |
+| Ondergrondfunctie: gas en ecologie | Directe ondergrondattributie naast monetariseerbare routes | Bestaande proefgegevens met dieptecontrast, netto gasflux en/of onafhankelijke organismen-/functiematen | Eerst concrete bestaande dataset identificeren; geen nieuwe veldcampagne besloten |
 
-### 5.2 Momenteel toegestaan financieel resultaat
+Deze keuzes worden gewogen op causaliteit, ernst, informatiewinst en haalbaarheid, niet alleen op euro’s. Geen extern gegevensverzoek is verzonden. Landelijke meetdataset en nieuwe SWAP-runs blijven geparkeerd.
 
-Een **landelijk €-totaal ontbreekt**. We rapporteren niet fictief `€0–€X`, en rekenen geen £-bedragen om. De bestaande vier nationale on-site surfaces zijn **rekenkundig gespecificeerd, niet gevuld**. §I/J voegen afzonderlijke economische rekenscenario’s toe; die vullen de ontbrekende exposure, responsmatch en marginale kosten niet in. EC1–EC6 hebben geen toegelaten nationale monetaire factor. Voor expertcommunicatie is een **dekkings- en schadebalans met expliciete lege bedragen** daarom correct.
+Voor expertbespreking blijven open: de passende referentietoestand/diepte; monetaire en niet-monetaire rapportagegrens; welke additionele beheer- en schadeposten samen mogen worden opgenomen; en welk gegevenspakket eerst wordt verkregen. Dit zijn voorstellen, geen aangenomen expertbesluiten.
 
-De latere monetaire bandbreedte mag alleen bestaan uit **toegelaten en niet-overlappende** posten. Het concept ‘on-site + off-site’ is een rapportagestructuur, geen opteltoestemming. Houd private kost, publieke uitgave en maatschappelijke welvaart onderscheiden.
+## 8. Herkomst en behoud van eerdere analyses
 
-## 6. Onzekerheden en informatiewaarde
+Deze versie vervangt de opeenvolgende aanvullingen A–S door een thematische hoofdtekst. De resultaten, rekenaannames en toepassingsgrenzen zijn hierboven samengebracht. De eerdere versie 2.6 met volledige detailchronologie en geparkeerde on-site tabellen blijft beschikbaar via [de vastgelegde Git-versie](https://github.com/abhedwig-cell/Bodemverdichting_kosten/blob/fd63c0dbd1693c8fe6c313bb11d178d3701b8814/docs/112_integrale_wetenschappelijke_tussenbalans_20261028.md).
 
-| Onzekerheid | Effect op werkelijke conclusie | Wat helpt | Huidige actie |
-|---|---|---|---|
-| Actuele areaal- en toestandspreiding | Blokkeert nationale aggregatie in bijna alle routes | Landelijke meetdataset incl. steekproefontwerp, bodem/landgebruik/diepte | **Later**, door gebruiker geparkeerd |
-| Fysische response-match | Kan teken en omvang wisselen door weer, gewas en comparator | Primair broncontrast en bestaande ensemblekwalificatie | **Nu alleen passende bestaande bronnen** |
-| Runoff-afvoer naar regionaal systeem | Mogelijk grote schadeverandering, maar geen lineaire relatie | Event- en systeemdata met gekoppelde routing/exposure | Later gerichte pilot, geen generiek factor |
-| Emissie van ondergrond | Directe netto emissie door alleen 30–100 cm nog niet geïsoleerd | Specifieke veldstudie N₂O/CH₄, productie en transport gescheiden | Gerichte broncheck, geen factor |
-| N/P-routes | Netto vrachtverandering kan van teken wisselen | Flux×concentratie per route, bemesting en receptor | Eerst empirische identificeerbaarheid |
-| Stoffen en ecologie | Materiële gevolgen kunnen buiten huidige monetarisering vallen | Specifieke stof/organisme, blootstelling en functie | In balans behouden |
-| Economische perspectieven/dubbeltelling | Kan eindtotaal principieel veranderen | Definities private/publieke/welvaart; marginale kosten, receptor | **Nu expliciete expertbeslissing** |
+Onderliggende dossiers: [103](103_gerichte_bewijstoets_n2o_nutrienten_wateroverlast_20261028.md), [105](105_fysieke_contrasten_nutrienten_n2o_dieptetoets_20261028.md), [107](107_waterbeschikbaarheid_middelen_bodemleven_broncontrole_20261028.md), [108](108_methodiek_verschillenanalyse_20261028.md), [109](109_offsite_ensemble_protocol_toepassing_v0_1.md), [110](110_broncontrole_hydrologische_ensembles_wenr2811_20261028.md) en [111](111_schipper_vanderbolt_bronmethodetoets_20261028.md). Oudere formuleringen erven geen hogere status door herhaling; bij de 12-mm-statistiek en Quinton-datasetoverlap geldt de expliciete precisering in deze versie.
 
-We prioriteren niet alleen op relatief grote Britse kostenbedragen of op wat het gemakkelijkst in euro's is uit te drukken. Informatiewaarde omvat ook ernst, causaliteit, verkleinbaarheid van onzekerheid en het behouden van wezenlijke ecologische/receptor-gevolgen.
-
-## 7. Vijf gerichte beslissingen voor expertgroep
-
-**D1. Afbakening.** Is uitsluitend *schadelijke antropogene ondergrondverdichting* met bodemtype-, diepte- en referentiecontext de juiste primaire nationale causale estimand, met bovenlaag-/rijspoorbewijs slechts proxy?
-
-**D2. Schadebalans en output.** Accepteren we het publieke eindproduct als (a) gekwalificeerd monetair subtotaal/bandbreedte waar verantwoord, **plus** (b) fysieke effecten met eigen bandbreedtes en (c) relevante kwalitatieve ecologische/maatschappelijke effecten, zonder ze te reduceren tot een onvolledig €-totaal?
-
-**D3. Waterbeheer.** Welke twee of drie regionale systeemklassen zijn noodzakelijk, en welke marginaal werkelijke kosten mogen bij eventueel extra bemalen water worden gewaardeerd zonder overlastschade dubbel te tellen?
-
-**D4. Causaliteit van stoffen en emissies.** Welke specifieke proeven zijn als directe **ondergrond**-contrasten aanvaardbaar? Wordt een waterkwaliteitseffect pas als kwantitatief beschouwd als totaalvracht naar de receptor aantoonbaar verandert, en een klimaateffect pas bij netto-flux?
-
-**D5. Prioriteit 2027.** Welke onzekerheid verdient een nieuwe dataset of modelproef? Voor iedere kandidaat expliciet de kans om de schadeband of de ecologische effectbeoordeling werkelijk te veranderen, zonder nu al de landelijke meetdataset of SWAP te heropenen.
-
-### Voorgestelde bespreekstructuur
-
-- **10 minuten:** bevestig de bestaande methodiek (02/04/49/50/59) en het verschil tussen PATH_F1–F6 en EC1–EC6.
-- **15 minuten:** toets de on-site scenario-resultaten en welke resultaten in publicatie als fysiek en conditioneel zijn toegestaan.
-- **20 minuten:** bespreek de zes EC-categorieën en drie belangrijkste ontbrekende causale schakels.
-- **15 minuten:** neem D1–D5 op als besluiten, inclusief schadebegrippen en niet-monetaire rapportage.
-
-Geen nieuwe brede bespreking van alle 42 pijlen; de technische figuren blijven achtergrond.
-
-## 8. Concrete gezamenlijke werkafspraken na deze consolidatie
-
-1. **Houd document 112 als integrale tussenbalans actueel**, niet een oneindige serie evenwijdige literatuurnotities. Wijzig onderliggende bronregisters uitsluitend bij feitelijke bron- en qualificationwijziging.
-2. Gebruik document 49/50 als *methodische authority* en document 52 als bestaande on-site uitvoercontract. Dit is geen herschreven nieuw methodemodel.
-3. Behoud de zes EC-categorieën als aparte rapportage-uitkomsten. Hanteer nooit kale `F1–F6` in gecombineerde tabellen zonder de betekenis te vermelden.
-4. Rapporteer ieder numeriek getal met studie, schaal, jaar/weersituatie, comparator, eenheid, rol en niet-toegestane extrapolatie. De 9/10 mm Vlaanderen-afwijking blijft als onopgeloste broninconsistentie zichtbaar.
-5. Latere integratie van de nationale meetgegevens en SWAP alleen na een gerichte identificeerbare vraag; beide zijn bewust niet gestart in deze ronde.
-
-## 9. Bronkaart en kwaliteitsgrens
-
-**Bestaande projectautoriteiten:** [02](02_theoretical_framework.md), [04](04_formal_model.md), [49](49_project_effect_pathway_matrix_v0_1.md), [50](50_evidence_ensemble_protocol_v0_1.md), [51](51_onsite_ensemble_source_migration_v0_1.md), [52](52_onsite_bounded_calculation_surface_v0_1.md), [59](59_bespreekschema_werkwijze_en_einddoel_v0_1.md).
-
-**Causaal netwerk en synthese:** [89](89_causaal_netwerk_v0_7.md), [93](93_primaire_broncontrole_hydrologie_gewas_N2O_20261028.md), [97](97_bover_3404_primaire_parameterreview_20261028.md), [100](100_graves_defra_nederlandse_eindpunten_omgekeerde_schadebenadering_v0_1.md), [101](101_defra_appendix_h_occurrence_volledige_methodereconstructie_v0_1.md), [102](102_offsite_zes_categorieen_resultatenmatrix_v0_1.md), [103](103_gerichte_bewijstoets_n2o_nutrienten_wateroverlast_20261028.md), [104](104_kwantitatieve_contrasttoets_n2o_en_harde_datagrenzen_20261028.md), [105](105_fysieke_contrasten_nutrienten_n2o_dieptetoets_20261028.md), [107](107_waterbeschikbaarheid_middelen_bodemleven_broncontrole_20261028.md), [108](108_methodiek_verschillenanalyse_20261028.md), [109](109_offsite_ensemble_protocol_toepassing_v0_1.md), [110](110_broncontrole_hydrologische_ensembles_wenr2811_20261028.md), [111](111_schipper_vanderbolt_bronmethodetoets_20261028.md).
-
-**Status van de bronnen:** verschillende getallen komen rechtstreeks uit primaire WUR-rapporten; Deasy/Quinton/Capowiez en enkele recente Deense studies zijn deels via publieke abstracts/publicatiebeschrijvingen beoordeeld. Niet elk genoemd onderzoek is integraal statistisch heranalyseerd. Dit overzicht **erft** de bestaande bronkwalificaties en versterkt ze niet automatisch. Het is een inhoudelijke synthese van het nu beschikbare dossier.
-
-**Review-oordeel:** klaar voor kritische expertbespreking; **niet** klaar voor nationaal jaarschadebedrag. Besloten is niets te wijzigen in de bestaande canonieke formules, claimregisters of het causale netwerk v0.7.
+**Eindoordeel:** bruikbaar als kritische integrale off-site tussenrapportage. Niet bruikbaar als landelijke jaarschadeberekening. Een beperkt monetair resultaat, een fysiek scenario, een kwalitatief ecologisch gevolg en een onbekend effect blijven afzonderlijke uitkomsten.
