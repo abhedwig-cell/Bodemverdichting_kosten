@@ -1,6 +1,6 @@
 # Integrale wetenschappelijke tussenbalans: kosten van ondergrondverdichting
 
-**29 oktober 2026 | SYNTHESIS v2.5 / RESULTS01 | Centraal inhoudelijk werkdocument voor expertbespreking**
+**29 oktober 2026 | SYNTHESIS v2.6 / RESULTS01 | Centraal inhoudelijk werkdocument voor expertbespreking**
 
 **Status: interne wetenschappelijke tussenbalans, geen afgeronde nationale schadeberekening.** Deze tekst is één leesbaar tussentijds onderzoeksresultaat, geen nieuwe methodiek, geen alternatieve bronregistratie en geen nieuwe numerieke admission. De oorspronkelijke autoriteiten blijven [theorie 02](02_theoretical_framework.md), [formeel model 04](04_formal_model.md), [effectpaden 49](49_project_effect_pathway_matrix_v0_1.md), [ensembleprotocol 50](50_evidence_ensemble_protocol_v0_1.md) en [beslisschema 59](59_bespreekschema_werkwijze_en_einddoel_v0_1.md). Voor de zes off-site categorieën wordt aangesloten bij [causaal netwerk v0.7](89_causaal_netwerk_v0_7.md). Detailonderzoek staat in [documenten 90–111](90_teams_literatuur_intake_20261028.md).
 
@@ -488,6 +488,46 @@ Dit pakket is een **specificatie voor gerichte verwerving**, geen verzonden verz
 **Besluit voor werkregie:** EC1 bronanalyse en synthetische gevoeligheid zijn voor de nu beschikbare invoer voldoende uitgewerkt. Geen herhaling van algemene bronzoekrondes, fictieve hydrogrammen of prijsvarianten. De empirische systeemkoppeling krijgt status **WAIT_PAIRED_RECEPTOR_SERIES_AND_SYSTEM_OPERATION**. Bij levering van de bovenstaande gegevens volgt in één blok: semantische controle, waterbalans, gepaarde belasting, berging/capaciteit, waardering en rapportage. Dit is geen wetenschappelijk nuleffect.
 
 **Onafhankelijk voortzetbaar off-site werk:** consolideer EC2–EC6 op hun eigen receptor-eindpunten. Prioriteit voor de volgende onderzoekswerkeenheid is EC4/EC5: routegebonden stofvracht en werkelijk ontvangend water onderscheiden van concentratie, met behoud van tekenonzekerheid en de grens tussen rijspoor-/bovengrond- en ondergrondbewijs. Start geen nieuwe modelcampagne en leid geen vrachtfactor uit het EC1-runoffscenario af.
+
+### S. Off-site waterkwaliteit: afgeronde route- en bewijstoets EC4/EC5
+
+**29 oktober 2026.** Bestaande dossiers 103/105/107 geconsolideerd en getoetst aan primaire publicatiepagina’s: Deasy et al. (2009), https://doi.org/10.2134/jeq2009.0028 (abstract); Quinton et al. (2024), https://doi.org/10.1111/sum.13158 (toegankelijke HTML-methoden en resultaten, met name §2.2 en §3.1–3.2); Scorza Júnior et al. (2004), https://doi.org/10.2134/jeq2004.1473 (uitgeversabstract). Geen volledige heranalyse van ruwe datasets of supplementtabellen. Nieuwe hieronder afgebakende informatie verhoogt geen nationale schade-admission.
+
+| Eindpunt en route | Empirisch bewijs | Kwantitatief bruikbaar binnen broncontext | Attributie / receptorgrens | Besluit |
+|---|---|---|---|---|
+| Totaal-P via oppervlakkige afstroming uit rijsporen | Deasy: rijspoorlosmaken versus traditionele rijsporen, Britse hellingproeven | Gemiddeld 1,06 kg TP/ha minder over vijf site-years volgens abstract; niet delen door vijf | Maatregel-/rijspoorcontrast, geen geïsoleerde ondergrond; plotuitvoer is niet ontvangst door waterlichaam | Lokale maatregel-evidence; geen NL-schadefactor |
+| Totaal-P, rijspoor versus geen rijspoor | Quinton §3.1.3 | Gemiddeld circa 40 g TP/ha verschil in gebeurtenisgebaseerde analyse; gepoold niet significant bij gehanteerde p<0,1 vanwege brede intervallen | Per gebeurtenisanalyse, niet jaarverlies; rijspoor herverdeelt ook toestroming | Richting en onzekerheid behouden; geen robuuste positieve jaarschade |
+| Totaal-P na rijspoormaatregelen | Quinton §3.2.3 | 50e-percentiel reducties circa 5 g/ha per event voor rotary harrow en 15 g/ha per event voor combinatie flexibele band + harrow | Niet dezelfde statistiek als Deasy-jaargang; geen statistisch significant totaal behandelingseffect door brede CI’s | Niet poolen/annualiseren zonder gebeurtenissen en toepassingsmatch |
+| Jaarlijkse TP-uitvoer rijspoorplots | Quinton abstract | 0,8–3,9 kg TP/ha/jaar | Belastingsniveaus, geen behandelingseffecten | Alleen broncontext; niet verschil met ondergrondreferentie |
+| Nitraat via drainage/grondwater | Bestaande WENR-synthese en drainage-guardrails | Geen nu toegelaten ondergrondspecifiek vrachtcontrast | Concentratie kan toenemen bij lager watervolume; omzetting/denitrificatie en routes afzonderlijk | Effectgrootte en teken niet invullen |
+| Bentazon/imidacloprid via drains | Scorza: Nederlands kleiperceel 1,2 ha, wintertarwe, drainage 0,8–0,9 m | Eerste afvoergebeurtenis hoogste drainconcentratie; ongeveer orde hoger dan grondwaterconcentratie | Macroporiën 0,3–1,0 m plausibele route; geen verdicht/niet-verdicht-paar | Direct Nederlands transportbewijs; geen verdichtingsrespons |
+| Middelen naar ontvangend oppervlaktewater | Geen passend gepaard receptorbewijs in gecontroleerde selectie | Geen gekwalificeerde delta-kg of delta-concentratie bij receptor | Afbraak, sorptie, routing, verdunning en timing ontbreken | Niet monetariseren; geen universele richting |
+
+**Nieuwe afhankelijkheidscontrole:** Quinton §1 geeft expliciet aan dat het rijspoor/geen-rijspoordeel de data van Deasy 2009 heranalyseert; daarnaast worden andere maatregelgegevens gebruikt. De twee publicaties mogen daarom niet als twee onafhankelijke bevestigingen van hetzelfde TP-effect in een ensemble worden geteld. Eerst dataset/site/jaar-overlap scheiden. Quinton behandelt gebeurtenissen als onafhankelijk; herhaalde waarnemingen aan dezelfde locatie blijven een te toetsen statistische afhankelijkheid. Een gestandaardiseerde effectgrootte neemt milieuverschillen niet weg.
+
+**Geen semantische verwisseling:** het circa 7%-runoffgetal in Quinton gaat over verschil in percentage neerslag dat als runoff verschijnt, geen Nederlandse schadefractie en geen bevestiging van de Britse Defra-aanname. De precieze procentpuntinterpretatie moet aan de variabeledefinitie worden gebonden. Het is niet gebruikt als rekeninput.
+
+#### Receptorbelasting: wat is rekenkundig nodig?
+
+Gebruik per stof, route en tijdsinterval de **gelijktijdige** waterhoeveelheid en representatieve concentratie. Bij V in m³ en C in mg/L is de massa V×C/1000 kg. Een gemiddelde concentratie zonder bijbehorend volume is geen vracht; een rekenkundig gemiddelde van losse monsters is niet automatisch een afvoergewogen gemiddelde. Verschillen worden pas berekend nadat beide behandelingen op dezelfde oppervlakte, periode, stofvorm en doorsnede staan.
+
+- **N:** totaal-N, nitraat en ammonium afzonderlijk; geen optelling van totaal-N met zijn componenten.
+- **P:** totaal-P omvat opgeloste en particulaire fracties; geen dubbeltelling van TP en die fracties. Sedimentmassa alleen bepaalt geen P-vracht.
+- **Middelen:** stofspecifieke massa en toepassingsdosis/tijdstip behouden; metabolieten niet als dezelfde massa-eenheid bij de moederstof optellen zonder omzettingsbasis.
+- **Routes:** afvoer bij de drainuitlaat en dezelfde massa later in de ontvangende sloot zijn opeenvolgende doorsneden, geen twee onafhankelijke emissies. Neerwaartse uitspoeling die later in de drain terugkomt mag niet tweemaal worden geboekt.
+- **Ontvangst:** veldrandmassa is bronbelasting. Retentie, omzetting, latere remobilisatie en tijdvertraging bepalen de belasting van het gekozen waterlichaam.
+
+**Teken van het netto effect blijft open:** minder bypass door beschadigde macroporiën kan samengaan met meer oppervlakteafspoeling. De beschikbare middelendata bewijzen de route, niet dat verdichting die route altijd verlaagt of verhoogt. Voor P kan minder erosieve afvoer baten geven, terwijl grondwater-/draintransport anders reageert. Voor N kunnen veranderde vocht- en redoxcondities naast transport ook omzetting veranderen. Geen daarvan volgt uit de EC1-runofffactor.
+
+#### Afsluiting van deze grote werkeenheid
+
+**Bereikt:** één gezamenlijke EC4/EC5-resultaatmatrix, controle van primaire betekenis van beschikbare getallen, expliciete datasetoverlap, gebeurtenis/jaar- en concentratie/vracht-scheiding, en receptor-/dubbeltellinggrenzen. Het nieuwe resultaat is een beter afgebakende empirische effectbasis, niet een extra monetair scenario.
+
+**Niet bereikt:** netto Nederlandse receptorvracht door geïsoleerde ondergrondverdichting. Daarvoor ontbreekt een passend behandelingspaar met gelijktijdige routevolumes en stofmetingen. Meer berekeningen met alleen runoff of landelijke emissietotalen vullen dat niet aan.
+
+**Gerichte vervolglevering, geen nieuwe brede broninventarisatie:** één bestaande dataset met per behandeling dezelfde toediening/bemesting, bodemdiepte/-toestand, gebeurtenisvolumes en afvoergewogen stofmetingen voor oppervlakteafvoer en drainage. Voor EC5 kan de Nederlandse Andelst-dataset een transportbenchmark zijn, maar zonder bodemcontrast geen attributiecasus. Voor EC4 blijven Britse rijspoorproeven een apart te rapporteren maatregelroute. Kosten van P-reductie of zuivering zijn geen vervangende schadeprijs zolang receptor en additionele beheerreactie ontbreken.
+
+De huidige EC4/EC5-routebeoordeling is hiermee afgesloten **met beperkingen**. Geen nationale stofvrachtfactor, geen extra eurobedrag, geen nieuwe modelcampagne en geen wijziging van bestaande canonieke ensemblekwalificaties. EC2, EC3 en EC6 blijven zelfstandige niet-monetaire/fysieke effectroutes in hoofdstuk 3.
 
 ## 1. Onderzoeksvraag, systeemgrens en bestaande methode
 
