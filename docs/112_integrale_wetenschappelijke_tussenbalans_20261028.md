@@ -1,6 +1,6 @@
 # Off-site gevolgen van ondergrondverdichting: wetenschappelijke tussenbalans
 
-**29 oktober 2026 | versie 3.0 | interne onderzoeksrapportage voor expertbespreking**
+**29 oktober 2026 | versie 3.1 | interne onderzoeksrapportage voor expertbespreking**
 
 ## 1. Uitkomst en afbakening
 
@@ -78,7 +78,7 @@ Alle eindopslagen zijn nul; de massabalansen sluiten. Alleen versnelling kan ext
 
 **Fysische route:** compaction → wortelbereik, opslag, capillaire nalevering en werkelijke ET → *potentiële* beregeningsbehoefte → boerbesluit en bronkeuze → werkelijk extra geleverde hoeveelheid / niet geleverde vraag → regionale schaarste- of omgevingsgevolgen. Diepe percolatie is niet automatisch netto regionale grondwateraanvulling.
 
-**Bestaande grenzen:** WENR 2811 rapporteert in **droge-jaren-modelscenario's** voor gras circa **50 mm** minder potentiële beregeningsbehoefte bij veldpodzol en **60–90 mm** bij ooivaaggrond na bodemverbetering. De Deense overview noemt een via Andersen et al. secundair gerapporteerde circa **90 mm** minder wortelzonewater onder een specifieke ondergrondverdichtingscontext: oorspronkelijke studie/definitie nog niet gecontroleerd. Beide zijn **niet** een landelijke actuele aanvoerbehoefte en meten verschillende eindpunten.
+**Bestaande grenzen:** WENR 2811 rapporteert in **droge-jaren-modelscenario's** voor gras circa **50 mm** minder potentiële beregeningsbehoefte bij veldpodzol en **60–90 mm** bij ooivaaggrond na bodemverbetering. Andersen, Munkholm en Nielsen (2013), DOI https://doi.org/10.1080/09064710.2013.789125, rapporteert in het primaire abstract tot circa **90 mm minder beschikbaar wortelzonewater**, afgeleid uit een geschatte effectieve worteldiepte die bij drie wintertarwerassen circa 10, 20 en 50 cm afnam. Deze primaire abstractbetekenis is nu gecontroleerd; de volledige methode en tabellen zijn nog niet gelezen. Het betreft een geschatte voorraadcapaciteit, geen gemeten jaarlijkse onttrekking of extra aanvoer. De proef omvat PAC-1 (primair ondergrond bedoeld), PAC-2 en REF; een bedoeling is geen bewijs van volledige diepte-isolatie. De ras×behandeling-interactie was niet significant; het maximum mag geen algemeen ondergrondeffect worden. Beide zijn **niet** een landelijke actuele aanvoerbehoefte en meten verschillende eindpunten.
 
 **Maatschappelijke waardering:** daadwerkelijke additionele oppervlaktewateraanvoer of grondwateronttrekking, energie, ruimtelijke allocatie en schaarstekosten zijn onderscheiden. Besparingen door niet-beregenen kunnen samengaan met opbrengstverlies; tel deze niet als twee volledig onafhankelijke welvaartskosten.
 
@@ -158,6 +158,20 @@ De opslagproef en eerdere rekenbestanden zijn lokaal uitgevoerd; projectvalidato
 | Ondergrondfunctie: gas en ecologie | Directe ondergrondattributie naast monetariseerbare routes | Bestaande proefgegevens met dieptecontrast, netto gasflux en/of onafhankelijke organismen-/functiematen | Eerst concrete bestaande dataset identificeren; geen nieuwe veldcampagne besloten |
 
 Deze keuzes worden gewogen op causaliteit, ernst, informatiewinst en haalbaarheid, niet alleen op euro’s. Geen extern gegevensverzoek is verzonden. Landelijke meetdataset en nieuwe SWAP-runs blijven geparkeerd.
+
+### 7.1 Gerichte selectie van bestaande proef- en dataroutes
+
+**Controle 29 oktober 2026:** openbare beschikbaarheid van een artikel is onderscheiden van beschikbaarheid van ruwe onderzoeksdata. Geen datahouders benaderd.
+
+| Bestaande route | Wat is daadwerkelijk gevonden? | Wat kan zij oplossen? | Besluit |
+|---|---|---|---|
+| Andersen et al. 2013, wintertarwe op lemig zand | Primair abstract via uitgever en Aarhus; DOI 10.1080/09064710.2013.789125; volledige directe teksttoegang 403 | Herkomst en betekenis 90 mm: geschatte effectieve wortelzonecapaciteit | Bronbetekenis aangescherpt; ruwe data en volledig dieptecontrast niet verworven; geen regionale waterprijs toepassen |
+| Pulido-Moncada et al. 2024, TopComp/SubComp/NoComp | Open publicatie geïdentificeerd via Padua/Aarhus, DOI 10.1016/j.soilbio.2024.109536; injectie/diffusieproef met kernen en micro-CT | Direct ondergrondprocesbewijs voor transport en porieconnectiviteit | Geen ruwe dataset-ID geverifieerd; geen netto emissieroute afgesloten; PDF-link is geen datasetlevering |
+| TRACE-Soils LTE soil physical data | Expliciet openbare dataset, DOI 10.5281/zenodo.13913150; versiepagina https://zenodo.org/records/13913151 | Bodemfysische metingen en gasdiffusie uit zeven Europese langjarige bewerkingsproeven | **Niet selecteren voor ondergrondattributie:** bemonstering 0–10 en 10–20 cm. Geen vervanging voor SubComp-dataset |
+| Baakse Beek AMIGO-variantreeksen | Rapport en scenariodefinities, nog geen ruwe reeksen | Regionale hydrologische compensatie en tijdsverloop | Gericht archiefpakket uit §7 blijft nodig |
+| Nederlandse Andelst-middelenproef | Primaire publicatie en veldbeschrijving, geen verworven gepaard verdichtingsdataset | Transportbenchmark en receptorroute | Geschikt als routebenchmark; niet als bodemverdichtingsrespons |
+
+**Onderzoekskeuze:** de open TRACE-dataset wordt niet opgepakt enkel omdat zij downloadbaar is. De eerstvolgende zinvolle primaire verdieping voor EC2 is de volledige Andersen-proefdefinitie; voor EC3 is een bestaand SubComp-veldfluxbestand nodig als klimaatwaardering het doel is. Kernen met geïnjecteerd N₂O kunnen transport testen, maar sluiten de ontbrekende productie/consumptie/netto-emissieschakel niet. Voor EC6 ontbreekt nog een concreet geïdentificeerde onafhankelijke ondergronddataset met functioneel herstel; de gastransportproef sluit die ecologische leemte niet.
 
 Voor expertbespreking blijven open: de passende referentietoestand/diepte; monetaire en niet-monetaire rapportagegrens; welke additionele beheer- en schadeposten samen mogen worden opgenomen; en welk gegevenspakket eerst wordt verkregen. Dit zijn voorstellen, geen aangenomen expertbesluiten.
 
