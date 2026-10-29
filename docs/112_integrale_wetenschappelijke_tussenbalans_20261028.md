@@ -1,6 +1,6 @@
 # Integrale wetenschappelijke tussenbalans: kosten van ondergrondverdichting
 
-**29 oktober 2026 | SYNTHESIS v1.2 | Centraal inhoudelijk werkdocument voor expertbespreking**
+**29 oktober 2026 | SYNTHESIS v1.3 | Centraal inhoudelijk werkdocument voor expertbespreking**
 
 **Status: interne wetenschappelijke tussenbalans, geen afgeronde nationale schadeberekening.** Deze tekst is één leesbaar tussentijds onderzoeksresultaat, geen nieuwe methodiek, geen alternatieve bronregistratie en geen nieuwe numerieke admission. De oorspronkelijke autoriteiten blijven [theorie 02](02_theoretical_framework.md), [formeel model 04](04_formal_model.md), [effectpaden 49](49_project_effect_pathway_matrix_v0_1.md), [ensembleprotocol 50](50_evidence_ensemble_protocol_v0_1.md) en [beslisschema 59](59_bespreekschema_werkwijze_en_einddoel_v0_1.md). Voor de zes off-site categorieën wordt aangesloten bij [causaal netwerk v0.7](89_causaal_netwerk_v0_7.md). Detailonderzoek staat in [documenten 90–111](90_teams_literatuur_intake_20261028.md).
 
@@ -59,6 +59,37 @@ Voor alle zes EC-categorieën is de beschikbare bronkennis inhoudelijk beoordeel
 | EC6 bodemleven | Biologische effecten en vertraagd structuurherstel onderscheiden | Niet-monetaire effectbeschrijving en lokale herstelwaarnemingen | Landelijke omvang en subsoil-herstelmaat |
 
 **Kwalificatie:** `SOURCE_SCOPE_REVIEW_CLOSED_WITH_LIMITATIONS` voor zes van zes bronbeoordelingen, **nul van zes** categorieën heeft een toegelaten nationale monetaire schadefactor. De cijfers hierboven zijn geen optelbare componenten en de bronnen meten verschillende bodemlagen, behandelingen en tijdschalen. Bron- en kwalificatieregisters blijven leidend. V42 is een ecologische terugkoppeling, geen extra jaarlijks te waarderen schadepost.
+
+### F. Economische waardering: kwalificatie van bestaande routes (29 oktober 2026)
+
+**Doel:** het beschikbare rekencontract afsluiten op betekenis en dubbeltelling, zonder ontbrekende economische inputs te verzinnen. Dit is toepassing van [formeel model 04](04_formal_model.md), [waarderingsroutes 53](53_onsite_crop_and_valuation_input_routes_v0_1.md) en de bestaande on-site surface 52; geen nieuwe methode.
+
+| Economisch eindpunt | Basis voor waardering | Bestaande bronroute/status | Uitkomst nu |
+|---|---|---|---|
+| Gewasopbrengst snijmaïs | Kwalificeer bruto geldopbrengst en afzonderlijk marginale private bedrijfsschade | KWIN-AGV 2025 is geïdentificeerd, **numerieke tabellen nog niet verworven**; BINternet als empirische controle, geen automatische marginale schade | **WAARDERINGSROUTE GEREED / BEDRAG GEBLOKKEERD** |
+| Graslandopbrengst | Voedervervangingswaarde of bedrijfsspecifieke verandering voerbalans, niet zonder meer marktprijs × grasopbrengst | Bestaande document 53 benoemt voer, ruwvoervoorraad, substitutie en melkproductie; nog geen gekwalificeerde eenheidswaarde | **BEGRIPSROUTE GEREED / BEDRAG GEBLOKKEERD** |
+| Gewaskwaliteit | Extra prijsverschil/afkeur op dezelfde fysieke gewasuitkomst | Geen crop-specifieke empirische kwaliteit-respons toegelaten | **FYSIEKE EN PRIJSINPUT ONTBREKEN** |
+| Extra bewerkingen | Additionele werkelijk uitgevoerde bewerkingen en variabele arbeid, brandstof, machines | Geen Nederlands verdichtingsspecifiek operatieverschil toegelaten; Defra geen automatische overdracht | **BEDRAG GEBLOKKEERD** |
+| EC1 regionale bemaling | Extra kWh plus direct toerekenbare variabele O&M; formule uit 04 §4.9–4.10 | Dynamic head, efficiency, werkelijk extra verpompt volume en prijs moeten dezelfde bedrijfscontext hebben | **REKENRELATIE GEREED / INPUTS GEBLOKKEERD** |
+| EC1 wateroverlast | Verandering in verwachte schade aan werkelijk blootgestelde receptoren | Geen Nederlandse gekwalificeerde runoff → overschrijding → blootstelling → schade-relatie; Defra 7% slechts benchmark | **FYSIEKE TRANSFER EN SCHADEFUNCTIE ONTBREKEN** |
+| EC2 regionale watervoorziening | Marginale hulpbronnen-/schaarstekosten van *werkelijke* extra levering of aantoonbaar onvervulde vraag | Potentiële mm waterbehoefte is geen geleverde m³ | **LEVERING EN WAARDERING ONTBREKEN** |
+| EC3 klimaat | Netto extra N₂O/CH₄ na kwalificeerbare uitstootvergelijking, consistente klimaateenheid en waarderingsjaar | Netto ondergrond-specifieke flux ontbreekt; nationale emissiebaseline of Bessou-contrast is niet overdraagbaar | **FYSIEKE ATTRIBUTIE GEBLOKKEERD** |
+| EC4/EC5 waterkwaliteit | Additionele receptorbelasting × passend economisch eindpunt (zuivering, schade, maatregelen: afzonderlijke definities) | Geen gekwalificeerde netto subsoil-vracht of ontvangend watersysteem | **FYSIEKE TRANSFER GEBLOKKEERD** |
+| EC6 bodemleven | Zelfstandige niet-monetaire ecologische effectbalans; eventueel later aparte welvaartswaardering | Geen onafhankelijk gekwalificeerde Nederlandse biologische effectomvang | **NIET-MONETAIRE BEOORDELING BLIJFT VOLWAARDIG** |
+
+**Dubbeltellingsproef op hetzelfde gedrag, niet op abstracte categorieën:**
+
+1. **O1 opbrengst en O3 beregening:** definieer eerst opbrengst mét de feitelijke irrigatiebeslissing. De mogelijke opbrengstderving *zonder* beregening mag niet ook worden opgeteld bij kosten *met* beregening. Marginale meerkosten en overblijvende opbrengstderving kunnen wel naast elkaar bestaan na dezelfde gedragsreferentie.
+2. **O1 opbrengst en O2 kwaliteit:** boek een partij die is afgekeurd niet zowel als volledig volumeverlies als een tweede volledige kwaliteitskorting. Gebruik hoeveelheid × gerealiseerde kwaliteitsprijs met één consistente counterfactual.
+3. **Privéomzet en privébedrijfsschade:** bruto verlies aan productiewaarde omvat niet de bespaarde variabele kosten; tel het niet bovenop het daaruit afgeleide netto private verlies.
+4. **Private en publieke uitgaven:** boerenberegeningsrekening is mogelijk een betaling aan een waterleverancier, niet automatisch tweemaal maatschappelijke hulpbronnenschade. Onderscheid geldtransfers van extra energie, arbeid, schaarste en productieverlies.
+5. **EC1 pompen en overlast:** extra pompen kan schade voorkomen; gebruik de **werkelijk resterende** schade bij de aanpassing, naast daadwerkelijk additionele pompuitgaven. Een reeds afgewende bruto overlastschade is geen tweede actuele kostenpost.
+6. **EC4/EC5 waterkwaliteit en EC6 ecologie:** dezelfde ecologische schade mag niet zonder zelfstandige incrementele eindpunten nogmaals worden gewaardeerd via KRW-maatregelen, zuivering en biodiversiteit.
+7. **EC3 en bemestingskosten:** veranderde N₂O-emissie is een klimaateffect; extra kunstmest of bedrijfsrespons kan een bedrijfsuitgave zijn, maar alleen als feitelijk additioneel én niet al in de gebruikte bedrijfsbalans opgenomen.
+
+**Kwalificatiebesluit:** alle bovenstaande **waarderingsconcepten en rekenroutes** zijn herleidbaar tot de bestaande methode en bestaande input-routebeoordeling. Voor geen van de voorgestelde schadeposten is op basis van deze sessie een **nieuw numeriek schadebedrag** toegelaten. `KWIN_NUMERIC_INPUT = NOT_YET_ACQUIRED` en `economic_value_status = WAIT_ECONOMIC_VALUE` blijven gelden; ontbrekende gegevens blijven onbekend, niet nul. De zes maatschappelijke effectcategorieën vormen geen zes automatisch optelbare eurobedragen. D2 en D3 blijven **open expertbesluiten**, omdat een technisch waarderingscontract nog geen gezamenlijk geaccordeerde systeemgrens is.
+
+**Gerichte volgende uitvoering zonder heropening SWAP/landelijke meetset:** (i) verwerving van toegankelijke brongebonden gewasprijs-/kosteninputs uit KWIN of BINternet met helder jaar en teeltbasis; (ii) keuze voederwaarde voor gras apart van verkoopprijs; (iii) op één *hypothetisch, expliciet niet-empirisch* geval de marginale kostenregels en dubbeltelling controleren; (iv) pas daarna een on-site surface vullen wanneer ook de fysieke exposure en responsmatch zijn toegelaten.
 
 ## 1. Onderzoeksvraag, systeemgrens en bestaande methode
 
