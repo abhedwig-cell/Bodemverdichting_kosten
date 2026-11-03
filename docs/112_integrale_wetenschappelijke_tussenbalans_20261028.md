@@ -2,6 +2,8 @@
 
 **29 oktober 2026 | versie 3.4 | interne onderzoeksrapportage voor expertbespreking**
 
+> **Rapportagegereedheid (3 november 2026):** deze versie 3.4 blijft een intern wetenschappelijk onderzoeksdossier. Een afzonderlijke [kritische LVVN-claimtoets en voorgestelde rapportstructuur](113_lvvn_rapportagegereedheid_bronclaimtoets_20261103.md) geeft aan welke uitspraken geschikt lijken voor hoofdrapport, bijlage of uitsluitend interne analyse. De controle is geen wetenschappelijke goedkeuring door specialisten en verandert geen evidence-admission.
+
 ## 1. Uitkomst en afbakening
 
 Ondergrondverdichting kan via watertransport, gasuitwisseling, stofomzetting en bodemleven gevolgen hebben buiten het perceel. De beschikbare studies onderbouwen mechanismen en enkele lokale fysieke effecten. Zij dragen **nog geen actuele Nederlandse monetaire schadebandbreedte voor uitsluitend ondergrondverdichting**. Dat betekent onbekende schade, niet nul schade.
