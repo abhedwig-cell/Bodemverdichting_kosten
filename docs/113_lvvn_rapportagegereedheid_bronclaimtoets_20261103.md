@@ -94,3 +94,51 @@ Statuscodes hieronder zijn een **redactionele triage**, geen nieuwe inhoudelijke
 Een specialist schrijft of redigeert de uiteindelijke rapporttekst. Per wezenlijke bewering staat de originele bron plus afbakening bij de claim. De research-CSV's, code, methodetoetsen en AI-ondersteunde concepten blijven **onderliggend werkmateriaal**, geen op zichzelf citeerbare wetenschappelijke autoriteit. Redactioneel eindakkoord en broncontrole zijn menselijke beslissingen; de hier gegeven triagestatus is **niet** hetzelfde als een `QUALIFIED` of `ADMITTED` in het bestaande register.
 
 **Niet gestart:** nieuwe SWAP-runs, landelijke circa-1800-meetpuntenanalyse, bredere data-acquisitie of voortijdig schrijven van een definitief LVVN-rapport.
+
+## 8. Beslisblad voor inhoudelijke expertbespreking
+
+**Voorstel, 3 november 2026 | BESLUITEN NOG NIET GENOMEN**
+
+Dit beslisblad dient voor een gezamenlijke bespreking van ongeveer 50 minuten. Het is geen vergaderverslag, geen bewijs van akkoord door de experts en geen verzoek om alle eerdere AI-teksten te corrigeren. De inhoudelijke verantwoordelijken beoordelen de wetenschappelijke uitspraken, niet de schrijfstijl van de onderzoeksnotities.
+
+### 8.1 Vijf inhoudelijke besluiten
+
+| ID | Voorstel ter beoordeling | Primair bewijsmateriaal | Specialistische toetsvraag | Keuze die moet worden vastgelegd |
+|---|---|---|---|---|
+| **B1 Procesbasis** | Gebruik BoVer 3225 als primaire wetenschappelijke achtergrond en Heinen 2025 plus BoVer 3404 als experimentele aanvulling; alleen korte procesuitleg in hoofdtekst | Bakema et al., WENR 3225; Heinen et al. 2025; WENR 3404 | Ondersteunt de bron werkelijk de geformuleerde relatie tussen poriën, water/lucht, wortels en plantontwikkeling, zonder een specifiek dominant mechanisme te suggereren? | **Akkoord / aanpassen / onvoldoende bewijs**; auteur voor bijlage |
+| **B2 Schadeafbakening** | Ondergrondverdichting expliciet onderscheiden van bouwvoor-/rijspoorproeven en van bodemverbetering. Huidig minus passend referentieprofiel is de estimand | Methodiek 02, 04, 49, 50; Alblas; Groenendijk; Arts/Snijders | Welke gewas- en bodemcontrasten zijn echt geschikt voor schade per getroffen hectare, en welke zijn alleen illustratief? | Afbakening, toegelaten voorbeelden en expliciete uitsluitingen |
+| **B3 Hydrologische claims** | Perceelsafstroming, drainage, systeemafvoer, gemaalbedrijf en overlast gescheiden rapporteren. Geen 9–12 mm als landelijke schadeband | Tussenbalans 112 §3; WENR 2811; Schipper 2015; Van der Bolt 2016 | Is er ten minste één brongebonden, voor Nederlandse ondergrondverdichting bruikbaar receptorcontrast, of blijven de huidige getallen samengestelde scenario's? | Welke fysieke cijfers hoofdtekst / bijlage / uitsluitend intern |
+| **B4 Overige maatschappelijke effecten** | EC2–EC6 volledig zichtbaar houden, maar geen N₂O-, N/P-, middelen- of ecologie-eurocoëfficiënten uit onvoldoende passende proeven afleiden | Tussenbalans 112 §4; Bessou; Pulido-Moncada; Deasy/Quinton; Scorza; Capowiez | Welke effecten zijn aantoonbaar, welke alleen plausibel, welke ecologische eindpunten zijn on-site in plaats van extern? | Per effectcategorie toegelaten conclusiezin en open onzekerheid |
+| **B5 Rapportage en economie** | LVVN-hoofdrapport is een eigen tekst van specialisten, met wetenschappelijke bijlagen; monetair subtotaal uitsluitend waar fysiek effect, werkelijke receptor, waarde en dubbeltelling zijn gekwalificeerd | Documenten 04, 53, 112 en deze claimtoets | Zijn private schade, publieke uitgaven en maatschappelijke welvaart duidelijk gescheiden? Kan LVVN instemmen met een partiële monetaire balans plus niet-monetaire effecten? | Rapportopzet, economisch schadebegrip en verantwoordelijke eindredactie |
+
+**Toetsopties voor ieder besluit:** `AKKOORD`, `AANPASSEN`, `ONVOLDOENDE_BASIS`, `UITSTELLEN`. Geen van deze statussen is vooraf ingevuld. Voor een wijziging moet worden genoteerd: *welke formulering, waarom, welke primaire bron en wie de inhoudelijke verantwoording draagt*.
+
+### 8.2 Tien kernclaims die expliciete goedkeuring vragen
+
+| Claim-ID | Voorlopige kernuitspraak (nog geen rapporttekst) | Redactioneel voorstel | Hoofdreden voor toets |
+|---|---|---|---|
+| **C01** | Ondergrondverdichting verandert poriënstructuur, mechanische weerstand en transport van water en lucht | Hoofdrapport | Geen altijd-monotone, universele respons claimen |
+| **C02** | Beworteling en opname van water/nutriënten kunnen worden beperkt; het dominante proces verschilt per context | Hoofdrapport | Kolom- en veldbewijs niet verwarren |
+| **C03** | Heinen toont in de onderzochte 30–40 cm-kolomlaag een veranderde ontwikkeling van jonge maïswortels | Bijlage met hooguit korte verwijzing | Geen oogst- of landelijk schadecijfer |
+| **C04** | De onderzochte Nederlandse opbrengstreacties op aslast en bodemverbetering zijn niet gelijkwaardige schadefactoren | Hoofdrapport, zonder ongekwalificeerd getal | Referentie- en behandelingsoverdracht |
+| **C05** | Lokale runoff- en piekrespons is aantoonbaar in modellen, maar systeemschade vraagt routing en blootstelling | Hoofdrapport kwalitatief, getallen bijlage | 12 mm 95-percentiel; 9/10 mm Vlaams bronconflict |
+| **C06** | Extra potentiële beregeningsvraag is niet dezelfde grootheid als werkelijk watergebruik of regionale schaarste | Hoofdrapport | Waterbalans en boer-/waterbeheerreactie |
+| **C07** | Berijdingsproeven met meer N₂O bewijzen nog geen emissiefactor voor uitsluitend diepe verdichting | Hoofdrapport kwalitatief, cijfers bijlage | Diepte, netto veldflux, klimaatwaardering |
+| **C08** | Rijspoor-P-vrachten en preferent middelenvervoer bewijzen nog geen Nederlandse ondergrondverdichtingsvracht | Hoofdrapport kwalitatief, cijfers bijlage | Deasy/Quinton overlap; Scorza zonder verdichtingscontrast |
+| **C09** | Bodemleven en bodemfuncties blijven relevante uitkomsten zonder direct eurobedrag | Hoofdrapport | Bodemleven op perceel onderscheiden van externe biodiversiteit |
+| **C10** | Op dit moment is geen betrouwbare nationale monetaire schadebandbreedte vastgesteld | Hoofdrapport | Niet als nulschade presenteren; welke input ontbreekt precies? |
+
+**Acceptatievoorwaarde:** een geaccordeerde claim vermeldt in het rapport minimaal de passende primaire referentie en een begrenzing van de uitspraak. Een bron die alleen een mechanisme laat zien, kan geen downstream schadebedrag dragen. Wijzigingen in formulering zijn geen automatische wijziging in de canonieke evidence-registers.
+
+### 8.3 Voorstel voor vergadering en vervolghandelingen
+
+- **0–10 minuten:** B1 en C01–C03, inclusief keuze hoofdtekst versus wetenschappelijke bijlage.
+- **10–20 minuten:** B2 en C04, inclusief werkbare referentie voor opbrengstschade.
+- **20–30 minuten:** B3 en C05–C06, inclusief bron-naar-regionaal-waterbeheer.
+- **30–40 minuten:** B4 en C07–C09, expliciet ook niet-monetariseerbare gevolgen.
+- **40–50 minuten:** B5 en C10, economische grens, dubbeltelling en wie de LVVN-tekst schrijft.
+
+**Direct na inhoudelijk akkoord:** leg per B- en C-ID datum, specialist/verantwoordelijke, beslissing, concrete formulering, bron en eventueel voorbehoud vast. Begin pas daarna met specialistische hoofdrapporttekst. Een open/afgewezen claim blijft uit de publieke conclusie, maar kan onderbouwing van onzekerheid in de bijlage zijn.
+
+**Status van deze sessie:** beslisblad voorbereid, **geen expertbijeenkomst gehouden**, **geen van B1–B5 of C01–C10 geaccordeerd**. De wetenschappelijke onderbouwing en het risicobeeld zijn dus voorbereid, niet formeel vastgesteld.
+
