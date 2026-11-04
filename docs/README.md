@@ -10,6 +10,8 @@ De actuele off-site onderzoeksbalans (versie 3.4), inclusief brongebonden effect
 
 **Voor de komende expertbespreking:** gebruik de [rapportblauwdruk en korte expertopdracht van 4 november 2026](114_rapportblauwdruk_en_expertopdracht_20261104.md), met roltoets, opleverlijst 2026 en twee bewerkbare SVG-conceptfiguren. De overlegverwerking en beperkte CATCH-verificatie staan in 113 §10/11. Nieuwe taakverdeling en wetenschappelijke autorisatie zijn nog niet vastgesteld.
 
+**Hydrologische bijdrage Ab:** de [uitwerking in bestaande notitie 62](62_hydrologische_offsite_evidencetoets_v0_1.md#uitwerking-hydrologische-bijdrage-ab-4-november-2026) geeft de inhoudelijke concepttekst en de afgebakende uitvoeringsopdracht voor de eerste gebiedsberekening, inclusief hergebruik van bestaande uitvoer en toets op nauwkeurigheid.
+
 ## Start here
 
 If you are new to the project or taking the work over from someone else, begin with [`00_project_handover_and_continuation.md`](00_project_handover_and_continuation.md). It restores the broad project philosophy: minimum necessary computation, parallel on-site/off-site chains, literature/evidence shortcuts, uncertainty and source ensembles, and the role of Tollebeek/SWAP as optional deepening rather than the project definition.

@@ -76,6 +76,8 @@ Deze crosswalk groepeert bestaande bespreekrelaties; hij voegt geen nieuwe toege
 
 ## 5. Gemeenschappelijke ruimtelijke basis en eerste hydrologische stap
 
+**Uitwerking voor Ab:** de bestaande [hydrologienotitie 62](62_hydrologische_offsite_evidencetoets_v0_1.md#uitwerking-hydrologische-bijdrage-ab-4-november-2026) bevat nu een inhoudelijke conceptbijdrage over watertransport, wateroverlast en droogte, twee bronvoorbeelden, de minimale gegevensoverdracht met Martin en de concrete aanpak voor één gebied in 2026. De tekst en casuskeuze moeten nog door Ab worden beoordeeld; er is geen modeluitvoer ontvangen of nieuwe berekening uitgevoerd.
+
 Gebruik de bestaande 20 tot 40 bodem×landgebruik-categorieën als gemeenschappelijke basis voor on-site en off-site. Dat zijn nog geen hydrologisch homogene eenheden. Bewaar per profiel bodemtype/opbouw, gewas, verdichtingsdiepte/ernst, grondwaterregime en drainage. Koppel voor de hydrologische toepassing afzonderlijk ligging, afwateringsgebied, ontvangend water en verbinding. Een areaaltabel alleen is daarvoor onvoldoende.
 
 **Eerst hergebruik vaststellen:** Martin en Ab beoordelen bestaande uitvoer op profiel-/categorie-ID, current/reference-contrast, meteorologie, begin-/randvoorwaarden, beregeningsregel, eenheden en tijdresolutie. Vraag uitsluitend bestaande reeksen op voor oppervlakkige afstroming, drainage, werkelijke verdamping/transpiratie, percolatie en bergingsverandering, plus werkelijk toegediende beregening indien beschikbaar. Ontbrekende uitvoer blijft ontbrekend. Maak geen nieuwe SWAP-keten voordat dit is beoordeeld.
