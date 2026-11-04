@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1120" viewBox="0 0 1800 1120" role="img"><title>Figuur B Procesbasis en zes effectcategorieën</title><desc>Vereenvoudigd inhoudelijk overzicht. Het volledige netwerk v0.7 blijft de wetenschappelijke bespreekachtergrond. Pijlen zijn conditioneel.</desc><defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto-start-reverse"><path d="M0 0 L8 4 L0 8 Z" fill="#357e9f"/></marker></defs><rect width="100%" height="100%" fill="white"/>
+<text x="50" y="58" font-family="DejaVu Sans,sans-serif" font-size="32" fill="#243b45" font-weight="bold" text-anchor="start">
+<tspan x="50" dy="0">B  Gemeenschappelijke procesbasis en maatschappelijke gevolgen</tspan>
+</text>
+<text x="50" y="103" font-family="DejaVu Sans,sans-serif" font-size="20" fill="#65747a" font-weight="normal" text-anchor="start">
+<tspan x="50" dy="0">Bespreekconcept | vereenvoudiging van v0.7 | pijlen geven geen effectgrootte of vaste toe- of afname</tspan>
+</text>
+<rect x="50" y="180" width="300" height="95" rx="8" fill="#eff2ed" stroke="#243b45" stroke-width="1.5"/>
+<text x="75" y="217" font-family="DejaVu Sans,sans-serif" font-size="18" fill="#243b45" font-weight="bold" text-anchor="start">
+<tspan x="75" dy="0">Ondergrondverdichting</tspan>
+<tspan x="75" dy="25.2">Huidig versus referentie</tspan>
+</text>
+<path d="M350 228 L410 228" fill="none" stroke="#357e9f" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="410" y="180" width="610" height="95" rx="8" fill="#eff2ed" stroke="#243b45" stroke-width="1.5"/>
+<text x="435" y="217" font-family="DejaVu Sans,sans-serif" font-size="20" fill="#243b45" font-weight="bold" text-anchor="start">
+<tspan x="435" dy="0">Bodemstructuur en mechanische eigenschappen</tspan>
+<tspan x="435" dy="28.0">Poriën, continuïteit en weerstand</tspan>
+</text>
+<rect x="410" y="325" width="610" height="425" rx="10" fill="#f6f8f8" stroke="#a2b3ba" stroke-width="1.5"/>
+<rect x="435" y="395" width="245" height="95" rx="6" fill="white" stroke="#243b45" stroke-width="1.5"/>
+<text x="452" y="431" font-family="DejaVu Sans,sans-serif" font-size="21" fill="#243b45" font-weight="normal" text-anchor="start">
+<tspan x="452" dy="0">Beworteling</tspan>
+<tspan x="452" dy="29.4">en opname</tspan>
+</text>
+<rect x="730" y="395" width="265" height="95" rx="6" fill="white" stroke="#243b45" stroke-width="1.5"/>
+<text x="748" y="431" font-family="DejaVu Sans,sans-serif" font-size="21" fill="#243b45" font-weight="normal" text-anchor="start">
+<tspan x="748" dy="0">Bodemleven</tspan>
+<tspan x="748" dy="29.4">en bodemfuncties</tspan>
+</text>
+<path d="M550 275 L550 395" fill="none" stroke="#357e9f" stroke-width="2.5" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<path d="M860 275 L860 395" fill="none" stroke="#357e9f" stroke-width="2.5" stroke-dasharray="7 6" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<rect x="435" y="565" width="245" height="115" rx="6" fill="#eaf3f7" stroke="#357e9f" stroke-width="1.5"/>
+<text x="452" y="602" font-family="DejaVu Sans,sans-serif" font-size="21" fill="#243b45" font-weight="normal" text-anchor="start">
+<tspan x="452" dy="0">Watertransport</tspan>
+<tspan x="452" dy="29.4">en waterbalans</tspan>
+</text>
+<rect x="730" y="565" width="265" height="115" rx="6" fill="#eaf3f7" stroke="#357e9f" stroke-width="1.5"/>
+<text x="748" y="602" font-family="DejaVu Sans,sans-serif" font-size="21" fill="#243b45" font-weight="normal" text-anchor="start">
+<tspan x="748" dy="0">Gastransport, zuurstof</tspan>
+<tspan x="748" dy="29.4">en omzettingen</tspan>
+</text>
+<path d="M555 490 L555 565" fill="none" stroke="#357e9f" stroke-width="2.5" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<path d="M860 490 L860 565" fill="none" stroke="#357e9f" stroke-width="2.5" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<path d="M680 621 L730 621" fill="none" stroke="#357e9f" stroke-width="2.5" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<text x="435" y="718" font-family="DejaVu Sans,sans-serif" font-size="18" fill="#65747a" font-weight="normal" text-anchor="start">
+<tspan x="435" dy="0">Waterverzadiging beïnvloedt gastransport en zuurstof.</tspan>
+</text>
+<text x="50" y="350" font-family="DejaVu Sans,sans-serif" font-size="20" fill="#243b45" font-weight="normal" text-anchor="start">
+<tspan x="50" dy="0">Context bepaalt de respons:</tspan>
+<tspan x="50" dy="28.0">bodem en profiel, gewas,</tspan>
+<tspan x="50" dy="28.0">weer, grondwater, drainage</tspan>
+<tspan x="50" dy="28.0">en beheer.</tspan>
+</text>
+<text x="50" y="535" font-family="DejaVu Sans,sans-serif" font-size="20" fill="#243b45" font-weight="normal" text-anchor="start">
+<tspan x="50" dy="0">Transport van stoffen hangt</tspan>
+<tspan x="50" dy="28.0">ook af van toepassing,</tspan>
+<tspan x="50" dy="28.0">mobilisatie, sorptie, afbraak</tspan>
+<tspan x="50" dy="28.0">en de gevolgde waterroute.</tspan>
+</text>
+<path d="M420 275 L420 550 L500 550 L500 565" fill="none" stroke="#357e9f" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path d="M1008 275 L1008 550 L930 550 L930 565" fill="none" stroke="#357e9f" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path d="M1020 535 L1060 535" fill="none" stroke="#357e9f" stroke-width="2.5"/>
+<path d="M1060 225 L1060 868" fill="none" stroke="#357e9f" stroke-width="2.5"/>
+<path d="M1060 225 L1100 225" fill="none" stroke="#357e9f" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="1100" y="180" width="620" height="90" rx="6" fill="white" stroke="#a2b3ba" stroke-width="1.5"/>
+<text x="1120" y="212" font-family="DejaVu Sans,sans-serif" font-size="21" fill="#243b45" font-weight="bold" text-anchor="start">
+<tspan x="1120" dy="0">1  Wateroverlast</tspan>
+</text>
+<text x="1120" y="245" font-family="DejaVu Sans,sans-serif" font-size="19" fill="#65747a" font-weight="normal" text-anchor="start">
+<tspan x="1120" dy="0">Afvoer, timing en berging</tspan>
+</text>
+<path d="M1060 345 L1100 345" fill="none" stroke="#357e9f" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="1100" y="300" width="620" height="90" rx="6" fill="white" stroke="#a2b3ba" stroke-width="1.5"/>
+<text x="1120" y="332" font-family="DejaVu Sans,sans-serif" font-size="21" fill="#243b45" font-weight="bold" text-anchor="start">
+<tspan x="1120" dy="0">2  Waterbeschikbaarheid</tspan>
+</text>
+<text x="1120" y="365" font-family="DejaVu Sans,sans-serif" font-size="19" fill="#65747a" font-weight="normal" text-anchor="start">
+<tspan x="1120" dy="0">Behoefte, levering en tekort</tspan>
+</text>
+<path d="M1060 465 L1100 465" fill="none" stroke="#357e9f" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="1100" y="420" width="620" height="90" rx="6" fill="white" stroke="#a2b3ba" stroke-width="1.5"/>
+<text x="1120" y="452" font-family="DejaVu Sans,sans-serif" font-size="21" fill="#243b45" font-weight="bold" text-anchor="start">
+<tspan x="1120" dy="0">3  Broeikasgassen</tspan>
+</text>
+<text x="1120" y="485" font-family="DejaVu Sans,sans-serif" font-size="19" fill="#65747a" font-weight="normal" text-anchor="start">
+<tspan x="1120" dy="0">Netto emissies, niet gasdiffusie</tspan>
+</text>
+<path d="M1060 585 L1100 585" fill="none" stroke="#357e9f" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="1100" y="540" width="620" height="90" rx="6" fill="white" stroke="#a2b3ba" stroke-width="1.5"/>
+<text x="1120" y="572" font-family="DejaVu Sans,sans-serif" font-size="21" fill="#243b45" font-weight="bold" text-anchor="start">
+<tspan x="1120" dy="0">4  Nutriënten</tspan>
+</text>
+<text x="1120" y="605" font-family="DejaVu Sans,sans-serif" font-size="19" fill="#65747a" font-weight="normal" text-anchor="start">
+<tspan x="1120" dy="0">Stofvracht en waterkwaliteit</tspan>
+</text>
+<path d="M1060 705 L1100 705" fill="none" stroke="#357e9f" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="1100" y="660" width="620" height="90" rx="6" fill="white" stroke="#a2b3ba" stroke-width="1.5"/>
+<text x="1120" y="692" font-family="DejaVu Sans,sans-serif" font-size="21" fill="#243b45" font-weight="bold" text-anchor="start">
+<tspan x="1120" dy="0">5  Gewasbeschermingsmiddelen</tspan>
+</text>
+<text x="1120" y="725" font-family="DejaVu Sans,sans-serif" font-size="19" fill="#65747a" font-weight="normal" text-anchor="start">
+<tspan x="1120" dy="0">Stofspecifieke vracht en blootstelling</tspan>
+</text>
+<path d="M1060 825 L1100 825" fill="none" stroke="#357e9f" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="1100" y="780" width="620" height="90" rx="6" fill="white" stroke="#a2b3ba" stroke-width="1.5"/>
+<text x="1120" y="812" font-family="DejaVu Sans,sans-serif" font-size="21" fill="#243b45" font-weight="bold" text-anchor="start">
+<tspan x="1120" dy="0">6  Bodemleven en ecologie</tspan>
+</text>
+<text x="1120" y="845" font-family="DejaVu Sans,sans-serif" font-size="19" fill="#65747a" font-weight="normal" text-anchor="start">
+<tspan x="1120" dy="0">Interne functies en externe doorwerking</tspan>
+</text>
+<text x="1070" y="916" font-family="DejaVu Sans,sans-serif" font-size="18" fill="#65747a" font-weight="normal" text-anchor="start">
+<tspan x="1070" dy="0">Doorwerking via de passende route; categorieën hangen samen.</tspan>
+</text>
+<text x="50" y="827" font-family="DejaVu Sans,sans-serif" font-size="19" fill="#243b45" font-weight="normal" text-anchor="start">
+<tspan x="50" dy="0">Gestippeld: biologische terugkoppeling op langere tijdschaal.</tspan>
+<tspan x="50" dy="26.599999999999998">Wortels en biota beïnvloeden structuur en worden erdoor beïnvloed.</tspan>
+<tspan x="50" dy="26.599999999999998">Waterkwaliteitsverandering kan ook ecologische gevolgen hebben.</tspan>
+</text>
+<rect x="410" y="965" width="1310" height="105" rx="8" fill="#eff2ed" stroke="#243b45" stroke-width="1.5"/>
+<path d="M1410 930 L1410 965" fill="none" stroke="#357e9f" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="435" y="1003" font-family="DejaVu Sans,sans-serif" font-size="22" fill="#243b45" font-weight="bold" text-anchor="start">
+<tspan x="435" dy="0">Pas met receptor, blootstelling en passend schadebegrip volgt een maatschappelijke beoordeling.</tspan>
+</text>
+<text x="435" y="1041" font-family="DejaVu Sans,sans-serif" font-size="21" fill="#243b45" font-weight="normal" text-anchor="start">
+<tspan x="435" dy="0">Monetaire én niet-monetaire gevolgen | on-site apart houden | dubbeltelling toetsen</tspan>
+</text>
+<text x="50" y="1100" font-family="DejaVu Sans,sans-serif" font-size="17" fill="#65747a" font-weight="normal" text-anchor="start">
+<tspan x="50" dy="0">Bronbasis: BoVer en netwerk v0.7 (42 relaties behouden). Conceptfiguur is geen volledig causaal model of expertakkoord.</tspan>
+</text>
+</svg>

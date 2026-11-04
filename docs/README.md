@@ -4,9 +4,11 @@ The documentation is organised from scientific meaning to implementation and evi
 
 ## Actuele wetenschappelijke tussenbalans (28 oktober 2026)
 
-De actuele off-site onderzoeksbalans (versie 3.4), inclusief brongebonden effectgroottes, grenzen aan monetarisering en de beslisagenda, staat in [`112_integrale_wetenschappelijke_tussenbalans_20261028.md`](112_integrale_wetenschappelijke_tussenbalans_20261028.md). Dit is een synthese, geen vervanging van de methodische autoriteiten [`49`](49_project_effect_pathway_matrix_v0_1.md) en [`50`](50_evidence_ensemble_protocol_v0_1.md) of de canonieke bewijsregisters. Landelijke meetdata en nieuwe SWAP-uitvoering zijn voorlopig geparkeerd.
+De actuele off-site onderzoeksbalans (versie 3.4), inclusief brongebonden effectgroottes, grenzen aan monetarisering en de beslisagenda, staat in [`112_integrale_wetenschappelijke_tussenbalans_20261028.md`](112_integrale_wetenschappelijke_tussenbalans_20261028.md). Dit is een synthese, geen vervanging van de methodische autoriteiten [`49`](49_project_effect_pathway_matrix_v0_1.md) en [`50`](50_evidence_ensemble_protocol_v0_1.md) of de canonieke bewijsregisters. De actuele werkplancheck in 113 §9/10 maakt de landelijke meet-/areaalbasis weer een noodzakelijke 2026-taak; nieuwe SWAP-uitvoering volgt pas na beoordeling van hergebruik.
 
 **Voor LVVN-rapportage:** lees eerst de [wetenschappelijke claimtoets en concept-rapportstructuur van 3 november 2026](113_lvvn_rapportagegereedheid_bronclaimtoets_20261103.md). De onderzoekers moeten de conclusies, figuren en formulering nog inhoudelijk autoriseren. Het document 112 is een intern wetenschappelijk onderzoeksdossier en geen kant-en-klare rapporttekst.
+
+**Voor de komende expertbespreking:** gebruik de [rapportblauwdruk en korte expertopdracht van 4 november 2026](114_rapportblauwdruk_en_expertopdracht_20261104.md), met roltoets, opleverlijst 2026 en twee bewerkbare SVG-conceptfiguren. De overlegverwerking en beperkte CATCH-verificatie staan in 113 §10/11. Nieuwe taakverdeling en wetenschappelijke autorisatie zijn nog niet vastgesteld.
 
 ## Start here
 

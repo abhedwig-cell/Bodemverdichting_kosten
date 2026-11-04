@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="960" viewBox="0 0 1400 960" role="img"><title>Figuur A Referentieprofiel en verdicht profiel</title><desc>Conceptvergelijking van twee zandprofielen. Laagligging en transport zijn schematisch en niet gekwantificeerd.</desc><defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto-start-reverse"><path d="M0 0 L8 4 L0 8 Z" fill="#357e9f"/></marker></defs><rect width="100%" height="100%" fill="white"/>
+<text x="55" y="60" font-family="DejaVu Sans,sans-serif" font-size="32" fill="#243b45" font-weight="bold" text-anchor="start">
+<tspan x="55" dy="0">A  Referentiebodem en verdichte bodem</tspan>
+</text>
+<text x="55" y="105" font-family="DejaVu Sans,sans-serif" font-size="20" fill="#65747a" font-weight="normal" text-anchor="start">
+<tspan x="55" dy="0">Concept voor Guido | zandgrond | gelijk gewas, weer en grondwaterregime</tspan>
+</text>
+<text x="115" y="170" font-family="DejaVu Sans,sans-serif" font-size="25" fill="#243b45" font-weight="bold" text-anchor="start">
+<tspan x="115" dy="0">Minder verdichte referentie</tspan>
+</text>
+<rect x="115" y="280" width="480" height="130" rx="0" fill="#c9b28f" stroke="#243b45" stroke-width="1.5"/>
+<rect x="115" y="410" width="480" height="115" rx="0" fill="#d5c3a7" stroke="#243b45" stroke-width="1.5"/>
+<rect x="115" y="525" width="480" height="175" rx="0" fill="#e0d0b7" stroke="#243b45" stroke-width="1.5"/>
+<path d="M115 280 L595 280" fill="none" stroke="#243b45" stroke-width="2.5"/>
+<path d="M205 280 L205 228 M205 254 Q175 233 162 246 M205 246 Q231 224 247 235" fill="none" stroke="#527a50" stroke-width="2.5"/>
+<path d="M205 282 Q190 340 214 410 Q233 492 195 617" fill="none" stroke="#527a50" stroke-width="2.5"/>
+<path d="M214 410 Q174 430 160 467 M215 490 Q252 515 259 545" fill="none" stroke="#527a50" stroke-width="2.5"/>
+<path d="M355 280 L355 228 M355 254 Q325 233 312 246 M355 246 Q381 224 397 235" fill="none" stroke="#527a50" stroke-width="2.5"/>
+<path d="M355 282 Q340 340 364 410 Q383 492 345 617" fill="none" stroke="#527a50" stroke-width="2.5"/>
+<path d="M364 410 Q324 430 310 467 M365 490 Q402 515 409 545" fill="none" stroke="#527a50" stroke-width="2.5"/>
+<path d="M505 280 L505 228 M505 254 Q475 233 462 246 M505 246 Q531 224 547 235" fill="none" stroke="#527a50" stroke-width="2.5"/>
+<path d="M505 282 Q490 340 514 410 Q533 492 495 617" fill="none" stroke="#527a50" stroke-width="2.5"/>
+<path d="M514 410 Q474 430 460 467 M515 490 Q552 515 559 545" fill="none" stroke="#527a50" stroke-width="2.5"/>
+<path d="M555 310 L555 665" fill="none" stroke="#357e9f" stroke-width="2.5" stroke-dasharray="7 6" marker-end="url(#arrow)"/>
+<text x="135" y="740" font-family="DejaVu Sans,sans-serif" font-size="17" fill="#65747a" font-weight="normal" text-anchor="start">
+<tspan x="135" dy="0">Wortelbeeld en laagligging zijn schematisch.</tspan>
+</text>
+<text x="135" y="775" font-family="DejaVu Sans,sans-serif" font-size="18" fill="#243b45" font-weight="normal" text-anchor="start">
+<tspan x="135" dy="0">Referentie moet inhoudelijk worden gekozen;</tspan>
+<tspan x="135" dy="25.2">zij is geen ongestoorde of ideale bodem.</tspan>
+</text>
+<text x="775" y="170" font-family="DejaVu Sans,sans-serif" font-size="25" fill="#243b45" font-weight="bold" text-anchor="start">
+<tspan x="775" dy="0">Verdichte ondergrond</tspan>
+</text>
+<rect x="775" y="280" width="480" height="130" rx="0" fill="#c9b28f" stroke="#243b45" stroke-width="1.5"/>
+<rect x="775" y="410" width="480" height="115" rx="0" fill="#aa9071" stroke="#243b45" stroke-width="1.5"/>
+<rect x="775" y="525" width="480" height="175" rx="0" fill="#e0d0b7" stroke="#243b45" stroke-width="1.5"/>
+<path d="M775 280 L1255 280" fill="none" stroke="#243b45" stroke-width="2.5"/>
+<path d="M865 280 L865 228 M865 254 Q835 233 822 246 M865 246 Q891 224 907 235" fill="none" stroke="#527a50" stroke-width="2.5"/>
+<path d="M865 282 Q852 340 872 402 Q895 414 922 405" fill="none" stroke="#527a50" stroke-width="2.5"/>
+<path d="M865 347 Q833 378 817 398" fill="none" stroke="#527a50" stroke-width="2.5"/>
+<path d="M1015 280 L1015 228 M1015 254 Q985 233 972 246 M1015 246 Q1041 224 1057 235" fill="none" stroke="#527a50" stroke-width="2.5"/>
+<path d="M1015 282 Q1002 340 1022 402 Q1045 414 1072 405" fill="none" stroke="#527a50" stroke-width="2.5"/>
+<path d="M1015 347 Q983 378 967 398" fill="none" stroke="#527a50" stroke-width="2.5"/>
+<path d="M1022 402 Q1023 450 1018 527 Q1008 549 1016 580" fill="none" stroke="#527a50" stroke-width="2.5"/>
+<path d="M1165 280 L1165 228 M1165 254 Q1135 233 1122 246 M1165 246 Q1191 224 1207 235" fill="none" stroke="#527a50" stroke-width="2.5"/>
+<path d="M1165 282 Q1152 340 1172 402 Q1195 414 1222 405" fill="none" stroke="#527a50" stroke-width="2.5"/>
+<path d="M1165 347 Q1133 378 1117 398" fill="none" stroke="#527a50" stroke-width="2.5"/>
+<path d="M1215 310 L1215 665" fill="none" stroke="#357e9f" stroke-width="2.5" stroke-dasharray="7 6" marker-end="url(#arrow)"/>
+<text x="795" y="740" font-family="DejaVu Sans,sans-serif" font-size="17" fill="#65747a" font-weight="normal" text-anchor="start">
+<tspan x="795" dy="0">Wortelbeeld en laagligging zijn schematisch.</tspan>
+</text>
+<text x="795" y="775" font-family="DejaVu Sans,sans-serif" font-size="18" fill="#243b45" font-weight="normal" text-anchor="start">
+<tspan x="795" dy="0">Wortels kunnen worden geremd of afbuigen;</tspan>
+<tspan x="795" dy="25.2">doorgroei via bestaande poriën blijft mogelijk.</tspan>
+</text>
+<text x="25" y="320" font-family="DejaVu Sans,sans-serif" font-size="15" fill="#243b45" font-weight="normal" text-anchor="start">
+<tspan x="25" dy="0">Bouwvoor</tspan>
+</text>
+<text x="35" y="455" font-family="DejaVu Sans,sans-serif" font-size="17" fill="#243b45" font-weight="normal" text-anchor="start">
+<tspan x="35" dy="0">Onder-</tspan>
+<tspan x="35" dy="23.799999999999997">grond</tspan>
+</text>
+<text x="85" y="845" font-family="DejaVu Sans,sans-serif" font-size="20" fill="#243b45" font-weight="normal" text-anchor="start">
+<tspan x="85" dy="0">Gestippelde pijl: mogelijke neerwaartse waterroute, geen fluxvergelijking.</tspan>
+<tspan x="85" dy="28.0">Verdichting kan opslag, infiltratie, gastransport en beworteling veranderen; de respons is contextafhankelijk.</tspan>
+</text>
+<text x="85" y="922" font-family="DejaVu Sans,sans-serif" font-size="17" fill="#65747a" font-weight="normal" text-anchor="start">
+<tspan x="85" dy="0">Geen vaste laagdiepte of effectgrootte | bronbasis BoVer 3225 en 3404 | expertcontrole vereist</tspan>
+</text>
+</svg>

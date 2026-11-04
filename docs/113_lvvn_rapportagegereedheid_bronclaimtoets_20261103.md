@@ -1,6 +1,6 @@
 # Rapportagegereedheid LVVN: wetenschappelijke claimtoets en rapportopzet
 
-**3 november 2026 | REVIEW VOOR EXPERTEN | geen zelfstandig eindrapport, geen extra schade-admission**
+**3 november 2026, aangevuld 4 november 2026 | REVIEW VOOR EXPERTEN | geen zelfstandig eindrapport, geen extra schade-admission**
 
 ## 1. Oordeel
 
@@ -25,16 +25,9 @@ Dit is een **documentgebaseerde eerste audit** van conclusies en bronrollen. Nie
 
 ## 3. Compacte inhoudsopgave voor het LVVN-hoofdrapport
 
-1. **Aanleiding en onderzoeksvraag.** Welke schade en gevolgen onderzoeken we precies; ondergrond versus bouwvoor/rijsporen; huidige versus referentietoestand.
-2. **Hoe ondergrondverdichting doorwerkt, in gewone taal (maximaal enkele pagina's).** Poriën, water/lucht, wortels; waarom weers- en bodemafhankelijk. Bron: BoVer-bijlage, niet een nieuwe mechanisme-review.
-3. **Omvang en aard van de blootstelling in Nederland.** Wat is bekend, wat is steekproef/indicator en wat is landelijk representatief? Geen actuele prevalentie zonder passende data en steekproefweging.
-4. **Gevolgen op het perceel.** Gewasopbrengst, gewaskwaliteit, beregening en bewerkbaarheid. Onderscheid directe behandeling, inverse bodemverbetering en veldopbrengst.
-5. **Zes maatschappelijke effectcategorieën.** Wateroverlast, waterbeschikbaarheid, N₂O/CH₄, nutriënten, gewasbeschermingsmiddelen, bodemleven/ecologie. EC6 bevat ook *on-site bodemfuncties*: geen volledig extern schadebedrag.
-6. **Van fysiek effect naar kosten.** Conditioneel current/reference, transfer naar receptor, marginale private versus publieke kosten versus maatschappelijke welvaart; expliciete dubbeltellingscontrole.
-7. **Resultaten.** Gekwalificeerde getallen, conditionele scenario's, relevante niet-monetaire effecten en ontbrekende uitkomsten staan onderscheiden. Geen fictief landelijk totaal.
-8. **Onzekerheden, conclusies en onderzoeksprioriteiten.** Wat weten we, wat niet; welke eerstvolgende gegevens hebben daadwerkelijke informatiewaarde.
+De inhoudsopgave is op 4 november geconcretiseerd in één [rapportblauwdruk en expertopdracht, document 114](114_rapportblauwdruk_en_expertopdracht_20261104.md). Die werkversie vervangt het eerdere inhoudsvoorstel in deze paragraaf. Zij bevat acht hoofdstukken met per hoofdstuk onderzoeksvraag, bronnen, expertbijdrage en verdeling 2026/2027. Procesbasis en transport staan samen; opschaling en waardering staan bij de methode; resultaten volgen afzonderlijk. Dit voorkomt herhaling tussen elf losse hoofdstukken.
 
-**Bijlagen:** A proces-/wortelonderzoek (BoVer); B causale effectpaden en literatuur-/bewijsverantwoording; C formele methode, rekeninvoer, reproduceerbaarheid en controle; D begrippen, datagrondslag en aannames. Dit is een *inhoudsvoorstel voor expertbesluit*, geen door AI geschreven definitieve rapporttekst.
+Hoofdrapport, wetenschappelijke bijlagen en intern dossier blijven onderscheiden. De opzet is een voorstel voor expertbesluit, geen geautoriseerde rapporttekst. EC6 omvat ook on-site bodemfuncties; de zes categorieën zijn geen zes optelbare externe schadebedragen.
 
 ## 4. Claimtoets voor de actuele tussenbalans 112 v3.4
 
@@ -186,4 +179,48 @@ De Teams-export omvat `WENR-3537 totaal_dichtheid 27-10-2026.pdf` met 1.784 meet
 ### 9.5 Expliciet nog niet geverifieerd
 
 Deze beoordeling is op de tekst van het leidende werkplan en de beschikbare repository-documenten gebaseerd. Niet integraal geverifieerd zijn de actuele werkpakketten buiten GitHub, persoonlijke voortgang van betrokken onderzoekers, eventuele separate on-site rekenbestanden, bestaande MAGNET-resultaten en de vraag of de opdrachtgever al een afwijking heeft geaccepteerd. **Daarom geen 'afgerond' claim waar alleen een werkwijze of voorstudie bestaat.**
+
+## 10. Verwerking overleg Ab en Guido 4 november 2026
+
+### 10.1 Basis en status van dit verslag
+
+Verwerkt op branch `research/offsite-expert-framework-20261012`, uitgangscommit `1bef04ddb47935b88457f77ac18b360e0cf36c2a`. De vijf laatste commits zijn gecontroleerd; de meest recente voegde de werkplancheck in §9 toe. Het leidende werkplan is nu rechtstreeks opnieuw gelezen uit `General.zip`, pad `General/administratie/BO werkplan bodemverdichting versie 2027.docx`. Dit bevestigt de 2026/2027-verdeling in §9.
+
+Beschikbaar zijn de aangeleverde overlegsamenvatting/opdracht en de bekeken foto van het handmatig gewijzigde schema. De oorspronkelijke volledige transcriptie is ondanks gerichte contextzoekactie niet beschikbaar gekomen. Dit is daarom een **verwerking op basis van een overlegsamenvatting**, geen integraal gecontroleerd transcriptieverslag. De foto wordt gebruikt voor de groepering van processen, niet als bewijs van iedere taakafspraak. Er worden geen nieuwe formele expertakkoorden of toezeggingen geregistreerd.
+
+### 10.2 Richting, voorstellen en open vragen
+
+| Status | Verwerking |
+|---|---|
+| Richting volgens overlegsamenvatting | Experts onderbouwen eerst hun processen; BoVer wordt hergebruikt; hoofdtekst wordt kort, wetenschappelijke bijlage dieper. Specialisten schrijven of autoriseren de uiteindelijke tekst |
+| Richting volgens samenvatting en foto | Ondergrondverdichting, structuur/mechanische eigenschappen, water- en gastransport en zes categorieën worden begrijpelijk gegroepeerd. Beworteling en biota blijven wederkerige processen. Netwerk v0.7 met 42 relaties blijft bestaan |
+| Werkplanverplichting, onafhankelijk bevestigd | Landelijke on-site berekening, toekomstige on-site systematiek/scenario's, off-site beschrijving en systematiek, waarderingsinventarisatie, eerste gebiedsberekening en niet-gepubliceerd concept behoren bij 2026 |
+| Voorstel in deze verwerking | Acht hoofdstukken; één tot twee pagina's per expert vooraf; maximaal twee bronvoorbeelden; voorgestelde aanlevering drie werkdagen vóór het nog te dateren overleg. Dit zijn geen al overeengekomen termijnen |
+| Voorstel in deze verwerking | Eén ruimtelijke basis voor on-site/off-site en eerst hergebruik van bestaande modeluitvoer. Een waterbalansterm is geen gebiedseffect of schade zonder verdere toets |
+| Open | Referentietoestand: minder verdicht, historisch of praktisch verbeterbaar? Keuze bepaalt de schadevraag; voorkom dat vermeden huidige schade en herstelbaten door elkaar lopen |
+| Open | Exacte auteurs en reviewers, vooral Frank/Piet bij nutriënten, hydrologische modeloverdracht en vervanging voor ecologie. Anna's beperkte capaciteit 2026 volgt alleen uit de samenvatting |
+| Open | Welke feitelijk voltooide berekeningen buiten GitHub bestaan en of zij het werkplan beantwoorden. Geen bewijs van voltooiing afleiden uit de aanwezigheid van een methode |
+
+De gezamenlijke expertopdracht, de roltoets tegen het werkplan, de rapportblauwdruk en de concrete opleverlijst staan uitsluitend in [114](114_rapportblauwdruk_en_expertopdracht_20261104.md). De claimtoetsen in §4 en §8 blijven achterliggend materiaal voor specialistische autorisatie. Zij zijn niet de eerste uitgebreide vragenlijst aan ieder teamlid.
+
+### 10.3 Kritische grens voor resultaten en oplevering
+
+Procesbeschrijvingen bewijzen niet de grootte van een Nederlands effect of de maatschappelijke schade. De ontbrekende koppelingen blijven: representatieve verdichting en areaal, passend responscontrast, timing/transfer naar de receptor en economisch schadebegrip. Nieuwe klassen worden pas gebruikt na controle van Guido's formuleherziening. Meetfrequenties zijn geen gewogen areaalfracties.
+
+De eerste gebiedsberekening van 2026 kan niet stilzwijgend worden vervangen door een literatuuroverzicht of synthetische opslagproef. Laat Ab met de betrokken modelleur eerst aantonen welke bestaande reeksen en casus bruikbaar zijn. Controleer gemeenschappelijke meteorologie, drainage, begin-/randvoorwaarden en referentie. Bij ontoereikende gegevens formuleert Guido een concrete opleverafwijking voor afstemming met de opdrachtgever. Deze verwerking neemt dat besluit niet alvast.
+
+Geen nieuwe wetenschappelijke effectgrootte is toegelaten. Document 112, het netwerk 89, formele model en bewijsregisters blijven ongewijzigd. De twee SVG-conceptfiguren bij 114 zijn communicatiemateriaal voor inhoudelijke beoordeling, geen nieuw gevalideerd causaal model.
+
+## 11. Gerichte verificatie mogelijke CATCH-hergebruikroute
+
+**Controle 4 november 2026, publieke primaire documentatie; geen contact gelegd en geen software uitgevoerd.** De naam is **CATCH 1.0**. De openbare [concepthandleiding van Ter Horst, Nunes de Brito Junior en Kelderman](https://internetconsultatie.nl/wijzigingsregeling_gewasbeschermingsmiddelen_en_biociden_krw_herbeoordelingsmethodiek_bestuurlijke_b/document/16139), samenvatting en §1, bevestigt een WENR/Deltares-screeningsinstrument voor middelenconcentraties in 724 KRW-oppervlaktewaterlichamen. Het is consultatiemateriaal; een definitieve vrijgave is hiermee niet vastgesteld. De [consultatiepagina](https://internetconsultatie.nl/wijzigingsregeling_gewasbeschermingsmiddelen_en_biociden_krw_herbeoordelingsmethodiek_bestuurlijke_b/b1) biedt ook een downloadverwijzing, maar toegang tot ontwikkelbestanden en samenwerkingsruimte is niet bevestigd.
+
+| Vraag | Gecontroleerd resultaat | Grens voor dit project |
+|---|---|---|
+| Ruimtelijke eenheden en koppeling | [Concept-methoderapport](https://internetconsultatie.nl/wijzigingsregeling_gewasbeschermingsmiddelen_en_biociden_krw_herbeoordelingsmethodiek_bestuurlijke_b/document/16137), tabellen 44/45: deelstroomgebied-ID volgens WFD-Explorer-indeling | Koppeling van onze categorieën/percelen vergt nog toets |
+| Tijdresolutie | Methoderapport §8, vergelijkingen 20 tot 25: weekvrachten | Geen bewijs dat gebeurtenispieken behouden blijven |
+| Herkomst en transport | [SETAC-bijdrage Nunes et al. 2026](https://setac.secure-platform.com/meetings/solicitations/102014/sessiongallery/94904/application/15304): verbinding via waterlopen en deelstroomgebieden; WFD Explorer en transfermatrix voor ontvangend water | Bronbijdrage van middelen is niet hetzelfde als vrij aanpasbare waterafvoer |
+| Hydrologisch metamodel en gevoeligheid voor verdichting | Niet vastgesteld in geraadpleegde passages | Geen inzetbare verdichtingsrespons of piekrouting claimen |
+
+**Voorstel 2027:** Ab laat met Guido één technische hergebruikvraag afbakenen: kan de bestaande ruimtelijke verbinding worden benut met gewijzigde, tijdsafhankelijke perceelsafvoer, en moet daarbij hydrologie of transfermatrix opnieuw worden berekend? Vraag daarbij eenheden, resolutie, versie, toegang en validatiebereik op. Zonder antwoord geen nieuwe modelketen, kostenraming of afhankelijkheid voor de 2026-oplevering. Het bestaan is geverifieerd; geschiktheid en beschikbaarheid voor ons project blijven open.
 
