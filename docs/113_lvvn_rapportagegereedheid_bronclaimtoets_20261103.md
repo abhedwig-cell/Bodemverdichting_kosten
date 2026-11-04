@@ -142,3 +142,48 @@ Dit beslisblad dient voor een gezamenlijke bespreking van ongeveer 50 minuten. H
 
 **Status van deze sessie:** beslisblad voorbereid, **geen expertbijeenkomst gehouden**, **geen van B1–B5 of C01–C10 geaccordeerd**. De wetenschappelijke onderbouwing en het risicobeeld zijn dus voorbereid, niet formeel vastgesteld.
 
+
+## 9. Bindende werkplancheck voor het resterende jaar 2026
+
+**4 november 2026 | actuele scope volgens `BO werkplan bodemverdichting versie 2027.docx` (Teams-export 4 november).** De projectleiding heeft expliciet aangegeven deze versie als laatste en leidende werkplan te behandelen. Dit is een **inhoudelijke vergelijking van expliciet geplande werkzaamheden met aantoonbaar projectmateriaal**, geen formele opleveracceptatie en geen impliciete wijziging van het werkplan.
+
+### 9.1 De concrete afspraken voor 2026
+
+| Werkpakket | Letterlijke strekking werkplan (betreffende paragraaf) | Aantoonbaar aanwezig in project | Te leveren of te controleren vóór einde 2026 |
+|---|---|---|---|
+| **WP1: huidige on-site schade** | § Deel 1, periode 15-09 t/m 31-12-2026: 20–40 bodem×landgebruik-categorieën met LGN en Bodemdata, verdichtingsgraad per categorie met CC-NL, jaarlijkse opbrengst en schade, BIN/analoge kennis, standaardbedrijfscases, landelijke opbrengstreductie, concept-rapportage | Methode 02/04/49/50, vier voorlopige on-site rekensurfaces, gras-/maïs-ensembles, numeriek illustratieve voederwaarde; niet dezelfde status als landelijke schade | **Hoogste opleverrisico:** 20–40 categorieën en areaalsluiting; geactualiseerde verdichting na correctie Guido; relevante gewasarealen en respons-toepasbaarheid; toelating economische invoer; landelijke voorwaardelijke berekening of expliciete afwijking met opdrachtgever |
+| **WP2: toekomstige on-site schade** | § Deel 2, periode 15-09 t/m 31-12-2026: scenario's van verdergaande verdichting en schade; methode voor klimaatverandering op basis van onder meer Romero-Ruiz 2026; methode voor verlies productiecapaciteit; koppeling macro-economische MAGNET-projecties en ruimtelijke WP1-informatie | Algemeen scenario-/contextkader en literatuur zijn aanwezig; concrete scenario-uitvoer en MAGNET-koppeling zijn hier niet geverifieerd | Vaststellen wat al is berekend; scenario's en methodiek concreet aantoonbaar maken; MAGNET-bronnen en verantwoordelijke afstemmen; niet stilzwijgend doorschuiven |
+| **WP3: off-site effectanalyse** | § Deel 3, periode 15-09 t/m 31-12-2026: effecten en experts; logical diagram of change; modelmatige berekeningssystematiek en beperkingen; economische instrumenten/kengetallen (Waterschadeschatter, wateraanvoer, gemaal/berging); eerste gebiedsmodelberekeningen extra maaiveldafvoer; vervolgpad; raamwerk alle geïdentificeerde externe milieu- en agronomische effecten | Zes EC-categorieën, causaal netwerk, methodiek, dossier 112 v3.4; lokale/regionale scenarioresultaten en synthetische systeemanalyse | Experts laten toetsen; **één expliciet gebiedsmodelresultaat en nauwkeurigheidsbeoordeling** traceren of gericht afronden; waarderingsinstrumenten inventarisatie als concreet product; geprioriteerd vervolgpad naar 2027 |
+| **Conceptverslag** | § Producten en deliverables: één WUR-rapport voor beide jaren, 2026 in **niet-gepubliceerd conceptrapport**, beoogde publicatie december 2027 | Intern onderzoeksdossier, claimtoets en literatuurnotities | Samenhangende conceptverslagstructuur en intern expert-gereviewde hoofdbevindingen, duidelijk niet publicatieklaar |
+
+**Let op:** volgens het werkplan behoren bij on-site 2027 de expliciete onzekerheidsanalyse, mitigatiemaatregelen en definitieve rapportage; off-site 2027 omvat waterschaps-/RWS-gesprekken, meerdere gebiedsberekeningen en landelijke extrapolatie, stoftransportberekeningen en huidige/toekomstige off-site schade. **Die zijn niet allemaal de te leveren eindproducten van 2026.** De in 2026 geplande eerste *één-gebiedsberekening* is daarentegen wel expliciet.
+
+### 9.2 Nieuwe WENR 3537: bruikbaar, maar nog geen rechtstreekse landelijke verdichtingsfractie
+
+De Teams-export omvat `WENR-3537 totaal_dichtheid 27-10-2026.pdf` met 1.784 meetlocaties en laagklassen 0–30 en 30–100 cm. De projectleiding heeft gemeld dat **Guido de pakkingsdichtheidsformule aanpast**. Maak dus onderscheid tussen de oorspronkelijke meetgegevens, de actuele/gecorrigeerde klasse-indeling en een betrouwbaar gewogen areaalaandeel. Een meetfrequentie per bodemklasse is niet zonder toets aan het steekproefontwerp een landelijk hectarepercentage. Bulk-dichtheid en packing-density-index zijn verschillende grootheden. Voor de schadeberekening ontbreekt daarnaast nog de koppeling van klasse naar gewas-/hydrologische respons. De correctie wordt door Guido opgepakt; deze review voert hem niet zelfstandig uit.
+
+### 9.3 Gespreksagenda Guido: 25 minuten, gericht op projectverplichtingen
+
+1. **5 min, scope bevestigen:** laatste werkplan is leidend. Akkoord dat de prioriteit voor 2026 zowel WP1 als WP2 en de afgesproken beperkte WP3-uitvoer betreft.
+2. **8 min, achterstand kwantificering:** wie sluit 20–40 strata, actuele verdichtingsklassen na correctie, landbouwoppervlakten en opbrengst-/waarderingsinputs? Welk conditioneel landelijk WP1-resultaat is verantwoord zonder geforceerde factor?
+3. **5 min, off-site expertinzet:** welke experts kunnen de effectgrootte, transferabiliteit en de haalbaarheid van een eerste gebiedsberekening beoordelen, zonder universele piekafvoerfactor te suggereren?
+4. **5 min, WP2 2026:** wie is eigenaar van verdichtingstrend, klimaatsystematiek, productiecapaciteit en MAGNET-koppeling? Welke concrete uitvoer kan nog in het concept?
+5. **2 min, besluit:** eigenaar, bron/input, acceptatiecriterium en datum voor elke resterende oplevering; expliciete afwijking met opdrachtgever alleen als echt nodig.
+
+### 9.4 Minimale actielijst voor experts en projectleiding
+
+| Prioriteit | Actie | Beoogd toetsbaar product | Logische inhoudelijke trekker (niet toegewezen) |
+|---|---|---|---|
+| **1** | Reconcileer laatste meetrapport, gecorrigeerde classificatie, areaal-/steekproefweging en 20–40-stratificatie | Gekwalificeerde exposure-per-stratum-tabel + bron-/wegingsnotitie | Data-/bodemexpert met projectleider |
+| **1** | Sluit eerst de on-site opbrengst-/kostenroute voor prioriteitsstrata | Conditionele fysieke schade en geldelijke rekensurface, met expliciet tekort waar nodig | Gewas-/landbouweconomie |
+| **1** | Controleer bestaande gebiedsmodelresultaten tegen werkplan 'eerste extra maaiveldafvoer' en nauwkeurigheidsdoel | Eén benoemde gebiedscasus, current/reference-contrast, uitvoer en onzekerheidsbeoordeling, of zichtbare blocker | Bodemhydrologie |
+| **2** | Leg beperkte off-site expertscreening en waarderingsinventarisatie vast | 6-categorieën bewijsmatrix; instrument/kengetal/benodigde fysieke invoer/transfergrens | Effectspecialisten en economie |
+| **2** | Maak WP2-scenario-opzet voor 2026 concreet incl. MAGNET-verbinding | Scenario-, bron- en acceptatiebesluit, plus reeds afgesproken doorrekening waar haalbaar | Bodem-, klimaat- en sectoronderzoekers |
+| **1** | Redigeer één interne conceptrapportage op basis van gecontroleerde claims | 2026-concept met afzonderlijke vastgestelde, conditionele en nog onbekende resultaten | Projectleiding/redactie |
+
+**Afwegingsregel:** wat vóór eind 2026 feitelijk in het werkplan is gevraagd krijgt voorrang boven uitbreiding van nieuwe literatuurlijsten, fraaie figuren of nieuwe architectuur. Houd verschillen tussen *werkplanverplichting*, *aantoonbaar voltooid*, *voorstel* en *niet verantwoord te berekenen* zichtbaar. De inhoudelijke specialisten autoriseren claims; AI-ondersteunde documenten zijn geen autoriteit.
+
+### 9.5 Expliciet nog niet geverifieerd
+
+Deze beoordeling is op de tekst van het leidende werkplan en de beschikbare repository-documenten gebaseerd. Niet integraal geverifieerd zijn de actuele werkpakketten buiten GitHub, persoonlijke voortgang van betrokken onderzoekers, eventuele separate on-site rekenbestanden, bestaande MAGNET-resultaten en de vraag of de opdrachtgever al een afwijking heeft geaccepteerd. **Daarom geen 'afgerond' claim waar alleen een werkwijze of voorstudie bestaat.**
+
