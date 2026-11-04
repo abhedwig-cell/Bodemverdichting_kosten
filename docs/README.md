@@ -2,6 +2,16 @@
 
 The documentation is organised from scientific meaning to implementation and evidence. The first documents form the **core colleague reader path**; later documents record migration, implementation and governance milestones.
 
+## Actuele wetenschappelijke tussenbalans (28 oktober 2026)
+
+De actuele off-site onderzoeksbalans (versie 3.4), inclusief brongebonden effectgroottes, grenzen aan monetarisering en de beslisagenda, staat in [`112_integrale_wetenschappelijke_tussenbalans_20261028.md`](112_integrale_wetenschappelijke_tussenbalans_20261028.md). Dit is een synthese, geen vervanging van de methodische autoriteiten [`49`](49_project_effect_pathway_matrix_v0_1.md) en [`50`](50_evidence_ensemble_protocol_v0_1.md) of de canonieke bewijsregisters. De actuele werkplancheck in 113 §9/10 maakt de landelijke meet-/areaalbasis weer een noodzakelijke 2026-taak; nieuwe SWAP-uitvoering volgt pas na beoordeling van hergebruik.
+
+**Voor LVVN-rapportage:** lees eerst de [wetenschappelijke claimtoets en concept-rapportstructuur van 3 november 2026](113_lvvn_rapportagegereedheid_bronclaimtoets_20261103.md). De onderzoekers moeten de conclusies, figuren en formulering nog inhoudelijk autoriseren. Het document 112 is een intern wetenschappelijk onderzoeksdossier en geen kant-en-klare rapporttekst.
+
+**Voor de komende expertbespreking:** gebruik de [rapportblauwdruk en korte expertopdracht van 4 november 2026](114_rapportblauwdruk_en_expertopdracht_20261104.md), met roltoets, opleverlijst 2026 en twee bewerkbare SVG-conceptfiguren. De overlegverwerking en beperkte CATCH-verificatie staan in 113 §10/11. Nieuwe taakverdeling en wetenschappelijke autorisatie zijn nog niet vastgesteld.
+
+**Hydrologische bijdrage Ab:** de [uitwerking in bestaande notitie 62](62_hydrologische_offsite_evidencetoets_v0_1.md#uitwerking-hydrologische-bijdrage-ab-4-november-2026) geeft de inhoudelijke concepttekst en de afgebakende uitvoeringsopdracht voor de eerste gebiedsberekening, inclusief hergebruik van bestaande uitvoer en toets op nauwkeurigheid.
+
 ## Start here
 
 If you are new to the project or taking the work over from someone else, begin with [`00_project_handover_and_continuation.md`](00_project_handover_and_continuation.md). It restores the broad project philosophy: minimum necessary computation, parallel on-site/off-site chains, literature/evidence shortcuts, uncertainty and source ensembles, and the role of Tollebeek/SWAP as optional deepening rather than the project definition.
